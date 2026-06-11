@@ -12,9 +12,11 @@ Current prototype:
 
 https://nicholasmallis.github.io/bios2010labs/All_Labs/lab1.html
 
+Experimental unfinished labs are linked from the homepage.
+
 ## Current Status
 
-Lab 1 is the current prototype for colleague review. The remaining lab source files are preserved in the repository, but Labs 2-13 are not part of the public preview yet.
+Lab 1 is the current polished prototype for colleague review. Labs 2-13 are also included on the public preview site under an "Experimental / Unfinished Labs" section so collaborators can peek at the broader migration, but those labs have not yet received the same hand-polishing as Lab 1.
 
 ## Project Structure
 
