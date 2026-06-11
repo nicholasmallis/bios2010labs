@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lab 8: Normal Distribution – BIOS 2010 Labs</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-45431c2918bd31147ddb3fa7038bb99f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">BIOS 2010 Labs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab1.html">
+ <span class="dropdown-text">Lab 1 Prototype</span></a>
+  </li>  
+        <li class="dropdown-header">Experimental / unfinished</li>
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab2.html">
+ <span class="dropdown-text">Lab 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab3.html">
+ <span class="dropdown-text">Lab 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab4.html">
+ <span class="dropdown-text">Lab 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab5.html">
+ <span class="dropdown-text">Lab 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab6.html">
+ <span class="dropdown-text">Lab 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab7.html">
+ <span class="dropdown-text">Lab 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab8.html">
+ <span class="dropdown-text">Lab 8</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab9.html">
+ <span class="dropdown-text">Lab 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab10.html">
+ <span class="dropdown-text">Lab 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab11.html">
+ <span class="dropdown-text">Lab 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab12.html">
+ <span class="dropdown-text">Lab 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab13.html">
+ <span class="dropdown-text">Lab 13</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 8: Normal Distribution</h1>
+<p class="subtitle lead">Computer Lab 8</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-edit="false" data-autorun="true">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlfSwiY29kZSI6InF1aWV0X2xpYnJhcnkgPC0gZnVuY3Rpb24ocGFja2FnZSkge1xuICBzdXBwcmVzc1dhcm5pbmdzKHN1cHByZXNzTWVzc2FnZXMoXG4gICAgdHJ5KGxpYnJhcnkocGFja2FnZSwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKSwgc2lsZW50ID0gVFJVRSlcbiAgKSlcbn1cblxuaWYgKCFleGlzdHMoXCJsYWJlbFwiLCBtb2RlID0gXCJmdW5jdGlvblwiKSkge1xuICBsYWJlbCA8LSBmdW5jdGlvbih4KSB7XG4gICAgb3V0IDwtIGF0dHIoeCwgXCJsYWJlbFwiLCBleGFjdCA9IFRSVUUpXG4gICAgaWYgKGlzLm51bGwob3V0KSkgZGVwYXJzZShzdWJzdGl0dXRlKHgpKSBlbHNlIG91dFxuICB9XG59XG5cbmlmICghZXhpc3RzKFwidmFyX2xhYmVsXCIsIG1vZGUgPSBcImZ1bmN0aW9uXCIpKSB7XG4gIHZhcl9sYWJlbCA8LSBmdW5jdGlvbih4KSB7XG4gICAgb3V0IDwtIGF0dHIoeCwgXCJsYWJlbFwiLCBleGFjdCA9IFRSVUUpXG4gICAgaWYgKGlzLm51bGwob3V0KSkgZGVwYXJzZShzdWJzdGl0dXRlKHgpKSBlbHNlIG91dFxuICB9XG59XG5cbmlmICghZXhpc3RzKFwiZ2d2aW9saW5cIiwgbW9kZSA9IFwiZnVuY3Rpb25cIikpIHtcbiAgZ2d2aW9saW4gPC0gZnVuY3Rpb24oZGF0YSwgeCwgeSwgZmlsbCA9IE5VTEwsIHBhbGV0dGUgPSBOVUxMLCBhZGQgPSBOVUxMLCBhZGQucGFyYW1zID0gbGlzdCgpLCAuLi4pIHtcbiAgICBxdWlldF9saWJyYXJ5KFwiZ2dwbG90MlwiKVxuICAgIHAgPC0gZ2dwbG90Mjo6Z2dwbG90KGRhdGEsIGdncGxvdDI6OmFlcyh4ID0gLmRhdGFbW3hdXSwgeSA9IC5kYXRhW1t5XV0sIGZpbGwgPSAuZGF0YVtbZmlsbCAlfHwlIHhdXSkpICtcbiAgICAgIGdncGxvdDI6Omdlb21fdmlvbGluKHRyaW0gPSBGQUxTRSwgYWxwaGEgPSAwLjcpXG4gICAgaWYgKCFpcy5udWxsKGFkZCkgJiYgXCJib3hwbG90XCIgJWluJSBhZGQpIHtcbiAgICAgIHAgPC0gcCArIGdncGxvdDI6Omdlb21fYm94cGxvdCh3aWR0aCA9IDAuMTIsIGZpbGwgPSBhZGQucGFyYW1zJGZpbGwgJXx8JSBcIndoaXRlXCIsIG91dGxpZXIuYWxwaGEgPSAwLjM1KVxuICAgIH1cbiAgICBwXG4gIH1cbn1cblxuaWYgKCFleGlzdHMoXCJnZ3BhaXJlZFwiLCBtb2RlID0gXCJmdW5jdGlvblwiKSkge1xuICBnZ3BhaXJlZCA8LSBmdW5jdGlvbihkYXRhLCBjb25kMSwgY29uZDIsIGZpbGwgPSBOVUxMLCBsaW5lLmNvbG9yID0gXCJncmF5XCIsIGxpbmUuc2l6ZSA9IDAuNCwgLi4uKSB7XG4gICAgcXVpZXRfbGlicmFyeShcImdncGxvdDJcIilcbiAgICBkZiA8LSBkYXRhLmZyYW1lKGlkID0gc2VxX2xlbihucm93KGRhdGEpKSwgYmVmb3JlID0gZGF0YVtbY29uZDFdXSwgYWZ0ZXIgPSBkYXRhW1tjb25kMl1dKVxuICAgIGxvbmcgPC0gcmJpbmQoXG4gICAgICBkYXRhLmZyYW1lKGlkID0gZGYkaWQsIGNvbmRpdGlvbiA9IGNvbmQxLCB2YWx1ZSA9IGRmJGJlZm9yZSksXG4gICAgICBkYXRhLmZyYW1lKGlkID0gZGYkaWQsIGNvbmRpdGlvbiA9IGNvbmQyLCB2YWx1ZSA9IGRmJGFmdGVyKVxuICAgIClcbiAgICBnZ3Bsb3QyOjpnZ3Bsb3QobG9uZywgZ2dwbG90Mjo6YWVzKHggPSBjb25kaXRpb24sIHkgPSB2YWx1ZSwgZ3JvdXAgPSBpZCkpICtcbiAgICAgIGdncGxvdDI6Omdlb21fbGluZShjb2xvciA9IGxpbmUuY29sb3IsIGxpbmV3aWR0aCA9IGxpbmUuc2l6ZSwgYWxwaGEgPSAwLjYpICtcbiAgICAgIGdncGxvdDI6Omdlb21fcG9pbnQoZ2dwbG90Mjo6YWVzKGZpbGwgPSBjb25kaXRpb24pLCBzaGFwZSA9IDIxLCBzaXplID0gMilcbiAgfVxufVxuXG5gJXx8JWAgPC0gZnVuY3Rpb24oeCwgeSkgaWYgKGlzLm51bGwoeCkpIHkgZWxzZSB4XG5cbnF1aWV0X2xpYnJhcnkoXCJnZ3Bsb3QyXCIpIn0=
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.</p>
+</div>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab you will explore the normal distribution.</p>
+</section>
+<section id="normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="normal-distribution">Normal distribution</h2>
+<p>The normal distribution is used to describe continuous data. It is a two parameter distribution defined by the mean (<span class="math inline">\(\mu\)</span>) and standard deviation (<span class="math inline">\(\sigma\)</span>). Every aspect of the curve is described using the following notation (<span class="math inline">\(N(\mu,~\sigma)\)</span>) where the mean (<span class="math inline">\(\mu\)</span>) can be any real number and the standard deviation (<span class="math inline">\(\sigma\)</span>) any value greater then 0. In the exercise you will get to see the impact the mean and standard deviation have on the shape of the distribution curve. Also unlike the last lab the normal distribution is visualized with a line instead of vertical lines. This is because unlike the discrete distributions values between the integers are possible.</p>
+<section id="exercise-1-visualizing-the-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-visualizing-the-normal-distribution">Exercise 1: Visualizing the normal distribution</h3>
+<p><strong>Instructions</strong> The plot below shows three normal curves. Use the sliders to change the means and standard deviations to see the impact it has on the shape and position of the curve. Once you get a feel for whats happening, use the interactive plot to answer the quiz question. (You will have to adjust the X axis range if the mean is set far away from 0)</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny interface
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fluidRow</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">4</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">h5</span>(<span class="fu">strong</span>(<span class="st">"Parameters for The"</span>, <span class="fu">span</span>(<span class="st">"Green"</span>,<span class="at">style=</span><span class="st">"color:darkgreen"</span>), <span class="st">"Distribution"</span>)),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">wellPanel</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">fluidRow</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">sliderInput</span>(<span class="st">"mean1"</span>, <span class="st">"Green Mean:"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                               <span class="at">min =</span> <span class="sc">-</span><span class="dv">100</span>, <span class="at">max =</span> <span class="dv">100</span>, <span class="at">value =</span> <span class="dv">0</span>, <span class="at">step =</span> <span class="fl">0.5</span>)),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>              <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">sliderInput</span>(<span class="st">"sd1"</span>, <span class="st">"Green Standard Deviation:"</span>, </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                               <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>, <span class="at">value =</span> <span class="dv">1</span>, <span class="at">step =</span> <span class="fl">0.5</span>))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">4</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>          <span class="fu">h5</span>(<span class="fu">strong</span>(<span class="st">"Parameters for The"</span>, <span class="fu">span</span>(<span class="st">"Blue"</span>,<span class="at">style=</span><span class="st">"color:blue"</span>), <span class="st">"Distribution"</span>)),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">wellPanel</span>(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">fluidRow</span>(</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">column</span>(<span class="dv">12</span>, </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">sliderInput</span>(<span class="st">"mean2"</span>, <span class="st">"Blue Mean:"</span>, </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">min =</span> <span class="sc">-</span><span class="dv">100</span>, <span class="at">max =</span> <span class="dv">100</span>, <span class="at">value =</span> <span class="dv">0</span>, <span class="at">step =</span> <span class="fl">0.5</span>)),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>              <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">sliderInput</span>(<span class="st">"sd2"</span>, <span class="st">"Blue Standard Deviation:"</span>, </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>, <span class="at">value =</span> <span class="dv">3</span>, <span class="at">step =</span> <span class="fl">0.5</span>))</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">4</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>          <span class="fu">h5</span>(<span class="fu">strong</span>(<span class="st">"Parameters for The"</span>, <span class="fu">span</span>(<span class="st">"Red"</span>,<span class="at">style=</span><span class="st">"color:red"</span>), <span class="st">"Distribution"</span>)),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>          <span class="fu">wellPanel</span>(</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">fluidRow</span>(</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>              <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">sliderInput</span>(<span class="st">"mean3"</span>, <span class="st">"Red Mean:"</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                               <span class="at">min =</span> <span class="sc">-</span><span class="dv">100</span>, <span class="at">max =</span> <span class="dv">100</span>, <span class="at">value =</span> <span class="dv">0</span>, <span class="at">step =</span> <span class="fl">0.5</span>)),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>              <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">sliderInput</span>(<span class="st">"sd3"</span>, <span class="st">"Red Standard Deviation:"</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>, <span class="at">value =</span> <span class="dv">5</span>, <span class="at">step =</span> <span class="fl">0.5</span>))</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>           <span class="fu">wellPanel</span>(</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>             <span class="fu">fluidRow</span>(</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">12</span>, </span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">sliderInput</span>(<span class="st">"Xaxis"</span>, <span class="st">"Set limits of X axis:"</span>, </span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">min =</span> <span class="sc">-</span><span class="dv">175</span>, <span class="at">max =</span> <span class="dv">175</span>, <span class="at">value =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>,<span class="dv">15</span>), <span class="at">sep =</span><span class="st">""</span>)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"normplot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny server logic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Code adapted from: </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://steemit.com/programming/@dkmathstats/plotting-probability-distribution-functions-in-r-using-ggplot2</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple Normal Distributions:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>normplot<span class="ot">&lt;-</span><span class="fu">renderPlot</span>({</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># X axis values</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  Xlow <span class="ot">&lt;-</span> input<span class="sc">$</span>Xaxis[<span class="dv">1</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  Xup <span class="ot">&lt;-</span> input<span class="sc">$</span>Xaxis[<span class="dv">2</span>]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(Xlow , Xup)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(Xlow , Xup)) <span class="sc">+</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> input<span class="sc">$</span>mean1, <span class="at">sd =</span> input<span class="sc">$</span>sd1), <span class="at">size=</span><span class="fl">1.15</span>, </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Curve1"</span>)) <span class="sc">+</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> input<span class="sc">$</span>mean2, <span class="at">sd =</span> input<span class="sc">$</span>sd2), <span class="at">size=</span><span class="fl">1.15</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Curve2"</span>)) <span class="sc">+</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> input<span class="sc">$</span>mean3, <span class="at">sd =</span> input<span class="sc">$</span>sd3), <span class="at">size=</span><span class="fl">1.15</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Curve3"</span>)) <span class="sc">+</span> </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Curve1"</span><span class="ot">=</span><span class="st">"darkgreen"</span>, <span class="st">"Curve2"</span><span class="ot">=</span><span class="st">"blue"</span>, <span class="st">"Curve3"</span><span class="ot">=</span><span class="st">"red"</span>),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Curve1"</span><span class="ot">=</span><span class="fu">substitute</span>(<span class="fu">paste</span>(<span class="st">"N("</span>,mu,<span class="st">" = "</span>, m1,<span class="st">", "</span>, </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                                                        sigma,<span class="st">" = "</span>,s1,<span class="st">")"</span>),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">list</span>(<span class="at">m1=</span>input<span class="sc">$</span>mean1, <span class="at">s1=</span>input<span class="sc">$</span>sd1)), </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Curve2"</span><span class="ot">=</span><span class="fu">substitute</span>(<span class="fu">paste</span>(<span class="st">"N("</span>,mu,<span class="st">" = "</span>, m2,<span class="st">", "</span>, </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                                                        sigma,<span class="st">" = "</span>,s2,<span class="st">")"</span>),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">list</span>(<span class="at">m2=</span>input<span class="sc">$</span>mean2, <span class="at">s2=</span>input<span class="sc">$</span>sd2)), </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Curve3"</span><span class="ot">=</span><span class="fu">substitute</span>(<span class="fu">paste</span>(<span class="st">"N("</span>,mu,<span class="st">" = "</span>, m3,<span class="st">", "</span>, </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                                                        sigma,<span class="st">" = "</span>,s3,<span class="st">")"</span>),</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">list</span>(<span class="at">m3=</span>input<span class="sc">$</span>mean3, <span class="at">s3=</span>input<span class="sc">$</span>sd3)))) <span class="sc">+</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"</span><span class="sc">\n</span><span class="st"> Possible Values"</span>, <span class="at">y =</span> <span class="st">"Probability </span><span class="sc">\n</span><span class="st">"</span>, </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">"Distribution Parameters"</span>) <span class="sc">+</span> </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">1.25</span>),</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quiz-questions-1-4" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-1-4">Quiz: Questions 1-4</h3>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+What happens as the standard deviation (<span class="math inline">\(\sigma\)</span>) increases?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve gets narrower and the peak gets higher
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve moves to the right of the plot
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+The curve spreads out and the peak gets lower
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve moves to the left of the plot
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+What happens as the mean (<span class="math inline">\(\mu\)</span>) decreases?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve gets narrower and the peak gets higher
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve moves to the right of the plot
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve spreads out and the peak gets lower
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+The curve moves to the left of the plot
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 3
+</h4>
+<p>
+What happens as the standard deviation (<span class="math inline">\(\sigma\)</span>) decreases?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+The curve gets narrower and the peak gets higher
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve moves to the right of the plot
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve spreads out and the peak gets lower
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+The curve moves to the left of the plot
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 4
+</h4>
+<p>
+What parameters define the Standard Normal curve?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<span class="math inline">\(N(\mu=1,~\sigma=0)\)</span>
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<span class="math inline">\(N(\mu=42,~\sigma=42)\)</span>
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<span class="math inline">\(N(\mu=14,~\sigma=6)\)</span>
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<span class="math inline">\(N(\mu=0,~\sigma=1)\)</span>
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="normal-probability-density-function" class="level2">
+<h2 class="anchored" data-anchor-id="normal-probability-density-function">Normal probability density function</h2>
+<p>There are an endless number of possible curves, but the one we will discuss the most in class is the “standard normal”. The standard normal distribution has a mean of 0 and a standard deviation of 1 (<span class="math inline">\(N(\mu=0,~\sigma=1)\)</span>). The equation for the general pdf for a normal distribution is a little intimidating, but since the standard normal distribution is the simplest case the pdf simplifies to <span class="math inline">\(P(x) = \frac{1}{{\sqrt {2\pi } }}e^{ - \frac{{1}}{2}x^2}\)</span>. With modern computers and calculators the need to use the simplest case is not a major concern. In the exercise below you will use an interactive graph to find probabilities. The graph shades the area under the curve associated with the probability in red. The probability is shown on the plot in blue text.</p>
+<section id="exercise-2-calculating-probabilities" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-calculating-probabilities">Exercise 2: Calculating Probabilities</h3>
+<p><strong>Instructions:</strong> The graph doesn’t seem to change but pay attention to the x axis as you change the mean or standard deviation. To answer the quiz questions select “Calculate Probability” from the drop down menu.</p>
+<p>How to calculate the different probabilities:</p>
+<ul>
+<li>To calculate <span class="math inline">\(P(X&lt;x)\)</span> set the <strong>upper</strong> bound to <span class="math inline">\(x\)</span>.
+<ul>
+<li>For example with <span class="math inline">\(N(\mu=150,\sigma=15)\)</span> the <span class="math inline">\(P(X&lt;120)=0.0228\)</span> set the upper bound is set to <span class="math inline">\(120\)</span> (The compliment probability is also shown).<br>
+</li>
+</ul></li>
+<li>To calculate <span class="math inline">\(P(X&gt;x)\)</span> set the <strong>lower</strong> bound to <span class="math inline">\(x\)</span>.
+<ul>
+<li>For example with <span class="math inline">\(N(\mu=150,\sigma=15)\)</span> the <span class="math inline">\(P(X&gt;120)=0.0228\)</span> set the lower bound is set to <span class="math inline">\(120\)</span> (The compliment probability is also shown).<br>
+</li>
+</ul></li>
+<li>To calculate <span class="math inline">\(P(x1 &lt; X &lt; x2)\)</span> set the lower bound to <span class="math inline">\(x1\)</span> and the upper bound to <span class="math inline">\(x2\)</span>.
+<ul>
+<li>For example with <span class="math inline">\(N(\mu=150,\sigma=15)\)</span> the <span class="math inline">\(P(120 &lt; X &lt; 140)=0.2297\)</span> set the lower bound to <span class="math inline">\(120\)</span> and the upper bound to <span class="math inline">\(140\)</span>.</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny interface
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">h3</span>(<span class="st">"Set the Distribution Parameters"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">wellPanel</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">fluidRow</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">numericInput</span>(<span class="st">"mu"</span>, <span class="st">"Specify the Mean (mu):"</span>, </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">value =</span> <span class="dv">0</span>, <span class="at">step =</span> <span class="fl">0.01</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">width =</span> <span class="dv">1000</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                    ),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">numericInput</span>(<span class="st">"sigma"</span>, <span class="st">"Specify the Standard Deviation (sigma):"</span>, </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">value =</span> <span class="dv">1</span>, <span class="at">step =</span> <span class="fl">0.01</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">width =</span> <span class="dv">1000</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>           <span class="fu">wellPanel</span>(</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>             <span class="fu">fluidRow</span>(</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">4</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">selectInput</span>(<span class="st">"select"</span>, <span class="st">"Select Calculation Type"</span>, </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"Calculate Probabilities"</span> <span class="ot">=</span> <span class="dv">1</span>, </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"Calculate Percentiles"</span> <span class="ot">=</span> <span class="dv">2</span>, </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"None"</span><span class="ot">=</span><span class="dv">3</span>), <span class="at">selected =</span><span class="dv">3</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>                      ),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">8</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.select == 1"</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">fluidRow</span>(</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">tagList</span>(</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>                                         tags<span class="sc">$</span><span class="fu">h4</span>(<span class="st">"Set the lower and upper bound for the probability you want to calculate.</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="st">                                                 You can check if you are doing it right using the example solutions in the instructions."</span>),</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">column</span>(<span class="dv">6</span>, <span class="fu">numericInput</span>(<span class="st">"a"</span>, <span class="st">"Lower Bound"</span>, </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>                                                                <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                                                ),</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">column</span>(<span class="dv">6</span>, <span class="fu">numericInput</span>(<span class="st">"b"</span>, <span class="st">"Upper Bound"</span>, </span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>                                                                <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>                                         )</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>                                         )</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>                                       )</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>                      ),</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">8</span>,</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.select == 2"</span>,</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">column</span>(<span class="dv">8</span>, </span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">tagList</span>(</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>                                                tags<span class="sc">$</span><span class="fu">h4</span>(<span class="st">"This returns the value for the specified percentile."</span>),</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>                                                <span class="fu">numericInput</span>(<span class="st">"quantile"</span>, <span class="st">"Set the Percentile (0 &lt; Values &lt; 1)"</span>, </span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>                                                             <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="fl">0.05</span>)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>                                              )</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>                                       )</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"normplot1"</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny server logic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gnorm <span class="ot">=</span> <span class="cf">function</span>(mu, sigma,<span class="at">a=</span><span class="cn">NA</span>,<span class="at">b=</span><span class="cn">NA</span>,<span class="at">calcProb=</span><span class="sc">!</span><span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(a,b))),<span class="at">quantile=</span><span class="cn">NA</span>,<span class="at">calcQuant=</span><span class="sc">!</span><span class="fu">is.na</span>(quantile))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">=</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">005</span>) <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> sigma <span class="sc">+</span> mu</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  probs <span class="ot">=</span> <span class="fu">dnorm</span>(values, mu, sigma)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(values, probs, <span class="at">axes =</span> F, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab =</span> <span class="st">"Possible Values"</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Probability Density"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">substitute</span>(<span class="fu">paste</span>(<span class="st">"Normal Distribution with X~N( "</span>,mu <span class="sc">==</span> m,<span class="st">", "</span>,sigma <span class="sc">==</span> s,<span class="st">" )"</span>),<span class="fu">list</span>(<span class="at">m=</span>mu,<span class="at">s=</span>sigma)), <span class="at">cex.main=</span><span class="fl">1.5</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(values, probs, <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  lo <span class="ot">=</span> mu <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> sigma</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  hi <span class="ot">=</span> mu <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> sigma</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  h <span class="ot">=</span> <span class="fu">dnorm</span>(mu,mu,sigma)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  cex<span class="ot">=</span><span class="fl">1.25</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(calcProb<span class="sc">==</span>T)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(a) <span class="sc">&amp;&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(b) <span class="sc">&amp;&amp;</span> a <span class="sc">&gt;</span> b){</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      d <span class="ot">=</span> a; a <span class="ot">=</span> b; b <span class="ot">=</span> d</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.na</span>(a) <span class="sc">||</span> a <span class="sc">&lt;=</span> lo){ ulo <span class="ot">=</span> lo }</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(a <span class="sc">&lt;=</span> hi){ ulo <span class="ot">=</span> a }</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> { ulo <span class="ot">=</span> hi }</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.na</span>(b) <span class="sc">||</span> b <span class="sc">&gt;=</span> hi){ uhi <span class="ot">=</span> hi }</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(b <span class="sc">&gt;=</span> lo){ uhi <span class="ot">=</span> b }</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> { uhi <span class="ot">=</span> lo }</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">=</span> <span class="fu">seq</span>(ulo,uhi,<span class="at">length=</span><span class="dv">601</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(u,<span class="fu">dnorm</span>(u,mu,sigma),<span class="at">type=</span><span class="st">"h"</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(a) <span class="sc">&amp;&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(b)){</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(mu <span class="sc">-</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.8</span> <span class="sc">*</span> h,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"P( "</span>,a,<span class="st">" &lt; X &lt; "</span>,b,<span class="st">" ) = "</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">pnorm</span>(b,mu,sigma)<span class="sc">-</span><span class="fu">pnorm</span>(a,mu,sigma),<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>           <span class="at">adj=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(mu <span class="sc">-</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.6</span> <span class="sc">*</span> h,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"P( X &lt; "</span>,a,<span class="st">" ) = "</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">pnorm</span>(a,mu,sigma),<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(mu <span class="sc">+</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.5</span> <span class="sc">*</span> h,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"P( X &gt; "</span>,b,<span class="st">" ) = "</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(b,mu,sigma),<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(a) <span class="sc">&amp;&amp;</span> <span class="fu">is.na</span>(b)){</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(mu <span class="sc">-</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.6</span> <span class="sc">*</span> h,</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"P( X &lt; "</span>,a,<span class="st">" ) = "</span>,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">pnorm</span>(a,mu,sigma),<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(mu <span class="sc">+</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.5</span> <span class="sc">*</span> h,</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"P( X &gt; "</span>,a,<span class="st">" ) = "</span>,</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(a,mu,sigma),<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">is.na</span>(a) <span class="sc">&amp;&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(b)){</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(mu <span class="sc">-</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.6</span> <span class="sc">*</span> h,</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"P( X &lt; "</span>,b,<span class="st">" ) = "</span>,</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">pnorm</span>(b,mu,sigma),<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(mu <span class="sc">+</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.5</span> <span class="sc">*</span> h,</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"P( X &gt; "</span>,b,<span class="st">" ) = "</span>,</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(b,mu,sigma),<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(calcQuant<span class="sc">==</span>T)</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    zoffseth <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( quantile <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">||</span> quantile <span class="sc">&gt;=</span> <span class="dv">1</span>) quantile <span class="ot">=</span> <span class="fl">0.5</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">qnorm</span>(quantile,mu,sigma)</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( x <span class="sc">&gt;</span> lo <span class="sc">&amp;&amp;</span> x <span class="sc">&lt;</span> hi <span class="sc">-</span> <span class="fl">0.5</span> )</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>      u <span class="ot">=</span> <span class="fu">seq</span>(lo,x,<span class="at">length=</span><span class="dv">601</span>)</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lines</span>(u,<span class="fu">dnorm</span>(u,mu,sigma),<span class="at">type=</span><span class="st">"h"</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(x, zoffseth <span class="sc">*</span> h,</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"z = "</span>,<span class="fu">round</span>(<span class="fu">qnorm</span>(quantile),<span class="dv">2</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;=</span> hi <span class="sc">-</span> <span class="fl">0.5</span>)</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>      u <span class="ot">=</span> <span class="fu">seq</span>(lo,hi,<span class="at">length=</span><span class="dv">601</span>)</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lines</span>(u,<span class="fu">dnorm</span>(u,mu,sigma),<span class="at">type=</span><span class="st">"h"</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(hi, zoffseth <span class="sc">*</span> h,</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"z = "</span>,<span class="fu">round</span>(<span class="fu">qnorm</span>(quantile),<span class="dv">2</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="fl">0.5</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>( x <span class="sc">&lt;=</span> lo)</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>      <span class="fu">text</span>(lo, zoffseth <span class="sc">*</span> h,</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"z = "</span>,<span class="fu">round</span>(<span class="fu">qnorm</span>(quantile),<span class="dv">2</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(mu <span class="sc">-</span> <span class="fl">3.9</span> <span class="sc">*</span> sigma, <span class="fl">0.5</span> <span class="sc">*</span> h,</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste</span>(<span class="st">"P( X &lt; "</span>,<span class="fu">signif</span>(x,<span class="dv">4</span>),<span class="st">" ) = "</span>,</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>               <span class="fu">round</span>(quantile,<span class="at">digits=</span><span class="dv">4</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">adj=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">cex=</span>cex)</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">invisible</span>())</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="co"># function is given different input depending on the type of plot. </span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>normplot1<span class="ot">&lt;-</span><span class="fu">renderPlot</span>({</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>mu), <span class="st">'Please provide a mean for the distribution'</span>),</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>           <span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>sigma), <span class="st">'Please provide a standard deviation for the distribution'</span>),</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>           <span class="fu">need</span>(<span class="sc">!</span>(input<span class="sc">$</span>sigma<span class="sc">&lt;=</span><span class="dv">0</span>), <span class="st">'Please provide a standard deviation that is not less than or equal to 0'</span>))</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>select<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gnorm</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu, <span class="at">sigma=</span>input<span class="sc">$</span>sigma, <span class="at">a=</span>input<span class="sc">$</span>a, <span class="at">b=</span>input<span class="sc">$</span>b)</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>select<span class="sc">==</span><span class="dv">2</span>){</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>quantile)){</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span>(input<span class="sc">$</span>quantile <span class="sc">&gt;=</span> <span class="dv">1</span>), <span class="st">'Percentiles greater than or equal to 1 are not possible.'</span>),</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>             <span class="fu">need</span>(<span class="sc">!</span>(input<span class="sc">$</span>quantile <span class="sc">&lt;=</span> <span class="dv">0</span>), <span class="st">'Percentiles  less than or equal to 0 are not possible.'</span>))  </span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>     <span class="fu">gnorm</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu, <span class="at">sigma=</span>input<span class="sc">$</span>sigma, <span class="at">quantile=</span>input<span class="sc">$</span>quantile) </span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>select<span class="sc">==</span><span class="dv">3</span>){</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gnorm</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu, <span class="at">sigma=</span>input<span class="sc">$</span>sigma)  </span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quiz-questions-5-8" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-5-8">Quiz: Questions 5-8</h3>
+<p><strong>Scenario 1:</strong> A ski gondola in Vail, Colorado carries skiers to the top of a mountain. It bears a plaque stating that the maximum capacity is 12 people or 2004 pounds. That capacity will be exceeded if 12 people have weights with a mean greater than <span class="math inline">\(\frac{2004}{12}=167lbs\)</span>. Because men tend to weigh more than women, a “worst case” scenario involved 12 passengers who are all men. Men have weights that are normally distributed with a mean of 172 lbs and a standard deviation of 29 lbs.</p>
+<p><strong>Scenario 2:</strong> Weights of newborn babies in the U.S. are normally distributed with a mean of 3420g and a standard deviation of 495g. A newborn weighing less than 2200g is considered to be at risk.</p>
+<strong>Scenario 3:</strong> It was found that the mean length of 100 parts produced by a lathe was 20.05 mm with a standard deviation of 0.2mm.
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+What is the probability that a randomly selected man's weight will be greater than 167lbs? (Use Scenario 1 Information)
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.4242
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.5421
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.4316
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+0.5684
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+If all 12 people on the gondola are men is it likely over loaded? (Use Scenario 1 Information)
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+Yes, because kids are allowed
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+No, there is no way to know
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+Yes, It is more probable that at man has a weight greater than 167lbs
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+No, The plaque is just there to scare people
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 3
+</h4>
+<p>
+What proportion of newborn babies are in the “at-risk” category? (Use Scenario 2 Information)
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+0.0069
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.9931
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.4020
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.0684
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 4
+</h4>
+<p>
+What is the probability that a part selected at random would have a length less than 19.75mm? (Use Scenario 3 Information)
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.0242
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.9772
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+0.0668
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+0.0031
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="inverse-normal-probability-function" class="level2">
+<h2 class="anchored" data-anchor-id="inverse-normal-probability-function">Inverse normal probability function</h2>
+<p>Finding the probability of randomly selecting a value from a distribution is pretty fun, but sometimes we want to know the value associated with a certain probability. For example among the how tall does a person have to be to be taller than 90% of other people. To find that value we do the inverse of what we did to calculate a probability. Instead of specifying a lower or upper bound we specify a probability (percentile) and find the value that corresponds.</p>
+<section id="exercise-3-using-the-inverse-probability-function" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-using-the-inverse-probability-function">Exercise 3: Using the inverse probability function</h3>
+<p><strong>Instructions</strong> To answer the quiz questions select “Calculate Percentiles” from the drop down menu. (Hint: if you are having a hard time setting specific values with the slider. Click the slider and then use the arrow keys to increase or decrease the value)</p>
+<p>Finding the <span class="math inline">\(x\)</span> values that correspond to percentiles:</p>
+<ul>
+<li>To to find <span class="math inline">\(x\)</span> such that <span class="math inline">\(P(X&lt;x)=0.25\)</span> set the percentile to <span class="math inline">\(0.25\)</span>.
+<ul>
+<li>For example with <span class="math inline">\(N(\mu=0,~\sigma=1)\)</span> the <span class="math inline">\(x\)</span> such that <span class="math inline">\(P(X&lt;x)=0.25\)</span> is <span class="math inline">\(-0.6745\)</span>.</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny interface
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">h3</span>(<span class="st">"Set the Distribution Parameters"</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">wellPanel</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">fluidRow</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">numericInput</span>(<span class="st">"mu1"</span>, <span class="st">"Specify the Mean (mu):"</span>, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">value =</span> <span class="dv">0</span>, <span class="at">step =</span> <span class="fl">0.01</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">width =</span> <span class="dv">1000</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                    ),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">6</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">numericInput</span>(<span class="st">"sigma1"</span>, <span class="st">"Specify the Standard Deviation (sigma):"</span>, </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">value =</span> <span class="dv">1</span>, <span class="at">step =</span> <span class="fl">0.01</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">width =</span> <span class="dv">1000</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">12</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>           <span class="fu">wellPanel</span>(</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>             <span class="fu">fluidRow</span>(</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">4</span>,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">selectInput</span>(<span class="st">"select1"</span>, <span class="st">"Select Calculation Type"</span>, </span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"Calculate Probabilities"</span> <span class="ot">=</span> <span class="dv">1</span>, </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"Calculate Percentiles"</span> <span class="ot">=</span> <span class="dv">2</span>, </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"None"</span><span class="ot">=</span><span class="dv">3</span>), <span class="at">selected =</span><span class="dv">3</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>                      ),</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">8</span>,</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.select1 == 1"</span>,</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">fluidRow</span>(</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">tagList</span>(</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>                                         tags<span class="sc">$</span><span class="fu">h4</span>(<span class="st">"Set the lower and upper bound for the probability you want to calculate.</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="st">                                                 You can check if you are doing it right using the example solutions in the instructions."</span>),</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">column</span>(<span class="dv">6</span>, <span class="fu">numericInput</span>(<span class="st">"a1"</span>, <span class="st">"Lower Bound"</span>, </span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>                                                                <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>                                                ),</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">column</span>(<span class="dv">6</span>, <span class="fu">numericInput</span>(<span class="st">"b1"</span>, <span class="st">"Upper Bound"</span>, </span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>                                                                <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>                                         )</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>                                         )</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>                                       )</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>                      ),</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="dv">8</span>,</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.select1 == 2"</span>,</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">column</span>(<span class="dv">8</span>, </span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">tagList</span>(</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                                                tags<span class="sc">$</span><span class="fu">h4</span>(<span class="st">"This returns the value for the specified percentile."</span>),</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>                                                <span class="fu">numericInput</span>(<span class="st">"quantile1"</span>, <span class="st">"Set the Percentile (0 &lt; Values &lt; 1)"</span>, </span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                                                             <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="fl">0.05</span>)</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                                              )</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>                                       )</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"normplot2"</span>)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny server logic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function is given different input depending on the type of plot. </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>normplot2<span class="ot">&lt;-</span><span class="fu">renderPlot</span>({</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>mu1), <span class="st">'Please provide a mean for the distribution'</span>),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>sigma1), <span class="st">'Please provide a standard deviation for the distribution'</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">need</span>(<span class="sc">!</span>(input<span class="sc">$</span>sigma1<span class="sc">&lt;=</span><span class="dv">0</span>), <span class="st">'Please provide a standard deviation that is not less than or equal to 0'</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>select1<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gnorm</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu1, <span class="at">sigma=</span>input<span class="sc">$</span>sigma1, <span class="at">a=</span>input<span class="sc">$</span>a1, <span class="at">b=</span>input<span class="sc">$</span>b1)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>select1<span class="sc">==</span><span class="dv">2</span>){</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>quantile1)){</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span>(input<span class="sc">$</span>quantile1 <span class="sc">&gt;=</span> <span class="dv">1</span>), <span class="st">'Percentiles greater than or equal to 1 are not possible.'</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>             <span class="fu">need</span>(<span class="sc">!</span>(input<span class="sc">$</span>quantile1 <span class="sc">&lt;=</span> <span class="dv">0</span>), <span class="st">'Percentiles  less than or equal to 0 are not possible.'</span>))  </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>     <span class="fu">gnorm</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu1, <span class="at">sigma=</span>input<span class="sc">$</span>sigma1, <span class="at">quantile=</span>input<span class="sc">$</span>quantile1) </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>select1<span class="sc">==</span><span class="dv">3</span>){</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gnorm</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu1, <span class="at">sigma=</span>input<span class="sc">$</span>sigma1)  </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quiz-questions-9-11" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-9-11">Quiz: Questions 9-11</h3>
+<p><strong>Scenario 1:</strong> A ski gondola in Vail, Colorado carries skiers to the top of a mountain. It bears a plaque stating that the maximum capacity is 12 people or 2004 pounds. That capacity will be exceeded if 12 people have weights with a mean greater than <span class="math inline">\(\frac{2004}{12}=167lbs\)</span>. Because men tend to weigh more than women, a “worst case” scenario involved 12 passengers who are all men. Men have weights that are normally distributed with a mean of 172 lbs and a standard deviation of 29 lbs.</p>
+<p><strong>Scenario 2:</strong> Weights of newborn babies in the U.S. are normally distributed with a mean of 3420g and a standard deviation of 495g. A newborn weighing less than 2200g is considered to be at risk.</p>
+<strong>Scenario 3:</strong> It was found that the mean length of 100 parts produced by a lathe was 20.05 mm with a standard deviation of 0.2mm.
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+The heaviest 10% of men weigh more than what amount? (Use Scenario 1 Information)
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+172.0 lbs
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+134.8 lbs
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+209.2 lbs
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+1.28 lbs
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+What is the weight of a baby in the 20th percentile? (Use Scenario 2 Information)
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+4242 g
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+3837 g
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+2020 g
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+3003 g
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 3
+</h4>
+<p>
+99% of the parts are shorter than what length? (Use Scenario 3 Information)
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+20.52 mm
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+19.58 mm
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+20.07 mm
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+19.82 mm
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this lab, you completed 3 exercises and answered 11 quiz questions.</p>
+<p>The lab covered 3 topics:</p>
+<ol type="1">
+<li>The normal distribution</li>
+<li>Normal probability function</li>
+<li>Inverse normal probability function</li>
+</ol>
+<p>You are done with lab! Don’t worry if you are sad it is over you can always review one of the previous labs! <strong>Don’t forget to record your answers and take the eLC quiz to get credit</strong></p>
+<p><img src="../tutorials/Lab8/images/parnorm.jpeg" class="img-fluid"></p>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImdncGxvdDIiLCJybWFya2Rvd24iXSwicmVwb3MiOltdfSwicmVuZGVyX2RmIjoicGFnZWQtdGFibGUifQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8xO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJfd2Vicl92YWx1ZV8xID0ge1xuICBjb25zdCB7IGhpZ2hsaWdodFIsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV2YWx1YXRpb24gY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7XG4gICAgaWQ6IFwid2Vici0xLWNvbnRlbnRzXCIsXG4gICAgZWNobzogdHJ1ZSxcbiAgICBvdXRwdXQ6IHRydWVcbiAgfSwgYmxvY2suYXR0cik7XG5cbiAgLy8gRXZhbHVhdGUgdGhlIHByb3ZpZGVkIFIgY29kZVxuICBjb25zdCByZXN1bHQgPSB3ZWJST2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7fSk7XG5cbiAgLy8gRWFybHkgeWllbGQgd2hpbGUgd2Ugd2FpdCBmb3IgdGhlIGZpcnN0IGV2YWx1YXRpb24gYW5kIHJlbmRlclxuICBpZiAob3B0aW9ucy5vdXRwdXQgJiYgIShcIjFcIiBpbiB3ZWJST2pzLnJlbmRlcmVkT2pzKSkge1xuICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gICAgY29uc3Qgc3Bpbm5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5cbiAgICBpZiAob3B0aW9ucy5lY2hvKSB7XG4gICAgICAvLyBTaG93IG91dHB1dCBhcyBoaWdobGlnaHRlZCBzb3VyY2VcbiAgICAgIGNvbnN0IHByZUVsZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicHJlXCIpO1xuICAgICAgY29udGFpbmVyLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZVwiO1xuICAgICAgcHJlRWxlbS5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGUgclwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChoaWdobGlnaHRSKGJsb2NrLmNvZGUpKTtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWdyb3cgc3Bpbm5lci1ncm93LXNtIG0tMiBwb3NpdGlvbi1hYnNvbHV0ZSB0b3AtMCBlbmQtMFwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChwcmVFbGVtKTtcbiAgICB9IGVsc2Uge1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItYm9yZGVyIHNwaW5uZXItYm9yZGVyLXNtXCI7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgfVxuXG4gICAgeWllbGQgY29udGFpbmVyO1xuICB9XG5cbiAgd2ViUk9qcy5yZW5kZXJlZE9qc1tcIjFcIl0gPSB0cnVlO1xuICB5aWVsZCBhd2FpdCByZXN1bHQ7XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici1wcmVsdWRlIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoid2ViUk9qcyA9IHtcbiAgY29uc3QgeyBXZWJSLCBDaGFubmVsVHlwZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZS5XZWJSO1xuICBjb25zdCB7XG4gICAgV2ViUkV2YWx1YXRvcixcbiAgICBXZWJSRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyB3ZWJSIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIC8vIEluaXRpYWxpc2Ugd2ViUiBhbmQgc2V0dXAgZm9yIFIgY29kZSBldmFsdWF0aW9uXG4gIGxldCB3ZWJSUHJvbWlzZSA9IChhc3luYyAod2ViUikgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgd2ViUmA7XG4gICAgYXdhaXQgd2ViUi5pbml0KCk7XG5cbiAgICAvLyBJbnN0YWxsIHByb3ZpZGVkIGxpc3Qgb2YgcGFja2FnZXNcbiAgICAvLyBFbnN1cmUgd2ViUiBkZWZhdWx0IHJlcG8gaXMgaW5jbHVkZWRcbiAgICBkYXRhLnBhY2thZ2VzLnJlcG9zLnB1c2goXCJodHRwczovL3JlcG8uci13YXNtLm9yZ1wiKVxuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIHdlYlIuZXZhbFJWb2lkKGBcbiAgICAgICAgd2Vicjo6aW5zdGFsbChwa2csIHJlcG9zID0gcmVwb3MpXG4gICAgICAgIGxpYnJhcnkocGtnLCBjaGFyYWN0ZXIub25seSA9IFRSVUUpXG4gICAgICBgLCB7IGVudjoge1xuICAgICAgICBwa2c6IHBrZyxcbiAgICAgICAgcmVwb3M6IGRhdGEucGFja2FnZXMucmVwb3MsXG4gICAgICB9fSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgY29uc3QgYW5hbHlzaXMgPSBhd2FpdCB3ZWJSLkZTLmFuYWx5emVQYXRoKHBhdGgpO1xuICAgICAgICBpZiAoIWFuYWx5c2lzLmV4aXN0cykge1xuICAgICAgICAgIHRyeSB7XG4gICAgICAgICAgICBhd2FpdCB3ZWJSLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvcjogXCIke2UubWVzc2FnZX1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHJldHVybiBhd2FpdCB3ZWJSLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluc3RhbGxpbmcgd2ViUiBzaGltc2A7XG4gICAgYXdhaXQgd2ViUi5ldmFsUlZvaWQoYHdlYnI6OnNoaW1faW5zdGFsbCgpYCk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFdlYlIgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUih3ZWJSLCBkYXRhKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiB3ZWJSO1xuICB9KShuZXcgV2ViUihkYXRhLm9wdGlvbnMpKTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3Qgd2ViUiA9IGF3YWl0IHdlYlJQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBXZWJSRXZhbHVhdG9yKHdlYlIsIGNvbnRleHQpXG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHJvY2VzcyxcbiAgICB3ZWJSUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script src="../lab-interactions.js"></script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../All_Labs";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

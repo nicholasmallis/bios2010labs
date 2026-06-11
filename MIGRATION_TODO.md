@@ -22,6 +22,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-11: Updated WebR exercise editor syntax colors so regular R code appears black and comments after `#` appear green, matching the original learnr style more closely.
 - 2026-06-11: Connected the project to `nicholasmallis/bios2010labs` on GitHub. Initial GitHub Actions publishing failed during the remote Quarto render, so publishing was switched to the simpler GitHub Pages `main` branch `/docs` workflow for colleague review.
 - 2026-06-11: Limited the published colleague preview to the homepage, about page, and Lab 1 only. Source files for Labs 2-13 remain in `All_Labs/` and `tutorials/` for later polishing.
+- 2026-06-11: Added Labs 2-13 back to the published site as a clearly labeled "Experimental / Unfinished Labs" section while keeping Lab 1 identified as the prototype.
 
 ## Lab Inventory
 

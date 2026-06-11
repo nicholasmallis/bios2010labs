@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lab 6: Diagnostic and Screening Tests – BIOS 2010 Labs</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-45431c2918bd31147ddb3fa7038bb99f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">BIOS 2010 Labs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab1.html">
+ <span class="dropdown-text">Lab 1 Prototype</span></a>
+  </li>  
+        <li class="dropdown-header">Experimental / unfinished</li>
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab2.html">
+ <span class="dropdown-text">Lab 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab3.html">
+ <span class="dropdown-text">Lab 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab4.html">
+ <span class="dropdown-text">Lab 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab5.html">
+ <span class="dropdown-text">Lab 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab6.html">
+ <span class="dropdown-text">Lab 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab7.html">
+ <span class="dropdown-text">Lab 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab8.html">
+ <span class="dropdown-text">Lab 8</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab9.html">
+ <span class="dropdown-text">Lab 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab10.html">
+ <span class="dropdown-text">Lab 10</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab11.html">
+ <span class="dropdown-text">Lab 11</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab12.html">
+ <span class="dropdown-text">Lab 12</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab13.html">
+ <span class="dropdown-text">Lab 13</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 6: Diagnostic and Screening Tests</h1>
+<p class="subtitle lead">Computer Lab 6</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-edit="false" data-autorun="true">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlfSwiY29kZSI6InF1aWV0X2xpYnJhcnkgPC0gZnVuY3Rpb24ocGFja2FnZSkge1xuICBzdXBwcmVzc1dhcm5pbmdzKHN1cHByZXNzTWVzc2FnZXMoXG4gICAgdHJ5KGxpYnJhcnkocGFja2FnZSwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKSwgc2lsZW50ID0gVFJVRSlcbiAgKSlcbn1cblxuaWYgKCFleGlzdHMoXCJsYWJlbFwiLCBtb2RlID0gXCJmdW5jdGlvblwiKSkge1xuICBsYWJlbCA8LSBmdW5jdGlvbih4KSB7XG4gICAgb3V0IDwtIGF0dHIoeCwgXCJsYWJlbFwiLCBleGFjdCA9IFRSVUUpXG4gICAgaWYgKGlzLm51bGwob3V0KSkgZGVwYXJzZShzdWJzdGl0dXRlKHgpKSBlbHNlIG91dFxuICB9XG59XG5cbmlmICghZXhpc3RzKFwidmFyX2xhYmVsXCIsIG1vZGUgPSBcImZ1bmN0aW9uXCIpKSB7XG4gIHZhcl9sYWJlbCA8LSBmdW5jdGlvbih4KSB7XG4gICAgb3V0IDwtIGF0dHIoeCwgXCJsYWJlbFwiLCBleGFjdCA9IFRSVUUpXG4gICAgaWYgKGlzLm51bGwob3V0KSkgZGVwYXJzZShzdWJzdGl0dXRlKHgpKSBlbHNlIG91dFxuICB9XG59XG5cbmlmICghZXhpc3RzKFwiZ2d2aW9saW5cIiwgbW9kZSA9IFwiZnVuY3Rpb25cIikpIHtcbiAgZ2d2aW9saW4gPC0gZnVuY3Rpb24oZGF0YSwgeCwgeSwgZmlsbCA9IE5VTEwsIHBhbGV0dGUgPSBOVUxMLCBhZGQgPSBOVUxMLCBhZGQucGFyYW1zID0gbGlzdCgpLCAuLi4pIHtcbiAgICBxdWlldF9saWJyYXJ5KFwiZ2dwbG90MlwiKVxuICAgIHAgPC0gZ2dwbG90Mjo6Z2dwbG90KGRhdGEsIGdncGxvdDI6OmFlcyh4ID0gLmRhdGFbW3hdXSwgeSA9IC5kYXRhW1t5XV0sIGZpbGwgPSAuZGF0YVtbZmlsbCAlfHwlIHhdXSkpICtcbiAgICAgIGdncGxvdDI6Omdlb21fdmlvbGluKHRyaW0gPSBGQUxTRSwgYWxwaGEgPSAwLjcpXG4gICAgaWYgKCFpcy5udWxsKGFkZCkgJiYgXCJib3hwbG90XCIgJWluJSBhZGQpIHtcbiAgICAgIHAgPC0gcCArIGdncGxvdDI6Omdlb21fYm94cGxvdCh3aWR0aCA9IDAuMTIsIGZpbGwgPSBhZGQucGFyYW1zJGZpbGwgJXx8JSBcIndoaXRlXCIsIG91dGxpZXIuYWxwaGEgPSAwLjM1KVxuICAgIH1cbiAgICBwXG4gIH1cbn1cblxuaWYgKCFleGlzdHMoXCJnZ3BhaXJlZFwiLCBtb2RlID0gXCJmdW5jdGlvblwiKSkge1xuICBnZ3BhaXJlZCA8LSBmdW5jdGlvbihkYXRhLCBjb25kMSwgY29uZDIsIGZpbGwgPSBOVUxMLCBsaW5lLmNvbG9yID0gXCJncmF5XCIsIGxpbmUuc2l6ZSA9IDAuNCwgLi4uKSB7XG4gICAgcXVpZXRfbGlicmFyeShcImdncGxvdDJcIilcbiAgICBkZiA8LSBkYXRhLmZyYW1lKGlkID0gc2VxX2xlbihucm93KGRhdGEpKSwgYmVmb3JlID0gZGF0YVtbY29uZDFdXSwgYWZ0ZXIgPSBkYXRhW1tjb25kMl1dKVxuICAgIGxvbmcgPC0gcmJpbmQoXG4gICAgICBkYXRhLmZyYW1lKGlkID0gZGYkaWQsIGNvbmRpdGlvbiA9IGNvbmQxLCB2YWx1ZSA9IGRmJGJlZm9yZSksXG4gICAgICBkYXRhLmZyYW1lKGlkID0gZGYkaWQsIGNvbmRpdGlvbiA9IGNvbmQyLCB2YWx1ZSA9IGRmJGFmdGVyKVxuICAgIClcbiAgICBnZ3Bsb3QyOjpnZ3Bsb3QobG9uZywgZ2dwbG90Mjo6YWVzKHggPSBjb25kaXRpb24sIHkgPSB2YWx1ZSwgZ3JvdXAgPSBpZCkpICtcbiAgICAgIGdncGxvdDI6Omdlb21fbGluZShjb2xvciA9IGxpbmUuY29sb3IsIGxpbmV3aWR0aCA9IGxpbmUuc2l6ZSwgYWxwaGEgPSAwLjYpICtcbiAgICAgIGdncGxvdDI6Omdlb21fcG9pbnQoZ2dwbG90Mjo6YWVzKGZpbGwgPSBjb25kaXRpb24pLCBzaGFwZSA9IDIxLCBzaXplID0gMilcbiAgfVxufVxuXG5gJXx8JWAgPC0gZnVuY3Rpb24oeCwgeSkgaWYgKGlzLm51bGwoeCkpIHkgZWxzZSB4XG5cbnF1aWV0X2xpYnJhcnkoXCJnZ3Bsb3QyXCIpXG5xdWlldF9saWJyYXJ5KFwicGxvdFJPQ1wiKVxucXVpZXRfbGlicmFyeShcInBST0NcIilcblxuTWVkVGVzdDwtIHJlYWRSRFMoXCJ0dXRvcmlhbHMvTGFiNi93d3cvbWVkdGVzdC5SZGFcIikifQ==
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.</p>
+</div>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This lab will cover: Diagnostic and Screening tests, Sensitivity, Specificity, Accuracy, ROC curves, AUC calculations, and Cut-off values.</p>
+</section>
+<section id="diagnostic-and-screening-tests" class="level2">
+<h2 class="anchored" data-anchor-id="diagnostic-and-screening-tests">Diagnostic and Screening Tests</h2>
+<p>Medical tests are a tool used by medical professionals to screen for and diagnose disease in patients. If you are curious about what the difference is between screening and diagnostic tests check out the comparison from <a href="https://www.healthknowledge.org.uk/public-health-textbook/disease-causation-diagnostic/2c-diagnosis-screening/screening-diagnostic-case-finding">Health Knowledge</a>. There are too many tests to list, but it is important to understand that not all tests require labs and sample collections. A single question or series of questions can be used as a test by a medical professional. There are also several medical tests that people use themselves like home pregnancy tests or blood sugar tests for individuals with diabetes. These at-home tests are administered and interpreted by an individual, in the case of some test like a home pregnancy test a doctor does a follow-up test to confirm the results. <a href="https://www.fda.gov/medical-devices/vitro-diagnostics/home-use-tests">Click here to see a list of FDA approved home tests</a>.</p>
+<p>The value of a test can be dichotomous, discrete, or continuous. An example of a dichotomous test is a single question. For example, when you are sick, the doctor or nurse may ask if you or someone you know has been out of the country in the last three week. That simple question is a test to see if they should consider any diseases that may be common in the country you or someone you know visited. The result of this test is dichotomous (YES or NO). If the doctor asks a series of related questions, they may count the number of times you say yes. The result of this test is discrete (1,2,3,4, or 5 questions with a yes answer). For a home pregnancy test, which measures the concentration (mIU/Ml) of the human chorionic gonadotropin (hCG) hormone, the result is continuous, but it is shown as simply positive or negative.</p>
+<p>The way the results of a test are presented is critical, especially for the patient. Test result that are continuous or discrete can be reported two ways, either quantitatively or qualitatively. A quantitative test result is the numeric value of the test (e.i. hCG=6.32). A qualitative test result is the interpretation of the numeric test value (e.i. “positive”, “negative”). Remember this only applies to tests that generate continuous or discrete values, some tests are qualitative by design like the yes-no questions. Choosing which way to present the results of the test is very important.</p>
+<p>Have you ever actually looked at the results of your blood tests from your yearly physical? The table below shows a made-up example of the results for some of the standard blood tests. Of the nine results shown, three are normal, three are abnormally high, and three are abnormally low. So which tests are normal, low, or high? Don’t worry. That is not one of the quiz questions. Doctors recognized that giving information like the table above to a patient was an issue, so now in most cases, test results are sent to a patient with explanations of the results or are explained in a follow-up visit.</p>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-zlqz{font-weight:bold;background-color:#c0c0c0;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-6e8n{font-weight:bold;background-color:#c0c0c0;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<tbody><tr>
+<th class="tg-6e8n">
+Test Name
+</th>
+<th class="tg-zlqz">
+Result
+</th>
+</tr>
+<tr>
+<td class="tg-0pky">
+White Blood Cell
+</td>
+<td class="tg-c3ow">
+6.9 K/mcL
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Red Blood Cell
+</td>
+<td class="tg-c3ow">
+1.8 M/mcL
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Hemoglobin
+</td>
+<td class="tg-c3ow">
+6.5 g/dL
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Hematocrit
+</td>
+<td class="tg-c3ow">
+19.5%
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Mean Cell Volume
+</td>
+<td class="tg-c3ow">
+109.6 fL
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Mean Cell Hemoglobin
+</td>
+<td class="tg-c3ow">
+36.5 pg
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Mean Cell Hb Conc
+</td>
+<td class="tg-c3ow">
+33 g/dL
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Red Cell Dist Width
+</td>
+<td class="tg-c3ow">
+16.0%
+</td>
+</tr>
+<tr>
+<td class="tg-0pky">
+Platelet Count
+</td>
+<td class="tg-c3ow">
+180 K/mcL
+</td>
+</tr>
+</tbody></table>
+<p>For the table above the qualitative results of “normal”, “low” or “high” is the information you are most likely concerned with. Patients generally do not know what to do with quantitative test results. Could you imagine getting the quantitative result of “42” for a pregnancy test? What does that mean? On the other hand, if a diabetic person checks their blood sugar and the result was “You’re Good”. That is not enough information for someone who needs to monitor their blood sugar closely. Think about it, if “You’re Good” means the measured blood sugar is somewhere between 80-179 mg/dL could a diabetic person make the right decision about what or when they eat next? The answer is no. The reaction to a blood sugar reading of 169 mg/dL is likely not the same as a reading of 89 mg/dL.</p>
+</section>
+<section id="sensitivity-specificity-and-accuracy" class="level2">
+<h2 class="anchored" data-anchor-id="sensitivity-specificity-and-accuracy">Sensitivity, Specificity, and Accuracy</h2>
+<p>You have learned about sensitivity and specificity in the lecture as the probability of the test being either positive or negative when the disease is present or absent. Calculating the sensitivity and specificity for tests with dichotomous results is easy and only takes on a single value for each. Another characteristic is the accuracy of the test. The accuracy is a measure of how well the test does classifying patients as true positives (TP) and true negatives (TN). To calculate accuracy, you add the number of true positives and true negatives and then divide by the table total (table total is just all the numbers in the table added up).</p>
+<section id="exercise-1-sensitivity-and-specificity-dichotomous" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-sensitivity-and-specificity-dichotomous">Exercise 1: Sensitivity and Specificity (Dichotomous)</h3>
+<p><strong>Instructions:</strong> We will work with some data for a test to screen for <em>The Scarlet Plague</em> (<a href="https://wwwnc.cdc.gov/eid/article/20/10/13-0278_article">CDC info for scarlet plague</a>). The data has six variables. The data dictionary is shown below. Use the data and calculate the sensitivity, specificity, and accuracy ((TP+TN)/Total) using the dichotomous variable “answer” in the “MedTest” data set. For information about how to calculate sensitivity and specificity click <a href="https://en.wikipedia.org/wiki/Sensitivity_and_specificity">here</a>. Use the table generated by the code below to answer quiz questions 1-3.</p>
+<p><strong>Data Dictionary</strong><br>
+<strong>disease_statusC:</strong> Disease status of the patient using the gold standard (Culture) as a character value<br>
+<strong>disease_status:</strong> Disease status of the patient using the gold standard (Culture) as a numeric value (0=Disease Present, 1=No Disease)<br>
+<strong>answer:</strong> Qualitative response (Yes or No) to a single question. “Have you been to New York in the last two weeks?”<br>
+<strong>test1:</strong> Quantitative measurement value of the PCR test<br>
+<strong>test2:</strong> Quantitative measurement value of the sputum antigen test<br>
+<strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIEZvciBhIGRpY2hvdG9tb3VzIHRlc3QgdmFsdWUgd2UgY2FuIG1ha2UgYSAyIFggMiB0YWJsZSBcbiMgVG8gbWFrZSBhIDJ4MiB0YWJsZSB3ZSB3aWxsIHVzZSB0aGUgdGFibGUoKSBmdW5jdGlvbiBcbiMgVGhlIGZpcnN0IHZhcmlhYmxlIGxpc3RlZCB3aWxsIGJlIHRoZSByb3dzXG4jIFRoZSBzZWNvbmQgdmFyaWFibGUgbGlzdGVkIHdpbGwgYmUgdGhlIGNvbHVtbnMgXG50YWJsZShNZWRUZXN0JGFuc3dlcixNZWRUZXN0JGRpc2Vhc2Vfc3RhdHVzQykifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="quiz-questions-1-3" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-1-3">Quiz: Questions 1-3</h3>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+What is the sensitivity <strong>AND</strong> specificity for the question?
+</p>
+<p class="quiz-note">
+Select all correct answers.
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Nice work!">
+0.62
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the right cells of the 2x2 table">
+0.10
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Got it!">
+0.41
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the right cells of the 2x2 table">
+0.44
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+What is the prevalence of disease in the study population?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the margins of the 2x2 table">
+0.42
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the margins of the 2x2 table">
+0.88
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+0.46
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the margins of the 2x2 table">
+0.30
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 3
+</h4>
+<p>
+What is the accuracy of the question test?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Remember for accuracy you have to use TP and TN">
+0.42
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+0.53
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Remember for accuracy you have to use TP and TN">
+0.60
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Remember for accuracy you have to use TP and TN">
+0.45
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+<section id="tables-to-calculate-sensitivity-specificity-and-accuracy" class="level3">
+<h3 class="anchored" data-anchor-id="tables-to-calculate-sensitivity-specificity-and-accuracy">Tables to calculate Sensitivity, Specificity, and Accuracy</h3>
+<p>Tests that generate numeric values can have a huge number of possible “cut-offs” to classify a person as positive or negative. Using a pregnancy test as an example. The concentration of human chorionic gonadotropin (hCG) ranges from 0 to 288,000 mIU/mL. If you didn’t know a lot of about the biology of hCG, it would take a long time to calculate the sensitivity, specificity, and accuracy for even a fraction of the possible cut-off values using the table method you used above. To see the test’s performance over all the possible values, we will use a ROC curve.</p>
+</section>
+</section>
+<section id="roc-curves" class="level2">
+<h2 class="anchored" data-anchor-id="roc-curves">ROC Curves</h2>
+<p>What are ROC curves? ROC stands for receiver operating characteristics they are used to visualize the performance of classifiers. A classifier is a general term, but in our class, the classifiers we care about are screening and diagnostic tests. Remember that as sensitivity increases or decreases, specificity decreases or increases accordingly. As a result, the ROC curve plots the sensitivity on the Y-axis and 1-specificity on the X-axis for all of the different “cut-offs”. For more detailed information about ROC curves for medical testing take a look at the paper paper by Nancy Obuchowski <a href="https://iopscience.iop.org/article/10.1088/1361-6560/aab4b1/meta">Receiver operating characteristic (ROC) curves: review of methods with applications in diagnostic medicine</a>. ROC analysis is also used for a number of other applications and if you want to know more about it check out this paper by Tom Fawcett <a href="https://doi.org/10.1016/j.patrec.2005.10.010">An introduction to ROC analysis</a>.</p>
+<p>The figure below summarizes all the different characteristics of the ROC curve. The most basic interpretation of a ROC curve is observing how close the curve gets to the top left-hand corner. The closer the test’s curve gets to the top left-hand corner, the better the test is. The diagonal line is there as a reference and values that along the line are not very useful. When the test’s ROC curve is on the diagonal line, flipping a coin would be just as good at identifying disease.</p>
+<p><img src="../tutorials/Lab6/images/AUCCuttOff.jpg" class="img-fluid"> ### Exercise 2: Making ROC Curve</p>
+<p><strong>Instructions:</strong> Using the same data from exercise 1, we will make a ROC curve for each test. Look at the ROC curves for the three different tests. You can plot one at a time or all three at once. Using the information present above, you will interpret the curves to answer the quiz questions.</p>
+<p><strong>Data Dictionary</strong><br>
+<strong>disease_statusC:</strong> Disease status of the patient using the gold standard (Culture) as a character value<br>
+<strong>disease_status:</strong> Disease status of the patient using the gold standard (Culture) as a numeric value (0=Disease Present, 1=No Disease)<br>
+<strong>answer:</strong> Qualitative response (Yes or No) to a single question. “Have you been to New York in the last two weeks?”<br>
+<strong>test1:</strong> Quantitative measurement value of the PCR test<br>
+<strong>test2:</strong> Quantitative measurement value of the sputum antigen test<br>
+<strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
+<p><strong>Note:</strong> The values along the curve are the cut-off values. For example, for test1 using a cut-off value of 22.9 gives the test a sensitivity around 0.85 and a specificity of 0.96 (remember the x-axis is 1-specificity).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny interface
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">checkboxGroupInput</span>(<span class="st">"tests"</span>, <span class="st">"Select a Test:"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"test1"</span>,<span class="st">"test2"</span>,<span class="st">"test3"</span>)))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"plot1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny server logic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creating histogram based on selections</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>plot1 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make sure they select a variable to plot</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>tests), <span class="st">'Please select a test to show the ROC plot.'</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(input<span class="sc">$</span>tests)<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if only one test is selected then basic plot</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    mtitle<span class="ot">&lt;-</span><span class="fu">sprintf</span>(<span class="st">"ROC Curve for %s"</span>,input<span class="sc">$</span>tests)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">ggplot</span>(<span class="at">data=</span>MedTest, <span class="fu">aes</span>(<span class="at">d=</span>disease_status, <span class="at">m=</span>MedTest[,<span class="fu">c</span>(input<span class="sc">$</span>tests)]))<span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_roc</span>(<span class="at">color=</span><span class="st">"blue"</span>)<span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">style_roc</span>(<span class="at">xlab =</span> <span class="st">"1-Specificity"</span>, <span class="at">ylab =</span> <span class="st">"Sensitivity"</span>)<span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ggtitle</span>(mtitle)<span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">'black'</span>)<span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># more than one test then melt data into long data then plot </span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    data<span class="ot">&lt;-</span><span class="fu">melt_roc</span>(MedTest, <span class="st">"disease_status"</span>, <span class="fu">c</span>(input<span class="sc">$</span>tests))</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>       <span class="fu">ggplot</span>(<span class="at">data=</span>data, <span class="fu">aes</span>(<span class="at">d=</span>D, <span class="at">m=</span>M, <span class="at">color=</span> name))<span class="sc">+</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_roc</span>()<span class="sc">+</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>           <span class="fu">style_roc</span>(<span class="at">xlab =</span> <span class="st">"1-Specificity"</span>, <span class="at">ylab =</span> <span class="st">"Sensitivity"</span>)<span class="sc">+</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>           <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Test"</span>)<span class="sc">+</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ggtitle</span>(<span class="st">"ROC Curves for Selected Tests"</span>)<span class="sc">+</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">'black'</span>)<span class="sc">+</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>         <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>))</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>         }</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<section id="quiz-questions-4-5" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-4-5">Quiz: Questions 4-5</h3>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+Which test is the best?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+test1
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="The test closest to the top left corner is the best overall">
+test3
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="The test closest to the top left corner is the best overall">
+test2
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+Below which cut-off value is test3 just as good as flipping a coin?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This value is on the line but so are higher ones">
+19.6
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This value is on the line but so are higher ones">
+20.4
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This value is on the line but so are higher ones">
+21.2
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Great work! After this value the test is consistently above the 50/50 line">
+22.8
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="auc-calculations" class="level2">
+<h2 class="anchored" data-anchor-id="auc-calculations">AUC calculations</h2>
+<p>What is AUC? AUC stands for the area under the curve. In this lab, we care about the area under the ROC curve. The AUC is a summary of a tests overall performance. The AUC can also be used to compare multiple tests without having to rely on a visual inspection of a plot. There are several ways to calculate AUC, but for this class, you only need to understand how to interpret the values. An AUC can be any value between 0 and 1. An AUC of 1 is the perfect test it correctly classifies disease presence or absence. An AUC of 0 is the perfectly wrong test it classifies all those with a disease as being disease free and all those that are disease free as having a disease. An AUC of 0.5 is a test that does not contribute any meaningful information about the disease status of a patient (you would do just as well guessing). The diagonal line on the ROC plot corresponds to an AUC of 0.5 (it divides the area of the plot in half). The numeric value of the AUC can be thought of as the probability the test correctly classifying patients as diseased or disease-free. A test with an AUC of 0.85 suggests the test has an 85% chance of accurately distinguishing between a disease-free and diseased patient. There are no set rules for what a “good” AUC value is since there are a bunch of other factors to consider, for instance, is it the only test or is it useful for ruling in a disease or ruling out disease. For this class, and as a general guideline, use the table below to judge how good a test is based on AUC.</p>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-uys7{border-color:inherit;text-align:center}
+.tg .tg-xldj{border-color:inherit;text-align:left}
+</style>
+<table class="tg">
+<tbody><tr>
+<th class="tg-xldj">
+AUC value
+</th>
+<th class="tg-uys7">
+Qualitative Assessment
+</th>
+</tr>
+<tr>
+<td class="tg-xldj">
+1.0 - 0.90
+</td>
+<td class="tg-uys7">
+Excellent
+</td>
+</tr>
+<tr>
+<td class="tg-xldj">
+0.89-0.80
+</td>
+<td class="tg-uys7">
+Good
+</td>
+</tr>
+<tr>
+<td class="tg-xldj">
+0.79 - 0.70
+</td>
+<td class="tg-uys7">
+Fair
+</td>
+</tr>
+<tr>
+<td class="tg-xldj">
+0.69-0.60
+</td>
+<td class="tg-uys7">
+Poor
+</td>
+</tr>
+<tr>
+<td class="tg-xldj">
+0.59-0.51
+</td>
+<td class="tg-uys7">
+Worthless (in most cases)
+</td>
+</tr>
+</tbody></table>
+<section id="exercise-3-calculating" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-calculating">Exercise 3: Calculating</h3>
+<p><strong>Instructions:</strong> Using the scarlet plague data, complete the code below to calculate the AUC for tests 2 and 3. To calculate the AUCs for the three tests, we are going to use the <a href="https://www.rdocumentation.org/packages/pROC/versions/1.14.0/topics/auc">auc()</a> function. Use the results to answer questions 6-8.</p>
+<p><strong>Data Dictionary</strong><br>
+<strong>disease_statusC:</strong> Disease status of the patient using the gold standard (Culture) as a character value<br>
+<strong>disease_status:</strong> Disease status of the patient using the gold standard (Culture) as a numeric value (0=Disease Present, 1=No Disease)<br>
+<strong>answer:</strong> Qualitative response (Yes or No) to a single question. “Have you been to New York in the last two weeks?”<br>
+<strong>test1:</strong> Quantitative measurement value of the PCR test<br>
+<strong>test2:</strong> Quantitative measurement value of the sputum antigen test<br>
+<strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIFRoZSBmaXJzdCB0ZXJtIGlzIHRoZSBkaXNlYXNlIHN0YXR1cyBhbmQgdGhlIHNlY29uZCBpcyB0aGUgdGVzdCB5b3Ugd2FudCB0byBjYWxjdWxhdGUgdGhlIEFVQyBmb3IuXG4jIHRlc3QxXG5hdWMoTWVkVGVzdCRkaXNlYXNlX3N0YXR1cywgTWVkVGVzdCR0ZXN0MSlcblxuIyB0ZXN0MlxuYXVjKClcblxuIyB0ZXN0MyBcbmF1YygpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="quiz-questions-6-8" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-6-8">Quiz: Questions 6-8</h3>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+What is the AUC for test2?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test2">
+0.50
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test2">
+0.89
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test2">
+0.98
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Great work! You will be a master R coder in no time">
+0.86
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+What is the AUC for test3?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test3">
+0.86
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test3">
+0.98
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="You are on a roll!">
+0.58
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test3">
+0.89
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 3
+</h4>
+<p>
+The AUC values correspond to what you observed in the ROC plots.
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Nailed it!">
+True
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Remember the higher the AUC the more bowed the ROC curve is.">
+False
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="cut-off-values" class="level2">
+<h2 class="anchored" data-anchor-id="cut-off-values">Cut-off Values</h2>
+<p>What is a cut-off value? A cut-off value for a test is the value above or below which a person is considered positive. For example, even though the range of human chorionic gonadotropin (hCG) concentrations is from 0 to 288,000 mIU/mL the cut-off for having a positive test is hCG &gt; 5. The very low cut-off is because in almost all cases, hCG is only present when a woman is pregnant. The figure below shows the distributions of Serum Osmolarity test values for diseased and non-diseased individuals. For the test in the plot, the higher the test values, the more likely you are to have a disease. As you can see the cut off value determines the number of false positives (area under the blue curve to the right of the cut-off) and false negatives (area under the red curve that is to the left of the cut-off).</p>
+<p><img src="../tutorials/Lab6/images/CuttOffForTest.jpg" class="img-fluid"> There are many things to think about when you choose the cut off for a test. The most basic way to choose the cut off is to maximize both the sensitivity and specificity. But that does not consider any of the consequences of the test. For nearly every test, there will be individuals who are classified as having the disease who do not (False Positives) as well as patients with the disease who are classified as being disease-free (False Negatives). Depending on the disease missing an early diagnosis with a false negative can result in the disease being caught too late for treatment to be effective (some cancers fall in that category). False negatives can also lead to the spread of disease (TB or HIV are good examples). On the other hand, false positives can cause a lot of emotional distress and exposure to unnecessary treatments, which can also be harmful (chemotherapy or surgeries).</p>
+<section id="exercise-4-choosing-a-cut-off" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-choosing-a-cut-off">Exercise 4: Choosing a cut-off</h3>
+<p><strong>Instructions:</strong> Using the data for the scarlet plague look at the distributions of the different test values for the diseased and non-diseased patients. Use the slider to move the cut-off and see the impact on the sensitivity, specificity, and accuracy of the test (If you move the slider to far to one side or the other the table will not work).</p>
+<p>The table below the plot shows the 2x2 table based on the cut-off value you selected (Green: True Positives, Yellow: False Positives, Orange: False Negatives, Blue: True Negatives). Below the 2x2 table, the AUC, Accuracy, Sensitivity, and Specificity are shown. All of the values, except AUC, will change when you select different cut-off values. To make small changes in the cut-off value, click the slider and then use your left and right arrow keys. Play with the plot for a little bit, and once you have a feel for what’s going on, you will use the plot to answer quiz questions 9-12.</p>
+<p><strong>Data Dictionary</strong><br>
+<strong>disease_statusC:</strong> Disease status of the patient using the gold standard (Culture) as a character value<br>
+<strong>disease_status:</strong> Disease status of the patient using the gold standard (Culture) as a numeric value (0=Disease Present, 1=No Disease)<br>
+<strong>answer:</strong> Qualitative response (Yes or No) to a single question. “Have you been to New York in the last two weeks?”<br>
+<strong>test1:</strong> Quantitative measurement value of the PCR test<br>
+<strong>test2:</strong> Quantitative measurement value of the sputum antigen test<br>
+<strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny interface
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">selectInput</span>(<span class="st">"tests0"</span>, <span class="st">"Select a Test:"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"test1"</span>,<span class="st">"test2"</span>,<span class="st">"test3"</span>))),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">column</span>(<span class="dv">4</span>,  <span class="fu">sliderInput</span>(<span class="st">"cutoff"</span>, <span class="st">"Cut-off Value"</span>, <span class="at">min =</span> <span class="dv">5</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="dv">35</span>, <span class="at">value =</span> <span class="dv">15</span>, <span class="at">step =</span> <span class="fl">0.1</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"plot2"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"plot3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Original Shiny server logic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creating density plot based on disease status</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>plot2 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># X axis label</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  labx<span class="ot">&lt;-</span><span class="fu">sprintf</span>(<span class="st">"Values for %s"</span>,input<span class="sc">$</span>tests0)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(MedTest) <span class="sc">+</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density.., <span class="at">x=</span>MedTest[,input<span class="sc">$</span>tests0], <span class="at">fill=</span>disease_statusC), <span class="at">alpha=</span>.<span class="dv">3</span>, <span class="at">position =</span> <span class="st">"identity"</span>)<span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>MedTest[,input<span class="sc">$</span>tests0], <span class="at">fill=</span>disease_statusC, <span class="at">color=</span>disease_statusC), <span class="at">alpha=</span>.<span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> input<span class="sc">$</span>cutoff, <span class="at">color=</span><span class="st">"red"</span>, <span class="at">size=</span><span class="fl">1.2</span>, <span class="at">alpha=</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from=</span> (<span class="fu">round</span>(<span class="fu">min</span>(MedTest[,input<span class="sc">$</span>tests0])<span class="sc">-</span><span class="dv">2</span>,<span class="dv">0</span>)), <span class="at">to=</span> (<span class="fu">round</span>(<span class="fu">max</span>(MedTest[,input<span class="sc">$</span>tests0])<span class="sc">+</span><span class="dv">2</span>,<span class="dv">0</span>)), <span class="at">by=</span><span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density Curves for Diseased and Non-diseased"</span>, <span class="at">fill=</span><span class="st">"Disease Status"</span>)<span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Density"</span>)<span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="fu">paste</span>(labx))<span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">color=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creating a nice 2x2 table and AUC and Accuracy based on the cut point</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>plot3 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># new variable based on the cut points</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  MedTest<span class="sc">$</span>cuthere<span class="ot">&lt;-</span>cuthere<span class="ot">&lt;-</span><span class="fu">ifelse</span>(MedTest[,input<span class="sc">$</span>tests0]<span class="sc">&lt;=</span>input<span class="sc">$</span>cutoff,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  MedTest<span class="sc">$</span>cuthereC<span class="ot">&lt;-</span><span class="fu">as.factor</span>(MedTest<span class="sc">$</span>cuthere)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create 2x2 table for selected cut-off</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">table</span>(MedTest<span class="sc">$</span>cuthereC,MedTest<span class="sc">$</span>disease_statusC)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate AUC for the test</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  AUC<span class="ot">&lt;-</span><span class="fu">auc</span>(MedTest<span class="sc">$</span>disease_status, MedTest[,input<span class="sc">$</span>tests0])</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate Accuracy for the test at the selected cut-off</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>  Accur<span class="ot">&lt;-</span>(res[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">+</span>res[<span class="dv">2</span>,<span class="dv">2</span>])<span class="sc">/</span><span class="fu">sum</span>(res)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate sensitivity for the test at the selected cut-off</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  Sn<span class="ot">&lt;-</span>(res[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">/</span>(res[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">+</span>res[<span class="dv">1</span>,<span class="dv">1</span>]))</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate specificity for the test at the selected cut-off</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  Sp<span class="ot">&lt;-</span>(res[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">/</span>(res[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">+</span>res[<span class="dv">1</span>,<span class="dv">2</span>]))</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.1</span>,<span class="dv">1</span>,<span class="fl">0.1</span>))</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">345</span>), <span class="fu">c</span>(<span class="dv">300</span>, <span class="dv">450</span>), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">xaxt=</span><span class="st">'n'</span>, <span class="at">yaxt=</span><span class="st">'n'</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create the 2x2 table</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (A)</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">150</span>, <span class="dv">430</span>, <span class="dv">240</span>, <span class="dv">370</span>, <span class="at">col=</span><span class="st">'darkgreen'</span>)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (B)</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">250</span>, <span class="dv">430</span>, <span class="dv">340</span>, <span class="dv">370</span>, <span class="at">col=</span><span class="st">'yellow'</span>)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (C)</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">150</span>, <span class="dv">305</span>, <span class="dv">240</span>, <span class="dv">365</span>, <span class="at">col=</span><span class="st">'orange'</span>)</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (D)</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">250</span>, <span class="dv">305</span>, <span class="dv">340</span>, <span class="dv">365</span>, <span class="at">col=</span><span class="st">'blue'</span>)</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Test predictions (row labels)</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">130</span>, <span class="dv">370</span>, <span class="st">'Test'</span>, <span class="at">cex=</span><span class="fl">1.9</span>, <span class="at">srt=</span><span class="dv">90</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">145</span>, <span class="dv">400</span>, <span class="st">'Disease Present'</span>, <span class="at">cex=</span><span class="fl">1.6</span>, <span class="at">srt=</span><span class="dv">90</span>)</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">145</span>, <span class="dv">335</span>, <span class="st">'No Disease'</span>, <span class="at">cex=</span><span class="fl">1.6</span>, <span class="at">srt=</span><span class="dv">90</span>)</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gold standard (column labels)</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">245</span>, <span class="dv">450</span>, <span class="st">'Gold Standard'</span>, <span class="at">cex=</span><span class="fl">1.9</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">195</span>, <span class="dv">440</span>, <span class="st">'Disease Present'</span>, <span class="at">cex=</span><span class="fl">1.6</span>)</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">295</span>, <span class="dv">440</span>, <span class="st">'No Disease'</span>, <span class="at">cex=</span><span class="fl">1.6</span>)</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the results into the 2x2 table  </span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">195</span>, <span class="dv">400</span>, res[<span class="dv">1</span>,<span class="dv">1</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'white'</span>)</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">195</span>, <span class="dv">335</span>, res[<span class="dv">2</span>,<span class="dv">1</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'black'</span>)</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">295</span>, <span class="dv">400</span>, res[<span class="dv">1</span>,<span class="dv">2</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'black'</span>)</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">295</span>, <span class="dv">335</span>, res[<span class="dv">2</span>,<span class="dv">2</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'white'</span>)</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Show the AUC, Accuracy, Sensitivity and Specificity</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add in the specifics </span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">75</span>), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">xaxt=</span><span class="st">'n'</span>, <span class="at">yaxt=</span><span class="st">'n'</span>)</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add in the AUC and accuracy</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">65</span>, <span class="st">"AUC"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">55</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(AUC), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">65</span>, <span class="st">"Accuracy"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">55</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(Accur), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="st">"Sensitivity"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">20</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(Sn), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">30</span>, <span class="st">"Specificity"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">20</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(Sp), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quiz-questions-9-12" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-9-12">Quiz: Questions 9-12</h3>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+Which cut-off gives you the highest ACCURACY for test2?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test2 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+22.1
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Excellent work!">
+23.1
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test2 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+26.0
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test2 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+22.9
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+Which cut-off gives you the highest SENSITIVITY for test1?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test1 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+25.1
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test1 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+21.1
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Great job!">
+25.8
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test1 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+20.5
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 3
+</h4>
+<p>
+What is the highest ACCURACY you can get for test3?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Accuracy is highest near the values where the distributions cross">
+0.631
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test3 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+0.585
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test3 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+0.947
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test3 is selected. If you click on the slider you can use the arrow keys to make small adjustments">
+0.285
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 4
+</h4>
+<p>
+The scarlet plague is a real disease.
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This is one time I am glad you are wrong!">
+True
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="It is a made up disease in a book by Jack London">
+False
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this lab, you completed 4 exercises and answered 12 quiz questions.</p>
+<p>The lab covered 5 topics:</p>
+<ol type="1">
+<li>Diagnostic and Screening tests</li>
+<li>Sensitivity, Specificity, and Accuracy</li>
+<li>ROC curves</li>
+<li>AUC calculations</li>
+<li>Cut-off values</li>
+</ol>
+<p>You are officially done with this lab! <strong>Don’t forget to record your answers and take the eLC quiz to get credit</strong></p>
+<p><img src="../tutorials/Lab6/images/testing.png" class="img-fluid"></p>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImdncGxvdDIiLCJwbG90Uk9DIiwicFJPQyIsInJtYXJrZG93biJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJwYWdlZC10YWJsZSJ9
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzEgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTEtY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiMVwiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiMVwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyIuLi90dXRvcmlhbHMvTGFiNi93d3cvZGlhZ25vc3RpY190ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LlJkYSJd
+</script>
+</section>
+
+</main> <!-- /main -->
+<script src="../lab-interactions.js"></script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../All_Labs";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
