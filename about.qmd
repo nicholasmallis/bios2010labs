@@ -1,0 +1,9 @@
+---
+title: "About"
+---
+
+This Quarto website is a static replacement for the BIOS 2010 learnr/Shiny lab tutorials.
+
+The goal is for students to complete the labs in a browser without installing R and without using a Shiny server. The converted pages use WebR through `quarto-live` for runnable R code cells, and local quiz feedback replaces the original learnr quiz checking.
+
+Migration notes and remaining work are tracked in [MIGRATION_TODO.md](MIGRATION_TODO.md).

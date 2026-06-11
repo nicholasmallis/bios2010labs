@@ -1,0 +1,369 @@
+---
+title: "Lab 2: Histograms"
+subtitle: "Computer Lab 2"
+format:
+  live-html:
+    include-after-body:
+      - ../lab-interactions-lab.html
+engine: knitr
+live:
+  show-hints: true
+  show-solutions: true
+webr:
+  render-df: paged-table
+  resources:
+    - ../tutorials/Lab2/www/heart.csv
+    - ../tutorials/Lab2/www/heartDataDictionary.txt
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| edit: false
+#| output: false
+#| autorun: true
+quiet_library <- function(package) {
+  suppressWarnings(suppressMessages(
+    try(library(package, character.only = TRUE), silent = TRUE)
+  ))
+}
+
+if (!exists("label", mode = "function")) {
+  label <- function(x) {
+    out <- attr(x, "label", exact = TRUE)
+    if (is.null(out)) deparse(substitute(x)) else out
+  }
+}
+
+if (!exists("var_label", mode = "function")) {
+  var_label <- function(x) {
+    out <- attr(x, "label", exact = TRUE)
+    if (is.null(out)) deparse(substitute(x)) else out
+  }
+}
+
+if (!exists("ggviolin", mode = "function")) {
+  ggviolin <- function(data, x, y, fill = NULL, palette = NULL, add = NULL, add.params = list(), ...) {
+    quiet_library("ggplot2")
+    p <- ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]], fill = .data[[fill %||% x]])) +
+      ggplot2::geom_violin(trim = FALSE, alpha = 0.7)
+    if (!is.null(add) && "boxplot" %in% add) {
+      p <- p + ggplot2::geom_boxplot(width = 0.12, fill = add.params$fill %||% "white", outlier.alpha = 0.35)
+    }
+    p
+  }
+}
+
+if (!exists("ggpaired", mode = "function")) {
+  ggpaired <- function(data, cond1, cond2, fill = NULL, line.color = "gray", line.size = 0.4, ...) {
+    quiet_library("ggplot2")
+    df <- data.frame(id = seq_len(nrow(data)), before = data[[cond1]], after = data[[cond2]])
+    long <- rbind(
+      data.frame(id = df$id, condition = cond1, value = df$before),
+      data.frame(id = df$id, condition = cond2, value = df$after)
+    )
+    ggplot2::ggplot(long, ggplot2::aes(x = condition, y = value, group = id)) +
+      ggplot2::geom_line(color = line.color, linewidth = line.size, alpha = 0.6) +
+      ggplot2::geom_point(ggplot2::aes(fill = condition), shape = 21, size = 2)
+  }
+}
+
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
+HeartFailure <- read.csv("tutorials/Lab2/www/heart.csv")
+```
+
+::: {.callout-tip}
+Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
+:::
+
+## Introduction
+
+In this lab, you will practice creating and interpreting data visualizations for different variables types. 
+
+## Histograms
+
+Why do we do make histograms? The practical reason is that data visualization is often better than a table for quickly assessing the essential features of a variable. With a histogram, you can quickly identify the value that occurs the most often in the data (highest bar). You can see the range of values and if your data is skewed or not. You can find any observations that are possible outliers or even errors (a heart rate of 0 is not a possible value in living patients). 
+
+### Making Histograms
+
+To create a histogram, you have to split the data into intervals called bins. Then we count the number of observations (frequency or count) in each bin. The number of observations in each interval determines the height of the bar for each interval (as long as all the bins are the same size). 
+
+Thankfully this is no longer done by hand. Instead, we will use the hist() function in R. This function creates very basic histograms quickly. It also automatically choices the number of bins that it thinks is best for the variable (works most of the time, but it is not perfect). If you want to know more about the hist() function, check out [RDocumentation](https://www.rdocumentation.org/packages/graphics/versions/3.6.0/topics/hist) for more information. R is excellent, but it is not smart and will let you make a histogram with just about any variable. It is up to you to make sure you are using the appropriate variables with the hist() function.  
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# age is a continous/discrete variable so using a histogram is appropriate.
+hist(HeartFailure$age)
+
+# cut age up into 11 bins since that is the number the hist() function uses 
+# Tell R you want a table of the age variable. 
+table(cut(HeartFailure$age, breaks = c(25,30,35,40,45,50,55,60,65,70,75,80)))
+```
+### Interpreting Histograms
+
+Using the histogram above as an example use the steps to interpret a histogram and get a feel for what to look for. 
+
+Steps to Interpret a Histogram:  
+  1. Find the central bin (for normally distributed data it will be one of the tallest)  
+  2. Look to see if the data is skewed left or right   
+  3. Look at the range of the data (first and last bin)  
+  4. Identify possible outliers (first or last bins that are not close to the other bins) or errors (values that are not biologically possible)  
+
+In the next section, you will make and interpret some histograms. 
+
+## Histogram Exercises
+
+To make a basic histogram, we will use the hist() function. The code to create a basic histogram is **hist(dataset\$variablename)**, so for example to make a histogram of age the R code would be **hist(HeartFailure\$age)**.   
+
+### Exercise 1: Choosing the right variables
+**Instructions:** Take a quick look at the data we will be using by running the code chunk. Use the output to answer the quiz questions. It is the same data from the first lab. The data dictionary is also included.   
+
+#### Data Dictionary
+__age:__ age in years  
+__sex:__ (1 = male; 0 = female)  
+__trestbps:__ resting blood pressure (in mm Hg on admission to the hospital)  
+__chol:__ serum cholesterol in mg/dl  
+__fbs:__ (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)  
+__thalach:__ maximum heart rate achieved  
+__exang:__ exercise induced angina (1 = yes; 0 = no)  
+__oldpeak:__ ST depression induced by exercise relative to rest  
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# The head() function allows you to print a specific number of rows starting from the top of the data
+# The tail() function does the same thing but from the bottom
+head(HeartFailure,10)
+# You just have to click Run Code to see the data
+```
+### Quiz: Questions 1-2
+**Don't forget to write your answers down so that you can answer the questions on the eLC quiz for this lab. Question 1 here will correspond to question 1 on the eLC quiz**
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Which variables should <strong>NOT</strong> be visualized with a histogram? (select all that apply))</p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Cholesterol can be visualized with a histogram.">chol</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">fbs</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Resting blood pressure can be visualized with a histogram.">trestbps</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">sex</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Age can be visualized with a histogram.">age</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Maximum heart rate can be visualized with a histogram.">thalach</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Great work!">exang</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="ST depression can be visualized with a histogram.">oldpeak</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What type of visualization should you use for <strong>categorical</strong> variables?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="It is tempting but not the appropriate visualization method">Histograms</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="The bars don&#x27;t touch so it is clear that values between the integers are not possible">Bar Charts</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Boxplots are for continuous variables">Box Plots</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Density plots are for continuous variables">Density Plot</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+### Exercise 2: Histogram for Age
+**Instructions:** In the exercises below, you will make a histogram to answer the questions using R's hist() function. I made the first one for you, so all you have to do is run the code and use the histogram to answer the question. For the additional problems, copy and paste the code into the next code box, replace the variable name, and click the "Run Code". Use the histograms to answer the quiz questions.
+```{webr}
+#| edit: true
+#| min-lines: 4
+# age is a continous/discrete variable so using a histogram is appropriate.
+hist(HeartFailure$age)
+```
+### Quiz: Question 3
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("Which age bin is the most central in the distribution of age?",
+    answer("35-40"),
+    answer("75-80"),
+    answer("50-55", message ="You are one with the data!", correct = TRUE),
+    answer("60-65"),
+  allow_retry = TRUE
+  )
+```
+### Exercise 3: Histogram for Cholesterol
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# make a histogram for chol.
+```
+### Quiz: Question 4
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("Are there any outlying observations for cholesterol?",
+    answer("True", correct = TRUE),
+    answer("False"),
+  allow_retry = TRUE
+    
+  )
+```
+### Exercise 4: Histogram for Resting Blood Pressure
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# make a histogram for trestbps.
+```
+### Quiz: Question 5
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("How would you describe the distribution of resting blood pressure?",
+    answer("Normal"),
+    answer("Skewed left"),
+    answer("Skewed right with a possible outlier", correct = TRUE),
+    answer("Skewed left with an outlier"),
+  allow_retry = TRUE
+  )
+```
+### Exercise 5: Histogram for ST depression induced by exercise
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# make a histogram for oldpeak.
+```
+### Quiz: Question 6
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("Which values are the most common for oldpeak?",
+    answer("0-0.5", correct = TRUE),
+    answer("1.5-2"),
+    answer("3.5-4"),
+    answer("2.5-3"),
+  allow_retry = TRUE
+  )
+```
+## Impact of Bin Selection
+
+As long as all the bins are the same (their widths don't vary), they can be defined by how many there are or by their width. Regardless of how the bins are defined, it is crucial that there are not too few or too many. There are no hard set rules for how many bins you should use, but there are four standard calculations (see below) to help you decide on the number of the bins. ($n$ in the formulas below are the number of observations) 
+
+1. The "Sturges" method was introduced in 1926. Number of bins $\approx(\log_{2}{n})+1$    
+2. The "Rice" method was introduced in 1944. Number of bins $\approx2n^{\frac{1}{3}}$  
+3. The "Scott" method was introduced in 1979. Number of bins $\approx\frac{\text{max}(value)-\text{min}(value)}{3.5\times\frac{\text{stdev}(values)}{\sqrt[3]{n}}}$   
+4. The "Freedman-Diaconis" method was introduced in 1981. Number of bins $\approx\frac{\text{max}(value)-\text{min}(value)}{2\times\frac{\text{IQR}(values)}{\sqrt[3]{n}}}$      
+
+**It is important to note:** 
+
+Methods 1 and 2 (Sturges and Rice) only account for the number of observations recorded for a variable. As a result, the number of suggested bins will be the same for all the variables as long as there are no missing observations. 
+
+Methods 3 and 4 (Scott and Freedman-Diaconis) use the characteristics of the variable (min, max, and standard deviation or interquartile range (IQR)). So the suggested number of bins will be different for each variable. 
+
+### Exercise 6: Calculating suggested number of bins
+**Instructions:** Look at the code below. R can be used as a calculator, and I have calculated the suggested bin numbers for the four methods. Round the numbers to the nearest whole number
+```{webr}
+#| edit: true
+#| min-lines: 4
+# The print() function prints whatever is inside. 
+# I am using the print(), so it is clear which method was used to generate the suggested number of bins 
+
+# Here are the suggested bin sizes using the formula's above
+# 1 Struges method.
+print("Sturges Method")
+log2(303)+1
+
+# 2 Rice method.
+print("Rice Method")
+2*303^(1/3)
+
+# 3 Scott method for age
+print("Scott Method")
+(max(HeartFailure$age)-min(HeartFailure$age))/(3.5*(sd(HeartFailure$age)/303^(1/3)))
+
+# 4 Freedman-Diaconis for age
+print("Freedman-Diaconis Method")
+(max(HeartFailure$age)-min(HeartFailure$age))/(2*(IQR(HeartFailure$age)/303^(1/3)))
+```
+### Quiz: Question 7
+**To answer the question below change the code for method 4 to calculate the suggested number of bins for the "oldpeak" variable**
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("Based on the Freedman-Diaconis method how many bins should you use for the *oldpeak* variable?",
+    answer("18"),
+    answer("13", correct = TRUE),
+    answer("42"),
+    answer("22"),
+  allow_retry = TRUE
+  )
+```
+### Exercise 7: Impact of bin selection
+Select different variables and see how the number of bins impacts the appearance by moving the slider to increase or decrease the number of bins. Refer to the data dictionary to make sure you are using the right variable type. See what happens when you make a histogram with the wrong variable type. Change the variables in the bin formulas above and see what the histograms look like when you use each of the four indicated bin numbers. Remember you only have to change methods 3 and 4. After you have had some fun playing with the histograms answer question 8.     
+
+#### Data Dictionary
+__age:__ age in years  
+__sex:__ (1 = male; 0 = female)  
+__trestbps:__ resting blood pressure (in mm Hg on admission to the hospital)  
+__chol:__ serum cholesterol in mg/dl  
+__fbs:__ (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)  
+__thalach:__ maximum heart rate achieved  
+__exang:__ exercise induced angina (1 = yes; 0 = no)  
+__oldpeak:__ ST depression induced by exercise relative to rest 
+
+::: {.callout-note collapse="true"}
+## Original Shiny interface
+
+This widget needs a browser-side replacement in WebR or JavaScript.
+
+```r
+fluidRow(column(4, sliderInput("n_breaks", "Number of Bins:",
+                               min = 1, max = 100, value = 5)),
+         column(4, selectInput("var", "Variable:",
+                               choices=colnames(HeartFailure)))
+
+)
+
+plotOutput("plot1")
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Original Shiny server logic
+
+This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
+
+```r
+  # Creating histogram based on selections
+output$plot1 <- renderPlot({
+  
+  x <- HeartFailure[ ,input$var]
+  
+  bins <- seq(min(x), max(x), length.out = input$n_breaks + 1)
+  
+    hist(HeartFailure[ ,input$var],
+      breaks = bins,
+      main = print(input$var),
+      xlab = print(input$var))
+    
+  })
+```
+:::
+
+### Quiz: Question 8
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("It there a perfect number of bins that will work for all variables?",
+    answer("No", correct = TRUE),
+    answer("Sometimes"),
+    answer("42"),
+    answer("Yes"),
+  allow_retry = TRUE
+  )
+```
+## Summary
+In this lab, you completed 7 exercises and answered 8 quiz questions. 
+
+The lab covered 3 topics:
+
+1. Making histograms   
+2. Interpreting histograms 
+3. Importance of selecting the right number of bins
+
+Excellent work! You are done with the lab. **Don't forget to record your answers and take the eLC quiz to get credit**
+
+![](../tutorials/Lab2/images/histogramMeme.jpg)

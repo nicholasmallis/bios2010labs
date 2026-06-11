@@ -1,0 +1,524 @@
+---
+title: "Lab 4: Basic Data Analysis"
+subtitle: "Computer Lab 4"
+format:
+  live-html:
+    include-after-body:
+      - ../lab-interactions-lab.html
+engine: knitr
+live:
+  show-hints: true
+  show-solutions: true
+webr:
+  render-df: paged-table
+  packages:
+    - ggplot2
+    - labelled
+    - tableone
+    - knitr
+  resources:
+    - ../tutorials/Lab4/www/cleanheartfailure.Rda
+    - ../tutorials/Lab4/www/heart.csv
+    - ../tutorials/Lab4/www/heartDataDictionary.txt
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| edit: false
+#| output: false
+#| autorun: true
+quiet_library <- function(package) {
+  suppressWarnings(suppressMessages(
+    try(library(package, character.only = TRUE), silent = TRUE)
+  ))
+}
+
+if (!exists("label", mode = "function")) {
+  label <- function(x) {
+    out <- attr(x, "label", exact = TRUE)
+    if (is.null(out)) deparse(substitute(x)) else out
+  }
+}
+
+if (!exists("var_label", mode = "function")) {
+  var_label <- function(x) {
+    out <- attr(x, "label", exact = TRUE)
+    if (is.null(out)) deparse(substitute(x)) else out
+  }
+}
+
+if (!exists("ggviolin", mode = "function")) {
+  ggviolin <- function(data, x, y, fill = NULL, palette = NULL, add = NULL, add.params = list(), ...) {
+    quiet_library("ggplot2")
+    p <- ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]], fill = .data[[fill %||% x]])) +
+      ggplot2::geom_violin(trim = FALSE, alpha = 0.7)
+    if (!is.null(add) && "boxplot" %in% add) {
+      p <- p + ggplot2::geom_boxplot(width = 0.12, fill = add.params$fill %||% "white", outlier.alpha = 0.35)
+    }
+    p
+  }
+}
+
+if (!exists("ggpaired", mode = "function")) {
+  ggpaired <- function(data, cond1, cond2, fill = NULL, line.color = "gray", line.size = 0.4, ...) {
+    quiet_library("ggplot2")
+    df <- data.frame(id = seq_len(nrow(data)), before = data[[cond1]], after = data[[cond2]])
+    long <- rbind(
+      data.frame(id = df$id, condition = cond1, value = df$before),
+      data.frame(id = df$id, condition = cond2, value = df$after)
+    )
+    ggplot2::ggplot(long, ggplot2::aes(x = condition, y = value, group = id)) +
+      ggplot2::geom_line(color = line.color, linewidth = line.size, alpha = 0.6) +
+      ggplot2::geom_point(ggplot2::aes(fill = condition), shape = 21, size = 2)
+  }
+}
+
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
+quiet_library("ggplot2")
+quiet_library("labelled")
+quiet_library("tableone")
+quiet_library("knitr")
+
+HeartFailure <- read.csv("tutorials/Lab4/www/heart.csv")
+
+CleanHeartFailure <- readRDS("tutorials/Lab4/www/cleanheartfailure.Rda")
+```
+
+::: {.callout-tip}
+Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
+:::
+
+## Introduction 
+
+In this lab, you will use everything you have learned in the first three labs plus some new concepts introduced in this lab. You will see the what it takes to complete some simple analyses of the HeartFailure data set from start to finish. 
+
+### Data cleaning 
+
+What is data cleaning? Data cleaning is the first step in any analysis and it is the process of taking data in its "raw" form and making it "clean" so that it can be analyzed. This is a concise answer for an essential and sometimes complicated step in data analysis. For a more detailed description of data cleaning check out Edwin de Jonge and Mark van der Loo's book [An introduction to data cleaning with R](https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf) (yes there are several books wholly dedicated to methods for cleaning data). Data cleaning, in many cases, takes much longer to complete than the actual analysis.  
+
+The HeartFailure data we will use for this lab is already pretty clean but the variable types still need to be set, and some informative labels need to be added.   
+
+### Variable types in R
+
+By now, you know that there are different variable types, and based on the variable type, you will use different methods to summarize or visualize it. 
+
+Also, remember that R is not smart; it does whatever you tell it to. If you write code to create a histogram of a categorical variable R will do it. Cleaning our data will help make R a little smarter about how it handles the variables in our data. Correctly formatting variables types also makes making tables in R much easier.  
+
+### Basic Analyses
+
+#### Making Tables
+
+In nearly all journal articles, the first result is a table that summarizes all of the included variables. R has some great tools to make these tables with minimal coding. In this lab, you will use a function call tableone() check out the [Rdocumenation](https://www.rdocumentation.org/packages/tableone/versions/0.10.0) for the function.
+
+#### To visualize or not to visualize
+
+Data visualization is a powerful tool to gain a better understanding of the variables in your data set but as you may have noticed getting the exact value for a mean or median from a figure is not as easy as reading it from a table. When you are presenting the results of your data analysis, the best practice it to include the numeric summaries either in the figure itself or as a table. Including the numerical summaries in a figure is ideal in some cases but requires more than a single line of code to create. Data visualization is essential and there are entire websites dedicated to visualization techniques. Check out [The R Graph Gallery](https://www.r-graph-gallery.com/) this website has examples of just about every type of visualization imaginable.     
+
+    
+
+## Variable Types in R 
+
+In class, you learn about data or variables as continuous, discrete, and categorical (nominal, ordinal, and dichotomous). There are 6 basic data types in R, and while R does not use the same names we use in class, there are formats in R that correspond to each. 
+
+#### Data types and corresponding R data types:
+
+__continuous data__ should be a "numeric" variable in R. 
+
+__discrete data__ should be an "integer" variable in R 
+
+__categorical data__ should be a "factor" in R (The distinction between nominal and dichotomous is not vital for R, but ordinal data should be specified and is treated differently by R)
+
+OK so let's identify the types of variables we have in our HeartFailure data set and what type of data they should be in R. 
+
+### Exercise 1
+
+**instructions**
+Identify the variable type for each of the variables in the data set using the data dictionary and looking at data. Once you have identified the variable types answer questions 1 through 8. 
+
+#### Data Dictionary
+__age:__ age in years  
+__sex:__ (1 = male; 0 = female)  
+__trestbps:__ resting blood pressure (in mm Hg on admission to the hospital)  
+__chol:__ serum cholesterol in mg/dl  
+__fbs:__ (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)  
+__thalach:__ maximum heart rate achieved  
+__exang:__ exercise induced angina (1 = yes; 0 = no)  
+__oldpeak:__ ST depression induced by exercise relative to rest 
+
+Complete the code to show the first 10 observations in the HeartFailure data set.
+```{webr}
+#| edit: true
+#| min-lines: 4
+# Once you complete the code click the run code button 
+head(HeartFailure, )
+```
+### Quiz: Questions 1-8 
+**Don't forget to write your answers down for the eLC quiz**
+Identify the variable type and corresponding R data type for each of the variables.    
+To be clear, the variable age, in this case, is recorded as discrete data (whole year not year.months.days) but age is considered a continuous variable since values between 65 and 66 are possible. It is very common for continuous data/variables to be recorded as whole numbers, but that does not make them discrete. So you will have to think about whether or not intermediate values are possible before deciding if a variable data is continuous or discrete.
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Select the data type and corresponding R data type for: <strong>age</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Select the data type and corresponding R data type for: <strong>sex</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Select the data type and corresponding R data type for: <strong>trestbps</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Select the data type and corresponding R data type for: <strong>chol</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>Select the data type and corresponding R data type for: <strong>fbs</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>Select the data type and corresponding R data type for: <strong>thalach</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>Select the data type and corresponding R data type for: <strong>exang</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>Select the data type and corresponding R data type for: <strong>oldpeak</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+## Checking Variable Types in R
+Now that we have identified the data types and the corresponding R data type for each variable, let's see how the variables are currently saved. It is important to know that when you import data into R, it tries to give variables the correct format but it very rarely gets it 100% right. 
+
+We will use the str() function to see how accurate R was when it assigned variable types. The str() function shows the "structure" of data and variables. We will use the output to see if anything needs to change (click [here](https://www.rdocumentation.org/packages/utils/versions/3.6.0/topics/str) for more information on the str() function). 
+
+### Exercise 2
+**instructions** Run the code and see the explanation of the output. Then answer the question.
+```{webr}
+#| edit: true
+#| min-lines: 4
+#Click run code
+str(HeartFailure)
+```
+Here is what the output means using line 1 and 2 as examples. 
+
+The first line of the output tells us about the overall structure: R imported the data from an excel spreadsheet as a "data.frame" with 303 observations (rows) and 8 variables (columns)
+
+The second line starts with a "**$**" letting you know that it is a variable inside the data.frame (remember data set\$variable name). Then the name of the variable in this case "age". The variable name is followed by a "**:**" and then a three letter abbreviation for the variable type, which, for the age variable is "int" for integer. So when the data was imported R looked at the data and saw only whole numbers and applied the integer label. The numbers following the variable type are the first 10 values for that variable.
+
+So now that you know that the output means you can answer the following question.
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("Which variables need to have their variable types changed",
+    answer("age", correct = TRUE),
+    answer("sex", correct = TRUE),
+    answer("trestbps", correct = TRUE),
+    answer("chol", correct = TRUE),
+    answer("fbs", correct = TRUE),
+    answer("thalach"),
+    answer("exang", correct = TRUE),
+    answer("oldpeak"),
+  allow_retry = TRUE
+  )
+```
+## Data Cleaning R
+
+So R was only right about the variable type for 2 of the 8 variables (I told you R is not smart, but it is OK because you are). Thankfully changing the variable type in R is very easy. The basic syntax is shown in the table below.
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#9ABAD9;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#9ABAD9;color:#444;background-color:#EBF5FF;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#9ABAD9;color:#fff;background-color:#409cff;}
+.tg .tg-88nc{font-weight:bold;border-color:inherit;text-align:center}
+.tg .tg-uys7{border-color:inherit;text-align:center}
+.tg .tg-du1j{font-size:16px;border-color:inherit;text-align:center}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-88nc">Where the changed variable is saved</th>
+    <th class="tg-88nc">Assignment Operator (tells R where to store changes)</th>
+    <th class="tg-88nc">Function (makes desired change to the variable)</th>
+  </tr>
+  <tr>
+    <td class="tg-uys7">data\$variable</td>
+    <td class="tg-du1j"><span style="font-weight:bold">&lt;-</span></td>
+    <td class="tg-uys7">function(data\$variable)</td>
+  </tr>
+</table>
+
+### Code to change the data type 
+
+Since this is not a coding class, I have written all the code to change the variables. But since I am sure you are curious how I did it the code is shown below. I only had to use two functions as.numeric() and as.factor(). I have already completed this the code is only included so you can see how I did it. It is important to notice that the changes the code makes to the variables are saved in a new data set called "**CleanHeartFailure**".   
+```r
+#This line of code replaces the integer "age" with numeric "age" 
+CleanHeartFailure$age<-as.numeric(HeartFailure$age)
+
+#This line of code replaces the integer "sex" with factor "sex" 
+CleanHeartFailure$sex<-as.factor(HeartFailure$sex)
+
+#This line of code replaces the integer "trestbps" with numeric "trestbps" 
+CleanHeartFailure$trestbps<-as.numeric(HeartFailure$trestbps)
+
+#This line of code replaces the integer "chol" with numeric "chol" 
+CleanHeartFailure$chol<-as.numeric(HeartFailure$chol)
+
+#This line of code replaces the integer "fbs" with factor "fbs" 
+CleanHeartFailure$fbs<-as.factor(HeartFailure$fbs)
+
+#This line of code replaces the integer "chol" with numeric "chol" 
+CleanHeartFailure$thalach<-as.numeric(HeartFailure$thalach)
+
+#This line of code replaces the integer "exang" with factor "exang" 
+CleanHeartFailure$exang<-as.factor(HeartFailure$exang)
+```
+### Decoding the data
+
+Using numbers to represent words used to be required since old computers did not have enough memory to store a bunch of text. The second reason is that for a long time, statistical software could only work with numerical values. With modern computers and R, neither of those limitations are an issue. 
+
+So why keep using abbreviations for variable names?  Well, it is much easier and faster to type summary(HeartFailure\$fbs) compared to summary(HeartFailure\$fastingbloodsugarlessthan120).  To help make tables and figures nicer, we can add long and descriptive "labels" our variables. You still code using the abbreviated variable names. Labels are only used by R  when you make figures or tables.   
+
+If R can use text, why use numeric values for categories? Many of the underlying processes still require a numerical value, but just like the variables, we can create informative "labels" for the levels of a factor that R only uses when we make plots or tables.   
+
+Even if the data is not coded and the variable names are very descriptive, a data dictionary should be made for all data sets.
+
+All the code to complete the task is provided. Take a look to see if you can understand what's happening. 
+```r
+# R calls the categories of a factor "levels" 
+# The factor variable sex has two levels (0,1) 
+# Below I will add some informative labels to each level
+# For sex the first level is 0 so the first label needs to be "Female"
+CleanHeartFailure$sex<-factor(HeartFailure$sex, labels = c("Female","Male"))
+
+# For fbs the first level is 0 so the first label needs to be "No"  
+CleanHeartFailure$fbs<-factor(HeartFailure$fbs, labels = c("No","Yes"))
+
+# For exang the first level is 0 so the first lable needs to be "No"
+CleanHeartFailure$exang<-factor(HeartFailure$exang, labels = c("No","Yes"))
+
+# Assign the labels I want for each variable
+var_Label_List <- list(age="Age in Years", 
+                       sex="Sex of the patient", 
+                       trestbps="Resting Blood Pressure (mm Hg)", 
+                       chol="Serum Cholesterol (mg/dl)", 
+                       fbs="Fasting Blood Sugar > 120 mg/dl", 
+                       thalach="Maximum Recorded Heart Rate (bpm)", 
+                       exang="Exercise Induced Angina", 
+                       oldpeak="Exercise Induced ST Depression Relative to Rest")
+
+# Use the labeling function from the labeled package to attach 
+labelled::var_label(CleanHeartFailure)<-var_Label_List
+```
+## Clean Vs. Uncleaned data
+
+Now that we have cleaned up our data run the code in the exercise. The first chunk is using the "clean" data, and the second chunk is the "uncleaned" data. Compare the differences between the outputs. 
+
+#### Data Dictionary
+__age:__ age in years  
+__sex:__ (1 = male; 0 = female)  
+__trestbps:__ resting blood pressure (in mm Hg on admission to the hospital)  
+__chol:__ serum cholesterol in mg/dl  
+__fbs:__ (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)  
+__thalach:__ maximum heart rate achieved  
+__exang:__ exercise induced angina (1 = yes; 0 = no)  
+__oldpeak:__ ST depression induced by exercise relative to rest 
+
+### Exercise 3
+**instructions** Run the code for the first two code chunks and see the difference in the output. In the third chunk write your own code to produce a summary for "exang" and a box plot of resting blood pressure stratified by "exang". Hint: remember to use the right data. Once you are done, run your code and answer the questions below. 
+```{webr}
+#| edit: true
+#| min-lines: 4
+# Chunk 1: Using clean data
+summary(CleanHeartFailure$sex)
+
+boxplot(chol~sex, data = CleanHeartFailure)
+```
+```{webr}
+#| edit: true
+#| min-lines: 4
+# Chunk 2: Using unclean data
+summary(HeartFailure$sex)
+
+boxplot(chol~sex, data = HeartFailure)
+```
+```{webr}
+#| edit: true
+#| min-lines: 4
+# Chunk 3: Write the code to make a summary of "exang" and the stratified box plot specified in the instructions
+```
+### Quiz: Questions 10-12
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Is the summary for sex in chunk 2 correct?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, knowing the mean and median is always important</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">No, counts or relative frequencies should be shown</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, Q1 and Q2 should always been shown</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>How many patients have exercise induced angina?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">99</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">204</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">105</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">303</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Is the distribution of resting blood pressure different when stratified by exang?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, The median is higher for those with exang = Yes</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">No, They are very similar</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, The median is lower for those with exang = Yes</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, The box plot shows the means are different</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+## Basic Analysis and Interpretations
+
+We have cleaned up our data, and now we are ready to complete some basic analyses. 
+
+### Summary Tables
+
+One of the most common results presented is "Table 1", which provides numerical summaries for all of the variables in the data set. There are many ways to make a table using R. The first and least appealing method is to run a summary of each variable or the data set and then copy the values into a table in word or excel. The second is using functions in R to generate a beautiful table using just a few lines of code. 
+
+### Exercise 4
+**Instructions** Take a look at the code and then run it. Use the output to answer the questions below. Note: The output in the box is what the table looks like before being turned into an HTML table. 
+```{webr}
+#| edit: true
+#| min-lines: 4
+# Here we create an object with all the variable names we want to include. 
+listVars <- c("age", "trestbps", "chol", "thalach", "oldpeak", "exang", "sex", "fbs")
+
+# This code tells the function to make the table.
+table <- CreateTableOne(vars = listVars, data = CleanHeartFailure)
+
+# This code saves the table in the table1
+table1<-print(table, varLabels = TRUE, showAllLevels = T)
+
+# This code formats the table and adds a caption
+knitr::kable(table1, caption = "**This is the table we easily created using some clean data and the tableone() function.**")
+```
+### Quiz: Question 13-15
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Is the summary for sex in this table correct?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, knowing the mean and median is always important</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, counts or relative frequencies should be shown</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, now it shows the frequency and relative frequency</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>How many patients have a fasting blood sugar &gt; 120mg/dl?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">45</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">258</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">153</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">330</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Among the continuous and discrete variables which is the most variable?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Age</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Serum Cholesterol</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Maximum Recorded Heart Rate</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Resting Blood Pressure</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Exercise Induced ST Depression Relative to Rest</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+### Figures with numerical summaries
+
+Figures with numerical summaries are the best. They allow you to quickly to see the characteristics of the distribution and the exact values of numeric summaries (mean, median, max, min, etc.).  Making these figures takes a little more effort but are well worth the effort. Making these plots will be made using an R package called ggpplot2 () 
+
+### Exercise 5
+**Instructions** Look at the code below just so you can see that it takes a lot more then hist() to make a nicer histogram. You see if you can figure out which part of the code does what. Answer the question based on the interpretation of histogram. 
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+# Saving all the summary statistics that I want to include in the plot in the "statvalue" object.  
+statvalue<-c(median(CleanHeartFailure$age), mean(CleanHeartFailure$age), max(CleanHeartFailure$age), min(CleanHeartFailure$age))
+
+# This is the all the code it takes to make the actual plot 
+ggplot(CleanHeartFailure, aes(age))+ 
+  geom_histogram(binwidth = round((3.5*(sd(CleanHeartFailure$age)/303^(1/3))),0), fill="gray", color="black")+
+  stat_bin(binwidth = round((3.5*(sd(CleanHeartFailure$age)/303^(1/3))),0), geom='text', aes(label=..count..), vjust=-.60)+
+  labs(x=label(CleanHeartFailure$age), y="Patient Count")+
+  scale_y_continuous(breaks=c(seq(0,80,by=5)), labels=c(seq(0,80,by=5)), limits = c(0,75))+
+  scale_x_continuous(breaks=seq(27.5,87.5,by=5))+
+  geom_vline(aes(xintercept=statvalue[1], color="Median (55 years)"))+
+  geom_vline(aes(xintercept=statvalue[2], color="Mean (54.37 years)"))+
+  geom_vline(aes(xintercept=statvalue[3], color="Max (77 years)"))+
+  geom_vline(aes(xintercept=statvalue[4], color="Minimum (29)"))+
+  scale_color_manual(values = c("red","blue","green","orange"),
+                     name="Summary Statistics")+
+        theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
+                         plot.subtitle = element_text(size = 14, face = "bold"),
+                         axis.title.x = element_text(size = 16, face = "bold"),
+                         axis.title.y = element_text(size = 16, face = "bold"),
+                         panel.background = element_rect(fill = "white", color = "black"),
+                         panel.grid.major = element_blank(),
+                         panel.grid.minor = element_blank())
+```
+The plot shows you the distribution age in the data, the start and end value for each bin, the exact count of patients in each bin, the value and location numeric value of the summary statistics (minimum, mean, median, max).
+
+### Quiz: Question 16
+```{webr}
+#| edit: true
+#| min-lines: 4
+#| autorun: false
+  question("What is the most common age range for these patients?",
+    answer("32.5-37.5"),
+    answer("52.5-57.5"),
+    answer("67.5-72.5"),
+    answer("57.5-62.5", correct = TRUE),
+  allow_retry = TRUE
+  )
+```
+## Summary
+
+In this lab, you completed 5 exercises, and answered 16 quiz question related to the following topics:  
+1. how the data types we learn in class correspond to R data types  
+2. how to clean up your data  
+3. how to make a summary table of all the variables in the data set   
+4. what it takes to make informative figures   
+5. interpreting the results of a basic analysis   
+
+Excellent! You have finished the lab. **Don't forget to record your answers and take the eLC quiz, so you get credit**
+
+![](../tutorials/Lab4/images/DataVisMeme.jpeg)

@@ -1,0 +1,434 @@
+---
+title: "Lab 12: Two Sample *t* Test"
+subtitle: "Computer Lab 12"
+format:
+  live-html:
+    include-after-body:
+      - ../lab-interactions-lab.html
+engine: knitr
+live:
+  show-hints: true
+  show-solutions: true
+webr:
+  render-df: paged-table
+  packages:
+    - ggplot2
+    - ggpubr
+    - datasauRus
+  resources:
+    - ../tutorials/Lab12/www/Calf.Rda
+    - ../tutorials/Lab12/www/Calf1.Rda
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| edit: false
+#| output: false
+#| autorun: true
+quiet_library <- function(package) {
+  suppressWarnings(suppressMessages(
+    try(library(package, character.only = TRUE), silent = TRUE)
+  ))
+}
+
+if (!exists("label", mode = "function")) {
+  label <- function(x) {
+    out <- attr(x, "label", exact = TRUE)
+    if (is.null(out)) deparse(substitute(x)) else out
+  }
+}
+
+if (!exists("var_label", mode = "function")) {
+  var_label <- function(x) {
+    out <- attr(x, "label", exact = TRUE)
+    if (is.null(out)) deparse(substitute(x)) else out
+  }
+}
+
+if (!exists("ggviolin", mode = "function")) {
+  ggviolin <- function(data, x, y, fill = NULL, palette = NULL, add = NULL, add.params = list(), ...) {
+    quiet_library("ggplot2")
+    p <- ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]], fill = .data[[fill %||% x]])) +
+      ggplot2::geom_violin(trim = FALSE, alpha = 0.7)
+    if (!is.null(add) && "boxplot" %in% add) {
+      p <- p + ggplot2::geom_boxplot(width = 0.12, fill = add.params$fill %||% "white", outlier.alpha = 0.35)
+    }
+    p
+  }
+}
+
+if (!exists("ggpaired", mode = "function")) {
+  ggpaired <- function(data, cond1, cond2, fill = NULL, line.color = "gray", line.size = 0.4, ...) {
+    quiet_library("ggplot2")
+    df <- data.frame(id = seq_len(nrow(data)), before = data[[cond1]], after = data[[cond2]])
+    long <- rbind(
+      data.frame(id = df$id, condition = cond1, value = df$before),
+      data.frame(id = df$id, condition = cond2, value = df$after)
+    )
+    ggplot2::ggplot(long, ggplot2::aes(x = condition, y = value, group = id)) +
+      ggplot2::geom_line(color = line.color, linewidth = line.size, alpha = 0.6) +
+      ggplot2::geom_point(ggplot2::aes(fill = condition), shape = 21, size = 2)
+  }
+}
+
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
+quiet_library("ggplot2")
+quiet_library("ggpubr")
+quiet_library("datasauRus")
+
+Calf<-readRDS("tutorials/Lab12/www/Calf.Rda")
+```
+
+::: {.callout-tip}
+Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
+:::
+
+## Introduction
+
+In this lab you will learn how to do a two-sample *t* test and visualize the differences between samples with violin plots in R. 
+
+## Two-sample *t* test
+
+The two-sample *t* test is used to compare the mean of two independent samples. Unlike the paired *t* test the data for a two sample *t* test cannot be matched in any way. The groups must be independent. Samples are independent if each one is drawn without reference to the other, and has no connection with the other. Independent samples are obtained by either sampling from two distinct populations (one sample from Athens, Ga and the other is from Athens, Greece) or by randomizing a single sample into different groups. In either case the sample data are independent of each other. 
+
+Why do we use two-sample *t* tests? The goal is to estimate the difference in the means ($\mu_{1}-\mu_{2}$) and to see if the difference is statistically significant or due to chance. 
+
+### Study Description
+
+Farmers who raise beef cattle get paid by the pound. In the past antibiotics and hormones were used to increase weight gain, but a growing number of consumers now want antibiotic and hormone free beef products. As a result farms now need to figure out which feed will lead to the best weight gain in calves without the use of antibiotics and hormones. 
+
+So an experiment was set up. 200 calves were randomized to receive 1 of 4 feeds for 3 weeks. The feeds are distinguished by the amount of protein (low and high) and the source of protein (rice and corn). At the end of the 3 week period the calves weight was compared to their weight at the start of the study and their total weight gain in pounds was recorded. 
+
+### Exercise 1: Data and Assumption Check
+
+There are two assumptions we need to check before using a the 2-sample *t* test. 
+
+1. The samples are independent
+2. The data is normally distributed
+3. The population variances are equal 
+
+**Data Dictionary**
+Feed: This variable indicates the type of feed the calf received ("Corn_LowP", "Corn_HighP", "Rice_LowP", "Rice_HighP").
+Weight_Gain: The total weight the calf gained in pounds during the study period.   
+
+**Instructions** Review the data and variable distributions. Answer the quiz questions.
+
+::: {.callout-note collapse="true"}
+## Original Shiny interface
+
+This widget needs a browser-side replacement in WebR or JavaScript.
+
+```r
+fluidPage(
+  wellPanel(
+    fluidRow(
+      column(
+        6,
+        selectInput('var', label = "Select Feed type to Summarize", 
+                     choices = list("Corn_LowP", "Corn_HighP", "Rice_LowP", "Rice_HighP"), 
+                     selected = "Corn_LowP")
+        )
+      )
+    ),
+  fluidRow(
+    column(
+      6, 
+      h4(strong("Plot of Weight Gain for Selected Feed")),
+      plotOutput(outputId = 'plot', width = "100%")
+      ),
+    column(
+      6,
+      h4(strong("Data")),
+      DT::dataTableOutput('rawdata')
+      )
+    ),
+  fluidRow(
+    column(
+      12,
+      h4(strong("Summary of Weight Gain for Selected Feed")),
+      verbatimTextOutput("summary")
+      )
+    )
+  )
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Original Shiny server logic
+
+This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
+
+```r
+#Basic plot of the selected variable
+  output$plot <- renderPlot({
+    
+    validate(need(!is.null(input$var), 'Please select a variable to show the plot.'))
+    
+      x <- Calf[Calf$Feed==input$var, "Weight_Gain"]
+      bins <- round((max(x)-min(x))/(3.5*(sd(x)/length(Calf[Calf$Feed==input$var, "Weight_Gain"])^(1/3))),0)
+  
+    hist(Calf[Calf$Feed==input$var, "Weight_Gain"],
+      breaks = bins,
+      main = paste(input$var),
+      xlab = paste("Weight_Gain"))
+    
+    
+  })
+
+  # show raw data
+  output$rawdata <- DT::renderDataTable({
+    Calf2<-Calf 
+    Calf2$Weight_Gain<-round(Calf2$Weight_Gain,2)
+    DT::datatable(Calf2, options = list(lengthMenu = c(5, 30, 50), pageLength = 10)) 
+  })
+  
+  
+  # show a summary of the selected variable
+  output$summary <- renderPrint({
+    
+    validate(need(!is.null(input$var), 'Please select a variable to show the summary.'))
+    
+    x <- Calf[Calf$Feed==input$var, "Weight_Gain"]
+    summary(x)
+    })
+  
+```
+:::
+
+### Quiz: Questions 1-2
+
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Are the calf samples independent?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, they were from different farms</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, each group got a different feed</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, they were randomized into 4 independent groups</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, they were from the same farm</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Which feed has the lowest mean weight gain?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Corn_LowP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Rice_HighP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Corn_HighP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Rice_LowP</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+### Exercise 2: Corn Feed (High Protein vs Low Protein)
+
+Now that you have a feel for the data and have check the assumptions for the two sample *t* test we can start testing different hypothesis. We will use the same [t.test()](https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/t.test) function we used in labs 10 and 11. Two get conduct a two sample *t* test using this function you will follow this general form **t.test(outcome ~ group, , data = "dataset", alternative= type, var.equal=FALSE)**. First you specify the "outcome" and "group" variables separated by a "**~**". The "**outcome ~ group**" expression tells R you want to know the difference in the outcome between the two groups. Next you tell the function the name of the data set that contains the variables. The "type" is the same as before (two sided, less than, greater than). Final setting "var.equal=FALSE" lets R know you do not want to assume the variances are equal between the samples (FALSE has to be in all capital letters or it will not work), if you did want to assume equal variances you would replace the FLASE with TRUE.
+
+It is important to note that the "group" variable has to be a factor with only 2 levels. Right now our grouping variable (Feed) has 4. So before we can do the test we have to select a subset of our data with observations for the two groups we want to compare.
+
+Perform a two sample t-test of the null hypothesis that there is not a difference in the mean weight gain between high and low protein corn feed against the two-sided alternative at the 0.05 significance level.
+
+$$\alpha=0.05$$
+
+$$H_{0}: \mu_{Corn\_HighP}=\mu_{Corn\_LowP}$$
+$$H_{A}: \mu_{Corn\_HighP}\neq\mu_{Corn\_LowP} $$
+**Instructions:** Complete the code below to test the hypothesis and click the run code button. Use the output to answer the quiz questions. If you are having a hard time check out the examples from STHDA [two-sample *t* tests in R](http://www.sthda.com/english/wiki/unpaired-two-samples-t-test-in-r)
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# We use the same t.test() function from labs 10 and 11
+# Complete the code to answer the question below 
+
+# Notice at the "data=" , part of the function
+# this code "Calf[Calf$Feed=="Corn_HighP" | Calf$Feed=="Corn_LowP", ]" tells R which observations we want
+# The code tells R: In the Calf data set select rows where the Feed variable is either "Corn_HighP" or "Corn_LowP".
+# This symbol "|" means OR
+
+t.test( , data=Calf[Calf$Feed=="Corn_HighP" | Calf$Feed=="Corn_LowP", ], alternative = "two.sided", var.equal=FALSE)
+```
+### Quiz: Questions 3-4
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the test statistic, degrees of freedom, and p-value of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 9.1434, df = 98.000, p-value = 2.0554e-8</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 7.3544, df = 87.216, p-value = 3.574e-9</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 5.5882, df = 49.000, p-value = 5.152e-4</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">t = 7.1584, df = 97.281, p-value = 1.554e-10</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the mean difference in weight gain and the corresponding 95% confidence interval?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">20.8 lbs 95%CI(15.03322, 26.56678)</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">-30.8 lbs 95%CI(12.03322, 26.48738)</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">19.8 lbs 95%CI(16.03078, 27.67872)</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">-20.8 lbs 95%CI(14.13632, 26.57846)</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+### Exercise 3: Rice Feed (High Protein vs Low Protein)
+
+Perform a two sample t-test of the null hypothesis that there is not a difference in the mean weight gain between high and low protein rice feed against the two-sided alternative at the 0.05 significance level.
+
+$$\alpha=0.05$$
+
+$$H_{0}: \mu_{Rice\_HighP}=\mu_{Rice\_LowP}$$
+$$H_{A}: \mu_{Rice\_HighP}\neq\mu_{Rice\_LowP} $$
+**Instructions:** Complete the code below to test the hypothesis and click the run code button. Use the output to answer the quiz questions.
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# We use the same t.test() function from labs 10 and 11
+# Complete the code to answer the questions below 
+
+t.test(  , data=Calf[Calf$Feed=="Rice_HighP" | Calf$Feed=="Rice_LowP", ], alternative = "two.sided", var.equal=FALSE)
+```
+### Quiz: Questions 5-6
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the test statistic, degrees of freedom, and p-value of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 6.50607, df = 99.000, p-value = 0.0208</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 8.65067, df = 98.310, p-value = 0.0051</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">t = 0.65067, df = 97.803, p-value = 0.5168</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 0.56507, df = 97.303, p-value = 0.7758</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the conclusion of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">we fail to reject $H_{0}$ to conclude that there is insufficient evidence at the 0.05 significance level that there is a difference in mean weight gain</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">we fail to reject $H_{0}$ to conclude that there is sufficient evidence at the 0.10 significance level that there is a difference in mean weight gain</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">we reject $H_{0}$ to conclude that there is insufficient evidence at the 0.10 significance level that there is a difference in mean weight gain</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">we reject $H_{0}$ to conclude that there is sufficient evidence at the 0.05 significance level that there is a difference in mean weight gain</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+### Exercise 4: High Protein Feed (Corn vs Rice)
+
+Perform a two sample t-test of the null hypothesis that there is not a difference in the mean weight gain between high protein rice and corn feed against the two-sided alternative at the 0.05 significance level.
+
+$$\alpha=0.05$$
+
+$$H_{0}: \mu_{Rice\_HighP}=\mu_{Corn\_HighP}$$
+$$H_{A}: \mu_{Rice\_HighP}\neq\mu_{Corn\_HighP} $$
+**Instructions:** Complete the code below to test the hypothesis and click the run code button. Use the output to answer the quiz questions.
+
+```{webr}
+#| edit: true
+#| min-lines: 4
+# We use the same t.test() function from labs 10 and 11
+# Complete the code to answer the questions below 
+
+t.test(  , data=Calf[Calf$Feed=="Rice_HighP" | Calf$Feed=="Corn_HighP", ], alternative = "two.sided", var.equal=FALSE)
+```
+### Quiz: Questions 7-8
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the test statistic, degrees of freedom, and p-value of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">t = 4.675, df = 97.994, p-value = 9.394e-06</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 4.755, df = 98.949, p-value = 9.579e-07</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 4.265, df = 97.969, p-value = 1.394e-06</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 3.675, df = 99.994, p-value = 3.334e-06</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the mean difference in weight gain and the corresponding 95% confidence interval?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">20.8 lbs 95%CI(15.03322, 26.56678)</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">-13.8 lbs 95%CI(12.03322, 26.48738)</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">14.1 lbs 95%CI(8.114795, 20.085206)</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">-2.8 lbs 95%CI(14.13632, 26.57846)</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+## Visualizing Differences with Violin Plots
+
+In the past we have either used a histogram or box-plot to visualize the distribution of continuous variables. Box-plots are great they show a bunch of information about the the data and allow for quick comparisons between groups of different sizes. 
+
+Unfortunately in some cases box-plots can be vary misleading, because they only show the summary statistics. Data with the same summary statistics can have very different distributions which is demonstrated in the figure below. 
+
+<img src="../tutorials/Lab12/images/boxplots.gif" alt="Box Plots Vs data" style="width:800px">
+
+A violin plot is like a box plot in that the same summary statistics can be displayed, but it also shows the distribution of the data that generated those summary statistics. In the figure below you can see that the box do not change but the violin plots do.  
+
+<img src="../tutorials/Lab12/images/BoxViolin.gif" alt="Box Plots Vs Violin Plot" style="width:800px">
+
+Both of these GIFs are from a very interesting [paper](https://www.autodeskresearch.com/publications/samestats) by Justin Matejka, and George Fitzmaurice.   
+
+### Exercise 4: Numeric Summaries and Data
+
+**Instructions:** Select some data to plot. Check out all the different data shapes and the corresponding numeric summaries. Notice the mean and standard deviation the same to the second decimal place despite having very different shapes. This exercise is for understanding only.   
+
+::: {.callout-note collapse="true"}
+## Original Shiny interface
+
+This widget needs a browser-side replacement in WebR or JavaScript.
+
+```r
+fluidPage(
+  wellPanel(
+    fluidRow(
+      column(
+        6,
+        selectInput('DF', label = "Select Data To Plot", 
+                     choices = list("dino", "away", "h_lines", "v_lines", 
+                                    "x_shape", "star", "high_lines", 
+                                    "dots", "circle", "bullseye", 
+                                    "slant_up", "slant_down", "wide_lines"), 
+                     selected = "dino")
+        )
+      )
+    ),
+  fluidRow(
+    column(
+      6, 
+      h4(strong("Scatter Plot of Selected Data")),
+      plotOutput(outputId = 'raw_plot', width = "100%")
+      ),
+    column(
+      6,
+      h4(strong("Summary of X and Y Values")),
+      verbatimTextOutput("samesum")
+      )
+    )
+  )
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Original Shiny server logic
+
+This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
+
+```r
+output$raw_plot <- renderPlot({
+
+    ggplot(datasaurus_dozen[datasaurus_dozen$dataset==input$DF,], aes(x=x, y=y))+geom_point()
+
+  })
+
+# show a summary of the selected variable
+  output$samesum <- renderPrint({
+    
+    sdf <- datasaurus_dozen[datasaurus_dozen$dataset==input$DF,]
+    
+    vsdf<-sdf[,2:3]
+    
+    tmp <- lapply(vsdf, function(x) rbind(Mean = mean(x), SD = sd(x) ))
+  
+    msddf<-data.frame(tmp)
+    
+    format(msddf[1:2,1:2],digits=6)
+    
+    })
+```
+:::
+
+### Exercise 5: Using Violin Plots
+
+Now that you know more about the value of violin plots let's use them to compare the different feeds. 
+
+**Instructions** The code below is complete all you have to do is click run code and use the plot to answer the quiz questions
+```{webr}
+#| edit: true
+#| min-lines: 4
+ggviolin(Calf, x="Feed", y="Weight_Gain", fill = "Feed", palette = "npg", add=c("boxplot"), add.params = list(fill = "white"))
+```
+### Quiz: Questions 9-10
+
+<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Based on the plot which feed resulted in the greatest weight gain?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Corn_LowP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Rice_HighP</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Corn_HighP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Rice_LowP</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Which of the feeds has the least normal distribution of weight gain?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Corn_LowP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Rice_HighP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Corn_HighP</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Rice_LowP</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
+## Summary
+
+In this lab, you completed 5 exercises and answered 10 quiz questions. 
+
+The lab covered 2 topics:
+
+1. Two-sample *t* test in R 
+2. Violin Plots in R
+
+Great work you are done with lab! **Don't forget to record your answers and take the eLC quiz to get credit**
+
+![](../tutorials/Lab12/images/statsjerks1.jpg)

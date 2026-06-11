@@ -1,0 +1,57 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+    - "All_Labs/*.qmd"
+  resources:
+    - "tutorials/*/www/*"
+    - "tutorials/*/images/*"
+    - lab-interactions.js
+
+website:
+  title: "BIOS 2010 Labs"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - text: Labs
+        menu:
+          - href: All_Labs/lab1.qmd
+            text: Lab 1
+          - href: All_Labs/lab2.qmd
+            text: Lab 2
+          - href: All_Labs/lab3.qmd
+            text: Lab 3
+          - href: All_Labs/lab4.qmd
+            text: Lab 4
+          - href: All_Labs/lab5.qmd
+            text: Lab 5
+          - href: All_Labs/lab6.qmd
+            text: Lab 6
+          - href: All_Labs/lab7.qmd
+            text: Lab 7
+          - href: All_Labs/lab8.qmd
+            text: Lab 8
+          - href: All_Labs/lab9.qmd
+            text: Lab 9
+          - href: All_Labs/lab10.qmd
+            text: Lab 10
+          - href: All_Labs/lab11.qmd
+            text: Lab 11
+          - href: All_Labs/lab12.qmd
+            text: Lab 12
+          - href: All_Labs/lab13.qmd
+            text: Lab 13
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    include-after-body:
+      - lab-interactions-root.html
+    toc: true
+
+editor: visual
