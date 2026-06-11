@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lab 1: Getting Started – BIOS 2010 Labs</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-45431c2918bd31147ddb3fa7038bb99f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">BIOS 2010 Labs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="../All_Labs/lab1.html">
+ <span class="dropdown-text">Lab 1</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 1: Getting Started</h1>
+<p class="subtitle lead">Computer Lab 1</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-edit="false" data-autorun="true">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlfSwiY29kZSI6InF1aWV0X2xpYnJhcnkgPC0gZnVuY3Rpb24ocGFja2FnZSkge1xuICBzdXBwcmVzc1dhcm5pbmdzKHN1cHByZXNzTWVzc2FnZXMoXG4gICAgdHJ5KGxpYnJhcnkocGFja2FnZSwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKSwgc2lsZW50ID0gVFJVRSlcbiAgKSlcbn1cblxuaWYgKCFleGlzdHMoXCJsYWJlbFwiLCBtb2RlID0gXCJmdW5jdGlvblwiKSkge1xuICBsYWJlbCA8LSBmdW5jdGlvbih4KSB7XG4gICAgb3V0IDwtIGF0dHIoeCwgXCJsYWJlbFwiLCBleGFjdCA9IFRSVUUpXG4gICAgaWYgKGlzLm51bGwob3V0KSkgZGVwYXJzZShzdWJzdGl0dXRlKHgpKSBlbHNlIG91dFxuICB9XG59XG5cbmlmICghZXhpc3RzKFwidmFyX2xhYmVsXCIsIG1vZGUgPSBcImZ1bmN0aW9uXCIpKSB7XG4gIHZhcl9sYWJlbCA8LSBmdW5jdGlvbih4KSB7XG4gICAgb3V0IDwtIGF0dHIoeCwgXCJsYWJlbFwiLCBleGFjdCA9IFRSVUUpXG4gICAgaWYgKGlzLm51bGwob3V0KSkgZGVwYXJzZShzdWJzdGl0dXRlKHgpKSBlbHNlIG91dFxuICB9XG59XG5cbmlmICghZXhpc3RzKFwiZ2d2aW9saW5cIiwgbW9kZSA9IFwiZnVuY3Rpb25cIikpIHtcbiAgZ2d2aW9saW4gPC0gZnVuY3Rpb24oZGF0YSwgeCwgeSwgZmlsbCA9IE5VTEwsIHBhbGV0dGUgPSBOVUxMLCBhZGQgPSBOVUxMLCBhZGQucGFyYW1zID0gbGlzdCgpLCAuLi4pIHtcbiAgICBxdWlldF9saWJyYXJ5KFwiZ2dwbG90MlwiKVxuICAgIHAgPC0gZ2dwbG90Mjo6Z2dwbG90KGRhdGEsIGdncGxvdDI6OmFlcyh4ID0gLmRhdGFbW3hdXSwgeSA9IC5kYXRhW1t5XV0sIGZpbGwgPSAuZGF0YVtbZmlsbCAlfHwlIHhdXSkpICtcbiAgICAgIGdncGxvdDI6Omdlb21fdmlvbGluKHRyaW0gPSBGQUxTRSwgYWxwaGEgPSAwLjcpXG4gICAgaWYgKCFpcy5udWxsKGFkZCkgJiYgXCJib3hwbG90XCIgJWluJSBhZGQpIHtcbiAgICAgIHAgPC0gcCArIGdncGxvdDI6Omdlb21fYm94cGxvdCh3aWR0aCA9IDAuMTIsIGZpbGwgPSBhZGQucGFyYW1zJGZpbGwgJXx8JSBcIndoaXRlXCIsIG91dGxpZXIuYWxwaGEgPSAwLjM1KVxuICAgIH1cbiAgICBwXG4gIH1cbn1cblxuaWYgKCFleGlzdHMoXCJnZ3BhaXJlZFwiLCBtb2RlID0gXCJmdW5jdGlvblwiKSkge1xuICBnZ3BhaXJlZCA8LSBmdW5jdGlvbihkYXRhLCBjb25kMSwgY29uZDIsIGZpbGwgPSBOVUxMLCBsaW5lLmNvbG9yID0gXCJncmF5XCIsIGxpbmUuc2l6ZSA9IDAuNCwgLi4uKSB7XG4gICAgcXVpZXRfbGlicmFyeShcImdncGxvdDJcIilcbiAgICBkZiA8LSBkYXRhLmZyYW1lKGlkID0gc2VxX2xlbihucm93KGRhdGEpKSwgYmVmb3JlID0gZGF0YVtbY29uZDFdXSwgYWZ0ZXIgPSBkYXRhW1tjb25kMl1dKVxuICAgIGxvbmcgPC0gcmJpbmQoXG4gICAgICBkYXRhLmZyYW1lKGlkID0gZGYkaWQsIGNvbmRpdGlvbiA9IGNvbmQxLCB2YWx1ZSA9IGRmJGJlZm9yZSksXG4gICAgICBkYXRhLmZyYW1lKGlkID0gZGYkaWQsIGNvbmRpdGlvbiA9IGNvbmQyLCB2YWx1ZSA9IGRmJGFmdGVyKVxuICAgIClcbiAgICBnZ3Bsb3QyOjpnZ3Bsb3QobG9uZywgZ2dwbG90Mjo6YWVzKHggPSBjb25kaXRpb24sIHkgPSB2YWx1ZSwgZ3JvdXAgPSBpZCkpICtcbiAgICAgIGdncGxvdDI6Omdlb21fbGluZShjb2xvciA9IGxpbmUuY29sb3IsIGxpbmV3aWR0aCA9IGxpbmUuc2l6ZSwgYWxwaGEgPSAwLjYpICtcbiAgICAgIGdncGxvdDI6Omdlb21fcG9pbnQoZ2dwbG90Mjo6YWVzKGZpbGwgPSBjb25kaXRpb24pLCBzaGFwZSA9IDIxLCBzaXplID0gMilcbiAgfVxufVxuXG5gJXx8JWAgPC0gZnVuY3Rpb24oeCwgeSkgaWYgKGlzLm51bGwoeCkpIHkgZWxzZSB4XG5cbmhlYXJ0X2ZhaWx1cmUgPC0gcmVhZC5jc3YoXCJ0dXRvcmlhbHMvTGFiMS93d3cvaGVhcnQuY3N2XCIpXG5cbm9sZF9mYWl0aGZ1bCA8LSByZWFkLmNzdihcInR1dG9yaWFscy9MYWIxL3d3dy9mYWl0aGZ1bC5jc3ZcIikifQ==
+</script>
+</div>
+</div>
+<div data-guided-lab="" data-lab-title="Lab 1">
+
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Welcome to the online lab. The labs for this class will help you gain a better understanding of the concepts and methods taught in lecture as well as giving you experience using modern statistical software to apply the techniques you learn. The labs are meant to be self-guided. You can do the lab at your own pace as long as you finish the corresponding eLC lab quiz by the due date.</p>
+<p><strong>Lab 1 has two purposes.</strong></p>
+<p>First, is to give you a basic overview of how the online labs work. I will describe the different parts of the lab, how to complete the lab, how to get credit for doing the lab, and how you can get help if you need it.</p>
+<p>Second, providing an introduction to what data and R are (despite all the “arrrs” pirates are not involved).</p>
+<p><strong>THE LABS ARE FOR YOU TO LEARN. NOT TO TEST YOUR KNOWLEDGE.</strong></p>
+</section>
+<section id="lab-sections" class="level2">
+<h2 class="anchored" data-anchor-id="lab-sections">Lab Sections</h2>
+<p>The labs are broken up into five general section types.</p>
+<section id="description-of-each-section-type" class="level3">
+<h3 class="anchored" data-anchor-id="description-of-each-section-type">Description of each section type:</h3>
+<p><strong>Introduction:</strong> The introduction for each lab provides a very brief overview of the topics to be covered. The purpose of the introduction is to let you know which topics will be covered so you can get the corresponding class notes or lecture slides ready.</p>
+<p><strong>General Topic:</strong> Each lab will have any number of topics (some labs only have a couple, others have a bunch). All of the topics have descriptive names. The name of each topic is shown in the upper left-hand corner of the screen. The topic you are currently in will be shaded so you can see where you are in the lab (you are in the “Lab Sections” topic).</p>
+<p><strong>Exercise:</strong> In the labs, an exercise can be a topic or a section inside a topic if they are small. There are two basic exercise types. The first is an interactive exercise where you will select options from drop-down menus, slider bars, or check-boxes to explore concepts. The second type of exercise requires you to write or complete some necessary R coding to generate an output or result. I will show you examples of both.</p>
+<p><strong>Quiz:</strong> Quizzes will always be a section within a topic, but not all of the topics have a quiz. The quizzes are used to make sure you understand what you need to do for an exercise and to see if you understand the output/results that you made. The quizzes are for learning purposes only, and you can take them as many times as you want. If you get the question wrong, click the retry button. <strong>You have to record your answers to all of the quiz questions.</strong> Each question in the lab corresponds to a question on the eLC quiz. <strong>To get credit</strong> for doing the lab <strong>have to take the eLC quiz for that lab</strong>. I will stress that if all you do is click through the lab to get the answers to the quiz, you are only hurting yourself.</p>
+<p><strong>Summary:</strong> The summary for each lab will summarize what you did and the topics covered by the lab.</p>
+</section>
+</section>
+<section id="example-exercises-and-quiz" class="level2">
+<h2 class="anchored" data-anchor-id="example-exercises-and-quiz">Example Exercises and Quiz</h2>
+<p>There are two general exercise types, interactive or coding. Regardless of the exercise type, make sure you <strong>read the instructions</strong>. The following sections are some examples of the different types and a quiz based on the results of exercise 3.</p>
+<section id="exercise-1-interactive-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-interactive-exercise">Exercise 1: Interactive Exercise</h3>
+<p>Interactive exercises do not require any coding. You can do whatever you want, but if there are questions related to the interactive exercises, you use the options to answer them.</p>
+<p>Below is an interactive histogram of eruption duration of Old Faithful a famous geyser in Yellow Stone national park. Want to see an eruption? Check out the <a href="https://www.nps.gov/yell/learn/photosmultimedia/webcams.htm">live stream</a>. This example is from the R studio <a href="http://shiny.rstudio.com/gallery/">shiny gallery</a> follow the link if you want to see more interactive figures.</p>
+<p><em>Helpful hint</em>: Hold <code>control</code> when clicking links and they will open in a new tab.</p>
+<p><strong>Instructions:</strong> Use the available options and see what happens to the plot as you change them. <strong>THIS IS JUST AN EXAMPLE DO NOT WORRY IF YOU DON’T UNDERSTAND EVERYTHING</strong></p>
+<div class="lab-widget lab-histogram" data-faithful-histogram="" data-csv="../tutorials/Lab1/www/faithful.csv">
+  <div class="lab-widget-controls">
+    <label>
+      <span>Number of bins in histogram (approximate)</span>
+      <select data-hist-bins="">
+        <option value="10">10</option>
+        <option value="20" selected="">20</option>
+        <option value="35">35</option>
+        <option value="50">50</option>
+      </select>
+    </label>
+    <label class="lab-check">
+      <input type="checkbox" data-hist-rug="">
+      <span>Show individual observations</span>
+    </label>
+    <label class="lab-check">
+      <input type="checkbox" data-hist-density="">
+      <span>Show density estimate</span>
+    </label>
+    <label data-density-control="" hidden="">
+      <span>Bandwidth adjustment</span>
+      <input type="range" min="0.2" max="2" step="0.2" value="1" data-hist-bandwidth="">
+      <output data-hist-bandwidth-value="">1.0</output>
+    </label>
+  </div>
+  <svg class="lab-plot" viewbox="0 0 760 360" role="img" aria-label="Histogram of Old Faithful eruption duration"></svg>
+</div>
+</section>
+<section id="exercise-2-coding-exercise-complete-code-or-fill-in-the-blank" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-coding-exercise-complete-code-or-fill-in-the-blank">Exercise 2: Coding Exercise (Complete Code or Fill in the Blank)</h3>
+<p><strong>This is a coding exercise where some of the code is already provided.</strong> Below you see a box with some writing in it. This box is called a “chunk”. For these exercises, you need to read the instructions to understand what to do. The instructions will make it clear if you need to do anything to the code to make it work, and what you will do with the results.<br>
+In some cases, you don’t have to do anything with the code and will click the “run code” button at the top of the chunk. In other cases, you will have to complete the code in the chunk. If you need to “fill in the blank,” review the code, find the missing part, and add the required code. <strong>If you don’t “fill in the blank,” the code will not work or produce the wrong results.</strong></p>
+<p><strong>If you mess up the code or delete something that you did not mean to, click the “Start Over” button for that chunk. This will reset the code in the chunk</strong></p>
+<p><strong>Note or comments in the chunks are there to help you. A “#” precedes each note or comment in the chunk.</strong></p>
+<p>The data set we are using for the example is called “old_faithful.” It has three variables “x”, “eruptions”, and “waiting”. The “x” variable is the eruption number. The “eruptions” variable is the duration of eruptions in minutes, and the “waiting” variable it the duration of time between eruptions in minutes.</p>
+<p><strong>Instructions:</strong> The str() function tells you the structure of the data set and the variables’ type. The code below is complete. Click the “Run Code” button to generate the results. See if you can understand the information in the results.</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIGV2ZXJ5dGhpbmcgYWZ0ZXIgdGhlIFwiI1wiIGlzIGEgY29tbWVudCBhbmQgaXMgbm90IHVzZWQgYnkgUlxuIyBUaGlzIGxpbmUgb2YgY29kZSBpcyB0aGUgc3RyKCkgZnVuY3Rpb24gXG5zdHIob2xkX2ZhaXRoZnVsKSJ9
+</script>
+</div>
+</div>
+<p><strong>Instructions:</strong> The summary() function creates a basic numeric summary of variables in the data set. The code below needs to be finished. Review the R code and fill in the blank before running the code. See if you can understand the information in the results.</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIFRoaXMgbGluZSBvZiBjb2RlIGlzIHRoZSBzdW1tYXJ5KCkgZnVuY3Rpb24gXG4jIGZpbGwgaW4gdGhlIGJsYW5rIHVzaW5nIHRoZSBsaW5lIG9mIGNvZGUgYWJvdmUgYXMgYSBndWlkZSBcbnN1bW1hcnkoKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="exercise-3-coding-exercise-writing-your-own-code" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-coding-exercise-writing-your-own-code">Exercise 3: Coding Exercise (Writing Your Own Code)</h3>
+<p><strong>This is an exercise with an empty code chunk.</strong> You will use the instructions or previous examples to write the code and then click the “Run Code” button to generate the results.</p>
+<p><strong>Instructions:</strong> Write the R code required to create a summary of the “old_faithful” data set. If you have an error in your code, a red box with an “x” will appear. Use the results to answer the quiz questions below.</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjd3JpdGUgeW91ciBjb2RlIGhlcmUgIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="quiz-questions-1-2" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-1-2">Quiz: Questions 1-2</h3>
+<strong>Instructions:</strong> Use the results above to answer the questions below. If you get the question wrong, click the “Try Again” button. <strong>Don’t forget to write your answers down so that you can answer the questions on the eLC quiz for this lab.</strong>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 1
+</h4>
+<p>
+What is the longest duration of an Old Faith eruption?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are looking at the eruptions column">
+3.6
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This is the median for eruptions">
+4
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Great Job!">
+5.1
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are looking at the eruptions column">
+96
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 2
+</h4>
+<p>
+What is the mean duration of an Old Faith eruption?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Excellent Work!">
+3.488
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This is the median for eruptions">
+4
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This is the mean for waiting">
+70.9
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Close this is Q3 for eruptions you want the mean">
+4.45
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="how-to-complete-lab-sections" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-complete-lab-sections">How to Complete Lab Sections</h2>
+<p>For the introduction and other topics that only have text in them, you only have to read it and then click the “Next Topic” button. You will notice that a black bar appears next to the topic name.</p>
+<p>For each of the general topic sections, you will read about the topic, and if included, you will do the exercises and complete any quizzes. When you are finished, click “Next Topic”. <strong>If you missed an exercise or quiz question the bar next to the topic name will not be complete</strong>.</p>
+<p>Once you have reviewed the lab summary, you are done with the lab. Make sure all the black bars next to the topic names are complete and then take the eLC quiz for the lab.</p>
+</section>
+<section id="getting-credit-for-doing-the-lab" class="level2">
+<h2 class="anchored" data-anchor-id="getting-credit-for-doing-the-lab">Getting Credit for Doing the Lab</h2>
+<p>Your lab grade is based on the eLC quiz for that lab. <strong>If you do not do the eLC quiz by the due date, you will get a 0 for that lab</strong>.</p>
+<p>The quiz questions in the lab correspond entirely to the eLC questions. The first question in the lab is the same as Question 1 on the eLC quiz for that lab.</p>
+</section>
+<section id="getting-help" class="level2">
+<h2 class="anchored" data-anchor-id="getting-help">Getting Help</h2>
+<p><strong>If you wait until the day the quiz is due to ask for help, it may not come fast enough.</strong></p>
+<p>If you are having technical difficulties, please post your issues on the “Technical Difficulty” discussion board. The discussion board can be found in the “BIOS2010 Lab Info” course on eLC. If you do not have not have access by the end of add-drop please email your instructor. Be sure to include your myID.</p>
+<p>If you have a question about an exercise, first, re-read the instructions carefully and try again. Second, check the lab discussion board “Content Questions” on eLC and see if another student has asked the same question (maybe it has already been answered). If no one has asked a question related to your question, you can post your question there, and a TA or Instructor will reply (you need to be as specific as possible). If you still need help, you can chat with a TA during the times posted on the “BIOS2010 Lab Info” eLC page.</p>
+<p><strong>Note</strong>: During summer courses the “BIOS 2010 Lab Info” eLC page is not used. Instead, the discussion boards are available on the main eLC page for your summer course.</p>
+</section>
+<section id="introduction-to-data-and-r" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-data-and-r">Introduction To Data and R</h2>
+<p>Data is a very general term, and it can take many different forms. In the case of biostatistics, the data we work with is related to living organisms. The simplest definition of data is a systematic recording of information related to observations. Biostatisticians turn the information in data into knowledge.</p>
+<p>“Remember kids, the only difference between screwing around and science is writing it down” Adam Savage.</p>
+<p>Biostatisticians, and anyone working with data, rely on statistical software. In the lab, you will use a statistical programming language called R (Want to know more? check out <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a>). For R, and many other statistics software, the data has to be organized such that each row corresponds to a single observation, and each column is a single variable. The data we have is already correctly formatted so we can get straight to work. Don’t worry if you don’t have any coding experience; the labs will guide you and TA’s will be available to answer questions. The answer to a lot of R related questions can be found with a quick Google search. There are also a number of free introduction courses for using R. One of the nicer ones is the free introduction to R offered by <a href="https://www.datacamp.com/">DataCamp</a>.</p>
+<p>R and the corresponding development software R studio is free, and both have a great user community, so if you ever need to do some data analysis for another class, it is a great place to start ( <a href="https://cloud.r-project.org/">Down Load R</a>, <a href="https://www.rstudio.com/products/rstudio/download/">Down Load Rstudio</a>).</p>
+<section id="exercise-4-data-structure" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-data-structure">Exercise 4: Data Structure</h3>
+<p>In this exercise, you will explore and manipulate data from individuals admitted to the ER complaining of chest pain that may be the result of heart failure. The data set name is “heart_failure”.</p>
+<p>The data is displayed below, and one of the first things you will notice is that it is mostly numeric, and only a few of the “words” make sense. Some of the numeric values make sense. For example, we usually think of age as a number, but for sex, we typically think female/male, not 0/1. Using numbers to represent values that we would typically use words for is a popular way to record data, but in either case, without the proper documentation, this data is not useful. You could assume that age was recorded in years, but it may be months. A data dictionary is required to decode the data, and I have added it below.</p>
+<p>The way the data organized is critical. There are two essential features of this data that are worth pointing out. First, each row corresponds to a single observation (i.e., one patient). Second, each column is a single variable.</p>
+<p><strong>Instructions:</strong> Take some time to explore the data using the drop-down menus and arrows next to the variable names. When you select a value from the drop-down menu, a new data subset is created that only includes the observations (rows) with that value. The arrows next to the variable name will sort the whole data set by the values of that variable (increasing or decreasing). After you have explored the data, use the menus and arrows to answer the quiz questions.</p>
+<div class="lab-widget lab-data-explorer" data-heart-table="" data-csv="../tutorials/Lab1/www/heart.csv">
+  <div class="lab-widget-controls">
+    <label>
+      <span>Sex</span>
+      <select data-heart-filter="sex"></select>
+    </label>
+    <label>
+      <span>Fasting Blood Sugar &gt;120 mg/dl</span>
+      <select data-heart-filter="fbs"></select>
+    </label>
+    <label>
+      <span>Exercise Induced Angina</span>
+      <select data-heart-filter="exang"></select>
+    </label>
+  </div>
+  <p class="lab-table-count" data-heart-count=""></p>
+  <div class="lab-table-wrap">
+    <table class="lab-data-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<section id="data-dictionary" class="level4">
+<h4 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h4>
+<p><strong>age:</strong> age in years<br>
+<strong>sex:</strong> (1 = male; 0 = female)<br>
+<strong>trestbps:</strong> resting blood pressure (in mm Hg on admission to the hospital)<br>
+<strong>chol:</strong> serum cholesterol in mg/dl<br>
+<strong>fbs:</strong> (fasting blood sugar &gt; 120 mg/dl) (1 = true; 0 = false)<br>
+<strong>thalach:</strong> maximum heart rate achieved<br>
+<strong>exang:</strong> exercise induced angina (1 = yes; 0 = no)<br>
+<strong>oldpeak:</strong> ST depression induced by exercise relative to rest</p>
+</section>
+</section>
+<section id="quiz-questions-3-6" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-3-6">Quiz: Questions 3-6</h3>
+<strong>Don’t forget to write your answers down so that you can answer the questions on the eLC quiz for this lab.</strong>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 3
+</h4>
+<p>
+What is the age of the oldest male included in the data?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the arrow is pointing down, Sex = 1, and the rest are set to All">
+59
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the arrow is pointing down, Sex = 1, and the rest are set to All">
+93
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="You are a fast learner!">
+77
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the arrow is pointing down, Sex = 1, and the rest are set to All">
+76
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 4
+</h4>
+<p>
+What is the highest cholesterol value in the data?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Keep up the good work!">
+564
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Set everything to All and make sure the arrow is pointing down">
+300
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Set everything to All and make sure the arrow is pointing down">
+266
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Set everything to All and make sure the arrow is pointing down">
+274
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 5
+</h4>
+<p>
+How many women have a fasting blood sugar &gt; 120 mg/dl?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have Sex=0, and Fasting Blood Sugar=1. The number of entries are at the bottom of the table">
+200
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have Sex=0, and Fasting Blood Sugar=1. The number of entries are at the bottom of the table">
+65
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Now you have figured it out!">
+12
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have Sex=0, and Fasting Blood Sugar=1. The number of entries are at the bottom of the table">
+33
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 6
+</h4>
+<p>
+How many patients are included in the data set?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="The three variables should be on ALL. The number of entries is at the bottom left of the table">
+204
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="The three variables should be on ALL. The number of entries is at the bottom left of the table">
+650
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="The three variables should be on ALL. The number of entries is at the bottom left of the table">
+258
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="I am not even surprised!">
+303
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="data-summaries" class="level2">
+<h2 class="anchored" data-anchor-id="data-summaries">Data Summaries</h2>
+<p>Data alone is not useful. Careful analysis of data by an investigator is required. The most basic analyses of data are the calculation and reporting of appropriate summaries. Data summaries can be either numerical (means, modes, medians, etc.) or visual (bar charts, histograms, etc.) and are simple to generate using R. The summaries you create are the first step to gain insight into the patients included in the data set. Using the data from the previous section, we will use R-coding to generate summaries of the age and chol (cholesterol) variables.</p>
+<section id="generating-summaries-with-r" class="level3">
+<h3 class="anchored" data-anchor-id="generating-summaries-with-r">Generating Summaries with R</h3>
+<p>The first step is getting the data into R and cleaning it up. I have already done these steps for you (Your Welcome!).<br>
+The next step is generating some basic summaries of the included variables.</p>
+</section>
+<section id="exercise-4-numeric-summary-of-age" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-numeric-summary-of-age">Exercise 4: Numeric Summary of Age</h3>
+<p><strong>Instructions:</strong>The box below has a single line of code and a bunch of comments. Once you are ready to run the code, click the “Run Code” button. The “output” or “results” will show up in a box below. Since this is probably your first time, I have provided the code with an explanation of what’s happening.</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIEFueSB0ZXh0IGFmdGVyIGEgXCIjXCIgaXMgbm90IHVzZWQgYnkgUlxuIyBNaXNzcGVsbGluZyBvciBtaXNzZWQgY2FwaXRhbHMgbGV0dGVycyB3aWxsIHJlc3VsdCBpbiBhbiBlcnJvclxuIyBUbyBzZWxlY3QgYSB2YXJpYWJsZSBSIHJlcXVpcmVzIHRoYXQgeW91IHNwZWNpZnkgd2hpY2ggZGF0YSBzZXQgY29udGFpbnMgdGhlIHZhcmlhYmxlLiBJbiB0aGlzIGNhc2UsIFwiaGVhcnRfZmFpbHVyZVwiIGlzIHRoZSBkYXRhIHNldC5cbiMgdGhlIGJhc2ljIHN5bnRheCBpcyBcImRhdGFfbmFtZVwiJFwidmFyaWFibGVfbmFtZVwiIHRoZSBkb2xsYXIgc2lnbiBsZXRzIFIga25vdyB0byBsb29rIGluc2lkZSB0aGUgZGF0YSBzZXQgZm9yIHRoZSB2YXJpYWJsZS5cblxuIyBPbiB0aGUgbGluZSBiZWxvdyB3ZSBhcmUgdXNpbmcgdGhlIHN1bW1hcnkoKSBmdW5jdGlvbiBvbiB0aGUgdmFyaWFibGUgYWdlIGluIHRoZSBoZWFydCBkYXRhIHNldFxuc3VtbWFyeShoZWFydF9mYWlsdXJlJGFnZSlcbiMgVGhlIHN1bW1hcnkgZnVuY3Rpb24gZ2VuZXJhdGVzIGEgNSBudW1iZXIgc3VtbWFyeSAoTWluLCBRMSwgTWVkaWFuLCBNZWFuLCBRMywgTWF4KSAgIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="exercise-5-visual-summary-of-age" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5-visual-summary-of-age">Exercise 5: Visual Summary of Age</h3>
+<p><strong>Instructions:</strong> The code is ready to go all you have to do is click run.</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIFRoaXMgdGltZSB3ZSB3aWxsIGdlbmVyYXRlIGEgdmVyeSBiYXNpYyBoaXN0b2dyYW1cbiMgVmlzdWFsaXppbmcgZGF0YSBpcyBhIGdyZWF0IHdheSB0byBzZWUgdGhlIGRpc3RyaWJ1dGlvbiBvZiB2YWx1ZXMuXG5cbmhpc3QoaGVhcnRfZmFpbHVyZSRhZ2UpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="exercise-6-write-your-own-code-for-chol" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-6-write-your-own-code-for-chol">Exercise 6: Write your own code for CHOL</h3>
+<p><strong>Instructions:</strong> Using the code in the chunks above as an example fill in the code below to generate the same summaries for “chol” variable. The code is not complete, so if you click the run code button without filling in the blanks, it will generate an “error message” and no results.</p>
+<div class="cell" data-edit="true" data-min-lines="4">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIE51bWVyaWMgYW5kIHZpc3VhbCBzdW1tYXJ5IG9mIGNob2xlc3RlcmFsIGxldmVscyBcbiNGaXZlIG51bWJlciBzdW1tYXJ5IFxuc3VtbWFyeShoZWFydF9mYWlsdXJlJCApXG5cbiNIaXN0b2dyYW0gXG5oaXN0KGhlYXJ0X2ZhaWx1cmUkICkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="quiz-questions-7-10" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-questions-7-10">Quiz: Questions 7-10</h3>
+<strong>Don’t forget to write your answers down so that you can answer the questions on the eLC quiz for this lab.</strong>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 7
+</h4>
+<p>
+What is the mean age of the patients?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="55 is the median you want the mean">
+55.0
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="61 is Q3 you want the mean">
+61.0
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Sensational!">
+54.37
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="77 is the max you want the mean">
+77.0
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 8
+</h4>
+<p>
+What is the bin width for the age histogram?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Wonderful!">
+5
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Close don't forget to include the starting value of the interval">
+4
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Close but there are 2 bins in that width">
+10
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="How many bins are between 30 and 40?">
+8
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 9
+</h4>
+<p>
+Which age group has the most patients based on the histogram?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Look at results from exercise 5, Which bar is the tallest?">
+30-45
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Look at results from exercise 5, Which bar is the tallest?">
+75-80
+</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Keep it up!">
+55-60
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Look at results from exercise 5, Which bar is the tallest?">
+40-55
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+<section class="lab-quiz" data-lab-quiz="">
+<h4 class="anchored">
+Question 10
+</h4>
+<p>
+What is the lowest cholesterol value recorded for a patient?
+</p>
+<div class="lab-answers">
+<button type="button" class="lab-answer" data-correct="true" data-feedback="You are one with the data!">
+126
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the output is for the `chol` variable. You want the Min: from the summary output">
+100
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the output is for the `chol` variable. You want the Min: from the summary output">
+211
+</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the output is for the `chol` variable. You want the Min: from the summary output">
+97
+</button>
+</div>
+<div class="lab-feedback" aria-live="polite">
+
+</div>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this lab, you completed 6 exercises and answered 10 quiz questions.</p>
+<p>The lab covered:</p>
+<ol type="1">
+<li>How to navigate and complete the online labs</li>
+<li>A basic understanding of data and R</li>
+</ol>
+<p>Great job! You are done with the first lab. <strong>Don’t forget to record your answers and take the eLC quiz to get credit</strong></p>
+<p><img src="../tutorials/Lab1/images/conditional_risk.png" class="img-fluid"></p>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsInJtYXJrZG93biJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJwYWdlZC10YWJsZSJ9
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV83O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzcgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV83ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl83LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici01IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici01LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzUgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV80O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzQgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV80ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl80LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMztcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMy1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMywge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMiA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzIgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8xO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJfd2Vicl92YWx1ZV8xID0ge1xuICBjb25zdCB7IGhpZ2hsaWdodFIsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV2YWx1YXRpb24gY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7XG4gICAgaWQ6IFwid2Vici0xLWNvbnRlbnRzXCIsXG4gICAgZWNobzogdHJ1ZSxcbiAgICBvdXRwdXQ6IHRydWVcbiAgfSwgYmxvY2suYXR0cik7XG5cbiAgLy8gRXZhbHVhdGUgdGhlIHByb3ZpZGVkIFIgY29kZVxuICBjb25zdCByZXN1bHQgPSB3ZWJST2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7fSk7XG5cbiAgLy8gRWFybHkgeWllbGQgd2hpbGUgd2Ugd2FpdCBmb3IgdGhlIGZpcnN0IGV2YWx1YXRpb24gYW5kIHJlbmRlclxuICBpZiAob3B0aW9ucy5vdXRwdXQgJiYgIShcIjFcIiBpbiB3ZWJST2pzLnJlbmRlcmVkT2pzKSkge1xuICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gICAgY29uc3Qgc3Bpbm5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5cbiAgICBpZiAob3B0aW9ucy5lY2hvKSB7XG4gICAgICAvLyBTaG93IG91dHB1dCBhcyBoaWdobGlnaHRlZCBzb3VyY2VcbiAgICAgIGNvbnN0IHByZUVsZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicHJlXCIpO1xuICAgICAgY29udGFpbmVyLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZVwiO1xuICAgICAgcHJlRWxlbS5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGUgclwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChoaWdobGlnaHRSKGJsb2NrLmNvZGUpKTtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWdyb3cgc3Bpbm5lci1ncm93LXNtIG0tMiBwb3NpdGlvbi1hYnNvbHV0ZSB0b3AtMCBlbmQtMFwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChwcmVFbGVtKTtcbiAgICB9IGVsc2Uge1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItYm9yZGVyIHNwaW5uZXItYm9yZGVyLXNtXCI7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgfVxuXG4gICAgeWllbGQgY29udGFpbmVyO1xuICB9XG5cbiAgd2ViUk9qcy5yZW5kZXJlZE9qc1tcIjFcIl0gPSB0cnVlO1xuICB5aWVsZCBhd2FpdCByZXN1bHQ7XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici1wcmVsdWRlIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoid2ViUk9qcyA9IHtcbiAgY29uc3QgeyBXZWJSLCBDaGFubmVsVHlwZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZS5XZWJSO1xuICBjb25zdCB7XG4gICAgV2ViUkV2YWx1YXRvcixcbiAgICBXZWJSRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyB3ZWJSIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIC8vIEluaXRpYWxpc2Ugd2ViUiBhbmQgc2V0dXAgZm9yIFIgY29kZSBldmFsdWF0aW9uXG4gIGxldCB3ZWJSUHJvbWlzZSA9IChhc3luYyAod2ViUikgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgd2ViUmA7XG4gICAgYXdhaXQgd2ViUi5pbml0KCk7XG5cbiAgICAvLyBJbnN0YWxsIHByb3ZpZGVkIGxpc3Qgb2YgcGFja2FnZXNcbiAgICAvLyBFbnN1cmUgd2ViUiBkZWZhdWx0IHJlcG8gaXMgaW5jbHVkZWRcbiAgICBkYXRhLnBhY2thZ2VzLnJlcG9zLnB1c2goXCJodHRwczovL3JlcG8uci13YXNtLm9yZ1wiKVxuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIHdlYlIuZXZhbFJWb2lkKGBcbiAgICAgICAgd2Vicjo6aW5zdGFsbChwa2csIHJlcG9zID0gcmVwb3MpXG4gICAgICAgIGxpYnJhcnkocGtnLCBjaGFyYWN0ZXIub25seSA9IFRSVUUpXG4gICAgICBgLCB7IGVudjoge1xuICAgICAgICBwa2c6IHBrZyxcbiAgICAgICAgcmVwb3M6IGRhdGEucGFja2FnZXMucmVwb3MsXG4gICAgICB9fSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgY29uc3QgYW5hbHlzaXMgPSBhd2FpdCB3ZWJSLkZTLmFuYWx5emVQYXRoKHBhdGgpO1xuICAgICAgICBpZiAoIWFuYWx5c2lzLmV4aXN0cykge1xuICAgICAgICAgIHRyeSB7XG4gICAgICAgICAgICBhd2FpdCB3ZWJSLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvcjogXCIke2UubWVzc2FnZX1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHJldHVybiBhd2FpdCB3ZWJSLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluc3RhbGxpbmcgd2ViUiBzaGltc2A7XG4gICAgYXdhaXQgd2ViUi5ldmFsUlZvaWQoYHdlYnI6OnNoaW1faW5zdGFsbCgpYCk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFdlYlIgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUih3ZWJSLCBkYXRhKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiB3ZWJSO1xuICB9KShuZXcgV2ViUihkYXRhLm9wdGlvbnMpKTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3Qgd2ViUiA9IGF3YWl0IHdlYlJQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBXZWJSRXZhbHVhdG9yKHdlYlIsIGNvbnRleHQpXG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHJvY2VzcyxcbiAgICB3ZWJSUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyIuLi90dXRvcmlhbHMvTGFiMS93d3cvY2xlYW5faGVhcnRfZmFpbHVyZS5SZGEiLCIuLi90dXRvcmlhbHMvTGFiMS93d3cvZmFpdGhmdWwuY3N2IiwiLi4vdHV0b3JpYWxzL0xhYjEvd3d3L2hlYXJ0LmNzdiIsIi4uL3R1dG9yaWFscy9MYWIxL3d3dy9oZWFydERhdGFEaWN0aW9uYXJ5LnR4dCJd
+</script>
+</section>
+
+</main> <!-- /main -->
+<script src="../lab-interactions.js"></script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../All_Labs";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

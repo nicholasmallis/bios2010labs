@@ -4,18 +4,8 @@ title: "BIOS 2010 Computer Labs"
 
 This site contains the browser-based lab activities for BIOS 2010. Each lab opens as a static Quarto page with runnable R code cells and quiz feedback in the browser.
 
+For this preview, only Lab 1 is published so colleagues can review the prototype experience before the remaining labs are polished.
+
 ::: {.lab-grid}
 <a class="lab-card" href="All_Labs/lab1.html"><strong>Lab 1</strong><span>Getting Started</span></a>
-<a class="lab-card" href="All_Labs/lab2.html"><strong>Lab 2</strong><span>Histograms</span></a>
-<a class="lab-card" href="All_Labs/lab3.html"><strong>Lab 3</strong><span>Box Plots</span></a>
-<a class="lab-card" href="All_Labs/lab4.html"><strong>Lab 4</strong><span>Basic Data Analysis</span></a>
-<a class="lab-card" href="All_Labs/lab5.html"><strong>Lab 5</strong><span>Life Tables</span></a>
-<a class="lab-card" href="All_Labs/lab6.html"><strong>Lab 6</strong><span>Diagnostic and Screening Tests</span></a>
-<a class="lab-card" href="All_Labs/lab7.html"><strong>Lab 7</strong><span>Discrete Distributions</span></a>
-<a class="lab-card" href="All_Labs/lab8.html"><strong>Lab 8</strong><span>Normal Distribution</span></a>
-<a class="lab-card" href="All_Labs/lab9.html"><strong>Lab 9</strong><span>Random Sampling and the Central Limit Theorem</span></a>
-<a class="lab-card" href="All_Labs/lab10.html"><strong>Lab 10</strong><span>One Sample T Methods</span></a>
-<a class="lab-card" href="All_Labs/lab11.html"><strong>Lab 11</strong><span>Paired t Test</span></a>
-<a class="lab-card" href="All_Labs/lab12.html"><strong>Lab 12</strong><span>Two Sample t Test</span></a>
-<a class="lab-card" href="All_Labs/lab13.html"><strong>Lab 13</strong><span>Tests and Confidence Intervals for Proportions</span></a>
 :::
