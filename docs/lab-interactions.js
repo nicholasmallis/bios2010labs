@@ -207,6 +207,15 @@ const standardDeviation = (values) => {
   return Math.sqrt(variance);
 };
 
+const quantile = (values, probability) => {
+  const sorted = values.slice().sort((a, b) => a - b);
+  const position = (sorted.length - 1) * probability;
+  const lower = Math.floor(position);
+  const upper = Math.ceil(position);
+  const weight = position - lower;
+  return sorted[lower] * (1 - weight) + sorted[upper] * weight;
+};
+
 const drawAxes = (svg, scales) => {
   const {
     width,
@@ -335,6 +344,136 @@ const initHeartHistogram = async (root) => {
   };
 
   [binsInput, variableSelect].forEach((control) => control.addEventListener("input", draw));
+  draw();
+};
+
+const heartPlotLabels = {
+  group: {
+    sex: "Sex",
+    fbs: "Fasting blood sugar > 120 mg/dl",
+    exang: "Exercise induced angina",
+  },
+  variable: {
+    age: "Age (years)",
+    chol: "Serum cholesterol (mg/dl)",
+    trestbps: "Resting blood pressure (mm Hg)",
+    thalach: "Maximum heart rate achieved",
+    oldpeak: "ST depression induced by exercise relative to rest",
+  },
+  values: {
+    sex: { 0: "Female", 1: "Male" },
+    fbs: { 0: "No", 1: "Yes" },
+    exang: { 0: "No", 1: "Yes" },
+  },
+};
+
+const boxStats = (values) => {
+  const sorted = values.slice().sort((a, b) => a - b);
+  const q1 = quantile(sorted, 0.25);
+  const median = quantile(sorted, 0.5);
+  const q3 = quantile(sorted, 0.75);
+  const iqr = q3 - q1;
+  const lowerFence = q1 - 1.5 * iqr;
+  const upperFence = q3 + 1.5 * iqr;
+  const nonOutliers = sorted.filter((value) => value >= lowerFence && value <= upperFence);
+
+  return {
+    min: nonOutliers[0] ?? sorted[0],
+    q1,
+    median,
+    q3,
+    max: nonOutliers[nonOutliers.length - 1] ?? sorted[sorted.length - 1],
+    outliers: sorted.filter((value) => value < lowerFence || value > upperFence),
+  };
+};
+
+const initHeartBoxplot = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const svg = root.querySelector("svg");
+  const groupSelect = root.querySelector("[data-heart-boxplot-group]");
+  const variableSelect = root.querySelector("[data-heart-boxplot-variable]");
+
+  const width = 760;
+  const height = 380;
+  const margin = { top: 42, right: 28, bottom: 78, left: 74 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+
+  const draw = () => {
+    const groupColumn = groupSelect.value;
+    const variable = variableSelect.value;
+    const groups = [...new Set(data.map((row) => row[groupColumn]))].sort((a, b) => Number(a) - Number(b));
+    const summaries = groups.map((group) => {
+      const values = data
+        .filter((row) => row[groupColumn] === group)
+        .map((row) => Number(row[variable]))
+        .filter(Number.isFinite);
+      return { group, values, stats: boxStats(values) };
+    }).filter((summary) => summary.values.length > 0);
+
+    const allValues = summaries.flatMap((summary) => [...summary.values, ...summary.stats.outliers]);
+    const min = Math.min(...allValues);
+    const max = Math.max(...allValues);
+    const pad = Math.max((max - min) * 0.08, 1);
+    const yMin = min - pad;
+    const yMax = max + pad;
+    const yScale = (value) => margin.top + plotHeight - ((value - yMin) / (yMax - yMin)) * plotHeight;
+    const xStep = plotWidth / summaries.length;
+    const xFor = (index) => margin.left + xStep * index + xStep / 2;
+    const axisColor = "#2f3944";
+
+    svg.replaceChildren();
+    svg.appendChild(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+    svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent =
+      `${heartPlotLabels.variable[variable]} by ${heartPlotLabels.group[groupColumn]}`;
+
+    svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+    svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+    for (let index = 0; index <= 5; index += 1) {
+      const value = yMin + ((yMax - yMin) * index) / 5;
+      const y = yScale(value);
+      svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
+      svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent =
+        Math.abs(value) >= 10 ? value.toFixed(0) : value.toFixed(1);
+    }
+
+    summaries.forEach((summary, index) => {
+      const x = xFor(index);
+      const boxWidth = Math.min(120, xStep * 0.42);
+      const whiskerWidth = boxWidth * 0.55;
+      const { min: whiskerMin, q1, median, q3, max: whiskerMax, outliers } = summary.stats;
+
+      svg.appendChild(svgEl("line", { x1: x, x2: x, y1: yScale(whiskerMin), y2: yScale(whiskerMax), class: "lab-box-whisker" }));
+      svg.appendChild(svgEl("line", { x1: x - whiskerWidth / 2, x2: x + whiskerWidth / 2, y1: yScale(whiskerMin), y2: yScale(whiskerMin), class: "lab-box-whisker" }));
+      svg.appendChild(svgEl("line", { x1: x - whiskerWidth / 2, x2: x + whiskerWidth / 2, y1: yScale(whiskerMax), y2: yScale(whiskerMax), class: "lab-box-whisker" }));
+      svg.appendChild(svgEl("rect", {
+        x: x - boxWidth / 2,
+        y: yScale(q3),
+        width: boxWidth,
+        height: Math.max(yScale(q1) - yScale(q3), 1),
+        class: "lab-box-rect",
+      }));
+      svg.appendChild(svgEl("line", { x1: x - boxWidth / 2, x2: x + boxWidth / 2, y1: yScale(median), y2: yScale(median), class: "lab-box-median" }));
+
+      outliers.forEach((value, outlierIndex) => {
+        const jitter = ((outlierIndex % 5) - 2) * 4;
+        svg.appendChild(svgEl("circle", { cx: x + jitter, cy: yScale(value), r: 3.5, class: "lab-box-outlier" }));
+      });
+
+      const label = heartPlotLabels.values[groupColumn]?.[summary.group] || summary.group;
+      svg.appendChild(svgEl("text", { x, y: height - 46, "text-anchor": "middle", class: "lab-axis-label" })).textContent = label;
+      svg.appendChild(svgEl("text", { x, y: height - 30, "text-anchor": "middle", class: "lab-axis-label" })).textContent = `n=${summary.values.length}`;
+    });
+
+    const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+    yTitle.textContent = heartPlotLabels.variable[variable];
+    svg.appendChild(yTitle);
+    svg.appendChild(svgEl("text", { x: width / 2, y: height - 8, "text-anchor": "middle", class: "lab-axis-title" })).textContent =
+      heartPlotLabels.group[groupColumn];
+  };
+
+  [groupSelect, variableSelect].forEach((control) => control.addEventListener("input", draw));
   draw();
 };
 
@@ -582,5 +721,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-heart-histogram]").forEach((root) => {
     initHeartHistogram(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-heart-boxplot]").forEach((root) => {
+    initHeartBoxplot(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 });

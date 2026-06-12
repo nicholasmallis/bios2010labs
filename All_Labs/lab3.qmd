@@ -3,6 +3,7 @@ title: "Lab 3: Box Plots"
 subtitle: "Computer Lab 3"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -82,9 +83,7 @@ HeartFailure <- read.csv("tutorials/Lab3/www/heart.csv")
 CleanHeartFailure<- readRDS("tutorials/Lab3/www/cleanheartfailure.Rda")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 3"></div>
 
 ## Introduction
 
@@ -163,18 +162,18 @@ summary(HeartFailure$age)
 # make a box plot for chol.
 ```
 ### Quiz: Questions 4-6
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Are there outliers in the cholesterol variable?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Are there outliers in the cholesterol variable?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, to the left</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, to the right</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the what is the highest non-outlier value for cholesterol?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>What is the highest non-outlier value for cholesterol?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Around 350</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Around 290</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Around 550</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">There are no outliers</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the IQR for cholesterol?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>What is the IQR for cholesterol?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">438</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">-63.5</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">126</button>
@@ -186,18 +185,18 @@ summary(HeartFailure$age)
 # make a box plot for trestbps. Use the summary function so you can get the exact value
 ```
 ### Quiz: Questions 7-9
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the range for trestbps?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>What is the range for trestbps?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">120</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">106</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">20</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">76</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Is the distribution of trestbps skewed?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>Is the distribution of trestbps skewed?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, to the left</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, to the right</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the IQR for trestbps?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>What is the IQR for trestbps?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">20</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">26</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">60</button>
@@ -209,18 +208,18 @@ summary(HeartFailure$age)
 # make a box plot for oldpeak.
 ```
 ### Quiz: Questions 10-12
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Is the distribution of oldpeak skewed?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>Is the distribution of oldpeak skewed?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, to the left</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the median seems pretty centered</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, to the right</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the median for oldpeak?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 11</h4><p>What is the median for oldpeak?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">1.60</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">0</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">1.04</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">0.8</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the IQR of oldpeak?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>What is the IQR of oldpeak?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">2</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">1.60</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">0</button>
@@ -232,64 +231,40 @@ Box plots are also very useful to make comparisons between groups. The first ste
 
 **Instructions** Use the dropdown menu to select different variables to compare by different strata. Use the plot to answer the quiz questions.   
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(4, selectInput("group", "Compare By:",
-                               choices=c("sex","fbs","exang"))),
-         column(4, selectInput("var", "Variable:",
-                               choices=c("age","chol","trestbps","thalach","oldpeak")))
-
-)
-
-plotOutput("BoxPlot")
+```{=html}
+<div class="lab-widget lab-boxplot-widget" data-heart-boxplot data-csv="../tutorials/Lab3/www/heart.csv">
+  <div class="lab-widget-controls">
+    <label>
+      <span>Compare By</span>
+      <select data-heart-boxplot-group>
+        <option value="sex">sex</option>
+        <option value="fbs">fbs</option>
+        <option value="exang">exang</option>
+      </select>
+    </label>
+    <label>
+      <span>Variable</span>
+      <select data-heart-boxplot-variable>
+        <option value="age">age</option>
+        <option value="chol">chol</option>
+        <option value="trestbps">trestbps</option>
+        <option value="thalach">thalach</option>
+        <option value="oldpeak">oldpeak</option>
+      </select>
+    </label>
+  </div>
+  <svg class="lab-plot" viewBox="0 0 760 380" role="img" aria-label="Grouped box plot for selected heart failure variable"></svg>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-  # Creating boxplot based on selections
-
-output$BoxPlot <- renderPlot({
-      #Extract the variables from UI into local variables 
-      CleanHeartFailure$group<- CleanHeartFailure[ ,input$group]
-      CleanHeartFailure$var<- CleanHeartFailure[ ,input$var]
-      
-      #Make the stratafied box plot
-      ggplot(CleanHeartFailure, 
-             aes(x=group, y=var))+
-        geom_boxplot()+
-        xlab(var_label(CleanHeartFailure$group))+ 
-        ylab(var_label(CleanHeartFailure$var))+
-        theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
-                         plot.subtitle = element_text(size = 14, face = "bold"),
-                         axis.title.x = element_text(size = 16, face = "bold"),
-                         axis.title.y = element_text(size = 16, face = "bold"),
-                         axis.text = element_text(size = 14),
-                         legend.position = "none",
-                         panel.background = element_rect(fill = "white", color = "black"),
-                         panel.grid.major = element_blank(),
-                         panel.grid.minor = element_blank())
-      
-  })
-```
-:::
 
 ### Quiz: Questions 13-14
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Does cholesterol seem to be different for males and females?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 13</h4><p>Does cholesterol seem to be different for males and females?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, the median and IQR for females is higher</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, they might as well be the same boxplot</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the difference is not statistically significant</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, the difference is statistically significant</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Is there any difference in resting blood pressure for patients based on fbs?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 14</h4><p>Is there any difference in resting blood pressure for patients based on fbs?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the difference is not statistically significant</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the medians are almost exactly the same</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, the difference is statistically significant</button>

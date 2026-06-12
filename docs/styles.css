@@ -270,6 +270,28 @@
   opacity: 0.65;
 }
 
+.lab-box-rect {
+  fill: #c7d8ea;
+  stroke: #315a7f;
+  stroke-width: 2;
+}
+
+.lab-box-whisker {
+  stroke: #2f3944;
+  stroke-width: 2;
+}
+
+.lab-box-median {
+  stroke: #1455a0;
+  stroke-width: 3;
+}
+
+.lab-box-outlier {
+  fill: #fff;
+  stroke: #b42318;
+  stroke-width: 2;
+}
+
 .lab-plot-title {
   fill: var(--lab-ink);
   font-size: 18px;
