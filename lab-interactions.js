@@ -375,6 +375,14 @@ const initGuidedLab = (marker) => {
   const visited = new Set();
   let current = 0;
 
+  function scrollToTopicStart(section) {
+    const heading = section.querySelector("h2") || section;
+    const navbar = document.querySelector("#quarto-header");
+    const offset = (navbar?.offsetHeight || 0) + guide.offsetHeight + 20;
+    const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+  }
+
   function showTopic(index, updateHash = false) {
     current = Math.min(Math.max(index, 0), topics.length - 1);
     visited.add(current);
@@ -400,7 +408,7 @@ const initGuidedLab = (marker) => {
     if (updateHash) {
       const heading = topics[current].querySelector("h2");
       history.replaceState(null, "", `#${heading.id || topics[current].id}`);
-      guide.scrollIntoView({ behavior: "smooth", block: "start" });
+      requestAnimationFrame(() => scrollToTopicStart(topics[current]));
     }
   }
 
