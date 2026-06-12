@@ -24,13 +24,14 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-11: Limited the published colleague preview to the homepage, about page, and Lab 1 only. Source files for Labs 2-13 remain in `All_Labs/` and `tutorials/` for later polishing.
 - 2026-06-11: Added Labs 2-13 back to the published site as a clearly labeled "Experimental / Unfinished Labs" section while keeping Lab 1 identified as the prototype.
 - 2026-06-12: Fixed guided lab topic navigation so Next/Previous topic changes scroll to the start of the newly displayed topic instead of sometimes leaving the reader mid-page.
+- 2026-06-12: Started the Lab 2 polish pass. Converted the remaining learnr quiz code into static feedback cards, added select-all quiz behavior for Question 1, removed the leftover Shiny migration callouts, and replaced the bin-selection Shiny app with a browser-side histogram widget for the heart failure data.
 
 ## Lab Inventory
 
 | Lab | Title | WebR cells | Quiz blocks | Shiny migration blocks |
 | --- | --- | ---: | ---: | ---: |
 | 1 | Getting Started | 6 | 20 | 0 |
-| 2 | Histograms | 13 | 4 | 2 |
+| 2 | Histograms | 8 | 8 | 0 |
 | 3 | Box Plots | 5 | 28 | 2 |
 | 4 | Basic Data Analysis | 9 | 28 | 0 |
 | 5 | Life Tables | 0 | 20 | 6 |

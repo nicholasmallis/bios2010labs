@@ -1,10 +1,44 @@
 document.addEventListener("click", (event) => {
   const answer = event.target.closest(".lab-answer");
-  if (!answer) return;
+  const check = event.target.closest("[data-check-answers]");
+  if (!answer && !check) return;
 
-  const quiz = answer.closest("[data-lab-quiz]");
+  const quiz = (answer || check).closest("[data-lab-quiz]");
   const feedback = quiz.querySelector(".lab-feedback");
+  const isMulti = quiz.dataset.multiQuiz === "true";
+
+  if (check) {
+    const answers = Array.from(quiz.querySelectorAll(".lab-answer"));
+    const selected = answers.filter((button) => button.classList.contains("selected"));
+    const correct = answers.filter((button) => button.dataset.correct === "true");
+    const isCorrect = selected.length === correct.length
+      && correct.every((button) => button.classList.contains("selected"));
+
+    answers.forEach((button) => {
+      const selectedButton = button.classList.contains("selected");
+      button.classList.toggle("correct", selectedButton && button.dataset.correct === "true");
+      button.classList.toggle("incorrect", selectedButton && button.dataset.correct !== "true");
+    });
+
+    feedback.textContent = isCorrect
+      ? "Correct. These categorical variables should not be visualized with a histogram."
+      : "Try again. Select all of the categorical variables and leave the continuous variables unselected.";
+    feedback.classList.toggle("correct", isCorrect);
+    feedback.classList.toggle("incorrect", !isCorrect);
+    return;
+  }
+
   const isCorrect = answer.dataset.correct === "true";
+
+  if (isMulti) {
+    const selected = !answer.classList.contains("selected");
+    answer.classList.toggle("selected", selected);
+    answer.classList.remove("correct", "incorrect");
+    answer.setAttribute("aria-pressed", selected ? "true" : "false");
+    feedback.textContent = "Selection updated. Use Check Answers when you are ready.";
+    feedback.classList.remove("correct", "incorrect");
+    return;
+  }
 
   quiz.querySelectorAll(".lab-answer").forEach((button) => {
     button.classList.remove("selected", "correct", "incorrect");
@@ -174,7 +208,21 @@ const standardDeviation = (values) => {
 };
 
 const drawAxes = (svg, scales) => {
-  const { width, height, margin, plotHeight, xMin, xMax, yMax, xScale, yScale } = scales;
+  const {
+    width,
+    height,
+    margin,
+    plotHeight,
+    xMin,
+    xMax,
+    yMax,
+    xScale,
+    yScale,
+    xTitle = "Duration (minutes)",
+    yTitle = "Density",
+    xFormat = (value) => value.toFixed(1),
+    yFormat = (value) => value.toFixed(2),
+  } = scales;
   const axisColor = "#2f3944";
   svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
   svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
@@ -183,21 +231,111 @@ const drawAxes = (svg, scales) => {
     const x = xMin + ((xMax - xMin) * index) / 5;
     const screenX = xScale(x);
     svg.appendChild(svgEl("line", { x1: screenX, x2: screenX, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
-    svg.appendChild(svgEl("text", { x: screenX, y: height - 28, "text-anchor": "middle", class: "lab-axis-label" })).textContent = x.toFixed(1);
+    svg.appendChild(svgEl("text", { x: screenX, y: height - 28, "text-anchor": "middle", class: "lab-axis-label" })).textContent = xFormat(x);
   }
 
   for (let index = 0; index <= 4; index += 1) {
     const y = (yMax * index) / 4;
     const screenY = yScale(y);
     svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: screenY, y2: screenY, stroke: axisColor }));
-    svg.appendChild(svgEl("text", { x: margin.left - 10, y: screenY + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = y.toFixed(2);
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: screenY + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = yFormat(y);
   }
 
-  svg.appendChild(svgEl("text", { x: width / 2, y: height - 7, "text-anchor": "middle", class: "lab-axis-title" })).textContent =
-    "Duration (minutes)";
-  const yTitle = svgEl("text", { x: 16, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 16 ${height / 2})` });
-  yTitle.textContent = "Density";
-  svg.appendChild(yTitle);
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 7, "text-anchor": "middle", class: "lab-axis-title" })).textContent = xTitle;
+  const yTitleElement = svgEl("text", { x: 16, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 16 ${height / 2})` });
+  yTitleElement.textContent = yTitle;
+  svg.appendChild(yTitleElement);
+};
+
+const initHeartHistogram = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const svg = root.querySelector("svg");
+  const binsInput = root.querySelector("[data-heart-hist-bins]");
+  const binsOutput = root.querySelector("[data-heart-hist-bins-value]");
+  const variableSelect = root.querySelector("[data-heart-hist-variable]");
+  const columns = Object.keys(data[0] || {}).filter((column) => (
+    data.some((row) => Number.isFinite(Number(row[column])))
+  ));
+
+  variableSelect.replaceChildren(...columns.map((column) => new Option(column, column)));
+  variableSelect.value = columns.includes("age") ? "age" : columns[0];
+
+  const width = 760;
+  const height = 360;
+  const margin = { top: 34, right: 24, bottom: 54, left: 60 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+
+  const draw = () => {
+    const variable = variableSelect.value;
+    const values = data.map((row) => Number(row[variable])).filter(Number.isFinite);
+    const binCount = Number(binsInput.value);
+    if (binsOutput) binsOutput.value = binCount;
+    svg.replaceChildren();
+
+    let min = Math.min(...values);
+    let max = Math.max(...values);
+    if (!Number.isFinite(min) || !Number.isFinite(max)) return;
+    if (min === max) {
+      min -= 0.5;
+      max += 0.5;
+    }
+
+    const pad = (max - min) * 0.04;
+    const xMin = min - pad;
+    const xMax = max + pad;
+    const binWidth = (xMax - xMin) / binCount;
+    const bins = Array.from({ length: binCount }, (_, index) => ({
+      x0: xMin + index * binWidth,
+      x1: xMin + (index + 1) * binWidth,
+      count: 0,
+    }));
+
+    values.forEach((value) => {
+      const index = Math.min(Math.floor((value - xMin) / binWidth), binCount - 1);
+      bins[Math.max(index, 0)].count += 1;
+    });
+
+    const yMax = Math.max(...bins.map((bin) => bin.count), 1) * 1.12;
+    const xScale = (x) => margin.left + ((x - xMin) / (xMax - xMin)) * plotWidth;
+    const yScale = (y) => margin.top + plotHeight - (y / yMax) * plotHeight;
+
+    svg.appendChild(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+    svg.appendChild(svgEl("text", { x: width / 2, y: 22, "text-anchor": "middle", class: "lab-plot-title" })).textContent =
+      `Heart failure data: ${variable}`;
+
+    bins.forEach((bin) => {
+      const x = xScale(bin.x0) + 1;
+      const y = yScale(bin.count);
+      const rectWidth = Math.max(xScale(bin.x1) - xScale(bin.x0) - 2, 1);
+      svg.appendChild(svgEl("rect", {
+        x,
+        y,
+        width: rectWidth,
+        height: margin.top + plotHeight - y,
+        class: "lab-hist-bar",
+      }));
+    });
+
+    drawAxes(svg, {
+      width,
+      height,
+      margin,
+      plotHeight,
+      xMin,
+      xMax,
+      yMax,
+      xScale,
+      yScale,
+      xTitle: variable,
+      yTitle: "Count",
+      xFormat: (value) => Number.isInteger(value) ? String(value) : value.toFixed(1),
+      yFormat: (value) => String(Math.round(value)),
+    });
+  };
+
+  [binsInput, variableSelect].forEach((control) => control.addEventListener("input", draw));
+  draw();
 };
 
 const initHeartTable = async (root) => {
@@ -440,5 +578,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-heart-table]").forEach((root) => {
     initHeartTable(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-heart-histogram]").forEach((root) => {
+    initHeartHistogram(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 });

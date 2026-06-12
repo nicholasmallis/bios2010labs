@@ -153,6 +153,23 @@
   color: var(--lab-red);
 }
 
+.lab-check-answer {
+  min-height: 2.35rem;
+  margin-top: 0.35rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--lab-blue);
+  border-radius: 6px;
+  background: var(--lab-blue);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lab-check-answer:hover,
+.lab-check-answer:focus {
+  background: #1756b6;
+}
+
 .quiz-note {
   color: var(--lab-muted);
   font-size: 0.92rem;

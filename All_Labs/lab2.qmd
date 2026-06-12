@@ -3,6 +3,7 @@ title: "Lab 2: Histograms"
 subtitle: "Computer Lab 2"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -73,9 +74,7 @@ if (!exists("ggpaired", mode = "function")) {
 HeartFailure <- read.csv("tutorials/Lab2/www/heart.csv")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 2"></div>
 
 ## Introduction
 
@@ -140,7 +139,7 @@ head(HeartFailure,10)
 ```
 ### Quiz: Questions 1-2
 **Don't forget to write your answers down so that you can answer the questions on the eLC quiz for this lab. Question 1 here will correspond to question 1 on the eLC quiz**
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Which variables should <strong>NOT</strong> be visualized with a histogram? (select all that apply))</p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 1</h4><p>Which variables should <strong>NOT</strong> be visualized with a histogram? (select all that apply)</p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Cholesterol can be visualized with a histogram.">chol</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">fbs</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Resting blood pressure can be visualized with a histogram.">trestbps</button>
@@ -149,6 +148,7 @@ head(HeartFailure,10)
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Maximum heart rate can be visualized with a histogram.">thalach</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Great work!">exang</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="ST depression can be visualized with a histogram.">oldpeak</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What type of visualization should you use for <strong>categorical</strong> variables?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="It is tempting but not the appropriate visualization method">Histograms</button>
@@ -165,18 +165,12 @@ head(HeartFailure,10)
 hist(HeartFailure$age)
 ```
 ### Quiz: Question 3
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("Which age bin is the most central in the distribution of age?",
-    answer("35-40"),
-    answer("75-80"),
-    answer("50-55", message ="You are one with the data!", correct = TRUE),
-    answer("60-65"),
-  allow_retry = TRUE
-  )
-```
+<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Which age bin is the most central in the distribution of age?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Look at the center of the age distribution.">35-40</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="This is near the high end of the distribution.">75-80</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="You are one with the data!">50-55</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Close, but this is not the most central bin.">60-65</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 3: Histogram for Cholesterol
 
 ```{webr}
@@ -185,17 +179,10 @@ hist(HeartFailure$age)
 # make a histogram for chol.
 ```
 ### Quiz: Question 4
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("Are there any outlying observations for cholesterol?",
-    answer("True", correct = TRUE),
-    answer("False"),
-  allow_retry = TRUE
-    
-  )
-```
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Are there any outlying observations for cholesterol?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct. The cholesterol histogram has a high value away from most observations.">True</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Look at the far right side of the cholesterol histogram.">False</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 4: Histogram for Resting Blood Pressure
 
 ```{webr}
@@ -204,18 +191,12 @@ hist(HeartFailure$age)
 # make a histogram for trestbps.
 ```
 ### Quiz: Question 5
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("How would you describe the distribution of resting blood pressure?",
-    answer("Normal"),
-    answer("Skewed left"),
-    answer("Skewed right with a possible outlier", correct = TRUE),
-    answer("Skewed left with an outlier"),
-  allow_retry = TRUE
-  )
-```
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>How would you describe the distribution of resting blood pressure?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Look at the right tail of the histogram.">Normal</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="The tail is not mainly on the left side.">Skewed left</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct. The distribution is skewed right with a possible outlier.">Skewed right with a possible outlier</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="The possible outlier is on the high end, not the low end.">Skewed left with an outlier</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 5: Histogram for ST depression induced by exercise
 
 ```{webr}
@@ -224,18 +205,12 @@ hist(HeartFailure$age)
 # make a histogram for oldpeak.
 ```
 ### Quiz: Question 6
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("Which values are the most common for oldpeak?",
-    answer("0-0.5", correct = TRUE),
-    answer("1.5-2"),
-    answer("3.5-4"),
-    answer("2.5-3"),
-  allow_retry = TRUE
-  )
-```
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>Which values are the most common for oldpeak?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct. Most oldpeak values are near zero.">0-0.5</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Look for the tallest bar in the histogram.">1.5-2</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="These values are less common.">3.5-4</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="These values are not the most common.">2.5-3</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ## Impact of Bin Selection
 
 As long as all the bins are the same (their widths don't vary), they can be defined by how many there are or by their width. Regardless of how the bins are defined, it is crucial that there are not too few or too many. There are no hard set rules for how many bins you should use, but there are four standard calculations (see below) to help you decide on the number of the bins. ($n$ in the formulas below are the number of observations) 
@@ -278,18 +253,12 @@ print("Freedman-Diaconis Method")
 ```
 ### Quiz: Question 7
 **To answer the question below change the code for method 4 to calculate the suggested number of bins for the "oldpeak" variable**
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("Based on the Freedman-Diaconis method how many bins should you use for the *oldpeak* variable?",
-    answer("18"),
-    answer("13", correct = TRUE),
-    answer("42"),
-    answer("22"),
-  allow_retry = TRUE
-  )
-```
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>Based on the Freedman-Diaconis method how many bins should you use for the <em>oldpeak</em> variable?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try changing method 4 to use oldpeak and round the result.">18</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct. The rounded result is 13 bins.">13</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="That is too many bins for this method.">42</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try changing method 4 to use oldpeak and round the result.">22</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 7: Impact of bin selection
 Select different variables and see how the number of bins impacts the appearance by moving the slider to increase or decrease the number of bins. Refer to the data dictionary to make sure you are using the right variable type. See what happens when you make a histogram with the wrong variable type. Change the variables in the bin formulas above and see what the histograms look like when you use each of the four indicated bin numbers. Remember you only have to change methods 3 and 4. After you have had some fun playing with the histograms answer question 8.     
 
@@ -303,58 +272,30 @@ __thalach:__ maximum heart rate achieved
 __exang:__ exercise induced angina (1 = yes; 0 = no)  
 __oldpeak:__ ST depression induced by exercise relative to rest 
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(4, sliderInput("n_breaks", "Number of Bins:",
-                               min = 1, max = 100, value = 5)),
-         column(4, selectInput("var", "Variable:",
-                               choices=colnames(HeartFailure)))
-
-)
-
-plotOutput("plot1")
+```{=html}
+<div class="lab-widget lab-histogram" data-heart-histogram data-csv="../tutorials/Lab2/www/heart.csv">
+  <div class="lab-widget-controls">
+    <label>
+      <span>Number of Bins</span>
+      <input type="range" min="1" max="100" value="5" data-heart-hist-bins>
+      <output data-heart-hist-bins-value>5</output>
+    </label>
+    <label>
+      <span>Variable</span>
+      <select data-heart-hist-variable></select>
+    </label>
+  </div>
+  <svg class="lab-plot" viewBox="0 0 760 360" role="img" aria-label="Histogram of selected heart failure variable"></svg>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-  # Creating histogram based on selections
-output$plot1 <- renderPlot({
-  
-  x <- HeartFailure[ ,input$var]
-  
-  bins <- seq(min(x), max(x), length.out = input$n_breaks + 1)
-  
-    hist(HeartFailure[ ,input$var],
-      breaks = bins,
-      main = print(input$var),
-      xlab = print(input$var))
-    
-  })
-```
-:::
 
 ### Quiz: Question 8
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("It there a perfect number of bins that will work for all variables?",
-    answer("No", correct = TRUE),
-    answer("Sometimes"),
-    answer("42"),
-    answer("Yes"),
-  allow_retry = TRUE
-  )
-```
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>Is there a perfect number of bins that will work for all variables?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct. Bin choice depends on the variable and the goal of the plot.">No</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="There is not one bin number that works perfectly across variables.">Sometimes</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="A fine joke, but not the answer here.">42</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Different variables need different bin choices.">Yes</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ## Summary
 In this lab, you completed 7 exercises and answered 8 quiz questions. 
 
