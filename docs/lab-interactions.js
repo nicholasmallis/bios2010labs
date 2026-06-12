@@ -21,8 +21,8 @@ document.addEventListener("click", (event) => {
     });
 
     feedback.textContent = isCorrect
-      ? "Correct. These categorical variables should not be visualized with a histogram."
-      : "Try again. Select all of the categorical variables and leave the continuous variables unselected.";
+      ? (quiz.dataset.correctFeedback || "Correct. You selected all of the correct answers.")
+      : (quiz.dataset.incorrectFeedback || "Try again. Select all of the correct answers and leave the incorrect answers unselected.");
     feedback.classList.toggle("correct", isCorrect);
     feedback.classList.toggle("incorrect", !isCorrect);
     return;

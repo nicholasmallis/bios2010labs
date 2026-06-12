@@ -3,6 +3,7 @@ title: "Lab 4: Basic Data Analysis"
 subtitle: "Computer Lab 4"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -86,13 +87,11 @@ HeartFailure <- read.csv("tutorials/Lab4/www/heart.csv")
 CleanHeartFailure <- readRDS("tutorials/Lab4/www/cleanheartfailure.Rda")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 4"></div>
 
 ## Introduction 
 
-In this lab, you will use everything you have learned in the first three labs plus some new concepts introduced in this lab. You will see the what it takes to complete some simple analyses of the HeartFailure data set from start to finish. 
+In this lab, you will use everything you have learned in the first three labs plus some new concepts introduced in this lab. You will see what it takes to complete some simple analyses of the HeartFailure data set from start to finish. 
 
 ### Data cleaning 
 
@@ -110,7 +109,7 @@ Also, remember that R is not smart; it does whatever you tell it to. If you writ
 
 #### Making Tables
 
-In nearly all journal articles, the first result is a table that summarizes all of the included variables. R has some great tools to make these tables with minimal coding. In this lab, you will use a function call tableone() check out the [Rdocumenation](https://www.rdocumentation.org/packages/tableone/versions/0.10.0) for the function.
+In nearly all journal articles, the first result is a table that summarizes all of the included variables. R has some great tools to make these tables with minimal coding. In this lab, you will use a function called tableone() check out the [RDocumentation](https://www.rdocumentation.org/packages/tableone/versions/0.10.0) for the function.
 
 #### To visualize or not to visualize
 
@@ -158,7 +157,7 @@ head(HeartFailure, )
 **Don't forget to write your answers down for the eLC quiz**
 Identify the variable type and corresponding R data type for each of the variables.    
 To be clear, the variable age, in this case, is recorded as discrete data (whole year not year.months.days) but age is considered a continuous variable since values between 65 and 66 are possible. It is very common for continuous data/variables to be recorded as whole numbers, but that does not make them discrete. So you will have to think about whether or not intermediate values are possible before deciding if a variable data is continuous or discrete.
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Select the data type and corresponding R data type for: <strong>age</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 1</h4><p>Select the data type and corresponding R data type for: <strong>age</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -167,8 +166,9 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Select the data type and corresponding R data type for: <strong>sex</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 2</h4><p>Select the data type and corresponding R data type for: <strong>sex</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -177,8 +177,9 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Select the data type and corresponding R data type for: <strong>trestbps</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 3</h4><p>Select the data type and corresponding R data type for: <strong>trestbps</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -187,8 +188,9 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Select the data type and corresponding R data type for: <strong>chol</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 4</h4><p>Select the data type and corresponding R data type for: <strong>chol</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -197,8 +199,9 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>Select the data type and corresponding R data type for: <strong>fbs</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 5</h4><p>Select the data type and corresponding R data type for: <strong>fbs</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -207,8 +210,9 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>Select the data type and corresponding R data type for: <strong>thalach</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 6</h4><p>Select the data type and corresponding R data type for: <strong>thalach</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -217,8 +221,9 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>Select the data type and corresponding R data type for: <strong>exang</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 7</h4><p>Select the data type and corresponding R data type for: <strong>exang</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -227,8 +232,9 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>Select the data type and corresponding R data type for: <strong>oldpeak</strong></p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 8</h4><p>Select the data type and corresponding R data type for: <strong>oldpeak</strong></p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
@@ -237,6 +243,7 @@ To be clear, the variable age, in this case, is recorded as discrete data (whole
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Checking Variable Types in R
 Now that we have identified the data types and the corresponding R data type for each variable, let's see how the variables are currently saved. It is important to know that when you import data into R, it tries to give variables the correct format but it very rarely gets it 100% right. 
@@ -259,22 +266,17 @@ The second line starts with a "**$**" letting you know that it is a variable ins
 
 So now that you know that the output means you can answer the following question.
 
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("Which variables need to have their variable types changed",
-    answer("age", correct = TRUE),
-    answer("sex", correct = TRUE),
-    answer("trestbps", correct = TRUE),
-    answer("chol", correct = TRUE),
-    answer("fbs", correct = TRUE),
-    answer("thalach"),
-    answer("exang", correct = TRUE),
-    answer("oldpeak"),
-  allow_retry = TRUE
-  )
-```
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 9</h4><p>Which variables need to have their variable types changed?</p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">age</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">sex</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">trestbps</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">chol</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">fbs</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">thalach</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">exang</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">oldpeak</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ## Data Cleaning R
 
 So R was only right about the variable type for 2 of the 8 variables (I told you R is not smart, but it is OK because you are). Thankfully changing the variable type in R is very easy. The basic syntax is shown in the table below.
@@ -346,7 +348,7 @@ CleanHeartFailure$sex<-factor(HeartFailure$sex, labels = c("Female","Male"))
 # For fbs the first level is 0 so the first label needs to be "No"  
 CleanHeartFailure$fbs<-factor(HeartFailure$fbs, labels = c("No","Yes"))
 
-# For exang the first level is 0 so the first lable needs to be "No"
+# For exang the first level is 0 so the first label needs to be "No"
 CleanHeartFailure$exang<-factor(HeartFailure$exang, labels = c("No","Yes"))
 
 # Assign the labels I want for each variable
@@ -400,18 +402,18 @@ boxplot(chol~sex, data = HeartFailure)
 # Chunk 3: Write the code to make a summary of "exang" and the stratified box plot specified in the instructions
 ```
 ### Quiz: Questions 10-12
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Is the summary for sex in chunk 2 correct?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>Is the summary for sex in chunk 2 correct?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, knowing the mean and median is always important</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">No, counts or relative frequencies should be shown</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, Q1 and Q2 should always been shown</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>How many patients have exercise induced angina?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 11</h4><p>How many patients have exercise induced angina?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">99</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">204</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">105</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">303</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Is the distribution of resting blood pressure different when stratified by exang?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>Is the distribution of resting blood pressure different when stratified by exang?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, The median is higher for those with exang = Yes</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">No, They are very similar</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, The median is lower for those with exang = Yes</button>
@@ -443,18 +445,18 @@ table1<-print(table, varLabels = TRUE, showAllLevels = T)
 knitr::kable(table1, caption = "**This is the table we easily created using some clean data and the tableone() function.**")
 ```
 ### Quiz: Question 13-15
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Is the summary for sex in this table correct?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 13</h4><p>Is the summary for sex in this table correct?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, knowing the mean and median is always important</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, counts or relative frequencies should be shown</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, now it shows the frequency and relative frequency</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>How many patients have a fasting blood sugar &gt; 120mg/dl?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 14</h4><p>How many patients have a fasting blood sugar &gt; 120mg/dl?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">45</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">258</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">153</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">330</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Among the continuous and discrete variables which is the most variable?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 15</h4><p>Among the continuous and discrete variables which is the most variable?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Age</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Serum Cholesterol</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Maximum Recorded Heart Rate</button>
@@ -463,7 +465,7 @@ knitr::kable(table1, caption = "**This is the table we easily created using some
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Figures with numerical summaries
 
-Figures with numerical summaries are the best. They allow you to quickly to see the characteristics of the distribution and the exact values of numeric summaries (mean, median, max, min, etc.).  Making these figures takes a little more effort but are well worth the effort. Making these plots will be made using an R package called ggpplot2 () 
+Figures with numerical summaries are the best. They allow you to quickly see the characteristics of the distribution and the exact values of numeric summaries (mean, median, max, min, etc.). Making these figures takes a little more effort but are well worth the effort. Making these plots will be made using an R package called ggplot2. 
 
 ### Exercise 5
 **Instructions** Look at the code below just so you can see that it takes a lot more then hist() to make a nicer histogram. You see if you can figure out which part of the code does what. Answer the question based on the interpretation of histogram. 
@@ -498,21 +500,15 @@ ggplot(CleanHeartFailure, aes(age))+
 The plot shows you the distribution age in the data, the start and end value for each bin, the exact count of patients in each bin, the value and location numeric value of the summary statistics (minimum, mean, median, max).
 
 ### Quiz: Question 16
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-  question("What is the most common age range for these patients?",
-    answer("32.5-37.5"),
-    answer("52.5-57.5"),
-    answer("67.5-72.5"),
-    answer("57.5-62.5", correct = TRUE),
-  allow_retry = TRUE
-  )
-```
+<section class="lab-quiz" data-lab-quiz><h4>Question 16</h4><p>What is the most common age range for these patients?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">32.5-37.5</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">52.5-57.5</button>
+<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">67.5-72.5</button>
+<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">57.5-62.5</button></div>
+<div class="lab-feedback" aria-live="polite"></div></section>
 ## Summary
 
-In this lab, you completed 5 exercises, and answered 16 quiz question related to the following topics:  
+In this lab, you completed 5 exercises, and answered 16 quiz questions related to the following topics:  
 1. how the data types we learn in class correspond to R data types  
 2. how to clean up your data  
 3. how to make a summary table of all the variables in the data set   
