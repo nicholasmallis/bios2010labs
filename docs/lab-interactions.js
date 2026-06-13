@@ -477,6 +477,233 @@ const initHeartBoxplot = async (root) => {
   draw();
 };
 
+const lineColors = [
+  "#1455a0",
+  "#b42318",
+  "#177245",
+  "#7c3aed",
+  "#b45309",
+  "#0f766e",
+  "#be123c",
+  "#4b5563",
+  "#2563eb",
+  "#9333ea",
+  "#15803d",
+  "#c2410c",
+];
+
+const linePath = (points, xScale, yScale) => points
+  .map((point, index) => `${index === 0 ? "M" : "L"} ${xScale(point.x).toFixed(2)} ${yScale(point.y).toFixed(2)}`)
+  .join(" ");
+
+const drawLinePlot = (svg, config) => {
+  const {
+    title,
+    xTitle,
+    yTitle,
+    series,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    xFormat = (value) => String(Math.round(value)),
+    yFormat = (value) => value.toFixed(2),
+  } = config;
+  const width = 760;
+  const height = Number(svg.getAttribute("viewBox")?.split(" ")[3]) || 420;
+  const margin = { top: 42, right: 28, bottom: 92, left: 70 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const xSpan = xMax === xMin ? 1 : xMax - xMin;
+  const ySpan = yMax === yMin ? 1 : yMax - yMin;
+  const xScale = (value) => margin.left + ((value - xMin) / xSpan) * plotWidth;
+  const yScale = (value) => margin.top + plotHeight - ((value - yMin) / ySpan) * plotHeight;
+  const axisColor = "#2f3944";
+
+  svg.replaceChildren();
+  svg.appendChild(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = title;
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+  for (let index = 0; index <= 5; index += 1) {
+    const x = xMin + (xSpan * index) / 5;
+    const screenX = xScale(x);
+    svg.appendChild(svgEl("line", { x1: screenX, x2: screenX, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: screenX, y: height - 58, "text-anchor": "middle", class: "lab-axis-label" })).textContent = xFormat(x);
+  }
+
+  for (let index = 0; index <= 4; index += 1) {
+    const y = yMin + (ySpan * index) / 4;
+    const screenY = yScale(y);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: screenY, y2: screenY, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: screenY + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = yFormat(y);
+  }
+
+  series.forEach((item, index) => {
+    const color = lineColors[index % lineColors.length];
+    svg.appendChild(svgEl("path", {
+      d: linePath(item.points, xScale, yScale),
+      class: "lab-line-path",
+      stroke: color,
+    }));
+    item.points.forEach((point) => {
+      svg.appendChild(svgEl("circle", {
+        cx: xScale(point.x),
+        cy: yScale(point.y),
+        r: 2.6,
+        class: "lab-line-point",
+        fill: color,
+      }));
+    });
+  });
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 30, "text-anchor": "middle", class: "lab-axis-title" })).textContent = xTitle;
+  const yTitleElement = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitleElement.textContent = yTitle;
+  svg.appendChild(yTitleElement);
+
+  const legend = svgEl("g", { class: "lab-legend" });
+  series.slice(0, 8).forEach((item, index) => {
+    const x = margin.left + (index % 2) * 315;
+    const y = height - 74 + Math.floor(index / 2) * 16;
+    const color = lineColors[index % lineColors.length];
+    legend.appendChild(svgEl("line", { x1: x, x2: x + 20, y1: y - 4, y2: y - 4, stroke: color, "stroke-width": 3 }));
+    legend.appendChild(svgEl("text", { x: x + 26, y, class: "lab-axis-label" })).textContent = item.label;
+  });
+  svg.appendChild(legend);
+};
+
+const initLifeExpectancy = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const svg = root.querySelector("svg");
+  const startInput = root.querySelector("[data-life-start]");
+  const endInput = root.querySelector("[data-life-end]");
+  const startOutput = root.querySelector("[data-life-start-value]");
+  const endOutput = root.querySelector("[data-life-end-value]");
+  const seriesInputs = Array.from(root.querySelectorAll("[data-life-series]"));
+
+  const draw = () => {
+    let start = Number(startInput.value);
+    let end = Number(endInput.value);
+    if (start > end) [start, end] = [end, start];
+    startOutput.value = start;
+    endOutput.value = end;
+    const selected = seriesInputs.filter((input) => input.checked).map((input) => input.value);
+    const rows = data
+      .map((row) => ({ ...row, Year: Number(row.Year) }))
+      .filter((row) => row.Year >= start && row.Year <= end);
+
+    if (selected.length === 0 || rows.length === 0) {
+      svg.replaceChildren(svgEl("text", { x: 380, y: 210, "text-anchor": "middle", class: "lab-plot-title" }));
+      svg.firstChild.textContent = "Select at least one life expectancy series.";
+      return;
+    }
+
+    const series = selected.map((column) => ({
+      label: column,
+      points: rows.map((row) => ({ x: row.Year, y: Number(row[column]) })).filter((point) => Number.isFinite(point.y)),
+    }));
+    const allY = series.flatMap((item) => item.points.map((point) => point.y));
+    const yMin = Math.floor(Math.min(...allY) / 5) * 5;
+    const yMax = Math.ceil(Math.max(...allY) / 5) * 5;
+
+    drawLinePlot(svg, {
+      title: `Life Expectancy at Birth in the US (${start}-${end})`,
+      xTitle: "Year",
+      yTitle: "Life Expectancy at Birth (years)",
+      series,
+      xMin: start,
+      xMax: end,
+      yMin,
+      yMax,
+      yFormat: (value) => value.toFixed(0),
+    });
+  };
+
+  [startInput, endInput, ...seriesInputs].forEach((control) => control.addEventListener("input", draw));
+  draw();
+};
+
+const checkboxControl = (name, value, checked) => {
+  const label = document.createElement("label");
+  label.className = "lab-check";
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  input.name = name;
+  input.value = value;
+  input.checked = checked;
+  label.append(input, ` ${value}`);
+  return label;
+};
+
+const initLifeTableCurve = async (root) => {
+  const data = (await fetchCsv(root.dataset.csv)).map((row) => ({
+    ...row,
+    Age: Number(row.Age),
+    Year: Number(row.Year),
+    SurvivalP: Number(row.SurvivalP),
+    qx: Number(row.qx),
+  }));
+  const svg = root.querySelector("svg");
+  const controls = root.querySelector("[data-life-table-controls]");
+  const years = [...new Set(data.map((row) => row.Year))].sort((a, b) => a - b);
+  const strata = [...new Set(data.map((row) => row["Race.Sex"]))];
+
+  const yearBox = document.createElement("fieldset");
+  yearBox.className = "lab-check-group";
+  yearBox.appendChild(Object.assign(document.createElement("legend"), { textContent: "Years" }));
+  years.forEach((year) => yearBox.appendChild(checkboxControl("year", year, year === 1900 || year === 2015)));
+
+  const strataBox = document.createElement("fieldset");
+  strataBox.className = "lab-check-group";
+  strataBox.appendChild(Object.assign(document.createElement("legend"), { textContent: "Groups" }));
+  strata.forEach((group) => strataBox.appendChild(checkboxControl("strata", group, group === "All")));
+  controls.append(yearBox, strataBox);
+
+  const draw = () => {
+    const selectedYears = Array.from(yearBox.querySelectorAll("input:checked")).map((input) => Number(input.value));
+    const selectedStrata = Array.from(strataBox.querySelectorAll("input:checked")).slice(0, 6).map((input) => input.value);
+    const yColumn = root.dataset.yColumn;
+    const rows = data.filter((row) => selectedYears.includes(row.Year) && selectedStrata.includes(row["Race.Sex"]));
+
+    if (rows.length === 0) {
+      svg.replaceChildren(svgEl("text", { x: 380, y: 220, "text-anchor": "middle", class: "lab-plot-title" }));
+      svg.firstChild.textContent = "Select at least one year and one group.";
+      return;
+    }
+
+    const keys = [...new Set(rows.map((row) => `${row.Year}|${row["Race.Sex"]}`))];
+    const series = keys.map((key) => {
+      const [year, group] = key.split("|");
+      return {
+        label: `${year} ${group}`,
+        points: rows
+          .filter((row) => row.Year === Number(year) && row["Race.Sex"] === group)
+          .sort((a, b) => a.Age - b.Age)
+          .map((row) => ({ x: row.Age, y: row[yColumn] })),
+      };
+    });
+    const allY = series.flatMap((item) => item.points.map((point) => point.y));
+    const yMax = Math.max(...allY) * 1.08;
+
+    drawLinePlot(svg, {
+      title: root.dataset.title,
+      xTitle: "Age",
+      yTitle: root.dataset.yTitle,
+      series,
+      xMin: 0,
+      xMax: 100,
+      yMin: 0,
+      yMax: yColumn === "SurvivalP" ? 1 : yMax,
+      yFormat: (value) => yColumn === "SurvivalP" ? value.toFixed(2) : value.toFixed(3),
+    });
+  };
+
+  controls.querySelectorAll("input").forEach((input) => input.addEventListener("input", draw));
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -725,5 +952,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-heart-boxplot]").forEach((root) => {
     initHeartBoxplot(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-life-expectancy]").forEach((root) => {
+    initLifeExpectancy(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-life-table-curve]").forEach((root) => {
+    initLifeTableCurve(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 });

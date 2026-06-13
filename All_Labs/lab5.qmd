@@ -3,6 +3,7 @@ title: "Lab 5: Life Tables"
 subtitle: "Computer Lab 5"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -18,6 +19,7 @@ webr:
   resources:
     - ../tutorials/Lab5/www/lifeexpectancy1900to2016sex.csv
     - ../tutorials/Lab5/www/survTY.Rda
+    - ../tutorials/Lab5/www/survTY.csv
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -83,9 +85,7 @@ lifeEx1<- read.csv("tutorials/Lab5/www/lifeexpectancy1900to2016sex.csv")
 survTY<- readRDS("tutorials/Lab5/www/survTY.Rda")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 5"></div>
 
 ## Introduction 
 In this lab, you will work with data from life tables. 
@@ -103,65 +103,26 @@ Life expectancy is used as a marker of a populations total health, and is often 
 ### Exercise 1 
 **Instructions:** Play around with the interactive plot. You can see the change in life expectancy over a range years for everyone and you can also stratified by sex. Use the plot below to answer quiz questions 1-3 (**set the year range to 1900 and 2015 to answer the questions** ). 
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(12, sliderInput("years", "Year Range:",
-                               min = 1900, max = 2015, value = c(1950,2000), sep ="")),
-         column(4, checkboxGroupInput("var", "Life Expectancy For:",
-                               choices=c("Males","Females","Everyone")))
-
-)
-
-plotOutput("plot1")
+```{=html}
+<div class="lab-widget lab-line-widget" data-life-expectancy data-csv="../tutorials/Lab5/www/lifeexpectancy1900to2016sex.csv">
+  <div class="lab-widget-controls">
+    <label>
+      <span>Start Year</span>
+      <input type="range" min="1900" max="2015" value="1950" data-life-start>
+      <output data-life-start-value>1950</output>
+    </label>
+    <label>
+      <span>End Year</span>
+      <input type="range" min="1900" max="2015" value="2000" data-life-end>
+      <output data-life-end-value>2000</output>
+    </label>
+    <label class="lab-check"><input type="checkbox" value="Males" data-life-series checked> Males</label>
+    <label class="lab-check"><input type="checkbox" value="Females" data-life-series checked> Females</label>
+    <label class="lab-check"><input type="checkbox" value="Everyone" data-life-series checked> Everyone</label>
+  </div>
+  <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Life expectancy at birth over time"></svg>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-  # Creating histogram based on selections 
-output$plot1 <- renderPlot({
-  
-  # Make sure they select a variable to plot
-  validate(need(!is.null(input$var), 'Please please a box to show a plot.'))
-  
-  # Get the data in the right shape
-  data<-gather(select(lifeEx1,"Year",c(input$var)), group, value, -Year)
-  
-  data$group<-as.factor(data$group)
-  # Select the Years to plot
-  data<- filter(data, Year>=input$years[1] & Year<=input$years[2])
-  
-  # Make a plot title for the selected years
-  mtitle<-sprintf("Life Expectancy at Birth in the US (%i-%i)",input$years[1],input$years[2])
-  
-  
-  # Make the plot based in the data
-  ggplot(data=data, aes(x=Year, y=value, group=data$group, color=data$group))+ 
-    geom_line()+
-    labs(title = paste(mtitle), color="Life Expectancy For")+
-    ylab("Life Expectancy at Birth (years)")+
-    scale_x_continuous(breaks = seq(input$years[1],input$years[2],by=round(log2(input$years[2]-input$years[1])+1,0)))+
-    theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
-                         plot.subtitle = element_text(size = 14, face = "bold"),
-                         axis.title.x = element_text(size = 16, face = "bold"),
-                         axis.title.y = element_text(size = 16, face = "bold"),
-                         axis.text = element_text(size = 14),
-                         legend.text = element_text(size = 12),
-                         panel.background = element_rect(fill = "white", color = "black"),
-                         panel.grid.major = element_blank(),
-                         panel.grid.minor = element_blank())
-   
-  })
-```
-:::
 
 ### Quiz: Questions 1-3
 
@@ -192,75 +153,26 @@ Another common representation of life table data is the survival curve or surviv
 
 **Instructions:** Play around with the interactive plot. You can see the change in survival for different decades and you can also stratified by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 4-6. 
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(4, checkboxGroupInput("year", "Years:",
-                               choices=unique(survTY$Year))),
-         column(4, checkboxGroupInput("strata", "Over All Survival Curve For:",
-                               choices=unique(survTY$Race.Sex)))
-
-)
-
-plotOutput("plot2")
+```{=html}
+<div class="lab-widget lab-line-widget" data-life-table-curve data-csv="../tutorials/Lab5/www/survTY.csv" data-y-column="SurvivalP" data-y-title="Proportion Surviving" data-title="Survival Curves for Selected Years and Strata">
+  <div class="lab-widget-controls" data-life-table-controls></div>
+  <svg class="lab-plot" viewBox="0 0 760 440" role="img" aria-label="Survival curves for selected years and groups"></svg>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-  # Creating histogram based on selections
-output$plot2 <- renderPlot({
-  
-  # Make sure they select a variable to plot
-  validate(need(!is.null(input$year), 'Please please a year to show a plot.'),
-           need(!is.null(input$strata), 'Please please a group to show a plot.'))
-
-  
-  # Select the Years to plot
-  data1<-filter(survTY, Race.Sex%in%input$strata & Year%in%input$year)
-  
-  # Make the plot based in the data
- ggplot(data=data1, aes(x=Age, y=SurvivalP, color= Year, shape = Race.Sex, group=interaction(Year,Race.Sex)))+
-  geom_point(alpha=0.3, size=3)+
-  geom_line(alpha=0.3)+
-    labs(title = "Survival Curves for Selected Years and Strata", color="Year", shape="Race and Sex")+
-    ylab("Proportion Surviving")+
-    theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
-                         plot.subtitle = element_text(size = 14, face = "bold"),
-                         axis.title.x = element_text(size = 16, face = "bold"),
-                         axis.title.y = element_text(size = 16, face = "bold"),
-                         axis.text = element_text(size = 14),
-                         legend.text = element_text(size = 12),
-                         legend.direction = "horizontal",
-                         legend.position = "bottom",
-                         panel.background = element_rect(fill = "white", color = "black"),
-                         panel.grid.major = element_blank(),
-                         panel.grid.minor = element_blank())
-   
-  })
-```
-:::
 
 ### Quiz: Questions 4-6
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>(Select: All, 2015, and 1900) The survival curve for 1900 looks like the most like which of the general curve types?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>(Select: All, 2015, and 1900) The survival curve for 1900 looks like the most like which of the general curve types?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are looking at the 1900 curve not the on for 2015">Type 1</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Exactly, we were barely doing better than the birds!">Type 2</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="That would be terrible, so I am glad you are not right">Type 3</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>(Select: All Male, All Female, and 2015) What age range does survival for men and women begin to differ for 2015?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>(Select: All Male, All Female, and 2015) What age range does survival for men and women begin to differ for 2015?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Nailed it! Any idea why?">20-30</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="They are different but the curves start to separate earlier">60-75</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="They are different but the curves start to separate earlier">75-90</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="They are different but the curves start to separate earlier">40-55</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>(Select: All, and all the years) In which decades did survival for those 50 years old seem to increase the most?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>(Select: All, and all the years) In which decades did survival for those 50 years old seem to increase the most?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="You got it!">1930-1950</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="There was an improvement but it is smaller than other decades.">1900-1910</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="There was very little change for people 50 years old during this time.">1990-2010</button>
@@ -274,82 +186,33 @@ In the previous topic we look at the proportion of people surviving. If instead 
 
 **Instructions:** Play around with the interactive plot. You can see the change in the mortality hazard for different decades and you can also stratified by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 7-10. 
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(4, checkboxGroupInput("year1", "Years:",
-                               choices=unique(survTY$Year))),
-         column(4, checkboxGroupInput("strata1", "Over All Survival Curve For:",
-                               choices=unique(survTY$Race.Sex)))
-
-)
-
-plotOutput("plot3")
+```{=html}
+<div class="lab-widget lab-line-widget" data-life-table-curve data-csv="../tutorials/Lab5/www/survTY.csv" data-y-column="qx" data-y-title="Proportion Dying" data-title="Hazard for Selected Years and Strata">
+  <div class="lab-widget-controls" data-life-table-controls></div>
+  <svg class="lab-plot" viewBox="0 0 760 440" role="img" aria-label="Mortality hazard curves for selected years and groups"></svg>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-  # Creating histogram based on selections
-output$plot3 <- renderPlot({
-  
-  # Make sure they select a variable to plot
-  validate(need(!is.null(input$year1), 'Please please a year to show a plot.'),
-           need(!is.null(input$strata1), 'Please please a group to show a plot.'))
-
-  
-  # Select the Years to plot
-  data2<-filter(survTY, Race.Sex%in%input$strata1 & Year%in%input$year1)
-  
-  # Make the plot based in the data
- ggplot(data=data2, aes(x=Age, y=qx, color= Year, shape = Race.Sex, group=interaction(Year,Race.Sex)))+
-  geom_point(alpha=0.3, size=3)+
-  geom_line(alpha=0.3)+
-    labs(title = "Hazard for Selected Years and Strata", color="Year", shape="Race and Sex")+
-    ylab("Proportion Dying")+
-    theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
-                         plot.subtitle = element_text(size = 14, face = "bold"),
-                         axis.title.x = element_text(size = 16, face = "bold"),
-                         axis.title.y = element_text(size = 16, face = "bold"),
-                         axis.text = element_text(size = 14),
-                         legend.text = element_text(size = 12),
-                         legend.direction = "horizontal",
-                         legend.position = "bottom",
-                         panel.background = element_rect(fill = "white", color = "black"),
-                         panel.grid.major = element_blank(),
-                         panel.grid.minor = element_blank())
-   
-  })
-```
-:::
 
 ### Quiz: Questions 7-10
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>(Select: All and 1900) What ages are the mortality hazards the highest?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>(Select: All and 1900) What ages are the mortality hazards the highest?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Thank goodness we live in the time of modern medicine">0-1 and 55+</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you made the right selections. This is actually the time with the lowest mortality hazard">5-40</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Don&#x27;t forget about the hazard early in life">60+</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you made the right selections.">10+</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>(Select: All, 2015, and 1900) Which ages have had the smallest change in their mortality hazard?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>(Select: All, 2015, and 1900) Which ages have had the smallest change in their mortality hazard?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the right years selected. We have made great strides in early child hood mortality since 1900">0-5</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="The next question would be why?">5-15</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the right years selected.">65-75</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the right years selected. They are close but other ages are much closer">45-55</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>(Select: All, and all the years) Which age has consistently had the lowest mortality hazard?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>(Select: All, and all the years) Which age has consistently had the lowest mortality hazard?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="This has generally been one of the more risky times in life!">1</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="There was an improvement but it is smaller than other decades.">35</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="I wonder why?">10</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="There was very little change for children 5 years old but there is another age with even less change.">5</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>(Select: White All, African American All, and, 2015) After 60 years at what age do the lines cross?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>(Select: White All, African American All, and, 2015) After 60 years at what age do the lines cross?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you made the right selections">80</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Actually these dots will always be the same. Only because data is only reported as 100+ since it would be to easy to identify people.">100</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you made the right selections">90</button>

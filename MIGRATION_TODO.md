@@ -27,6 +27,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-12: Started the Lab 2 polish pass. Converted the remaining learnr quiz code into static feedback cards, added select-all quiz behavior for Question 1, removed the leftover Shiny migration callouts, and replaced the bin-selection Shiny app with a browser-side histogram widget for the heart failure data.
 - 2026-06-12: Started the Lab 3 polish pass. Added the shared guided-lab layout, fixed quiz numbering, removed the leftover Shiny migration callouts, and replaced the grouped boxplot Shiny app with a browser-side boxplot widget.
 - 2026-06-12: Started the Lab 4 polish pass. Added the shared guided-lab layout, fixed select-all quiz behavior for Questions 1-9, converted the remaining learnr question blocks, corrected quiz numbering through Question 16, and cleaned up a few student-facing typos.
+- 2026-06-13: Started the Lab 5 polish pass. Added the shared guided-lab layout, converted the three Shiny plot activities into browser-side line chart widgets, exported the survival table to CSV for JavaScript plotting, and fixed quiz numbering through Question 10.
 
 ## Lab Inventory
 
@@ -36,7 +37,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 | 2 | Histograms | 8 | 8 | 0 |
 | 3 | Box Plots | 5 | 14 | 0 |
 | 4 | Basic Data Analysis | 9 | 16 | 0 |
-| 5 | Life Tables | 0 | 20 | 6 |
+| 5 | Life Tables | 0 | 10 | 0 |
 | 6 | Diagnostic and Screening Tests | 2 | 24 | 4 |
 | 7 | Discrete Distributions | 2 | 24 | 4 |
 | 8 | Normal Distribution | 0 | 22 | 6 |
