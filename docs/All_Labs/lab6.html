@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -111,6 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -243,18 +209,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 </script>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.</p>
-</div>
+<div data-guided-lab="" data-lab-title="Lab 6">
+
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -385,7 +341,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIEZv
 </section>
 <section id="quiz-questions-1-3" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-1-3">Quiz: Questions 1-3</h3>
-<section class="lab-quiz" data-lab-quiz="">
+<section class="lab-quiz" data-lab-quiz="" data-multi-quiz="true">
 <h4 class="anchored">
 Question 1
 </h4>
@@ -409,6 +365,9 @@ Select all correct answers.
 0.44
 </button>
 </div>
+<button type="button" class="lab-check-answer" data-check-answers="">
+Check Answers
+</button>
 <div class="lab-feedback" aria-live="polite">
 
 </div>
@@ -483,93 +442,22 @@ What is the accuracy of the question test?
 <strong>test2:</strong> Quantitative measurement value of the sputum antigen test<br>
 <strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
 <p><strong>Note:</strong> The values along the curve are the cut-off values. For example, for test1 using a cut-off value of 22.9 gives the test a sensitivity around 0.85 and a specificity of 0.96 (remember the x-axis is 1-specificity).</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="lab-widget lab-roc-widget" data-roc-widget="" data-csv="../tutorials/Lab6/www/medtest.csv">
+<div class="lab-widget-controls">
+<pre><code>&lt;fieldset class="lab-check-group"&gt;
+  &lt;legend&gt;Select a Test&lt;/legend&gt;
+  &lt;label class="lab-check"&gt;&lt;input type="checkbox" value="test1" data-roc-test checked&gt; test1&lt;/label&gt;
+  &lt;label class="lab-check"&gt;&lt;input type="checkbox" value="test2" data-roc-test checked&gt; test2&lt;/label&gt;
+  &lt;label class="lab-check"&gt;&lt;input type="checkbox" value="test3" data-roc-test checked&gt; test3&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">checkboxGroupInput</span>(<span class="st">"tests"</span>, <span class="st">"Select a Test:"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"test1"</span>,<span class="st">"test2"</span>,<span class="st">"test3"</span>)))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"plot1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creating histogram based on selections</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>plot1 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make sure they select a variable to plot</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>tests), <span class="st">'Please select a test to show the ROC plot.'</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(input<span class="sc">$</span>tests)<span class="sc">==</span><span class="dv">1</span>){</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if only one test is selected then basic plot</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    mtitle<span class="ot">&lt;-</span><span class="fu">sprintf</span>(<span class="st">"ROC Curve for %s"</span>,input<span class="sc">$</span>tests)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">ggplot</span>(<span class="at">data=</span>MedTest, <span class="fu">aes</span>(<span class="at">d=</span>disease_status, <span class="at">m=</span>MedTest[,<span class="fu">c</span>(input<span class="sc">$</span>tests)]))<span class="sc">+</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_roc</span>(<span class="at">color=</span><span class="st">"blue"</span>)<span class="sc">+</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">style_roc</span>(<span class="at">xlab =</span> <span class="st">"1-Specificity"</span>, <span class="at">ylab =</span> <span class="st">"Sensitivity"</span>)<span class="sc">+</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ggtitle</span>(mtitle)<span class="sc">+</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">'black'</span>)<span class="sc">+</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>))</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># more than one test then melt data into long data then plot </span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    data<span class="ot">&lt;-</span><span class="fu">melt_roc</span>(MedTest, <span class="st">"disease_status"</span>, <span class="fu">c</span>(input<span class="sc">$</span>tests))</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>       <span class="fu">ggplot</span>(<span class="at">data=</span>data, <span class="fu">aes</span>(<span class="at">d=</span>D, <span class="at">m=</span>M, <span class="at">color=</span> name))<span class="sc">+</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_roc</span>()<span class="sc">+</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>           <span class="fu">style_roc</span>(<span class="at">xlab =</span> <span class="st">"1-Specificity"</span>, <span class="at">ylab =</span> <span class="st">"Sensitivity"</span>)<span class="sc">+</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>           <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Test"</span>)<span class="sc">+</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ggtitle</span>(<span class="st">"ROC Curves for Selected Tests"</span>)<span class="sc">+</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">'black'</span>)<span class="sc">+</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>         <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>))</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>         }</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p><svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="ROC curves for selected tests"></svg></p>
 </div>
 <section id="quiz-questions-4-5" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-4-5">Quiz: Questions 4-5</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 4
 </h4>
 <p>
 Which test is the best?
@@ -591,7 +479,7 @@ test2
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 5
 </h4>
 <p>
 Below which cut-off value is test3 just as good as flipping a coin?
@@ -701,7 +589,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIFRo
 <h3 class="anchored" data-anchor-id="quiz-questions-6-8">Quiz: Questions 6-8</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 6
 </h4>
 <p>
 What is the AUC for test2?
@@ -726,7 +614,7 @@ What is the AUC for test2?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 7
 </h4>
 <p>
 What is the AUC for test3?
@@ -751,7 +639,7 @@ What is the AUC for test3?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 8
 </h4>
 <p>
 The AUC values correspond to what you observed in the ROC plots.
@@ -785,141 +673,23 @@ False
 <strong>test1:</strong> Quantitative measurement value of the PCR test<br>
 <strong>test2:</strong> Quantitative measurement value of the sputum antigen test<br>
 <strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="lab-widget lab-cutoff-widget" data-cutoff-widget="" data-csv="../tutorials/Lab6/www/medtest.csv">
+<div class="lab-widget-controls">
+<pre><code>&lt;label&gt;&lt;span&gt;Select a Test&lt;/span&gt;
+  &lt;select data-cutoff-test&gt;
+    &lt;option value="test1"&gt;test1&lt;/option&gt;
+    &lt;option value="test2"&gt;test2&lt;/option&gt;
+    &lt;option value="test3"&gt;test3&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/label&gt;
+&lt;label&gt;&lt;span&gt;Cut-off Value&lt;/span&gt;
+  &lt;input type="range" min="5" max="35" value="15" step="0.1" data-cutoff-value&gt;
+  &lt;output data-cutoff-output&gt;15.0&lt;/output&gt;
+&lt;/label&gt;</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">selectInput</span>(<span class="st">"tests0"</span>, <span class="st">"Select a Test:"</span>,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"test1"</span>,<span class="st">"test2"</span>,<span class="st">"test3"</span>))),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">column</span>(<span class="dv">4</span>,  <span class="fu">sliderInput</span>(<span class="st">"cutoff"</span>, <span class="st">"Cut-off Value"</span>, <span class="at">min =</span> <span class="dv">5</span>, </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="dv">35</span>, <span class="at">value =</span> <span class="dv">15</span>, <span class="at">step =</span> <span class="fl">0.1</span>))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"plot2"</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"plot3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creating density plot based on disease status</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>plot2 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># X axis label</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  labx<span class="ot">&lt;-</span><span class="fu">sprintf</span>(<span class="st">"Values for %s"</span>,input<span class="sc">$</span>tests0)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(MedTest) <span class="sc">+</span> </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density.., <span class="at">x=</span>MedTest[,input<span class="sc">$</span>tests0], <span class="at">fill=</span>disease_statusC), <span class="at">alpha=</span>.<span class="dv">3</span>, <span class="at">position =</span> <span class="st">"identity"</span>)<span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>MedTest[,input<span class="sc">$</span>tests0], <span class="at">fill=</span>disease_statusC, <span class="at">color=</span>disease_statusC), <span class="at">alpha=</span>.<span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> input<span class="sc">$</span>cutoff, <span class="at">color=</span><span class="st">"red"</span>, <span class="at">size=</span><span class="fl">1.2</span>, <span class="at">alpha=</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from=</span> (<span class="fu">round</span>(<span class="fu">min</span>(MedTest[,input<span class="sc">$</span>tests0])<span class="sc">-</span><span class="dv">2</span>,<span class="dv">0</span>)), <span class="at">to=</span> (<span class="fu">round</span>(<span class="fu">max</span>(MedTest[,input<span class="sc">$</span>tests0])<span class="sc">+</span><span class="dv">2</span>,<span class="dv">0</span>)), <span class="at">by=</span><span class="dv">2</span>))<span class="sc">+</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density Curves for Diseased and Non-diseased"</span>, <span class="at">fill=</span><span class="st">"Disease Status"</span>)<span class="sc">+</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Density"</span>)<span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="fu">paste</span>(labx))<span class="sc">+</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">color=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                         <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                         <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creating a nice 2x2 table and AUC and Accuracy based on the cut point</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>plot3 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># new variable based on the cut points</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  MedTest<span class="sc">$</span>cuthere<span class="ot">&lt;-</span>cuthere<span class="ot">&lt;-</span><span class="fu">ifelse</span>(MedTest[,input<span class="sc">$</span>tests0]<span class="sc">&lt;=</span>input<span class="sc">$</span>cutoff,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  MedTest<span class="sc">$</span>cuthereC<span class="ot">&lt;-</span><span class="fu">as.factor</span>(MedTest<span class="sc">$</span>cuthere)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create 2x2 table for selected cut-off</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">table</span>(MedTest<span class="sc">$</span>cuthereC,MedTest<span class="sc">$</span>disease_statusC)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate AUC for the test</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  AUC<span class="ot">&lt;-</span><span class="fu">auc</span>(MedTest<span class="sc">$</span>disease_status, MedTest[,input<span class="sc">$</span>tests0])</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate Accuracy for the test at the selected cut-off</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>  Accur<span class="ot">&lt;-</span>(res[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">+</span>res[<span class="dv">2</span>,<span class="dv">2</span>])<span class="sc">/</span><span class="fu">sum</span>(res)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate sensitivity for the test at the selected cut-off</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  Sn<span class="ot">&lt;-</span>(res[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">/</span>(res[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">+</span>res[<span class="dv">1</span>,<span class="dv">1</span>]))</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate specificity for the test at the selected cut-off</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  Sp<span class="ot">&lt;-</span>(res[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">/</span>(res[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">+</span>res[<span class="dv">1</span>,<span class="dv">2</span>]))</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.1</span>,<span class="dv">1</span>,<span class="fl">0.1</span>))</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">345</span>), <span class="fu">c</span>(<span class="dv">300</span>, <span class="dv">450</span>), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">xaxt=</span><span class="st">'n'</span>, <span class="at">yaxt=</span><span class="st">'n'</span>)</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create the 2x2 table</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (A)</span></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">150</span>, <span class="dv">430</span>, <span class="dv">240</span>, <span class="dv">370</span>, <span class="at">col=</span><span class="st">'darkgreen'</span>)</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (B)</span></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">250</span>, <span class="dv">430</span>, <span class="dv">340</span>, <span class="dv">370</span>, <span class="at">col=</span><span class="st">'yellow'</span>)</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (C)</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">150</span>, <span class="dv">305</span>, <span class="dv">240</span>, <span class="dv">365</span>, <span class="at">col=</span><span class="st">'orange'</span>)</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cell (D)</span></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(<span class="dv">250</span>, <span class="dv">305</span>, <span class="dv">340</span>, <span class="dv">365</span>, <span class="at">col=</span><span class="st">'blue'</span>)</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Test predictions (row labels)</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">130</span>, <span class="dv">370</span>, <span class="st">'Test'</span>, <span class="at">cex=</span><span class="fl">1.9</span>, <span class="at">srt=</span><span class="dv">90</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">145</span>, <span class="dv">400</span>, <span class="st">'Disease Present'</span>, <span class="at">cex=</span><span class="fl">1.6</span>, <span class="at">srt=</span><span class="dv">90</span>)</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">145</span>, <span class="dv">335</span>, <span class="st">'No Disease'</span>, <span class="at">cex=</span><span class="fl">1.6</span>, <span class="at">srt=</span><span class="dv">90</span>)</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gold standard (column labels)</span></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">245</span>, <span class="dv">450</span>, <span class="st">'Gold Standard'</span>, <span class="at">cex=</span><span class="fl">1.9</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">195</span>, <span class="dv">440</span>, <span class="st">'Disease Present'</span>, <span class="at">cex=</span><span class="fl">1.6</span>)</span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">295</span>, <span class="dv">440</span>, <span class="st">'No Disease'</span>, <span class="at">cex=</span><span class="fl">1.6</span>)</span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the results into the 2x2 table  </span></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">195</span>, <span class="dv">400</span>, res[<span class="dv">1</span>,<span class="dv">1</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'white'</span>)</span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">195</span>, <span class="dv">335</span>, res[<span class="dv">2</span>,<span class="dv">1</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'black'</span>)</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">295</span>, <span class="dv">400</span>, res[<span class="dv">1</span>,<span class="dv">2</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'black'</span>)</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">295</span>, <span class="dv">335</span>, res[<span class="dv">2</span>,<span class="dv">2</span>], <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">'white'</span>)</span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Show the AUC, Accuracy, Sensitivity and Specificity</span></span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add in the specifics </span></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">75</span>), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">xaxt=</span><span class="st">'n'</span>, <span class="at">yaxt=</span><span class="st">'n'</span>)</span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add in the AUC and accuracy</span></span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">65</span>, <span class="st">"AUC"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">55</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(AUC), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">65</span>, <span class="st">"Accuracy"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">55</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(Accur), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="st">"Sensitivity"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">25</span>, <span class="dv">20</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(Sn), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">30</span>, <span class="st">"Specificity"</span>, <span class="at">cex=</span><span class="fl">1.8</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">75</span>, <span class="dv">20</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(Sp), <span class="dv">3</span>), <span class="at">cex=</span><span class="fl">1.8</span>)</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<svg class="lab-plot" viewbox="0 0 760 360" role="img" aria-label="Test value distributions by disease status"></svg>
+<div class="lab-metrics" data-cutoff-metrics="">
+
 </div>
 </div>
 </section>
@@ -927,7 +697,7 @@ False
 <h3 class="anchored" data-anchor-id="quiz-questions-9-12">Quiz: Questions 9-12</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 9
 </h4>
 <p>
 Which cut-off gives you the highest ACCURACY for test2?
@@ -952,7 +722,7 @@ Which cut-off gives you the highest ACCURACY for test2?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 10
 </h4>
 <p>
 Which cut-off gives you the highest SENSITIVITY for test1?
@@ -977,7 +747,7 @@ Which cut-off gives you the highest SENSITIVITY for test1?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 11
 </h4>
 <p>
 What is the highest ACCURACY you can get for test3?
@@ -1002,7 +772,7 @@ What is the highest ACCURACY you can get for test3?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 4
+Question 12
 </h4>
 <p>
 The scarlet plague is a real disease.
@@ -1051,7 +821,7 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0
 </div>
 </div>
 <script type="vfs-file">
-WyIuLi90dXRvcmlhbHMvTGFiNi93d3cvZGlhZ25vc3RpY190ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LlJkYSJd
+WyIuLi90dXRvcmlhbHMvTGFiNi93d3cvZGlhZ25vc3RpY190ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LmNzdiJd
 </script>
 </section>
 

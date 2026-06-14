@@ -704,6 +704,326 @@ const initLifeTableCurve = async (root) => {
   draw();
 };
 
+const diagnosticTests = ["test1", "test2", "test3"];
+
+const isDiseasePresent = (row) => row.disease_statusC === "Disease Present" || row.disease_status === "0";
+
+const confusionForCutoff = (data, test, cutoff) => {
+  const result = { tp: 0, fp: 0, fn: 0, tn: 0 };
+  data.forEach((row) => {
+    const value = Number(row[test]);
+    if (!Number.isFinite(value)) return;
+    const predictedDisease = value <= cutoff;
+    const diseasePresent = isDiseasePresent(row);
+    if (predictedDisease && diseasePresent) result.tp += 1;
+    if (predictedDisease && !diseasePresent) result.fp += 1;
+    if (!predictedDisease && diseasePresent) result.fn += 1;
+    if (!predictedDisease && !diseasePresent) result.tn += 1;
+  });
+  return result;
+};
+
+const diagnosticMetrics = (confusion) => {
+  const { tp, fp, fn, tn } = confusion;
+  return {
+    sensitivity: tp + fn > 0 ? tp / (tp + fn) : 0,
+    specificity: tn + fp > 0 ? tn / (tn + fp) : 0,
+    accuracy: tp + tn + fp + fn > 0 ? (tp + tn) / (tp + tn + fp + fn) : 0,
+  };
+};
+
+const rocPointsForTest = (data, test) => {
+  const values = [...new Set(data.map((row) => Number(row[test])).filter(Number.isFinite))].sort((a, b) => a - b);
+  if (values.length === 0) return [];
+  const thresholds = [values[0] - 0.01, ...values, values[values.length - 1] + 0.01];
+  return thresholds.map((cutoff) => {
+    const metrics = diagnosticMetrics(confusionForCutoff(data, test, cutoff));
+    return {
+      x: 1 - metrics.specificity,
+      y: metrics.sensitivity,
+      cutoff,
+    };
+  }).sort((a, b) => a.x - b.x || a.y - b.y);
+};
+
+const aucFromPoints = (points) => points.slice(1).reduce((area, point, index) => {
+  const previous = points[index];
+  return area + (point.x - previous.x) * ((point.y + previous.y) / 2);
+}, 0);
+
+const drawRocPlot = (svg, series) => {
+  const width = 760;
+  const height = 420;
+  const margin = { top: 42, right: 32, bottom: 84, left: 70 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const xScale = (value) => margin.left + value * plotWidth;
+  const yScale = (value) => margin.top + plotHeight - value * plotHeight;
+  const axisColor = "#2f3944";
+
+  svg.replaceChildren();
+  svg.appendChild(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent =
+    series.length === 1 ? `ROC Curve for ${series[0].label}` : "ROC Curves for Selected Tests";
+
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: xScale(0), x2: xScale(1), y1: yScale(0), y2: yScale(1), class: "lab-reference-line" }));
+
+  for (let index = 0; index <= 5; index += 1) {
+    const value = index / 5;
+    svg.appendChild(svgEl("line", { x1: xScale(value), x2: xScale(value), y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: xScale(value), y: height - 50, "text-anchor": "middle", class: "lab-axis-label" })).textContent = value.toFixed(1);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: yScale(value), y2: yScale(value), stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: yScale(value) + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(1);
+  }
+
+  series.forEach((item, index) => {
+    const color = lineColors[index % lineColors.length];
+    svg.appendChild(svgEl("path", {
+      d: linePath(item.points, xScale, yScale),
+      class: "lab-line-path",
+      stroke: color,
+    }));
+
+    const pointStep = Math.max(Math.ceil(item.points.length / 90), 1);
+    item.points.forEach((point, pointIndex) => {
+      if (pointIndex % pointStep !== 0 && pointIndex !== item.points.length - 1) return;
+      const circle = svgEl("circle", {
+        cx: xScale(point.x),
+        cy: yScale(point.y),
+        r: 2.7,
+        class: "lab-line-point",
+        fill: color,
+      });
+      circle.appendChild(svgEl("title")).textContent =
+        `${item.label} cutoff ${point.cutoff.toFixed(1)}; sensitivity ${point.y.toFixed(2)}; specificity ${(1 - point.x).toFixed(2)}`;
+      svg.appendChild(circle);
+    });
+
+    if (series.length === 1) {
+      const thresholds = item.points.map((point) => point.cutoff);
+      const min = Math.min(...thresholds);
+      const max = Math.max(...thresholds);
+      const targets = [
+        ...Array.from({ length: 8 }, (_, targetIndex) => min + ((max - min) * targetIndex) / 7),
+        19.6,
+        20.4,
+        21.2,
+        22.8,
+        22.9,
+      ];
+      const used = new Set();
+      targets.forEach((target) => {
+        const nearestIndex = item.points.reduce((best, point, pointIndex) => (
+          Math.abs(point.cutoff - target) < Math.abs(item.points[best].cutoff - target) ? pointIndex : best
+        ), 0);
+        if (used.has(nearestIndex)) return;
+        used.add(nearestIndex);
+        const point = item.points[nearestIndex];
+        svg.appendChild(svgEl("text", {
+          x: xScale(point.x) + 6,
+          y: yScale(point.y) - 6,
+          class: "lab-roc-label",
+        })).textContent = point.cutoff.toFixed(1);
+      });
+    }
+  });
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 24, "text-anchor": "middle", class: "lab-axis-title" })).textContent = "1-Specificity";
+  const yTitleElement = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitleElement.textContent = "Sensitivity";
+  svg.appendChild(yTitleElement);
+
+  const legend = svgEl("g", { class: "lab-legend" });
+  series.forEach((item, index) => {
+    const x = margin.left + index * 190;
+    const y = height - 68;
+    const color = lineColors[index % lineColors.length];
+    legend.appendChild(svgEl("line", { x1: x, x2: x + 22, y1: y - 4, y2: y - 4, stroke: color, "stroke-width": 3 }));
+    legend.appendChild(svgEl("text", { x: x + 28, y, class: "lab-axis-label" })).textContent =
+      `${item.label} AUC ${item.auc.toFixed(3)}`;
+  });
+  svg.appendChild(legend);
+};
+
+const initRocWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const svg = root.querySelector("svg");
+  const inputs = Array.from(root.querySelectorAll("[data-roc-test]"));
+  const allSeries = Object.fromEntries(diagnosticTests.map((test) => {
+    const points = rocPointsForTest(data, test);
+    return [test, { label: test, points, auc: aucFromPoints(points) }];
+  }));
+
+  const draw = () => {
+    const selected = inputs.filter((input) => input.checked).map((input) => input.value);
+    if (selected.length === 0) {
+      svg.replaceChildren(svgEl("text", { x: 380, y: 210, "text-anchor": "middle", class: "lab-plot-title" }));
+      svg.firstChild.textContent = "Select at least one test.";
+      return;
+    }
+    drawRocPlot(svg, selected.map((test) => allSeries[test]));
+  };
+
+  inputs.forEach((input) => input.addEventListener("input", draw));
+  draw();
+};
+
+const drawDiagnosticDistribution = (svg, data, test, cutoff) => {
+  const values = data.map((row) => Number(row[test])).filter(Number.isFinite);
+  const width = 760;
+  const height = 360;
+  const margin = { top: 38, right: 24, bottom: 62, left: 60 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const pad = 1.2;
+  const xMin = Math.floor(min - pad);
+  const xMax = Math.ceil(max + pad);
+  const binCount = 24;
+  const binWidth = (xMax - xMin) / binCount;
+  const groups = [
+    { label: "Disease Present", className: "lab-disease-bar", rows: data.filter(isDiseasePresent) },
+    { label: "No Disease", className: "lab-no-disease-bar", rows: data.filter((row) => !isDiseasePresent(row)) },
+  ];
+  const binsByGroup = groups.map((group) => ({
+    ...group,
+    bins: Array.from({ length: binCount }, (_, index) => ({
+      x0: xMin + index * binWidth,
+      x1: xMin + (index + 1) * binWidth,
+      count: 0,
+    })),
+  }));
+
+  binsByGroup.forEach((group) => {
+    group.rows.forEach((row) => {
+      const value = Number(row[test]);
+      if (!Number.isFinite(value)) return;
+      const index = Math.min(Math.floor((value - xMin) / binWidth), binCount - 1);
+      group.bins[Math.max(index, 0)].count += 1;
+    });
+  });
+
+  const densities = binsByGroup.flatMap((group) => group.bins.map((bin) => bin.count / (group.rows.length * binWidth)));
+  const yMax = Math.max(...densities, 0.01) * 1.18;
+  const xScale = (x) => margin.left + ((x - xMin) / (xMax - xMin)) * plotWidth;
+  const yScale = (y) => margin.top + plotHeight - (y / yMax) * plotHeight;
+
+  svg.replaceChildren();
+  svg.appendChild(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent =
+    "Density Curves for Diseased and Non-diseased";
+
+  binsByGroup.forEach((group) => {
+    group.bins.forEach((bin) => {
+      const density = bin.count / (group.rows.length * binWidth);
+      const x = xScale(bin.x0) + 1;
+      const y = yScale(density);
+      svg.appendChild(svgEl("rect", {
+        x,
+        y,
+        width: Math.max(xScale(bin.x1) - xScale(bin.x0) - 2, 1),
+        height: margin.top + plotHeight - y,
+        class: group.className,
+      }));
+    });
+  });
+
+  svg.appendChild(svgEl("line", {
+    x1: xScale(cutoff),
+    x2: xScale(cutoff),
+    y1: margin.top,
+    y2: margin.top + plotHeight,
+    class: "lab-cutoff-line",
+  }));
+
+  drawAxes(svg, {
+    width,
+    height,
+    margin,
+    plotHeight,
+    xMin,
+    xMax,
+    yMax,
+    xScale,
+    yScale,
+    xTitle: `Values for ${test}`,
+    yTitle: "Density",
+    xFormat: (value) => value.toFixed(0),
+    yFormat: (value) => value.toFixed(2),
+  });
+
+  const legend = svgEl("g", { class: "lab-legend" });
+  groups.forEach((group, index) => {
+    const x = margin.left + index * 190;
+    const y = height - 28;
+    legend.appendChild(svgEl("rect", { x, y: y - 11, width: 14, height: 10, class: group.className }));
+    legend.appendChild(svgEl("text", { x: x + 20, y, class: "lab-axis-label" })).textContent = group.label;
+  });
+  svg.appendChild(legend);
+};
+
+const renderCutoffMetrics = (root, confusion, metrics, auc) => {
+  root.replaceChildren();
+
+  const tableWrap = document.createElement("div");
+  tableWrap.className = "lab-confusion-table";
+  tableWrap.innerHTML = `
+    <table>
+      <thead>
+        <tr><th></th><th>Disease Present</th><th>No Disease</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Test Disease Present</th><td class="lab-cell-tp">${confusion.tp}</td><td class="lab-cell-fp">${confusion.fp}</td></tr>
+        <tr><th>Test No Disease</th><td class="lab-cell-fn">${confusion.fn}</td><td class="lab-cell-tn">${confusion.tn}</td></tr>
+      </tbody>
+    </table>`;
+
+  const metricGrid = document.createElement("div");
+  metricGrid.className = "lab-metric-grid";
+  [
+    ["AUC", auc],
+    ["Accuracy", metrics.accuracy],
+    ["Sensitivity", metrics.sensitivity],
+    ["Specificity", metrics.specificity],
+  ].forEach(([label, value]) => {
+    const card = document.createElement("div");
+    card.className = "lab-metric";
+    card.innerHTML = `<strong>${label}</strong><span>${value.toFixed(3)}</span>`;
+    metricGrid.appendChild(card);
+  });
+
+  root.append(tableWrap, metricGrid);
+};
+
+const initCutoffWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const svg = root.querySelector("svg");
+  const testSelect = root.querySelector("[data-cutoff-test]");
+  const cutoffInput = root.querySelector("[data-cutoff-value]");
+  const cutoffOutput = root.querySelector("[data-cutoff-output]");
+  const metricsRoot = root.querySelector("[data-cutoff-metrics]");
+  const aucs = Object.fromEntries(diagnosticTests.map((test) => {
+    const points = rocPointsForTest(data, test);
+    return [test, aucFromPoints(points)];
+  }));
+
+  const draw = () => {
+    const test = testSelect.value;
+    const cutoff = Number(cutoffInput.value);
+    cutoffOutput.value = cutoff.toFixed(1);
+    const confusion = confusionForCutoff(data, test, cutoff);
+    const metrics = diagnosticMetrics(confusion);
+    drawDiagnosticDistribution(svg, data, test, cutoff);
+    renderCutoffMetrics(metricsRoot, confusion, metrics, aucs[test]);
+  };
+
+  [testSelect, cutoffInput].forEach((control) => control.addEventListener("input", draw));
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -960,5 +1280,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-life-table-curve]").forEach((root) => {
     initLifeTableCurve(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-roc-widget]").forEach((root) => {
+    initRocWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-cutoff-widget]").forEach((root) => {
+    initCutoffWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 });

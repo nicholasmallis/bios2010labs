@@ -3,6 +3,7 @@ title: "Lab 6: Diagnostic and Screening Tests"
 subtitle: "Computer Lab 6"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -18,6 +19,7 @@ webr:
   resources:
     - ../tutorials/Lab6/www/diagnostic_test.Rda
     - ../tutorials/Lab6/www/medtest.Rda
+    - ../tutorials/Lab6/www/medtest.csv
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -81,9 +83,7 @@ quiet_library("pROC")
 MedTest<- readRDS("tutorials/Lab6/www/medtest.Rda")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 6"></div>
 
 ## Introduction 
 
@@ -180,11 +180,12 @@ table(MedTest$answer,MedTest$disease_statusC)
 ```
 ### Quiz: Questions 1-3
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the sensitivity <strong>AND</strong> specificity for the question?</p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 1</h4><p>What is the sensitivity <strong>AND</strong> specificity for the question?</p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Nice work!">0.62</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the right cells of the 2x2 table">0.10</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Got it!">0.41</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the right cells of the 2x2 table">0.44</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the prevalence of disease in the study population?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the margins of the 2x2 table">0.42</button>
@@ -223,82 +224,26 @@ The figure below summarizes all the different characteristics of the ROC curve. 
 
 **Note:** The values along the curve are the cut-off values. For example, for test1 using a cut-off value of 22.9 gives the test a sensitivity around 0.85 and a specificity of 0.96 (remember the x-axis is 1-specificity).
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(4, checkboxGroupInput("tests", "Select a Test:",
-                               choices=c("test1","test2","test3")))
-)
-
-plotOutput("plot1")
-```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-  # Creating histogram based on selections
-output$plot1 <- renderPlot({
-  
-  # Make sure they select a variable to plot
-  validate(need(!is.null(input$tests), 'Please select a test to show the ROC plot.'))
-  
-  if(length(input$tests)==1){
-    # if only one test is selected then basic plot
-    mtitle<-sprintf("ROC Curve for %s",input$tests)
-       ggplot(data=MedTest, aes(d=disease_status, m=MedTest[,c(input$tests)]))+
-           geom_roc(color="blue")+
-           style_roc(xlab = "1-Specificity", ylab = "Sensitivity")+
-           ggtitle(mtitle)+
-           geom_abline(slope = 1, intercept = 0, size = 0.75, color = 'black')+
-         theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
-                         axis.title.x = element_text(size = 16, face = "bold"),
-                         axis.title.y = element_text(size = 16, face = "bold"),
-                         axis.text = element_text(size = 14),
-                         legend.title = element_text(size = 16, face = "bold"),
-                         legend.text = element_text(size = 14),
-                         legend.direction = "horizontal",
-                         legend.position = "bottom",
-                         panel.background = element_rect(fill = "white", color = "black"))
-    
-  }else{
-    # more than one test then melt data into long data then plot 
-    data<-melt_roc(MedTest, "disease_status", c(input$tests))
-       ggplot(data=data, aes(d=D, m=M, color= name))+
-           geom_roc()+
-           style_roc(xlab = "1-Specificity", ylab = "Sensitivity")+
-           labs(color="Test")+
-           ggtitle("ROC Curves for Selected Tests")+
-           geom_abline(slope = 1, intercept = 0, size = 0.75, color = 'black')+
-         theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
-                         axis.title.x = element_text(size = 16, face = "bold"),
-                         axis.title.y = element_text(size = 16, face = "bold"),
-                         axis.text = element_text(size = 14),
-                         legend.title = element_text(size = 16, face = "bold"),
-                         legend.text = element_text(size = 14),
-                         legend.direction = "horizontal",
-                         legend.position = "bottom",
-                         panel.background = element_rect(fill = "white", color = "black"))
-         }
-
-})
-```
-:::
+<div class="lab-widget lab-roc-widget" data-roc-widget data-csv="../tutorials/Lab6/www/medtest.csv">
+  <div class="lab-widget-controls">
+    <fieldset class="lab-check-group">
+      <legend>Select a Test</legend>
+      <label class="lab-check"><input type="checkbox" value="test1" data-roc-test checked> test1</label>
+      <label class="lab-check"><input type="checkbox" value="test2" data-roc-test checked> test2</label>
+      <label class="lab-check"><input type="checkbox" value="test3" data-roc-test checked> test3</label>
+    </fieldset>
+  </div>
+  <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="ROC curves for selected tests"></svg>
+</div>
 
 ### Quiz: Questions 4-5
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Which test is the best?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Which test is the best?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">test1</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="The test closest to the top left corner is the best overall">test3</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="The test closest to the top left corner is the best overall">test2</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Below which cut-off value is test3 just as good as flipping a coin?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>Below which cut-off value is test3 just as good as flipping a coin?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="This value is on the line but so are higher ones">19.6</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="This value is on the line but so are higher ones">20.4</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="This value is on the line but so are higher ones">21.2</button>
@@ -368,19 +313,19 @@ auc()
 ```
 ### Quiz: Questions 6-8
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the AUC for test2?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>What is the AUC for test2?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test2">0.50</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test2">0.89</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test2">0.98</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Great work! You will be a master R coder in no time">0.86</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the AUC for test3?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>What is the AUC for test3?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test3">0.86</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test3">0.98</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="You are on a roll!">0.58</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure the second entry in the auc functions is MedTest$test3">0.89</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>The AUC values correspond to what you observed in the ROC plots.</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>The AUC values correspond to what you observed in the ROC plots.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Nailed it!">True</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Remember the higher the AUC the more bowed the ROC curve is.">False</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
@@ -405,149 +350,44 @@ The table below the plot shows the 2x2 table based on the cut-off value you sele
 **test2:** Quantitative measurement value of the sputum antigen test  
 **test3:** Quantitative measurement value of the nasal antigen test  
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(4, selectInput("tests0", "Select a Test:",
-                               choices=c("test1","test2","test3"))),
-         
-         column(4,  sliderInput("cutoff", "Cut-off Value", min = 5, 
-        max = 35, value = 15, step = 0.1))
-)
-
-plotOutput("plot2")
-
-plotOutput("plot3")
-```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-  # Creating density plot based on disease status
-output$plot2 <- renderPlot({
-  
-  # X axis label
-  labx<-sprintf("Values for %s",input$tests0)
-  
-  ggplot(MedTest) + 
-    geom_histogram(aes(y=..density.., x=MedTest[,input$tests0], fill=disease_statusC), alpha=.3, position = "identity")+
-    geom_density(aes(x=MedTest[,input$tests0], fill=disease_statusC, color=disease_statusC), alpha=.3)+
-    geom_vline(xintercept = input$cutoff, color="red", size=1.2, alpha=.5)+
-    scale_x_continuous(breaks = seq(from= (round(min(MedTest[,input$tests0])-2,0)), to= (round(max(MedTest[,input$tests0])+2,0)), by=2))+
-    labs(title = "Density Curves for Diseased and Non-diseased", fill="Disease Status")+
-    ylab("Density")+
-    xlab(paste(labx))+
-    guides(color=FALSE)+
-    theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
-                         plot.subtitle = element_text(size = 14, face = "bold"),
-                         axis.title.x = element_text(size = 16, face = "bold"),
-                         axis.title.y = element_text(size = 16, face = "bold"),
-                         axis.text = element_text(size = 14),
-                         legend.text = element_text(size = 12),
-                         legend.direction = "horizontal",
-                         legend.position = "bottom",
-                         panel.background = element_rect(fill = "white", color = "black"),
-                         panel.grid.major = element_blank(),
-                         panel.grid.minor = element_blank())
-})
-
-  # Creating a nice 2x2 table and AUC and Accuracy based on the cut point
-output$plot3 <- renderPlot({
-  
-  # new variable based on the cut points
-  MedTest$cuthere<-cuthere<-ifelse(MedTest[,input$tests0]<=input$cutoff,0,1)
-    
-  MedTest$cuthereC<-as.factor(MedTest$cuthere)
-  
-  # Create 2x2 table for selected cut-off
-  res <- table(MedTest$cuthereC,MedTest$disease_statusC)
-  
-  # calculate AUC for the test
-  AUC<-auc(MedTest$disease_status, MedTest[,input$tests0])
-  
-  # calculate Accuracy for the test at the selected cut-off
-  Accur<-(res[1,1]+res[2,2])/sum(res)
-  
-  # calculate sensitivity for the test at the selected cut-off
-  Sn<-(res[1,1]/(res[2,1]+res[1,1]))
-  
-  # calculate specificity for the test at the selected cut-off
-  Sp<-(res[2,2]/(res[2,2]+res[1,2]))
-  
-layout(matrix(c(1,1,2)))
-  par(mar=c(0,0.1,1,0.1))
-  plot(c(125, 345), c(300, 450), type = "n", xlab="", ylab="", xaxt='n', yaxt='n')
-
-  # create the 2x2 table
-  # Cell (A)
-  rect(150, 430, 240, 370, col='darkgreen')
-  # Cell (B)
-  rect(250, 430, 340, 370, col='yellow')
-  # Cell (C)
-  rect(150, 305, 240, 365, col='orange')
-  # Cell (D)
-  rect(250, 305, 340, 365, col='blue')
-  # Test predictions (row labels)
-  text(130, 370, 'Test', cex=1.9, srt=90, font=2)
-  text(145, 400, 'Disease Present', cex=1.6, srt=90)
-  text(145, 335, 'No Disease', cex=1.6, srt=90)
-  # Gold standard (column labels)
-  text(245, 450, 'Gold Standard', cex=1.9, font=2)
-  text(195, 440, 'Disease Present', cex=1.6)
-  text(295, 440, 'No Disease', cex=1.6)
-  
-  # add the results into the 2x2 table  
-  text(195, 400, res[1,1], cex=1.8, font=2, col='white')
-  text(195, 335, res[2,1], cex=1.8, font=2, col='black')
-  text(295, 400, res[1,2], cex=1.8, font=2, col='black')
-  text(295, 335, res[2,2], cex=1.8, font=2, col='white')
-
-  # Show the AUC, Accuracy, Sensitivity and Specificity
-  # add in the specifics 
-  plot(c(0, 100), c(0, 75), type = "n", xlab="", ylab="", main = "", xaxt='n', yaxt='n')
-  
-  # add in the AUC and accuracy
-  text(25, 65, "AUC", cex=1.8, font=2)
-  text(25, 55, round(as.numeric(AUC), 3), cex=1.8)
-  text(75, 65, "Accuracy", cex=1.8, font=2)
-  text(75, 55, round(as.numeric(Accur), 3), cex=1.8)
-  text(25, 30, "Sensitivity", cex=1.8, font=2)
-  text(25, 20, round(as.numeric(Sn), 3), cex=1.8)
-  text(75, 30, "Specificity", cex=1.8, font=2)
-  text(75, 20, round(as.numeric(Sp), 3), cex=1.8)
-
-  
-})
-```
-:::
+<div class="lab-widget lab-cutoff-widget" data-cutoff-widget data-csv="../tutorials/Lab6/www/medtest.csv">
+  <div class="lab-widget-controls">
+    <label><span>Select a Test</span>
+      <select data-cutoff-test>
+        <option value="test1">test1</option>
+        <option value="test2">test2</option>
+        <option value="test3">test3</option>
+      </select>
+    </label>
+    <label><span>Cut-off Value</span>
+      <input type="range" min="5" max="35" value="15" step="0.1" data-cutoff-value>
+      <output data-cutoff-output>15.0</output>
+    </label>
+  </div>
+  <svg class="lab-plot" viewBox="0 0 760 360" role="img" aria-label="Test value distributions by disease status"></svg>
+  <div class="lab-metrics" data-cutoff-metrics></div>
+</div>
 
 ### Quiz: Questions 9-12
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Which cut-off gives you the highest ACCURACY for test2?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>Which cut-off gives you the highest ACCURACY for test2?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test2 is selected. If you click on the slider you can use the arrow keys to make small adjustments">22.1</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Excellent work!">23.1</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test2 is selected. If you click on the slider you can use the arrow keys to make small adjustments">26.0</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test2 is selected. If you click on the slider you can use the arrow keys to make small adjustments">22.9</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Which cut-off gives you the highest SENSITIVITY for test1?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>Which cut-off gives you the highest SENSITIVITY for test1?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test1 is selected. If you click on the slider you can use the arrow keys to make small adjustments">25.1</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test1 is selected. If you click on the slider you can use the arrow keys to make small adjustments">21.1</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Great job!">25.8</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test1 is selected. If you click on the slider you can use the arrow keys to make small adjustments">20.5</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the highest ACCURACY you can get for test3?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 11</h4><p>What is the highest ACCURACY you can get for test3?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Accuracy is highest near the values where the distributions cross">0.631</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test3 is selected. If you click on the slider you can use the arrow keys to make small adjustments">0.585</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test3 is selected. If you click on the slider you can use the arrow keys to make small adjustments">0.947</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure test3 is selected. If you click on the slider you can use the arrow keys to make small adjustments">0.285</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>The scarlet plague is a real disease.</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>The scarlet plague is a real disease.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="This is one time I am glad you are wrong!">True</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="It is a made up disease in a book by Jack London">False</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>

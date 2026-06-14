@@ -296,6 +296,119 @@
   stroke-width: 1;
 }
 
+.lab-reference-line {
+  stroke: #111827;
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+  opacity: 0.75;
+}
+
+.lab-roc-label {
+  fill: var(--lab-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.lab-disease-bar {
+  fill: rgba(180, 35, 24, 0.36);
+  stroke: rgba(180, 35, 24, 0.65);
+  stroke-width: 1;
+}
+
+.lab-no-disease-bar {
+  fill: rgba(20, 85, 160, 0.32);
+  stroke: rgba(20, 85, 160, 0.62);
+  stroke-width: 1;
+}
+
+.lab-cutoff-line {
+  stroke: #b42318;
+  stroke-width: 4;
+  opacity: 0.72;
+}
+
+.lab-metrics {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.1fr) minmax(220px, 0.9fr);
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.lab-confusion-table {
+  overflow-x: auto;
+}
+
+.lab-confusion-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--lab-border);
+  font-size: 0.92rem;
+}
+
+.lab-confusion-table th,
+.lab-confusion-table td {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--lab-border);
+  text-align: center;
+}
+
+.lab-confusion-table th {
+  background: var(--lab-surface);
+  color: var(--lab-ink);
+}
+
+.lab-confusion-table td {
+  font-weight: 800;
+}
+
+.lab-cell-tp {
+  background: #177245;
+  color: #fff;
+}
+
+.lab-cell-fp {
+  background: #facc15;
+  color: #422006;
+}
+
+.lab-cell-fn {
+  background: #f59e0b;
+  color: #3b2201;
+}
+
+.lab-cell-tn {
+  background: #1455a0;
+  color: #fff;
+}
+
+.lab-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 0.65rem;
+}
+
+.lab-metric {
+  padding: 0.7rem;
+  border: 1px solid var(--lab-border);
+  border-radius: 6px;
+  background: var(--lab-surface);
+}
+
+.lab-metric strong {
+  display: block;
+  color: var(--lab-muted);
+  font-size: 0.82rem;
+}
+
+.lab-metric span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--lab-ink);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
 .lab-box-rect {
   fill: #c7d8ea;
   stroke: #315a7f;
@@ -520,5 +633,11 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .lab-metrics {
+    grid-template-columns: 1fr;
   }
 }
