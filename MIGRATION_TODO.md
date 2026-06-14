@@ -29,6 +29,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-12: Started the Lab 4 polish pass. Added the shared guided-lab layout, fixed select-all quiz behavior for Questions 1-9, converted the remaining learnr question blocks, corrected quiz numbering through Question 16, and cleaned up a few student-facing typos.
 - 2026-06-13: Started the Lab 5 polish pass. Added the shared guided-lab layout, converted the three Shiny plot activities into browser-side line chart widgets, exported the survival table to CSV for JavaScript plotting, and fixed quiz numbering through Question 10.
 - 2026-06-14: Started the Lab 6 polish pass. Added the shared guided-lab layout, exported the diagnostic test data to CSV, replaced the ROC selector and cutoff slider Shiny activities with browser-side JavaScript widgets, fixed the select-all quiz behavior for Question 1, and corrected quiz numbering through Question 12.
+- 2026-06-14: Cleaned up Lab 6 figure rendering by explicitly including the image resources and formatting the reference images as standalone centered figures.
 
 ## Lab Inventory
 

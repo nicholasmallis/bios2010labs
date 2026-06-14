@@ -20,6 +20,9 @@ webr:
     - ../tutorials/Lab6/www/diagnostic_test.Rda
     - ../tutorials/Lab6/www/medtest.Rda
     - ../tutorials/Lab6/www/medtest.csv
+    - ../tutorials/Lab6/images/AUCCuttOff.jpg
+    - ../tutorials/Lab6/images/CuttOffForTest.jpg
+    - ../tutorials/Lab6/images/testing.png
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -209,7 +212,8 @@ What are ROC curves? ROC stands for receiver operating characteristics they are 
 
 The figure below summarizes all the different characteristics of the ROC curve. The most basic interpretation of a ROC curve is observing how close the curve gets to the top left-hand corner. The closer the test's curve gets to the top left-hand corner, the better the test is. The diagonal line is there as a reference and values that along the line are not very useful. When the test's ROC curve is on the diagonal line, flipping a coin would be just as good at identifying disease.
 
-![](../tutorials/Lab6/images/AUCCuttOff.jpg)
+![ROC curve overview](../tutorials/Lab6/images/AUCCuttOff.jpg){.lab-reference-image}
+
 ### Exercise 2: Making ROC Curve
 
 **Instructions:** Using the same data from exercise 1, we will make a ROC curve for each test. Look at the ROC curves for the three different tests. You can plot one at a time or all three at once. Using the information present above, you will interpret the curves to answer the quiz questions. 
@@ -333,7 +337,8 @@ auc()
 
 What is a cut-off value? A cut-off value for a test is the value above or below which a person is considered positive. For example, even though the range of human chorionic gonadotropin (hCG) concentrations is from 0 to 288,000 mIU/mL the cut-off for having a positive test is hCG > 5. The very low cut-off is because in almost all cases, hCG is only present when a woman is pregnant. The figure below shows the distributions of Serum Osmolarity test values for diseased and non-diseased individuals. For the test in the plot, the higher the test values, the more likely you are to have a disease.  As you can see the cut off value determines the number of false positives (area under the blue curve to the right of the cut-off) and false negatives (area under the red curve that is to the left of the cut-off).      
 
-![](../tutorials/Lab6/images/CuttOffForTest.jpg)
+![Cutoff value example](../tutorials/Lab6/images/CuttOffForTest.jpg){.lab-reference-image}
+
 There are many things to think about when you choose the cut off for a test. The most basic way to choose the cut off is to maximize both the sensitivity and specificity. But that does not consider any of the consequences of the test. For nearly every test, there will be individuals who are classified as having the disease who do not (False Positives) as well as patients with the disease who are classified as being disease-free (False Negatives). Depending on the disease missing an early diagnosis with a false negative can result in the disease being caught too late for treatment to be effective (some cancers fall in that category). False negatives can also lead to the spread of disease (TB or HIV are good examples). On the other hand, false positives can cause a lot of emotional distress and exposure to unnecessary treatments, which can also be harmful (chemotherapy or surgeries).
 
 ### Exercise 4: Choosing a cut-off
@@ -405,4 +410,4 @@ The lab covered 5 topics:
 
 You are officially done with this lab! **Don't forget to record your answers and take the eLC quiz to get credit**
 
-![](../tutorials/Lab6/images/testing.png)
+![Lab completion illustration](../tutorials/Lab6/images/testing.png){.lab-reference-image}

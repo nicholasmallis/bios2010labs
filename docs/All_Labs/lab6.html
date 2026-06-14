@@ -432,7 +432,14 @@ What is the accuracy of the question test?
 <h2 class="anchored" data-anchor-id="roc-curves">ROC Curves</h2>
 <p>What are ROC curves? ROC stands for receiver operating characteristics they are used to visualize the performance of classifiers. A classifier is a general term, but in our class, the classifiers we care about are screening and diagnostic tests. Remember that as sensitivity increases or decreases, specificity decreases or increases accordingly. As a result, the ROC curve plots the sensitivity on the Y-axis and 1-specificity on the X-axis for all of the different “cut-offs”. For more detailed information about ROC curves for medical testing take a look at the paper paper by Nancy Obuchowski <a href="https://iopscience.iop.org/article/10.1088/1361-6560/aab4b1/meta">Receiver operating characteristic (ROC) curves: review of methods with applications in diagnostic medicine</a>. ROC analysis is also used for a number of other applications and if you want to know more about it check out this paper by Tom Fawcett <a href="https://doi.org/10.1016/j.patrec.2005.10.010">An introduction to ROC analysis</a>.</p>
 <p>The figure below summarizes all the different characteristics of the ROC curve. The most basic interpretation of a ROC curve is observing how close the curve gets to the top left-hand corner. The closer the test’s curve gets to the top left-hand corner, the better the test is. The diagonal line is there as a reference and values that along the line are not very useful. When the test’s ROC curve is on the diagonal line, flipping a coin would be just as good at identifying disease.</p>
-<p><img src="../tutorials/Lab6/images/AUCCuttOff.jpg" class="img-fluid"> ### Exercise 2: Making ROC Curve</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../tutorials/Lab6/images/AUCCuttOff.jpg" class="lab-reference-image img-fluid figure-img"></p>
+<figcaption>ROC curve overview</figcaption>
+</figure>
+</div>
+<section id="exercise-2-making-roc-curve" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-making-roc-curve">Exercise 2: Making ROC Curve</h3>
 <p><strong>Instructions:</strong> Using the same data from exercise 1, we will make a ROC curve for each test. Look at the ROC curves for the three different tests. You can plot one at a time or all three at once. Using the information present above, you will interpret the curves to answer the quiz questions.</p>
 <p><strong>Data Dictionary</strong><br>
 <strong>disease_statusC:</strong> Disease status of the patient using the gold standard (Culture) as a character value<br>
@@ -453,6 +460,7 @@ What is the accuracy of the question test?
 </div>
 <p><svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="ROC curves for selected tests"></svg></p>
 </div>
+</section>
 <section id="quiz-questions-4-5" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-4-5">Quiz: Questions 4-5</h3>
 <section class="lab-quiz" data-lab-quiz="">
@@ -661,7 +669,13 @@ False
 <section id="cut-off-values" class="level2">
 <h2 class="anchored" data-anchor-id="cut-off-values">Cut-off Values</h2>
 <p>What is a cut-off value? A cut-off value for a test is the value above or below which a person is considered positive. For example, even though the range of human chorionic gonadotropin (hCG) concentrations is from 0 to 288,000 mIU/mL the cut-off for having a positive test is hCG &gt; 5. The very low cut-off is because in almost all cases, hCG is only present when a woman is pregnant. The figure below shows the distributions of Serum Osmolarity test values for diseased and non-diseased individuals. For the test in the plot, the higher the test values, the more likely you are to have a disease. As you can see the cut off value determines the number of false positives (area under the blue curve to the right of the cut-off) and false negatives (area under the red curve that is to the left of the cut-off).</p>
-<p><img src="../tutorials/Lab6/images/CuttOffForTest.jpg" class="img-fluid"> There are many things to think about when you choose the cut off for a test. The most basic way to choose the cut off is to maximize both the sensitivity and specificity. But that does not consider any of the consequences of the test. For nearly every test, there will be individuals who are classified as having the disease who do not (False Positives) as well as patients with the disease who are classified as being disease-free (False Negatives). Depending on the disease missing an early diagnosis with a false negative can result in the disease being caught too late for treatment to be effective (some cancers fall in that category). False negatives can also lead to the spread of disease (TB or HIV are good examples). On the other hand, false positives can cause a lot of emotional distress and exposure to unnecessary treatments, which can also be harmful (chemotherapy or surgeries).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../tutorials/Lab6/images/CuttOffForTest.jpg" class="lab-reference-image img-fluid figure-img"></p>
+<figcaption>Cutoff value example</figcaption>
+</figure>
+</div>
+<p>There are many things to think about when you choose the cut off for a test. The most basic way to choose the cut off is to maximize both the sensitivity and specificity. But that does not consider any of the consequences of the test. For nearly every test, there will be individuals who are classified as having the disease who do not (False Positives) as well as patients with the disease who are classified as being disease-free (False Negatives). Depending on the disease missing an early diagnosis with a false negative can result in the disease being caught too late for treatment to be effective (some cancers fall in that category). False negatives can also lead to the spread of disease (TB or HIV are good examples). On the other hand, false positives can cause a lot of emotional distress and exposure to unnecessary treatments, which can also be harmful (chemotherapy or surgeries).</p>
 <section id="exercise-4-choosing-a-cut-off" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4-choosing-a-cut-off">Exercise 4: Choosing a cut-off</h3>
 <p><strong>Instructions:</strong> Using the data for the scarlet plague look at the distributions of the different test values for the diseased and non-diseased patients. Use the slider to move the cut-off and see the impact on the sensitivity, specificity, and accuracy of the test (If you move the slider to far to one side or the other the table will not work).</p>
@@ -803,7 +817,12 @@ False
 <li>Cut-off values</li>
 </ol>
 <p>You are officially done with this lab! <strong>Don’t forget to record your answers and take the eLC quiz to get credit</strong></p>
-<p><img src="../tutorials/Lab6/images/testing.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../tutorials/Lab6/images/testing.png" class="lab-reference-image img-fluid figure-img"></p>
+<figcaption>Lab completion illustration</figcaption>
+</figure>
+</div>
 
 
 <script type="webr-data">
@@ -821,7 +840,7 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0
 </div>
 </div>
 <script type="vfs-file">
-WyIuLi90dXRvcmlhbHMvTGFiNi93d3cvZGlhZ25vc3RpY190ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LmNzdiJd
+WyIuLi90dXRvcmlhbHMvTGFiNi93d3cvZGlhZ25vc3RpY190ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LlJkYSIsIi4uL3R1dG9yaWFscy9MYWI2L3d3dy9tZWR0ZXN0LmNzdiIsIi4uL3R1dG9yaWFscy9MYWI2L2ltYWdlcy9BVUNDdXR0T2ZmLmpwZyIsIi4uL3R1dG9yaWFscy9MYWI2L2ltYWdlcy9DdXR0T2ZmRm9yVGVzdC5qcGciLCIuLi90dXRvcmlhbHMvTGFiNi9pbWFnZXMvdGVzdGluZy5wbmciXQ==
 </script>
 </section>
 
