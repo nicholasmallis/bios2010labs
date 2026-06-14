@@ -228,6 +228,7 @@ The figure below summarizes all the different characteristics of the ROC curve. 
 
 **Note:** The values along the curve are the cut-off values. For example, for test1 using a cut-off value of 22.9 gives the test a sensitivity around 0.85 and a specificity of 0.96 (remember the x-axis is 1-specificity).
 
+```{=html}
 <div class="lab-widget lab-roc-widget" data-roc-widget data-csv="../tutorials/Lab6/www/medtest.csv">
   <div class="lab-widget-controls">
     <fieldset class="lab-check-group">
@@ -239,6 +240,7 @@ The figure below summarizes all the different characteristics of the ROC curve. 
   </div>
   <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="ROC curves for selected tests"></svg>
 </div>
+```
 
 ### Quiz: Questions 4-5
 
@@ -355,6 +357,7 @@ The table below the plot shows the 2x2 table based on the cut-off value you sele
 **test2:** Quantitative measurement value of the sputum antigen test  
 **test3:** Quantitative measurement value of the nasal antigen test  
 
+```{=html}
 <div class="lab-widget lab-cutoff-widget" data-cutoff-widget data-csv="../tutorials/Lab6/www/medtest.csv">
   <div class="lab-widget-controls">
     <label><span>Select a Test</span>
@@ -372,6 +375,7 @@ The table below the plot shows the 2x2 table based on the cut-off value you sele
   <svg class="lab-plot" viewBox="0 0 760 360" role="img" aria-label="Test value distributions by disease status"></svg>
   <div class="lab-metrics" data-cutoff-metrics></div>
 </div>
+```
 
 ### Quiz: Questions 9-12
 <section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>Which cut-off gives you the highest ACCURACY for test2?</p>

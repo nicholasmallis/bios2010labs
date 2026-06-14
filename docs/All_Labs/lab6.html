@@ -450,15 +450,15 @@ What is the accuracy of the question test?
 <strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
 <p><strong>Note:</strong> The values along the curve are the cut-off values. For example, for test1 using a cut-off value of 22.9 gives the test a sensitivity around 0.85 and a specificity of 0.96 (remember the x-axis is 1-specificity).</p>
 <div class="lab-widget lab-roc-widget" data-roc-widget="" data-csv="../tutorials/Lab6/www/medtest.csv">
-<div class="lab-widget-controls">
-<pre><code>&lt;fieldset class="lab-check-group"&gt;
-  &lt;legend&gt;Select a Test&lt;/legend&gt;
-  &lt;label class="lab-check"&gt;&lt;input type="checkbox" value="test1" data-roc-test checked&gt; test1&lt;/label&gt;
-  &lt;label class="lab-check"&gt;&lt;input type="checkbox" value="test2" data-roc-test checked&gt; test2&lt;/label&gt;
-  &lt;label class="lab-check"&gt;&lt;input type="checkbox" value="test3" data-roc-test checked&gt; test3&lt;/label&gt;
-&lt;/fieldset&gt;</code></pre>
-</div>
-<p><svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="ROC curves for selected tests"></svg></p>
+  <div class="lab-widget-controls">
+    <fieldset class="lab-check-group">
+      <legend>Select a Test</legend>
+      <label class="lab-check"><input type="checkbox" value="test1" data-roc-test="" checked=""> test1</label>
+      <label class="lab-check"><input type="checkbox" value="test2" data-roc-test="" checked=""> test2</label>
+      <label class="lab-check"><input type="checkbox" value="test3" data-roc-test="" checked=""> test3</label>
+    </fieldset>
+  </div>
+  <svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="ROC curves for selected tests"></svg>
 </div>
 </section>
 <section id="quiz-questions-4-5" class="level3">
@@ -688,23 +688,21 @@ False
 <strong>test2:</strong> Quantitative measurement value of the sputum antigen test<br>
 <strong>test3:</strong> Quantitative measurement value of the nasal antigen test</p>
 <div class="lab-widget lab-cutoff-widget" data-cutoff-widget="" data-csv="../tutorials/Lab6/www/medtest.csv">
-<div class="lab-widget-controls">
-<pre><code>&lt;label&gt;&lt;span&gt;Select a Test&lt;/span&gt;
-  &lt;select data-cutoff-test&gt;
-    &lt;option value="test1"&gt;test1&lt;/option&gt;
-    &lt;option value="test2"&gt;test2&lt;/option&gt;
-    &lt;option value="test3"&gt;test3&lt;/option&gt;
-  &lt;/select&gt;
-&lt;/label&gt;
-&lt;label&gt;&lt;span&gt;Cut-off Value&lt;/span&gt;
-  &lt;input type="range" min="5" max="35" value="15" step="0.1" data-cutoff-value&gt;
-  &lt;output data-cutoff-output&gt;15.0&lt;/output&gt;
-&lt;/label&gt;</code></pre>
-</div>
-<svg class="lab-plot" viewbox="0 0 760 360" role="img" aria-label="Test value distributions by disease status"></svg>
-<div class="lab-metrics" data-cutoff-metrics="">
-
-</div>
+  <div class="lab-widget-controls">
+    <label><span>Select a Test</span>
+      <select data-cutoff-test="">
+        <option value="test1">test1</option>
+        <option value="test2">test2</option>
+        <option value="test3">test3</option>
+      </select>
+    </label>
+    <label><span>Cut-off Value</span>
+      <input type="range" min="5" max="35" value="15" step="0.1" data-cutoff-value="">
+      <output data-cutoff-output="">15.0</output>
+    </label>
+  </div>
+  <svg class="lab-plot" viewbox="0 0 760 360" role="img" aria-label="Test value distributions by disease status"></svg>
+  <div class="lab-metrics" data-cutoff-metrics=""></div>
 </div>
 </section>
 <section id="quiz-questions-9-12" class="level3">
