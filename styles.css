@@ -437,6 +437,12 @@
   font-weight: 700;
 }
 
+.lab-plot-subtitle {
+  fill: var(--lab-blue);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .lab-axis-label {
   fill: var(--lab-muted);
   font-size: 12px;
@@ -516,6 +522,25 @@
 .lab-widget-error {
   color: var(--lab-red);
   font-weight: 700;
+}
+
+.lab-distribution-bar {
+  stroke: #b42318;
+  stroke-linecap: butt;
+}
+
+.lab-distribution-bar.highlighted {
+  stroke: var(--lab-blue);
+}
+
+.lab-result {
+  margin-top: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #b8cdf5;
+  border-radius: 6px;
+  background: #edf4ff;
+  color: #144d8f;
+  font-weight: 800;
 }
 
 .lab-reference-image {

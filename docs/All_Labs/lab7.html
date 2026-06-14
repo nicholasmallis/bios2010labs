@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -140,6 +105,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -272,18 +238,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 </script>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.</p>
-</div>
+<div data-guided-lab="" data-lab-title="Lab 7">
+
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -398,134 +354,35 @@ What are the parameters for the green distribution?
 <li>To calculate <span class="math inline">\(P(X=x)\)</span> set both the lower bound and upper bound to the same value, for example with <span class="math inline">\(Bin(n=50,p=0.5)\)</span> the <span class="math inline">\(P(X=22)=0.078826\)</span> set the lower bound to <span class="math inline">\(22\)</span> and the upper bound to <span class="math inline">\(22\)</span>.</li>
 <li>To calculate <span class="math inline">\(P(x1\leq \ X \leq x2)\)</span> set the lower bound to <span class="math inline">\(x1\)</span> and the upper bound to <span class="math inline">\(x2\)</span>, for example with <span class="math inline">\(Bin(n=50,p=0.5)\)</span> the <span class="math inline">\(P(19\leq \ X \leq 22)=0.20749\)</span> set the lower bound to <span class="math inline">\(19\)</span> and the upper bound to <span class="math inline">\(22\)</span>.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">6</span>,  <span class="fu">sliderInput</span>(<span class="st">"n"</span>, <span class="st">"Number of Trials"</span>, <span class="at">min =</span> <span class="dv">10</span>, </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="dv">50</span>, <span class="at">step =</span> <span class="dv">1</span>)),</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">column</span>(<span class="dv">6</span>,  <span class="fu">sliderInput</span>(<span class="st">"p"</span>, <span class="st">"Probability of Success"</span>, <span class="at">min =</span> <span class="dv">0</span>, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="fl">0.50</span>, <span class="at">step =</span> <span class="fl">0.01</span>)),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">column</span>(<span class="dv">3</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">selectInput</span>(<span class="st">"selectBC"</span>, <span class="st">"Calculations"</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"Calculate Probabilities"</span> <span class="ot">=</span> <span class="dv">1</span>, </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Calculate Percentiles"</span> <span class="ot">=</span> <span class="dv">2</span>, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"None"</span><span class="ot">=</span><span class="dv">3</span>), <span class="at">selected =</span><span class="dv">3</span>)),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.selectBC == 1"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">fluidRow</span>( </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">tagList</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                          tags<span class="sc">$</span><span class="fu">h5</span>(<span class="st">"Review the exercise instructions. You can check to see if you are doing it right with the examples."</span>),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">numericInput</span>(<span class="st">"a"</span>, <span class="st">"Lower Bound"</span>, <span class="at">min =</span> <span class="dv">0</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">max =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>)),</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">numericInput</span>(<span class="st">"b"</span>, <span class="st">"Upper Bound"</span>, <span class="at">min =</span> <span class="dv">0</span>, </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">max =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                        ))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                 ),</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.selectBC == 2"</span>,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">column</span>(<span class="dv">6</span>, </span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">tagList</span>(</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                          tags<span class="sc">$</span><span class="fu">h5</span>(<span class="st">"This returns the number of successes for the specified percentile"</span>),</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">numericInput</span>(<span class="st">"quantile"</span>, <span class="st">"Percentile"</span>, <span class="at">min =</span> <span class="dv">0</span>, </span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="fl">0.05</span>)))</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                        )</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"binplot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code for the function addapted from Bret Larget</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># From :http://pages.stat.wisc.edu/~larget/R/prob.R</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  gbinom <span class="ot">=</span> <span class="cf">function</span>(n, p, <span class="at">low=</span><span class="dv">0</span>, <span class="at">high=</span>n,<span class="at">scale =</span> F, <span class="at">a=</span><span class="cn">NA</span>,<span class="at">b=</span><span class="cn">NA</span>,<span class="at">calcProb=</span><span class="sc">!</span><span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(a,b))),<span class="at">quantile=</span><span class="cn">NA</span>,<span class="at">calcQuant=</span><span class="sc">!</span><span class="fu">is.na</span>(quantile))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  sd <span class="ot">=</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(scale <span class="sc">&amp;&amp;</span> (n <span class="sc">&gt;</span> <span class="dv">10</span>)) {</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    low <span class="ot">=</span> <span class="fu">max</span>(<span class="dv">0</span>, <span class="fu">round</span>(n <span class="sc">*</span> p <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> sd))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    high <span class="ot">=</span> <span class="fu">min</span>(n, <span class="fu">round</span>(n <span class="sc">*</span> p <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> sd))</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">=</span> low<span class="sc">:</span>high</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  probs <span class="ot">=</span> <span class="fu">dbinom</span>(values, n, p)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(low,high), <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(probs)), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab =</span> <span class="st">"Possible Number of Successes"</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Probability"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Binomial Distribution </span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"n ="</span>, n, <span class="st">", p ="</span>, p))</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(values, probs, <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(calcProb) {</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.na</span>(a))</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      a <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.na</span>(b))</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      b <span class="ot">=</span> n</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(a <span class="sc">&gt;</span> b) {</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      d <span class="ot">=</span> a</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      a <span class="ot">=</span> b</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      b <span class="ot">=</span> d</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">=</span> <span class="fu">round</span>(a)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">=</span> <span class="fu">round</span>(b)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    prob <span class="ot">=</span> <span class="fu">pbinom</span>(b,n,p) <span class="sc">-</span> <span class="fu">pbinom</span>(a<span class="dv">-1</span>,n,p)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">"P("</span>,a,<span class="st">" &lt;= X &lt;= "</span>,b,<span class="st">") = "</span>,<span class="fu">round</span>(prob,<span class="dv">6</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">line=</span><span class="dv">0</span>,<span class="at">col.main=</span><span class="dv">4</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">max</span>(<span class="fu">c</span>(a,low)),<span class="fu">min</span>(<span class="fu">c</span>(b,high)),<span class="at">by=</span><span class="fu">ifelse</span>( <span class="fu">max</span>(<span class="fu">c</span>(a,low))<span class="sc">&lt;</span><span class="fu">min</span>(<span class="fu">c</span>(b,high)), <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    v <span class="ot">=</span> <span class="fu">dbinom</span>(u,n,p)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(u,v,<span class="at">type=</span><span class="st">"h"</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(calcQuant<span class="sc">==</span>T) {</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(quantile <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">||</span> quantile <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"quantile must be between 0 and 1"</span>)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">qbinom</span>(quantile,n,p)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">"The "</span>,quantile,<span class="st">" percentile = "</span>,x,<span class="at">sep=</span><span class="st">""</span>),<span class="at">line=</span><span class="dv">0</span>,<span class="at">col.main=</span><span class="dv">4</span>)</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span>x</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    v <span class="ot">=</span> <span class="fu">dbinom</span>(u,n,p)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(u,v,<span class="at">type=</span><span class="st">"h"</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">invisible</span>())</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>binplot<span class="ot">&lt;-</span><span class="fu">renderPlot</span>({</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>selectBC<span class="sc">==</span><span class="dv">1</span>){</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gbinom</span>(<span class="at">n=</span>input<span class="sc">$</span>n, <span class="at">p=</span>input<span class="sc">$</span>p, <span class="at">a=</span>input<span class="sc">$</span>a, <span class="at">b=</span>input<span class="sc">$</span>b, <span class="at">scale =</span> T)</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>selectBC<span class="sc">==</span><span class="dv">2</span>){</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gbinom</span>(<span class="at">n=</span>input<span class="sc">$</span>n, <span class="at">p=</span>input<span class="sc">$</span>p, <span class="at">quantile=</span>input<span class="sc">$</span>quantile, <span class="at">scale =</span> T)</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>selectBC<span class="sc">==</span><span class="dv">3</span>){</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gbinom</span>(<span class="at">n=</span>input<span class="sc">$</span>n, <span class="at">p=</span>input<span class="sc">$</span>p, <span class="at">scale =</span> F)  </span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<div class="lab-widget lab-distribution-widget" data-distribution-widget="" data-distribution="binomial">
+  <div class="lab-widget-controls">
+    <label><span>Number of Trials</span>
+      <input type="range" min="10" max="1000" value="50" step="1" data-dist-n="">
+      <output data-dist-n-output="">50</output>
+    </label>
+    <label><span>Probability of Success</span>
+      <input type="range" min="0" max="1" value="0.50" step="0.01" data-dist-p="">
+      <output data-dist-p-output="">0.50</output>
+    </label>
+    <label><span>Calculations</span>
+      <select data-dist-mode="">
+        <option value="none" selected="">None</option>
+        <option value="probability">Calculate Probabilities</option>
+        <option value="percentile">Calculate Percentiles</option>
+      </select>
+    </label>
+    <label data-dist-probability-control=""><span>Lower Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-lower="">
+    </label>
+    <label data-dist-probability-control=""><span>Upper Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-upper="">
+    </label>
+    <label data-dist-percentile-control=""><span>Percentile</span>
+      <input type="number" min="0" max="1" value="0.5" step="0.05" data-dist-percentile="">
+    </label>
+  </div>
+  <svg class="lab-plot" viewbox="0 0 760 390" role="img" aria-label="Interactive binomial probability distribution"></svg>
+  <div class="lab-result" data-dist-result=""></div>
 </div>
 </section>
 <section id="quiz-questions-4-6" class="level3">
@@ -534,7 +391,7 @@ What are the parameters for the green distribution?
 <strong>Relevant information for the questions below:</strong> The prevalence of black lung disease in the general population of coal miners is <em>p=0.17</em>.
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 4
 </h4>
 <p>
 What is the probability that 103 or fewer of 600 coal miners will have black lung?
@@ -559,7 +416,7 @@ What is the probability that 103 or fewer of 600 coal miners will have black lun
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 5
 </h4>
 <p>
 What is the probability that exactly 96 of 600 coal miners will have black lung?
@@ -584,7 +441,7 @@ What is the probability that exactly 96 of 600 coal miners will have black lung?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 6
 </h4>
 <p>
 What is the probability that between 70 to 96 of 600 coal miners will have black lung?
@@ -633,9 +490,9 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIFBs
 </section>
 <section id="quiz-questions-7-9" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-7-9">Quiz: Questions 7-9</h3>
-<section class="lab-quiz" data-lab-quiz="">
+<section class="lab-quiz" data-lab-quiz="" data-multi-quiz="true">
 <h4 class="anchored">
-Question 1
+Question 7
 </h4>
 <p>
 When <span class="math inline">\(\lambda\)</span> is small what happens to the peak of the distribution? (select all that apply)
@@ -657,13 +514,16 @@ It moves towards 0
 There is no change
 </button>
 </div>
+<button type="button" class="lab-check-answer" data-check-answers="">
+Check Answers
+</button>
 <div class="lab-feedback" aria-live="polite">
 
 </div>
 </section>
-<section class="lab-quiz" data-lab-quiz="">
+<section class="lab-quiz" data-lab-quiz="" data-multi-quiz="true">
 <h4 class="anchored">
-Question 2
+Question 8
 </h4>
 <p>
 Which summary statistics do the peaks of the distribution represent? (select all that apply)
@@ -685,13 +545,16 @@ Median
 Standard Error
 </button>
 </div>
+<button type="button" class="lab-check-answer" data-check-answers="">
+Check Answers
+</button>
 <div class="lab-feedback" aria-live="polite">
 
 </div>
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 9
 </h4>
 <p>
 What notation describes the blue distribution?
@@ -725,129 +588,31 @@ What notation describes the blue distribution?
 <li>To calculate <span class="math inline">\(P(X=x)\)</span> set both the lower bound and upper bound to the same value, for example with <span class="math inline">\(Pois(\lambda=1.5)\)</span> the <span class="math inline">\(P(X=2)=0.251021\)</span> set the lower bound to <span class="math inline">\(2\)</span> and the upper bound to <span class="math inline">\(2\)</span>.</li>
 <li>To calculate <span class="math inline">\(P(x1\leq \ X \leq x2)\)</span> set the lower bound to <span class="math inline">\(x1\)</span> and the upper bound to <span class="math inline">\(x2\)</span>, for example with <span class="math inline">\(Pois(\lambda=1.5)\)</span> the <span class="math inline">\(P(1\leq \ X \leq 2)=0.585717\)</span> set the lower bound to <span class="math inline">\(1\)</span> and the upper bound to <span class="math inline">\(2\)</span>.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidRow</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">column</span>(<span class="dv">12</span>, <span class="fu">sliderInput</span>(<span class="st">"mu"</span>, <span class="at">label=</span> <span class="st">"Specify lambda:"</span>, <span class="at">min =</span> <span class="dv">0</span>, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">max =</span> <span class="dv">20</span>, <span class="at">value =</span> <span class="fl">1.5</span>, <span class="at">step =</span> <span class="fl">0.01</span>)),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">column</span>(<span class="dv">3</span>, <span class="fu">selectInput</span>(<span class="st">"selectPC"</span>, <span class="st">"Calculations"</span>, </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"Calculate Probabilities"</span> <span class="ot">=</span> <span class="dv">1</span>, </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"Calculate Percentiles"</span> <span class="ot">=</span> <span class="dv">2</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"None"</span><span class="ot">=</span><span class="dv">3</span>), <span class="at">selected =</span><span class="dv">3</span>)),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.selectPC == 1"</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">fluidRow</span>( </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">tagList</span>(</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                          tags<span class="sc">$</span><span class="fu">h5</span>(<span class="st">"Review the exercise instructions. You can check to see if you are doing it right with the examples."</span>),</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">numericInput</span>(<span class="st">"aP"</span>, <span class="st">"Lower Bound"</span>, <span class="at">min =</span> <span class="dv">0</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">max =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>)),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">numericInput</span>(<span class="st">"bP"</span>, <span class="st">"Upper Bound"</span>, <span class="at">min =</span> <span class="dv">0</span>, </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">max =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="dv">1</span>))</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                        ))</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                 ),</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">conditionalPanel</span>(<span class="at">condition =</span> <span class="st">"input.selectPC == 2"</span>,</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">column</span>(<span class="dv">6</span>, </span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">tagList</span>(</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                          tags<span class="sc">$</span><span class="fu">h5</span>(<span class="st">"This returns the number of successes for the specified percentile"</span>),</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">numericInput</span>(<span class="st">"quantileP"</span>, <span class="st">"Percentile"</span>, <span class="at">min =</span> <span class="dv">0</span>, </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="cn">NA</span>, <span class="at">step =</span> <span class="fl">0.05</span>)))</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                        )</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOutput</span>(<span class="st">"poisplot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code for the function addapted from Bret Larget</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># From :http://pages.stat.wisc.edu/~larget/R/prob.R</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  gpois <span class="ot">=</span> <span class="cf">function</span>(mu, <span class="at">a=</span><span class="cn">NA</span>,<span class="at">b=</span><span class="cn">NA</span>,<span class="at">calcProb=</span>(<span class="sc">!</span><span class="fu">is.na</span>(a) <span class="sc">|</span> <span class="sc">!</span><span class="fu">is.na</span>(b)),<span class="at">quantileP=</span><span class="cn">NA</span>,<span class="at">calcQuant=</span><span class="sc">!</span><span class="fu">is.na</span>(quantileP))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  sd <span class="ot">=</span> <span class="fu">sqrt</span>(mu)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  low <span class="ot">=</span> <span class="fu">max</span>(<span class="dv">0</span>, <span class="fu">round</span>(mu <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> sd))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  high <span class="ot">=</span> <span class="fu">round</span>(mu <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> sd)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">=</span> low<span class="sc">:</span>high</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  probs <span class="ot">=</span> <span class="fu">dpois</span>(values, mu)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(low,high), <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(probs)), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab =</span> <span class="st">"observable values"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Probability"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span><span class="fu">substitute</span>(<span class="fu">paste</span>(<span class="st">"Poisson Distribution with "</span>,lambda<span class="sc">==</span>m), <span class="fu">list</span>(<span class="at">m=</span>mu)))</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(values, probs, <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(calcProb) {</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.na</span>(a)){ a <span class="ot">=</span> <span class="dv">0</span> }</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.na</span>(b)){</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      a <span class="ot">=</span> <span class="fu">round</span>(a)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>      prob <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">ppois</span>(a<span class="dv">-1</span>,mu)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">"P("</span>,a,<span class="st">" &lt;= Y ) = "</span>,<span class="fu">round</span>(prob,<span class="dv">6</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">line=</span><span class="dv">0</span>,<span class="at">col.main=</span><span class="dv">4</span>)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>      u <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">max</span>(<span class="fu">c</span>(a,low)),high,<span class="at">by=</span><span class="fu">ifelse</span>(<span class="fu">max</span>(<span class="fu">c</span>(a,low))<span class="sc">&lt;</span>high, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> {</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(a <span class="sc">&gt;</span> b) {d <span class="ot">=</span> a; a <span class="ot">=</span> b; b <span class="ot">=</span> d;}</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>      a <span class="ot">=</span> <span class="fu">round</span>(a); b <span class="ot">=</span> <span class="fu">round</span>(b)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>      prob <span class="ot">=</span> <span class="fu">ppois</span>(b,mu) <span class="sc">-</span> <span class="fu">ppois</span>(a<span class="dv">-1</span>,mu)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">"P("</span>,a,<span class="st">" &lt;= X &lt;= "</span>,b,<span class="st">") = "</span>,<span class="fu">round</span>(prob,<span class="dv">6</span>),<span class="at">sep=</span><span class="st">""</span>),<span class="at">line=</span><span class="dv">0</span>,<span class="at">col.main=</span><span class="dv">4</span>)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>      u <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">max</span>(<span class="fu">c</span>(a,low)),<span class="fu">min</span>(<span class="fu">c</span>(b,high)),<span class="at">by=</span><span class="fu">ifelse</span>(<span class="fu">max</span>(<span class="fu">c</span>(a,low))<span class="sc">&lt;</span><span class="fu">min</span>(<span class="fu">c</span>(b,high)), <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    v <span class="ot">=</span> <span class="fu">dpois</span>(u,mu)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(u,v,<span class="at">type=</span><span class="st">"h"</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(calcQuant<span class="sc">==</span>T) {</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(quantileP <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">||</span> quantileP <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"Percentile must be between 0 and 1"</span>)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">qpois</span>(quantileP,mu)</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">"The "</span>,quantileP,<span class="st">" percentile = "</span>,x,<span class="at">sep=</span><span class="st">""</span>),<span class="at">line=</span><span class="dv">0</span>,<span class="at">col.main=</span><span class="dv">4</span>)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span>x</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    v <span class="ot">=</span> <span class="fu">dpois</span>(u,mu)</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(u,v,<span class="at">type=</span><span class="st">"h"</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">invisible</span>())</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>poisplot<span class="ot">&lt;-</span><span class="fu">renderPlot</span>({</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>selectPC<span class="sc">==</span><span class="dv">1</span>){</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gpois</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu, <span class="at">a=</span>input<span class="sc">$</span>aP, <span class="at">b=</span>input<span class="sc">$</span>bP)</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>selectPC<span class="sc">==</span><span class="dv">2</span>){</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gpois</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu, <span class="at">quantile=</span>input<span class="sc">$</span>quantileP)</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>selectPC<span class="sc">==</span><span class="dv">3</span>){</span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gpois</span>(<span class="at">mu=</span>input<span class="sc">$</span>mu)  </span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<div class="lab-widget lab-distribution-widget" data-distribution-widget="" data-distribution="poisson">
+  <div class="lab-widget-controls">
+    <label><span>Specify lambda</span>
+      <input type="range" min="0" max="20" value="1.5" step="0.01" data-dist-lambda="">
+      <output data-dist-lambda-output="">1.50</output>
+    </label>
+    <label><span>Calculations</span>
+      <select data-dist-mode="">
+        <option value="none" selected="">None</option>
+        <option value="probability">Calculate Probabilities</option>
+        <option value="percentile">Calculate Percentiles</option>
+      </select>
+    </label>
+    <label data-dist-probability-control=""><span>Lower Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-lower="">
+    </label>
+    <label data-dist-probability-control=""><span>Upper Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-upper="">
+    </label>
+    <label data-dist-percentile-control=""><span>Percentile</span>
+      <input type="number" min="0" max="1" value="0.5" step="0.05" data-dist-percentile="">
+    </label>
+  </div>
+  <svg class="lab-plot" viewbox="0 0 760 390" role="img" aria-label="Interactive Poisson probability distribution"></svg>
+  <div class="lab-result" data-dist-result=""></div>
 </div>
 </section>
 <section id="quiz-questions-10-12" class="level3">
@@ -856,7 +621,7 @@ What notation describes the blue distribution?
 <strong>Relevant information for the questions below:</strong> The average rate of car accidents in Athens is 2.6 per day.
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 10
 </h4>
 <p>
 What is the probability that 1 or fewer car accidents occur in a day?
@@ -881,7 +646,7 @@ What is the probability that 1 or fewer car accidents occur in a day?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 11
 </h4>
 <p>
 What is the probability that exactly 4 car accidents occur in a day?
@@ -906,7 +671,7 @@ What is the probability that exactly 4 car accidents occur in a day?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 12
 </h4>
 <p>
 What is the probability that between 4 to 6 car accidents occur in a day?
@@ -940,7 +705,12 @@ What is the probability that between 4 to 6 car accidents occur in a day?
 <li>The Poisson Distribution</li>
 </ol>
 <p>You are done with lab now you can binge a new show on Netflix! <strong>Don’t forget to record your answers and take the eLC quiz to get credit</strong></p>
-<p><img src="../tutorials/Lab7/images/SBmeme.jpg" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../tutorials/Lab7/images/SBmeme.jpg" class="lab-reference-image img-fluid figure-img"></p>
+<figcaption>Distribution cartoon</figcaption>
+</figure>
+</div>
 
 
 <script type="webr-data">
@@ -958,7 +728,7 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0
 </div>
 </div>
 <script type="vfs-file">
-WyIuLi90dXRvcmlhbHMvTGFiNy93d3cvc2FtcGxpbmdBcHAuUkRhdGEiXQ==
+WyIuLi90dXRvcmlhbHMvTGFiNy93d3cvc2FtcGxpbmdBcHAuUkRhdGEiLCIuLi90dXRvcmlhbHMvTGFiNy9pbWFnZXMvU0JtZW1lLmpwZyJd
 </script>
 </section>
 

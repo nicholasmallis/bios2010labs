@@ -1024,6 +1024,238 @@ const initCutoffWidget = async (root) => {
   draw();
 };
 
+const logGamma = (value) => {
+  const coefficients = [
+    676.5203681218851,
+    -1259.1392167224028,
+    771.3234287776531,
+    -176.6150291621406,
+    12.507343278686905,
+    -0.13857109526572012,
+    9.984369578019572e-6,
+    1.5056327351493116e-7,
+  ];
+
+  if (value < 0.5) {
+    return Math.log(Math.PI) - Math.log(Math.sin(Math.PI * value)) - logGamma(1 - value);
+  }
+
+  let x = 0.9999999999998099;
+  const z = value - 1;
+  coefficients.forEach((coefficient, index) => {
+    x += coefficient / (z + index + 1);
+  });
+  const t = z + coefficients.length - 0.5;
+  return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+};
+
+const binomialPmf = (x, n, p) => {
+  if (x < 0 || x > n || !Number.isInteger(x)) return 0;
+  if (p === 0) return x === 0 ? 1 : 0;
+  if (p === 1) return x === n ? 1 : 0;
+  const logChoose = logGamma(n + 1) - logGamma(x + 1) - logGamma(n - x + 1);
+  return Math.exp(logChoose + x * Math.log(p) + (n - x) * Math.log1p(-p));
+};
+
+const binomialCdf = (x, n, p) => {
+  const upper = Math.min(Math.floor(x), n);
+  if (upper < 0) return 0;
+  let total = 0;
+  for (let value = 0; value <= upper; value += 1) total += binomialPmf(value, n, p);
+  return Math.min(total, 1);
+};
+
+const binomialQuantile = (probability, n, p) => {
+  let cumulative = 0;
+  for (let value = 0; value <= n; value += 1) {
+    cumulative += binomialPmf(value, n, p);
+    if (cumulative >= probability) return value;
+  }
+  return n;
+};
+
+const poissonPmf = (x, lambda) => {
+  if (x < 0 || !Number.isInteger(x)) return 0;
+  if (lambda === 0) return x === 0 ? 1 : 0;
+  return Math.exp(-lambda + x * Math.log(lambda) - logGamma(x + 1));
+};
+
+const poissonCdf = (x, lambda) => {
+  const upper = Math.floor(x);
+  if (upper < 0) return 0;
+  let total = 0;
+  for (let value = 0; value <= upper; value += 1) total += poissonPmf(value, lambda);
+  return Math.min(total, 1);
+};
+
+const poissonQuantile = (probability, lambda) => {
+  let cumulative = 0;
+  const max = Math.max(100, Math.ceil(lambda + 10 * Math.sqrt(lambda + 1)));
+  for (let value = 0; value <= max; value += 1) {
+    cumulative += poissonPmf(value, lambda);
+    if (cumulative >= probability) return value;
+  }
+  return max;
+};
+
+const distributionRange = (type, parameters, mode) => {
+  if (type === "binomial") {
+    const { n, p } = parameters;
+    if (mode === "none" || n <= 10) return { low: 0, high: n };
+    const sd = Math.sqrt(n * p * (1 - p));
+    return {
+      low: Math.max(0, Math.round(n * p - 4 * sd)),
+      high: Math.min(n, Math.round(n * p + 4 * sd)),
+    };
+  }
+
+  const lambda = parameters.lambda;
+  const sd = Math.sqrt(lambda);
+  return {
+    low: Math.max(0, Math.round(lambda - 3 * sd)),
+    high: Math.max(8, Math.round(lambda + 5 * sd)),
+  };
+};
+
+const drawDiscreteDistribution = (svg, config) => {
+  const { title, xTitle, values, probabilities, highlighted = new Set(), resultText } = config;
+  const width = 760;
+  const height = 390;
+  const margin = { top: 46, right: 26, bottom: 64, left: 66 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const minX = values[0] ?? 0;
+  const maxX = values[values.length - 1] ?? 1;
+  const xSpan = Math.max(maxX - minX, 1);
+  const yMax = Math.max(...probabilities, 0.01) * 1.18;
+  const xScale = (value) => margin.left + ((value - minX) / xSpan) * plotWidth;
+  const yScale = (value) => margin.top + plotHeight - (value / yMax) * plotHeight;
+
+  svg.replaceChildren();
+  svg.appendChild(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = title;
+  if (resultText) {
+    svg.appendChild(svgEl("text", { x: width / 2, y: 42, "text-anchor": "middle", class: "lab-plot-subtitle" })).textContent = resultText;
+  }
+
+  const axisColor = "#2f3944";
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+  const barStep = plotWidth / Math.max(values.length - 1, 1);
+  const strokeWidth = Math.max(Math.min(barStep * 0.55, 5), 1);
+  values.forEach((value, index) => {
+    const x = xScale(value);
+    svg.appendChild(svgEl("line", {
+      x1: x,
+      x2: x,
+      y1: margin.top + plotHeight,
+      y2: yScale(probabilities[index]),
+      class: highlighted.has(value) ? "lab-distribution-bar highlighted" : "lab-distribution-bar",
+      "stroke-width": strokeWidth,
+    }));
+  });
+
+  for (let index = 0; index <= 5; index += 1) {
+    const value = minX + (xSpan * index) / 5;
+    const x = xScale(value);
+    svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x, y: height - 34, "text-anchor": "middle", class: "lab-axis-label" })).textContent = Math.round(value);
+  }
+
+  for (let index = 0; index <= 4; index += 1) {
+    const value = (yMax * index) / 4;
+    const y = yScale(value);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(2);
+  }
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 8, "text-anchor": "middle", class: "lab-axis-title" })).textContent = xTitle;
+  const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitle.textContent = "Probability";
+  svg.appendChild(yTitle);
+};
+
+const initDistributionWidget = (root) => {
+  const type = root.dataset.distribution;
+  const svg = root.querySelector("svg");
+  const modeSelect = root.querySelector("[data-dist-mode]");
+  const lowerInput = root.querySelector("[data-dist-lower]");
+  const upperInput = root.querySelector("[data-dist-upper]");
+  const percentileInput = root.querySelector("[data-dist-percentile]");
+  const result = root.querySelector("[data-dist-result]");
+  const probabilityControls = Array.from(root.querySelectorAll("[data-dist-probability-control]"));
+  const percentileControls = Array.from(root.querySelectorAll("[data-dist-percentile-control]"));
+
+  const draw = () => {
+    const mode = modeSelect.value;
+    probabilityControls.forEach((control) => { control.hidden = mode !== "probability"; });
+    percentileControls.forEach((control) => { control.hidden = mode !== "percentile"; });
+
+    let parameters;
+    let pmf;
+    let cdf;
+    let quantile;
+    let title;
+    let xTitle;
+
+    if (type === "binomial") {
+      const n = Number(root.querySelector("[data-dist-n]").value);
+      const p = Number(root.querySelector("[data-dist-p]").value);
+      root.querySelector("[data-dist-n-output]").value = n;
+      root.querySelector("[data-dist-p-output]").value = p.toFixed(2);
+      parameters = { n, p };
+      pmf = (value) => binomialPmf(value, n, p);
+      cdf = (value) => binomialCdf(value, n, p);
+      quantile = (probability) => binomialQuantile(probability, n, p);
+      title = `Binomial Distribution: n = ${n}, p = ${p.toFixed(2)}`;
+      xTitle = "Possible Number of Successes";
+      lowerInput.max = n;
+      upperInput.max = n;
+    } else {
+      const lambda = Number(root.querySelector("[data-dist-lambda]").value);
+      root.querySelector("[data-dist-lambda-output]").value = lambda.toFixed(2);
+      parameters = { lambda };
+      pmf = (value) => poissonPmf(value, lambda);
+      cdf = (value) => poissonCdf(value, lambda);
+      quantile = (probability) => poissonQuantile(probability, lambda);
+      title = `Poisson Distribution: lambda = ${lambda.toFixed(2)}`;
+      xTitle = "Observable Values";
+    }
+
+    const { low, high } = distributionRange(type, parameters, mode);
+    const values = Array.from({ length: high - low + 1 }, (_, index) => low + index);
+    const probabilities = values.map(pmf);
+    const highlighted = new Set();
+    let resultText = "";
+
+    if (mode === "probability") {
+      let lower = Math.round(Number(lowerInput.value));
+      let upper = Math.round(Number(upperInput.value));
+      if (Number.isNaN(lower)) lower = 0;
+      if (Number.isNaN(upper)) upper = type === "binomial" ? parameters.n : high;
+      if (lower > upper) [lower, upper] = [upper, lower];
+      const probability = cdf(upper) - cdf(lower - 1);
+      for (let value = Math.max(lower, low); value <= Math.min(upper, high); value += 1) highlighted.add(value);
+      resultText = `P(${lower} <= X <= ${upper}) = ${probability.toFixed(6)}`;
+    } else if (mode === "percentile") {
+      const probability = Math.min(Math.max(Number(percentileInput.value), 0), 1);
+      const value = quantile(probability);
+      for (let index = 0; index <= Math.min(value, high); index += 1) {
+        if (index >= low) highlighted.add(index);
+      }
+      resultText = `The ${probability.toFixed(2)} percentile = ${value}`;
+    }
+
+    result.textContent = resultText;
+    result.hidden = !resultText;
+    drawDiscreteDistribution(svg, { title, xTitle, values, probabilities, highlighted, resultText });
+  };
+
+  root.querySelectorAll("input, select").forEach((control) => control.addEventListener("input", draw));
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -1289,4 +1521,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-cutoff-widget]").forEach((root) => {
     initCutoffWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
+
+  document.querySelectorAll("[data-distribution-widget]").forEach(initDistributionWidget);
 });

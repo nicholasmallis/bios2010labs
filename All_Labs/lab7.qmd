@@ -3,6 +3,7 @@ title: "Lab 7: Discrete Distributions"
 subtitle: "Computer Lab 7"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -13,6 +14,7 @@ webr:
   render-df: paged-table
   resources:
     - ../tutorials/Lab7/www/samplingApp.RData
+    - ../tutorials/Lab7/images/SBmeme.jpg
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -70,9 +72,7 @@ if (!exists("ggpaired", mode = "function")) {
 `%||%` <- function(x, y) if (is.null(x)) y else x
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 7"></div>
 
 ## Introduction
 
@@ -155,120 +155,38 @@ How to calculate the different probabilities:
 * To calculate $P(X=x)$ set both the lower bound and upper bound to the same value, for example with $Bin(n=50,p=0.5)$ the $P(X=22)=0.078826$ set the lower bound to $22$ and the upper bound to $22$. 
 * To calculate $P(x1\leq \ X \leq x2)$ set the lower bound to $x1$ and the upper bound to $x2$, for example with $Bin(n=50,p=0.5)$ the $P(19\leq \ X \leq 22)=0.20749$ set the lower bound to $19$ and the upper bound to $22$.
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(column(6,  sliderInput("n", "Number of Trials", min = 10, 
-        max = 1000, value = 50, step = 1)),
-        column(6,  sliderInput("p", "Probability of Success", min = 0, 
-        max = 1, value = 0.50, step = 0.01)),
-       column(3,
-           selectInput("selectBC", "Calculations", 
-                       choices = list("Calculate Probabilities" = 1, 
-                                      "Calculate Percentiles" = 2, 
-                                      "None"=3), selected =3)),
-        
-        
-conditionalPanel(condition = "input.selectBC == 1",
-                 fluidRow( 
-                        tagList(
-                          tags$h5("Review the exercise instructions. You can check to see if you are doing it right with the examples."),
-                        column(4, numericInput("a", "Lower Bound", min = 0,
-                                     max = 1000, value = NA, step = 1)),
-                        column(4, numericInput("b", "Upper Bound", min = 0, 
-                                     max = 1000, value = NA, step = 1))
-                        ))
-                 ),
-
-conditionalPanel(condition = "input.selectBC == 2",
-        
-                 column(6, 
-                        tagList(
-                          tags$h5("This returns the number of successes for the specified percentile"),
-                        numericInput("quantile", "Percentile", min = 0, 
-        max = 1, value = NA, step = 0.05)))
-                        )
-        
-        )
-        
-
-plotOutput("binplot")
+```{=html}
+<div class="lab-widget lab-distribution-widget" data-distribution-widget data-distribution="binomial">
+  <div class="lab-widget-controls">
+    <label><span>Number of Trials</span>
+      <input type="range" min="10" max="1000" value="50" step="1" data-dist-n>
+      <output data-dist-n-output>50</output>
+    </label>
+    <label><span>Probability of Success</span>
+      <input type="range" min="0" max="1" value="0.50" step="0.01" data-dist-p>
+      <output data-dist-p-output>0.50</output>
+    </label>
+    <label><span>Calculations</span>
+      <select data-dist-mode>
+        <option value="none" selected>None</option>
+        <option value="probability">Calculate Probabilities</option>
+        <option value="percentile">Calculate Percentiles</option>
+      </select>
+    </label>
+    <label data-dist-probability-control><span>Lower Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-lower>
+    </label>
+    <label data-dist-probability-control><span>Upper Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-upper>
+    </label>
+    <label data-dist-percentile-control><span>Percentile</span>
+      <input type="number" min="0" max="1" value="0.5" step="0.05" data-dist-percentile>
+    </label>
+  </div>
+  <svg class="lab-plot" viewBox="0 0 760 390" role="img" aria-label="Interactive binomial probability distribution"></svg>
+  <div class="lab-result" data-dist-result></div>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-# Code for the function addapted from Bret Larget
-# From :http://pages.stat.wisc.edu/~larget/R/prob.R
-
-  gbinom = function(n, p, low=0, high=n,scale = F, a=NA,b=NA,calcProb=!all(is.na(c(a,b))),quantile=NA,calcQuant=!is.na(quantile))
-{
-  sd = sqrt(n * p * (1 - p))
-  if(scale && (n > 10)) {
-    low = max(0, round(n * p - 4 * sd))
-    high = min(n, round(n * p + 4 * sd))
-  }
-  values = low:high
-  probs = dbinom(values, n, p)
-  plot(c(low,high), c(0,max(probs)), type = "n", xlab = "Possible Number of Successes",
-       ylab = "Probability",
-       main = paste("Binomial Distribution \n", "n =", n, ", p =", p))
-  lines(values, probs, type = "h", col = 2)
-  abline(h=0,col=3)
-  if(calcProb) {
-    if(is.na(a))
-      a = 0
-    if(is.na(b))
-      b = n
-    if(a > b) {
-      d = a
-      a = b
-      b = d
-    }
-    a = round(a)
-    b = round(b)
-    prob = pbinom(b,n,p) - pbinom(a-1,n,p)
-    title(paste("P(",a," <= X <= ",b,") = ",round(prob,6),sep=""),line=0,col.main=4)
-    u = seq(max(c(a,low)),min(c(b,high)),by=ifelse( max(c(a,low))<min(c(b,high)), 1, -1))
-    v = dbinom(u,n,p)
-    lines(u,v,type="h",col=4)
-  }
-  else if(calcQuant==T) {
-    if(quantile < 0 || quantile > 1)
-      stop("quantile must be between 0 and 1")
-    x = qbinom(quantile,n,p)
-    title(paste("The ",quantile," percentile = ",x,sep=""),line=0,col.main=4)
-    u = 0:x
-    v = dbinom(u,n,p)
-    lines(u,v,type="h",col=4)
-  }
-  return(invisible())
-  }
-
-output$binplot<-renderPlot({
-  
-  if(input$selectBC==1){
-    gbinom(n=input$n, p=input$p, a=input$a, b=input$b, scale = T)
-  }
-  
-  if(input$selectBC==2){
-    gbinom(n=input$n, p=input$p, quantile=input$quantile, scale = T)
-  }
-  
-  if(input$selectBC==3){
-  gbinom(n=input$n, p=input$p, scale = F)  
-  }
-  
-})
-```
-:::
 
 ### Quiz: Questions 4-6
 
@@ -276,19 +194,19 @@ output$binplot<-renderPlot({
 
 **Relevant information for the questions below:**
 The prevalence of black lung disease in the general population of coal miners is *p=0.17*. 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the probability that 103 or fewer of 600 coal miners will have black lung?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>What is the probability that 103 or fewer of 600 coal miners will have black lung?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Exactly right!">0.569316</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.473585</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.64521</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.05631</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the probability that exactly 96 of 600 coal miners will have black lung?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>What is the probability that exactly 96 of 600 coal miners will have black lung?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.056210</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.02064</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.964238</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Great work!">0.035762</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the probability that between 70 to 96 of 600 coal miners will have black lung?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>What is the probability that between 70 to 96 of 600 coal miners will have black lung?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.521003</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Your understanding of the binomial distribution is impressive!">0.277488</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.364238</button>
@@ -344,19 +262,21 @@ legend("topright", title=expression(paste(lambda,"Values")), c(paste(lam1),paste
 ```
 ### Quiz: Questions 7-9
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>When $\lambda$ is small what happens to the peak of the distribution? (select all that apply)</p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 7</h4><p>When $\lambda$ is small what happens to the peak of the distribution? (select all that apply)</p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="You are doing great!">The data is less spread out</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you read the plot key carefully">It moves away from 0</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="You are a natural!">It moves towards 0</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you read the plot key carefully">There is no change</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Which summary statistics do the peaks of the distribution represent? (select all that apply)</p><p class="quiz-note"> Select all correct answers.</p>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 8</h4><p>Which summary statistics do the peaks of the distribution represent? (select all that apply)</p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Your understanding of Poisson distribution is remarkable.">Mean</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Keep up the good work!">One of the Modes</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Actually the median $\approx\lfloor\lambda+{1}/{3}-{0.02}/{\lambda\rfloor}$ ($\lfloor this~means~round~down \rfloor$)">Median</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="This is a measure of variability">Standard Error</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What notation describes the blue distribution?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>What notation describes the blue distribution?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you read the plot key carefully">$Pois(\lambda=140)$</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="One number to control it all">$Pois(\lambda=75)$</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you read the plot key carefully">$Pois(\lambda=42)$</button>
@@ -373,115 +293,34 @@ How to calculate the different probabilities:
 * To calculate $P(X=x)$ set both the lower bound and upper bound to the same value, for example with $Pois(\lambda=1.5)$ the $P(X=2)=0.251021$ set the lower bound to $2$ and the upper bound to $2$. 
 * To calculate $P(x1\leq \ X \leq x2)$ set the lower bound to $x1$ and the upper bound to $x2$, for example with $Pois(\lambda=1.5)$ the $P(1\leq \ X \leq 2)=0.585717$ set the lower bound to $1$ and the upper bound to $2$.
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidRow(
-         column(12, sliderInput("mu", label= "Specify lambda:", min = 0, 
-                                 max = 20, value = 1.5, step = 0.01)),
-         column(3, selectInput("selectPC", "Calculations", 
-                               choices = list("Calculate Probabilities" = 1, 
-                                              "Calculate Percentiles" = 2, 
-                                              "None"=3), selected =3)),
-        
-        
-conditionalPanel(condition = "input.selectPC == 1",
-                 fluidRow( 
-                        tagList(
-                          tags$h5("Review the exercise instructions. You can check to see if you are doing it right with the examples."),
-                        column(4, numericInput("aP", "Lower Bound", min = 0,
-                                     max = 1000, value = NA, step = 1)),
-                        column(4, numericInput("bP", "Upper Bound", min = 0, 
-                                     max = 1000, value = NA, step = 1))
-                        ))
-                 ),
-
-conditionalPanel(condition = "input.selectPC == 2",
-        
-                 column(6, 
-                        tagList(
-                          tags$h5("This returns the number of successes for the specified percentile"),
-                        numericInput("quantileP", "Percentile", min = 0, 
-        max = 1, value = NA, step = 0.05)))
-                        )
-        
-        )
-
-plotOutput("poisplot")
+```{=html}
+<div class="lab-widget lab-distribution-widget" data-distribution-widget data-distribution="poisson">
+  <div class="lab-widget-controls">
+    <label><span>Specify lambda</span>
+      <input type="range" min="0" max="20" value="1.5" step="0.01" data-dist-lambda>
+      <output data-dist-lambda-output>1.50</output>
+    </label>
+    <label><span>Calculations</span>
+      <select data-dist-mode>
+        <option value="none" selected>None</option>
+        <option value="probability">Calculate Probabilities</option>
+        <option value="percentile">Calculate Percentiles</option>
+      </select>
+    </label>
+    <label data-dist-probability-control><span>Lower Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-lower>
+    </label>
+    <label data-dist-probability-control><span>Upper Bound</span>
+      <input type="number" min="0" max="1000" value="0" step="1" data-dist-upper>
+    </label>
+    <label data-dist-percentile-control><span>Percentile</span>
+      <input type="number" min="0" max="1" value="0.5" step="0.05" data-dist-percentile>
+    </label>
+  </div>
+  <svg class="lab-plot" viewBox="0 0 760 390" role="img" aria-label="Interactive Poisson probability distribution"></svg>
+  <div class="lab-result" data-dist-result></div>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-# Code for the function addapted from Bret Larget
-# From :http://pages.stat.wisc.edu/~larget/R/prob.R
-
-  gpois = function(mu, a=NA,b=NA,calcProb=(!is.na(a) | !is.na(b)),quantileP=NA,calcQuant=!is.na(quantileP))
-{
-  sd = sqrt(mu)
-  low = max(0, round(mu - 3 * sd))
-  high = round(mu + 5 * sd)
-  values = low:high
-  probs = dpois(values, mu)
-  plot(c(low,high), c(0,max(probs)), type = "n", xlab = "observable values",
-       ylab = "Probability",
-       main =substitute(paste("Poisson Distribution with ",lambda==m), list(m=mu)))
-  lines(values, probs, type = "h", col = 2)
-  abline(h=0,col=3)
-  if(calcProb) {
-    if(is.na(a)){ a = 0 }
-    if(is.na(b)){
-      a = round(a)
-      prob = 1-ppois(a-1,mu)
-      title(paste("P(",a," <= Y ) = ",round(prob,6),sep=""),line=0,col.main=4)
-      u = seq(max(c(a,low)),high,by=ifelse(max(c(a,low))<high, 1, -1))
-    }
-    else {
-      if(a > b) {d = a; a = b; b = d;}
-      a = round(a); b = round(b)
-      prob = ppois(b,mu) - ppois(a-1,mu)
-      title(paste("P(",a," <= X <= ",b,") = ",round(prob,6),sep=""),line=0,col.main=4)
-      u = seq(max(c(a,low)),min(c(b,high)),by=ifelse(max(c(a,low))<min(c(b,high)), 1, -1))
-    }
-    v = dpois(u,mu)
-    lines(u,v,type="h",col=4)
-  }
-  else if(calcQuant==T) {
-    if(quantileP < 0 || quantileP > 1)
-      stop("Percentile must be between 0 and 1")
-    x = qpois(quantileP,mu)
-    title(paste("The ",quantileP," percentile = ",x,sep=""),line=0,col.main=4)
-    u = 0:x
-    v = dpois(u,mu)
-    lines(u,v,type="h",col=4)
-  }
-  return(invisible())
-}
-
-output$poisplot<-renderPlot({
-  
-  if(input$selectPC==1){
-    gpois(mu=input$mu, a=input$aP, b=input$bP)
-  }
-  
-  if(input$selectPC==2){
-    gpois(mu=input$mu, quantile=input$quantileP)
-  }
-  
-  if(input$selectPC==3){
-  gpois(mu=input$mu)  
-  }
-  
-})
-```
-:::
 
 ### Quiz: Questions 10-12
 
@@ -489,19 +328,19 @@ output$poisplot<-renderPlot({
 
 **Relevant information for the questions below:**
 The average rate of car accidents in Athens is 2.6 per day. 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the probability that 1 or fewer car accidents occur in a day?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>What is the probability that 1 or fewer car accidents occur in a day?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.326916</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.074274</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.264521</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Calculating probabilities like a boss">0.267385</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the probability that exactly 4 car accidents occur in a day?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 11</h4><p>What is the probability that exactly 4 car accidents occur in a day?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.156210</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.102064</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Nailed it!">0.141422</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.135762</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the probability that between 4 to 6 car accidents occur in a day?</p>
+<section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>What is the probability that between 4 to 6 car accidents occur in a day?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.251303</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="You are right!">0.246828</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the parameters set correctly for the problem.">0.342638</button>
@@ -518,4 +357,4 @@ The lab covered 2 topics:
 
 You are done with lab now you can binge a new show on Netflix! **Don't forget to record your answers and take the eLC quiz to get credit**
 
-![](../tutorials/Lab7/images/SBmeme.jpg)
+![Distribution cartoon](../tutorials/Lab7/images/SBmeme.jpg){.lab-reference-image}

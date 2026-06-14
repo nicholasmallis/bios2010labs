@@ -31,6 +31,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-14: Started the Lab 6 polish pass. Added the shared guided-lab layout, exported the diagnostic test data to CSV, replaced the ROC selector and cutoff slider Shiny activities with browser-side JavaScript widgets, fixed the select-all quiz behavior for Question 1, and corrected quiz numbering through Question 12.
 - 2026-06-14: Cleaned up Lab 6 figure rendering by explicitly including the image resources and formatting the reference images as standalone centered figures.
 - 2026-06-14: Fixed Lab 6 ROC and cutoff widget markup so Quarto renders the controls as real HTML instead of printing the nested controls as code text.
+- 2026-06-14: Started the Lab 7 polish pass. Added the shared guided-lab layout, replaced the binomial and Poisson Shiny calculators with browser-side JavaScript distribution widgets, fixed select-all quiz behavior for Questions 7-8, corrected quiz numbering through Question 12, and restored the summary image.
 
 ## Lab Inventory
 
@@ -42,7 +43,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 | 4 | Basic Data Analysis | 9 | 16 | 0 |
 | 5 | Life Tables | 0 | 10 | 0 |
 | 6 | Diagnostic and Screening Tests | 2 | 12 | 0 |
-| 7 | Discrete Distributions | 2 | 24 | 4 |
+| 7 | Discrete Distributions | 2 | 12 | 0 |
 | 8 | Normal Distribution | 0 | 22 | 6 |
 | 9 | Random Sampling and Central Limit Theorem | 0 | 34 | 7 |
 | 10 | One Sample T Methods | 7 | 26 | 2 |
