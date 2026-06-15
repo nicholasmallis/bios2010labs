@@ -1269,6 +1269,259 @@ const initDistributionWidget = (root) => {
   draw();
 };
 
+const normalPdf = (x, mean, sd) => {
+  if (sd <= 0) return 0;
+  const z = (x - mean) / sd;
+  return Math.exp(-0.5 * z * z) / (sd * Math.sqrt(2 * Math.PI));
+};
+
+const erf = (x) => {
+  const sign = Math.sign(x) || 1;
+  const abs = Math.abs(x);
+  const t = 1 / (1 + 0.3275911 * abs);
+  const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-abs * abs);
+  return sign * y;
+};
+
+const normalCdf = (x, mean, sd) => 0.5 * (1 + erf((x - mean) / (sd * Math.SQRT2)));
+
+const standardNormalQuantile = (p) => {
+  const a = [-39.69683028665376, 220.9460984245205, -275.9285104469687, 138.357751867269, -30.66479806614716, 2.506628277459239];
+  const b = [-54.47609879822406, 161.5858368580409, -155.6989798598866, 66.80131188771972, -13.28068155288572];
+  const c = [-0.007784894002430293, -0.3223964580411365, -2.400758277161838, -2.549732539343734, 4.374664141464968, 2.938163982698783];
+  const d = [0.007784695709041462, 0.3224671290700398, 2.445134137142996, 3.754408661907416];
+  const plow = 0.02425;
+  const phigh = 1 - plow;
+
+  if (p <= 0) return -Infinity;
+  if (p >= 1) return Infinity;
+
+  if (p < plow) {
+    const q = Math.sqrt(-2 * Math.log(p));
+    return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+      ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+  }
+
+  if (p <= phigh) {
+    const q = p - 0.5;
+    const r = q * q;
+    return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q /
+      (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+  }
+
+  const q = Math.sqrt(-2 * Math.log(1 - p));
+  return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+    ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+};
+
+const normalQuantile = (p, mean, sd) => mean + sd * standardNormalQuantile(p);
+
+const drawNormalAxes = (svg, config) => {
+  const { width, height, margin, xMin, xMax, yMax, xScale, yScale, title, xTitle, yTitle } = config;
+  const axisColor = "#2f3944";
+  const plotHeight = height - margin.top - margin.bottom;
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = title;
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+  for (let index = 0; index <= 6; index += 1) {
+    const value = xMin + ((xMax - xMin) * index) / 6;
+    const x = xScale(value);
+    svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x, y: height - 42, "text-anchor": "middle", class: "lab-axis-label" })).textContent =
+      Math.abs(value) >= 10 ? value.toFixed(0) : value.toFixed(1);
+  }
+
+  for (let index = 0; index <= 4; index += 1) {
+    const value = (yMax * index) / 4;
+    const y = yScale(value);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(2);
+  }
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 12, "text-anchor": "middle", class: "lab-axis-title" })).textContent = xTitle;
+  const yTitleElement = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitleElement.textContent = yTitle;
+  svg.appendChild(yTitleElement);
+};
+
+const normalPoints = (mean, sd, xMin, xMax, count = 240) => (
+  Array.from({ length: count }, (_, index) => {
+    const x = xMin + ((xMax - xMin) * index) / (count - 1);
+    return { x, y: normalPdf(x, mean, sd) };
+  })
+);
+
+const drawNormalPath = (svg, points, xScale, yScale, color, className = "lab-line-path") => {
+  svg.appendChild(svgEl("path", {
+    d: linePath(points, xScale, yScale),
+    class: className,
+    stroke: color,
+  }));
+};
+
+const initNormalCurvesWidget = (root) => {
+  const svg = root.querySelector("svg");
+  const controls = ["green", "blue", "red"].map((name) => ({
+    name,
+    color: name === "green" ? "#177245" : name === "blue" ? "#1455a0" : "#b42318",
+    mean: root.querySelector(`[data-normal-mean="${name}"]`),
+    sd: root.querySelector(`[data-normal-sd="${name}"]`),
+    meanOutput: root.querySelector(`[data-normal-mean-output="${name}"]`),
+    sdOutput: root.querySelector(`[data-normal-sd-output="${name}"]`),
+  }));
+  const xMinInput = root.querySelector("[data-normal-x-min]");
+  const xMaxInput = root.querySelector("[data-normal-x-max]");
+  const xMinOutput = root.querySelector("[data-normal-x-min-output]");
+  const xMaxOutput = root.querySelector("[data-normal-x-max-output]");
+
+  const draw = () => {
+    let xMin = Number(xMinInput.value);
+    let xMax = Number(xMaxInput.value);
+    if (xMin > xMax) [xMin, xMax] = [xMax, xMin];
+    xMinOutput.value = xMin.toFixed(0);
+    xMaxOutput.value = xMax.toFixed(0);
+
+    const series = controls.map((control) => {
+      const mean = Number(control.mean.value);
+      const sd = Math.max(Number(control.sd.value), 0.1);
+      control.meanOutput.value = mean.toFixed(1);
+      control.sdOutput.value = sd.toFixed(1);
+      return {
+        label: `N(mu = ${mean.toFixed(1)}, sigma = ${sd.toFixed(1)})`,
+        color: control.color,
+        points: normalPoints(mean, sd, xMin, xMax),
+      };
+    });
+
+    const width = 760;
+    const height = 420;
+    const margin = { top: 46, right: 28, bottom: 86, left: 70 };
+    const plotWidth = width - margin.left - margin.right;
+    const plotHeight = height - margin.top - margin.bottom;
+    const yMax = Math.max(...series.flatMap((item) => item.points.map((point) => point.y)), 0.01) * 1.15;
+    const xScale = (value) => margin.left + ((value - xMin) / (xMax - xMin || 1)) * plotWidth;
+    const yScale = (value) => margin.top + plotHeight - (value / yMax) * plotHeight;
+
+    svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+    drawNormalAxes(svg, { width, height, margin, xMin, xMax, yMax, xScale, yScale, title: "Normal Distribution Curves", xTitle: "Possible Values", yTitle: "Probability" });
+    series.forEach((item) => drawNormalPath(svg, item.points, xScale, yScale, item.color));
+
+    const legend = svgEl("g", { class: "lab-legend" });
+    series.forEach((item, index) => {
+      const x = margin.left + index * 218;
+      const y = height - 62;
+      legend.appendChild(svgEl("line", { x1: x, x2: x + 24, y1: y - 4, y2: y - 4, stroke: item.color, "stroke-width": 3 }));
+      legend.appendChild(svgEl("text", { x: x + 30, y, class: "lab-axis-label" })).textContent = item.label;
+    });
+    svg.appendChild(legend);
+  };
+
+  root.querySelectorAll("input").forEach((input) => input.addEventListener("input", draw));
+  draw();
+};
+
+const initNormalCalculatorWidget = (root) => {
+  const svg = root.querySelector("svg");
+  const meanInput = root.querySelector("[data-normal-calc-mean]");
+  const sdInput = root.querySelector("[data-normal-calc-sd]");
+  const modeSelect = root.querySelector("[data-normal-calc-mode]");
+  const lowerInput = root.querySelector("[data-normal-calc-lower]");
+  const upperInput = root.querySelector("[data-normal-calc-upper]");
+  const percentileInput = root.querySelector("[data-normal-calc-percentile]");
+  const result = root.querySelector("[data-normal-calc-result]");
+  const probabilityControls = Array.from(root.querySelectorAll("[data-normal-probability-control]"));
+  const percentileControls = Array.from(root.querySelectorAll("[data-normal-percentile-control]"));
+
+  const draw = () => {
+    const mean = Number(meanInput.value);
+    const sd = Math.max(Number(sdInput.value), 0.01);
+    const mode = modeSelect.value;
+    probabilityControls.forEach((control) => { control.hidden = mode !== "probability"; });
+    percentileControls.forEach((control) => { control.hidden = mode !== "percentile"; });
+
+    const xMin = mean - 4 * sd;
+    const xMax = mean + 4 * sd;
+    const points = normalPoints(mean, sd, xMin, xMax, 300);
+    const yMax = Math.max(...points.map((point) => point.y), 0.01) * 1.18;
+    const width = 760;
+    const height = 420;
+    const margin = { top: 54, right: 28, bottom: 72, left: 70 };
+    const plotWidth = width - margin.left - margin.right;
+    const plotHeight = height - margin.top - margin.bottom;
+    const xScale = (value) => margin.left + ((value - xMin) / (xMax - xMin || 1)) * plotWidth;
+    const yScale = (value) => margin.top + plotHeight - (value / yMax) * plotHeight;
+    let resultText = "";
+    let shadeLow = null;
+    let shadeHigh = null;
+    let markerX = null;
+
+    if (mode === "probability") {
+      const lowerRaw = lowerInput.value.trim();
+      const upperRaw = upperInput.value.trim();
+      let lower = lowerRaw === "" ? -Infinity : Number(lowerRaw);
+      let upper = upperRaw === "" ? Infinity : Number(upperRaw);
+      if (!Number.isFinite(lower) && lowerRaw !== "") lower = -Infinity;
+      if (!Number.isFinite(upper) && upperRaw !== "") upper = Infinity;
+      if (lower > upper) [lower, upper] = [upper, lower];
+      const probability = normalCdf(upper, mean, sd) - normalCdf(lower, mean, sd);
+      const leftText = Number.isFinite(lower) ? lower.toFixed(2) : "-Infinity";
+      const rightText = Number.isFinite(upper) ? upper.toFixed(2) : "Infinity";
+      resultText = `P(${leftText} < X < ${rightText}) = ${probability.toFixed(4)}`;
+      shadeLow = Math.max(lower, xMin);
+      shadeHigh = Math.min(upper, xMax);
+    } else if (mode === "percentile") {
+      const percentile = Math.min(Math.max(Number(percentileInput.value), 0.0001), 0.9999);
+      const value = normalQuantile(percentile, mean, sd);
+      resultText = `The ${percentile.toFixed(2)} percentile is ${value.toFixed(4)}`;
+      shadeLow = xMin;
+      shadeHigh = Math.min(value, xMax);
+      markerX = value;
+    }
+
+    result.textContent = resultText;
+    result.hidden = !resultText;
+
+    svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+    drawNormalAxes(svg, {
+      width,
+      height,
+      margin,
+      xMin,
+      xMax,
+      yMax,
+      xScale,
+      yScale,
+      title: `Normal Distribution with X ~ N(${mean.toFixed(2)}, ${sd.toFixed(2)})`,
+      xTitle: "Possible Values",
+      yTitle: "Probability Density",
+    });
+
+    if (shadeLow !== null && shadeHigh !== null && shadeHigh > shadeLow) {
+      const shadePoints = normalPoints(mean, sd, shadeLow, shadeHigh, 180);
+      const baseline = margin.top + plotHeight;
+      const shadePath = [
+        `M ${xScale(shadeLow).toFixed(2)} ${baseline.toFixed(2)}`,
+        ...shadePoints.map((point) => `L ${xScale(point.x).toFixed(2)} ${yScale(point.y).toFixed(2)}`),
+        `L ${xScale(shadeHigh).toFixed(2)} ${baseline.toFixed(2)}`,
+        "Z",
+      ].join(" ");
+      svg.appendChild(svgEl("path", { d: shadePath, class: "lab-normal-shade" }));
+    }
+
+    drawNormalPath(svg, points, xScale, yScale, "#b42318");
+    if (markerX !== null && markerX >= xMin && markerX <= xMax) {
+      svg.appendChild(svgEl("line", { x1: xScale(markerX), x2: xScale(markerX), y1: margin.top, y2: margin.top + plotHeight, class: "lab-normal-marker" }));
+    }
+    if (resultText) {
+      svg.appendChild(svgEl("text", { x: width / 2, y: 44, "text-anchor": "middle", class: "lab-plot-subtitle" })).textContent = resultText;
+    }
+  };
+
+  root.querySelectorAll("input, select").forEach((control) => control.addEventListener("input", draw));
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -1536,4 +1789,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll("[data-distribution-widget]").forEach(initDistributionWidget);
+
+  document.querySelectorAll("[data-normal-curves]").forEach(initNormalCurvesWidget);
+
+  document.querySelectorAll("[data-normal-calculator]").forEach(initNormalCalculatorWidget);
 });

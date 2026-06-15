@@ -37,6 +37,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-15: During Lab 4 review, added a stable rendered Table 1 reference output after Exercise 4 so the tableone example matches the original browser experience even when the WebR output is inconsistent.
 - 2026-06-15: Refined the Lab 4 Table 1 styling and fixed quiz feedback so answers with generic feedback no longer display duplicated "Correct." or "Try again." text.
 - 2026-06-15: Removed generic Lab 4 answer-level feedback attributes so cached browsers cannot show duplicate "Correct." or "Try again." messages.
+- 2026-06-15: Started the Lab 8 polish pass. Added the shared guided-lab layout, replaced the three normal distribution Shiny activities with browser-side JavaScript widgets, removed the Shiny migration callouts, corrected quiz numbering through Question 11, and removed generic answer-level feedback attributes.
 
 ## Lab Inventory
 
@@ -49,7 +50,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 | 5 | Life Tables | 0 | 10 | 0 |
 | 6 | Diagnostic and Screening Tests | 2 | 12 | 0 |
 | 7 | Discrete Distributions | 2 | 12 | 0 |
-| 8 | Normal Distribution | 0 | 22 | 6 |
+| 8 | Normal Distribution | 0 | 11 | 0 |
 | 9 | Random Sampling and Central Limit Theorem | 0 | 34 | 7 |
 | 10 | One Sample T Methods | 7 | 26 | 2 |
 | 11 | Paired t Test | 3 | 20 | 2 |

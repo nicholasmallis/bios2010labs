@@ -612,6 +612,17 @@
   stroke: var(--lab-blue);
 }
 
+.lab-normal-shade {
+  fill: rgba(180, 35, 24, 0.22);
+  stroke: none;
+}
+
+.lab-normal-marker {
+  stroke: #1455a0;
+  stroke-width: 2.5;
+  stroke-dasharray: 5 5;
+}
+
 .lab-result {
   margin-top: 0.75rem;
   padding: 0.65rem 0.75rem;
