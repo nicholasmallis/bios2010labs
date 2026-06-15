@@ -349,14 +349,14 @@ const initHeartHistogram = async (root) => {
 
 const heartPlotLabels = {
   group: {
-    sex: "Sex",
+    sex: "Sex of the patient",
     fbs: "Fasting blood sugar > 120 mg/dl",
     exang: "Exercise induced angina",
   },
   variable: {
     age: "Age (years)",
     chol: "Serum cholesterol (mg/dl)",
-    trestbps: "Resting blood pressure (mm Hg)",
+    trestbps: "Resting Blood Pressure (mm Hg)",
     thalach: "Maximum heart rate achieved",
     oldpeak: "ST depression induced by exercise relative to rest",
   },
@@ -395,7 +395,7 @@ const initHeartBoxplot = async (root) => {
 
   const width = 760;
   const height = 380;
-  const margin = { top: 42, right: 28, bottom: 78, left: 74 };
+  const margin = { top: 28, right: 28, bottom: 76, left: 74 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
 
@@ -424,8 +424,13 @@ const initHeartBoxplot = async (root) => {
 
     svg.replaceChildren();
     svg.appendChild(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
-    svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent =
-      `${heartPlotLabels.variable[variable]} by ${heartPlotLabels.group[groupColumn]}`;
+    svg.appendChild(svgEl("rect", {
+      x: margin.left,
+      y: margin.top,
+      width: plotWidth,
+      height: plotHeight,
+      class: "lab-plot-frame",
+    }));
 
     svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
     svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
@@ -458,13 +463,12 @@ const initHeartBoxplot = async (root) => {
 
       outliers.forEach((value, outlierIndex) => {
         const jitterSeed = Math.sin((Number(summary.group) + 1) * 17.13 + value * 0.37 + outlierIndex * 4.91);
-        const jitter = jitterSeed * Math.min(boxWidth * 0.12, 9);
-        svg.appendChild(svgEl("circle", { cx: x + jitter, cy: yScale(value), r: 2.6, class: "lab-box-outlier" }));
+        const jitter = jitterSeed * Math.min(boxWidth * 0.04, 3);
+        svg.appendChild(svgEl("circle", { cx: x + jitter, cy: yScale(value), r: 2.1, class: "lab-box-outlier" }));
       });
 
       const label = heartPlotLabels.values[groupColumn]?.[summary.group] || summary.group;
-      svg.appendChild(svgEl("text", { x, y: height - 46, "text-anchor": "middle", class: "lab-axis-label" })).textContent = label;
-      svg.appendChild(svgEl("text", { x, y: height - 30, "text-anchor": "middle", class: "lab-axis-label" })).textContent = `n=${summary.values.length}`;
+      svg.appendChild(svgEl("text", { x, y: height - 34, "text-anchor": "middle", class: "lab-axis-label" })).textContent = label;
     });
 
     const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });

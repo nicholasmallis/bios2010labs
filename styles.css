@@ -418,26 +418,31 @@
 }
 
 .lab-box-rect {
-  fill: #c7d8ea;
-  stroke: #315a7f;
-  stroke-width: 2;
+  fill: #fff;
+  stroke: #3f3f3f;
+  stroke-width: 1.5;
 }
 
 .lab-box-whisker {
-  stroke: #2f3944;
-  stroke-width: 2;
+  stroke: #3f3f3f;
+  stroke-width: 1.5;
 }
 
 .lab-box-median {
-  stroke: #1455a0;
-  stroke-width: 3;
+  stroke: #3f3f3f;
+  stroke-width: 2;
 }
 
 .lab-box-outlier {
-  fill: #fff;
-  stroke: #9f2d25;
-  stroke-width: 1.6;
-  opacity: 0.9;
+  fill: #3a3a3a;
+  stroke: #3a3a3a;
+  stroke-width: 1;
+}
+
+.lab-plot-frame {
+  fill: none;
+  stroke: #555;
+  stroke-width: 1;
 }
 
 .lab-plot-title {
