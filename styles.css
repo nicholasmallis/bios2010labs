@@ -475,47 +475,68 @@
 }
 
 .lab-tableone-output {
-  margin: 1.2rem 0 1.8rem;
+  margin: 1.4rem 0 2rem;
   overflow-x: auto;
   color: #555;
+  font-weight: 500;
 }
 
 .lab-tableone-caption {
-  margin: 0 0 0.7rem;
-  color: #777;
-  font-size: 1.03rem;
+  margin: 0 0 0.85rem;
+  color: #8a8a8a;
+  font-size: 1.15rem;
   font-weight: 700;
+  line-height: 1.35;
 }
 
 .lab-tableone-output table {
   width: 100%;
-  min-width: 680px;
+  min-width: 760px;
+  margin: 0;
   border-collapse: collapse;
-  font-size: 0.98rem;
+  border-spacing: 0;
+  color: #555;
+  font-size: 1.05rem;
 }
 
 .lab-tableone-output th,
 .lab-tableone-output td {
-  padding: 0.46rem 0.58rem;
+  padding: 0.5rem 0.6rem;
   border-top: 1px solid #ddd;
   text-align: left;
   vertical-align: top;
+  background: #fff;
 }
 
 .lab-tableone-output thead th {
   border-top: 0;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid #d8d8d8;
+  color: #4f4f4f;
   font-weight: 700;
+}
+
+.lab-tableone-output tbody tr:first-child td {
+  border-top: 0;
 }
 
 .lab-tableone-output th:nth-child(2),
 .lab-tableone-output td:nth-child(2) {
-  width: 11%;
+  width: 10.5rem;
 }
 
 .lab-tableone-output th:nth-child(3),
 .lab-tableone-output td:nth-child(3) {
-  width: 18%;
+  width: 12.5rem;
+}
+
+@media (max-width: 760px) {
+  .lab-tableone-caption {
+    font-size: 1rem;
+  }
+
+  .lab-tableone-output table {
+    font-size: 0.95rem;
+  }
 }
 
 .lab-table-wrap {

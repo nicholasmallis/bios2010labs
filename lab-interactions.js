@@ -47,7 +47,15 @@ document.addEventListener("click", (event) => {
 
   answer.classList.add("selected", isCorrect ? "correct" : "incorrect");
   answer.setAttribute("aria-pressed", "true");
-  feedback.textContent = `${isCorrect ? "Correct." : "Try again."} ${answer.dataset.feedback || ""}`.trim();
+  const prefix = isCorrect ? "Correct." : "Try again.";
+  const detail = (answer.dataset.feedback || "").trim();
+  const lowerDetail = detail.toLowerCase();
+  const lowerPrefix = prefix.toLowerCase();
+  feedback.textContent = lowerDetail === lowerPrefix
+    ? prefix
+    : lowerDetail.startsWith(`${lowerPrefix} `)
+      ? detail
+      : `${prefix} ${detail}`.trim();
   feedback.classList.toggle("correct", isCorrect);
   feedback.classList.toggle("incorrect", !isCorrect);
 });

@@ -35,6 +35,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-15: Began review pass starting with Lab 2. Made unsubmitted multi-answer quiz selections visibly blue so select-all questions show immediate feedback before the Check Answers button is used.
 - 2026-06-15: During Lab 3 review, adjusted the browser-side grouped boxplot to better match the original Shiny style: white boxes, dark whiskers/median, small filled outlier dots, cleaner labels, and no extra in-plot title.
 - 2026-06-15: During Lab 4 review, added a stable rendered Table 1 reference output after Exercise 4 so the tableone example matches the original browser experience even when the WebR output is inconsistent.
+- 2026-06-15: Refined the Lab 4 Table 1 styling and fixed quiz feedback so answers with generic feedback no longer display duplicated "Correct." or "Try again." text.
 
 ## Lab Inventory
 
