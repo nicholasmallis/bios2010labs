@@ -110,7 +110,15 @@
 }
 
 .lab-answer.selected {
+  border-color: var(--lab-blue);
+  background: #edf4ff;
   box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.14);
+}
+
+.lab-answer.selected::before {
+  border-color: var(--lab-blue);
+  background: var(--lab-blue);
+  box-shadow: inset 0 0 0 3px #fff;
 }
 
 .lab-answer.correct {
