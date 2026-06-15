@@ -34,6 +34,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-14: Started the Lab 7 polish pass. Added the shared guided-lab layout, replaced the binomial and Poisson Shiny calculators with browser-side JavaScript distribution widgets, fixed select-all quiz behavior for Questions 7-8, corrected quiz numbering through Question 12, and restored the summary image.
 - 2026-06-15: Began review pass starting with Lab 2. Made unsubmitted multi-answer quiz selections visibly blue so select-all questions show immediate feedback before the Check Answers button is used.
 - 2026-06-15: During Lab 3 review, adjusted the browser-side grouped boxplot to better match the original Shiny style: white boxes, dark whiskers/median, small filled outlier dots, cleaner labels, and no extra in-plot title.
+- 2026-06-15: During Lab 4 review, added a stable rendered Table 1 reference output after Exercise 4 so the tableone example matches the original browser experience even when the WebR output is inconsistent.
 
 ## Lab Inventory
 
