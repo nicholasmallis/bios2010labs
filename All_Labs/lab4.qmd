@@ -158,91 +158,91 @@ head(HeartFailure, )
 Identify the variable type and corresponding R data type for each of the variables.    
 To be clear, the variable age, in this case, is recorded as discrete data (whole year not year.months.days) but age is considered a continuous variable since values between 65 and 66 are possible. It is very common for continuous data/variables to be recorded as whole numbers, but that does not make them discrete. So you will have to think about whether or not intermediate values are possible before deciding if a variable data is continuous or discrete.
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 1</h4><p>Select the data type and corresponding R data type for: <strong>age</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">continuous</button>
+<button type="button" class="lab-answer" data-correct="false">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true">numeric</button>
+<button type="button" class="lab-answer" data-correct="false">factor</button>
+<button type="button" class="lab-answer" data-correct="false">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 2</h4><p>Select the data type and corresponding R data type for: <strong>sex</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">continuous</button>
+<button type="button" class="lab-answer" data-correct="false">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="true">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false">numeric</button>
+<button type="button" class="lab-answer" data-correct="true">factor</button>
+<button type="button" class="lab-answer" data-correct="false">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 3</h4><p>Select the data type and corresponding R data type for: <strong>trestbps</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">continuous</button>
+<button type="button" class="lab-answer" data-correct="false">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true">numeric</button>
+<button type="button" class="lab-answer" data-correct="false">factor</button>
+<button type="button" class="lab-answer" data-correct="false">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 4</h4><p>Select the data type and corresponding R data type for: <strong>chol</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">continuous</button>
+<button type="button" class="lab-answer" data-correct="false">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true">numeric</button>
+<button type="button" class="lab-answer" data-correct="false">factor</button>
+<button type="button" class="lab-answer" data-correct="false">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 5</h4><p>Select the data type and corresponding R data type for: <strong>fbs</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">continuous</button>
+<button type="button" class="lab-answer" data-correct="false">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="true">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false">numeric</button>
+<button type="button" class="lab-answer" data-correct="true">factor</button>
+<button type="button" class="lab-answer" data-correct="false">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 6</h4><p>Select the data type and corresponding R data type for: <strong>thalach</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">continuous</button>
+<button type="button" class="lab-answer" data-correct="true">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false">numeric</button>
+<button type="button" class="lab-answer" data-correct="false">factor</button>
+<button type="button" class="lab-answer" data-correct="true">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 7</h4><p>Select the data type and corresponding R data type for: <strong>exang</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">continuous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">numeric</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">factor</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">continuous</button>
+<button type="button" class="lab-answer" data-correct="false">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="true">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="false">numeric</button>
+<button type="button" class="lab-answer" data-correct="true">factor</button>
+<button type="button" class="lab-answer" data-correct="false">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 8</h4><p>Select the data type and corresponding R data type for: <strong>oldpeak</strong></p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">continuous</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">discrete</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">nominal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">ordinal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">dichotomous</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">numeric</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">factor</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">integer</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">continuous</button>
+<button type="button" class="lab-answer" data-correct="false">discrete</button>
+<button type="button" class="lab-answer" data-correct="false">nominal</button>
+<button type="button" class="lab-answer" data-correct="false">ordinal</button>
+<button type="button" class="lab-answer" data-correct="false">dichotomous</button>
+<button type="button" class="lab-answer" data-correct="true">numeric</button>
+<button type="button" class="lab-answer" data-correct="false">factor</button>
+<button type="button" class="lab-answer" data-correct="false">integer</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Checking Variable Types in R
@@ -267,14 +267,14 @@ The second line starts with a "**$**" letting you know that it is a variable ins
 So now that you know that the output means you can answer the following question.
 
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 9</h4><p>Which variables need to have their variable types changed?</p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">age</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">sex</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">trestbps</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">chol</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">fbs</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">thalach</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">exang</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">oldpeak</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">age</button>
+<button type="button" class="lab-answer" data-correct="true">sex</button>
+<button type="button" class="lab-answer" data-correct="true">trestbps</button>
+<button type="button" class="lab-answer" data-correct="true">chol</button>
+<button type="button" class="lab-answer" data-correct="true">fbs</button>
+<button type="button" class="lab-answer" data-correct="false">thalach</button>
+<button type="button" class="lab-answer" data-correct="true">exang</button>
+<button type="button" class="lab-answer" data-correct="false">oldpeak</button></div>
 <button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Data Cleaning R
@@ -403,21 +403,21 @@ boxplot(chol~sex, data = HeartFailure)
 ```
 ### Quiz: Questions 10-12
 <section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>Is the summary for sex in chunk 2 correct?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, knowing the mean and median is always important</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">No, counts or relative frequencies should be shown</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, Q1 and Q2 should always been shown</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Yes, knowing the mean and median is always important</button>
+<button type="button" class="lab-answer" data-correct="true">No, counts or relative frequencies should be shown</button>
+<button type="button" class="lab-answer" data-correct="false">Yes, Q1 and Q2 should always been shown</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 11</h4><p>How many patients have exercise induced angina?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">99</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">204</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">105</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">303</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">99</button>
+<button type="button" class="lab-answer" data-correct="false">204</button>
+<button type="button" class="lab-answer" data-correct="false">105</button>
+<button type="button" class="lab-answer" data-correct="false">303</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>Is the distribution of resting blood pressure different when stratified by exang?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, The median is higher for those with exang = Yes</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">No, They are very similar</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, The median is lower for those with exang = Yes</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, The box plot shows the means are different</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Yes, The median is higher for those with exang = Yes</button>
+<button type="button" class="lab-answer" data-correct="true">No, They are very similar</button>
+<button type="button" class="lab-answer" data-correct="false">Yes, The median is lower for those with exang = Yes</button>
+<button type="button" class="lab-answer" data-correct="false">No, The box plot shows the means are different</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Basic Analysis and Interpretations
 
@@ -524,22 +524,22 @@ knitr::kable(table1, caption = "**This is the table we easily created using some
 
 ### Quiz: Question 13-15
 <section class="lab-quiz" data-lab-quiz><h4>Question 13</h4><p>Is the summary for sex in this table correct?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, knowing the mean and median is always important</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, counts or relative frequencies should be shown</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, now it shows the frequency and relative frequency</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Yes, knowing the mean and median is always important</button>
+<button type="button" class="lab-answer" data-correct="false">No, counts or relative frequencies should be shown</button>
+<button type="button" class="lab-answer" data-correct="true">Yes, now it shows the frequency and relative frequency</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 14</h4><p>How many patients have a fasting blood sugar &gt; 120mg/dl?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">45</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">258</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">153</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">330</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">45</button>
+<button type="button" class="lab-answer" data-correct="false">258</button>
+<button type="button" class="lab-answer" data-correct="false">153</button>
+<button type="button" class="lab-answer" data-correct="false">330</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 15</h4><p>Among the continuous and discrete variables which is the most variable?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Age</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Serum Cholesterol</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Maximum Recorded Heart Rate</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Resting Blood Pressure</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Exercise Induced ST Depression Relative to Rest</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Age</button>
+<button type="button" class="lab-answer" data-correct="true">Serum Cholesterol</button>
+<button type="button" class="lab-answer" data-correct="false">Maximum Recorded Heart Rate</button>
+<button type="button" class="lab-answer" data-correct="false">Resting Blood Pressure</button>
+<button type="button" class="lab-answer" data-correct="false">Exercise Induced ST Depression Relative to Rest</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Figures with numerical summaries
 
@@ -579,10 +579,10 @@ The plot shows you the distribution age in the data, the start and end value for
 
 ### Quiz: Question 16
 <section class="lab-quiz" data-lab-quiz><h4>Question 16</h4><p>What is the most common age range for these patients?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">32.5-37.5</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">52.5-57.5</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">67.5-72.5</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">57.5-62.5</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">32.5-37.5</button>
+<button type="button" class="lab-answer" data-correct="false">52.5-57.5</button>
+<button type="button" class="lab-answer" data-correct="false">67.5-72.5</button>
+<button type="button" class="lab-answer" data-correct="true">57.5-62.5</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Summary
 
