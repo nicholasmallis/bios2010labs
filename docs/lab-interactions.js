@@ -457,8 +457,9 @@ const initHeartBoxplot = async (root) => {
       svg.appendChild(svgEl("line", { x1: x - boxWidth / 2, x2: x + boxWidth / 2, y1: yScale(median), y2: yScale(median), class: "lab-box-median" }));
 
       outliers.forEach((value, outlierIndex) => {
-        const jitter = ((outlierIndex % 5) - 2) * 4;
-        svg.appendChild(svgEl("circle", { cx: x + jitter, cy: yScale(value), r: 3.5, class: "lab-box-outlier" }));
+        const jitterSeed = Math.sin((Number(summary.group) + 1) * 17.13 + value * 0.37 + outlierIndex * 4.91);
+        const jitter = jitterSeed * Math.min(boxWidth * 0.12, 9);
+        svg.appendChild(svgEl("circle", { cx: x + jitter, cy: yScale(value), r: 2.6, class: "lab-box-outlier" }));
       });
 
       const label = heartPlotLabels.values[groupColumn]?.[summary.group] || summary.group;

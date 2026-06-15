@@ -435,8 +435,9 @@
 
 .lab-box-outlier {
   fill: #fff;
-  stroke: #b42318;
-  stroke-width: 2;
+  stroke: #9f2d25;
+  stroke-width: 1.6;
+  opacity: 0.9;
 }
 
 .lab-plot-title {

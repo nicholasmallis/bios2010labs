@@ -33,6 +33,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-14: Fixed Lab 6 ROC and cutoff widget markup so Quarto renders the controls as real HTML instead of printing the nested controls as code text.
 - 2026-06-14: Started the Lab 7 polish pass. Added the shared guided-lab layout, replaced the binomial and Poisson Shiny calculators with browser-side JavaScript distribution widgets, fixed select-all quiz behavior for Questions 7-8, corrected quiz numbering through Question 12, and restored the summary image.
 - 2026-06-15: Began review pass starting with Lab 2. Made unsubmitted multi-answer quiz selections visibly blue so select-all questions show immediate feedback before the Check Answers button is used.
+- 2026-06-15: During Lab 3 review, softened the browser-side grouped boxplot outlier markers so they look less crowded and more like conventional boxplot points.
 
 ## Lab Inventory
 
