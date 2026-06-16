@@ -264,18 +264,34 @@ Tip
 <section id="exercise-1-visualizing-the-normal-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1-visualizing-the-normal-distribution">Exercise 1: Visualizing the normal distribution</h3>
 <p><strong>Instructions</strong> The plot below shows three normal curves. Use the sliders to change the means and standard deviations to see the impact it has on the shape and position of the curve. Once you get a feel for whats happening, use the interactive plot to answer the quiz question. (You will have to adjust the X axis range if the mean is set far away from 0)</p>
-<div class="lab-widget" data-normal-curves="">
-  <div class="lab-widget-controls">
-    <label><span>Green Mean</span><input type="range" min="-100" max="100" value="0" step="0.5" data-normal-mean="green"><output data-normal-mean-output="green">0.0</output></label>
-    <label><span>Green Standard Deviation</span><input type="range" min="0.5" max="20" value="1" step="0.5" data-normal-sd="green"><output data-normal-sd-output="green">1.0</output></label>
-    <label><span>Blue Mean</span><input type="range" min="-100" max="100" value="0" step="0.5" data-normal-mean="blue"><output data-normal-mean-output="blue">0.0</output></label>
-    <label><span>Blue Standard Deviation</span><input type="range" min="0.5" max="20" value="3" step="0.5" data-normal-sd="blue"><output data-normal-sd-output="blue">3.0</output></label>
-    <label><span>Red Mean</span><input type="range" min="-100" max="100" value="0" step="0.5" data-normal-mean="red"><output data-normal-mean-output="red">0.0</output></label>
-    <label><span>Red Standard Deviation</span><input type="range" min="0.5" max="20" value="5" step="0.5" data-normal-sd="red"><output data-normal-sd-output="red">5.0</output></label>
-    <label><span>X Axis Minimum</span><input type="range" min="-175" max="175" value="-15" step="1" data-normal-x-min=""><output data-normal-x-min-output="">-15</output></label>
-    <label><span>X Axis Maximum</span><input type="range" min="-175" max="175" value="15" step="1" data-normal-x-max=""><output data-normal-x-max-output="">15</output></label>
+<div class="lab-widget lab-normal-curves-widget" data-normal-curves="">
+  <div class="lab-normal-panel-grid">
+    <section class="lab-normal-panel">
+      <h4 class="anchored">Parameters for The <span class="lab-normal-green">Green</span> Distribution</h4>
+      <label><span>Green Mean:</span><output data-normal-mean-output="green">0</output><input type="range" min="-100" max="100" value="0" step="0.5" data-normal-mean="green"></label>
+      <label><span>Green Standard Deviation:</span><output data-normal-sd-output="green">1</output><input type="range" min="0.5" max="20" value="1" step="0.5" data-normal-sd="green"></label>
+    </section>
+    <section class="lab-normal-panel">
+      <h4 class="anchored">Parameters for The <span class="lab-normal-blue">Blue</span> Distribution</h4>
+      <label><span>Blue Mean:</span><output data-normal-mean-output="blue">0</output><input type="range" min="-100" max="100" value="0" step="0.5" data-normal-mean="blue"></label>
+      <label><span>Blue Standard Deviation:</span><output data-normal-sd-output="blue">3</output><input type="range" min="0.5" max="20" value="3" step="0.5" data-normal-sd="blue"></label>
+    </section>
+    <section class="lab-normal-panel">
+      <h4 class="anchored">Parameters for The <span class="lab-normal-red">Red</span> Distribution</h4>
+      <label><span>Red Mean:</span><output data-normal-mean-output="red">0</output><input type="range" min="-100" max="100" value="0" step="0.5" data-normal-mean="red"></label>
+      <label><span>Red Standard Deviation:</span><output data-normal-sd-output="red">5</output><input type="range" min="0.5" max="20" value="5" step="0.5" data-normal-sd="red"></label>
+    </section>
   </div>
-  <svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="Interactive normal distribution curves"></svg>
+  <section class="lab-normal-panel lab-normal-axis-panel">
+    <h4 class="anchored">Set limits of X axis:</h4>
+    <div class="lab-normal-axis-controls">
+      <label><span>Minimum</span><output data-normal-x-min-output="">-15</output><input type="range" min="-175" max="175" value="-15" step="1" data-normal-x-min=""></label>
+      <label><span>Maximum</span><output data-normal-x-max-output="">15</output><input type="range" min="-175" max="175" value="15" step="1" data-normal-x-max=""></label>
+    </div>
+  </section>
+  <div class="lab-normal-plot-wrap">
+    <svg class="lab-plot lab-normal-curves-plot" viewbox="0 0 760 470" role="img" aria-label="Interactive normal distribution curves"></svg>
+  </div>
 </div>
 </section>
 <section id="quiz-questions-1-4" class="level3">

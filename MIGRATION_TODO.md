@@ -38,6 +38,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-15: Refined the Lab 4 Table 1 styling and fixed quiz feedback so answers with generic feedback no longer display duplicated "Correct." or "Try again." text.
 - 2026-06-15: Removed generic Lab 4 answer-level feedback attributes so cached browsers cannot show duplicate "Correct." or "Try again." messages.
 - 2026-06-15: Started the Lab 8 polish pass. Added the shared guided-lab layout, replaced the three normal distribution Shiny activities with browser-side JavaScript widgets, removed the Shiny migration callouts, corrected quiz numbering through Question 11, and removed generic answer-level feedback attributes.
+- 2026-06-16: Refined Lab 8 Exercise 1 so the normal curve controls more closely match the original Shiny layout: three colored parameter panels, a separate X-axis panel, and a cleaner legend-under-plot display.
 
 ## Lab Inventory
 

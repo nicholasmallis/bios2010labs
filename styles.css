@@ -244,6 +244,101 @@
   width: 100%;
 }
 
+.lab-normal-curves-widget {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.lab-normal-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.lab-normal-panel {
+  padding: 1.05rem 1.15rem 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f7f7f7;
+}
+
+.lab-normal-panel h4 {
+  margin: 0 0 0.9rem;
+  color: var(--lab-ink);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.lab-normal-panel label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.3rem 0.6rem;
+  margin: 0 0 1.25rem;
+  color: var(--lab-ink);
+  font-weight: 800;
+}
+
+.lab-normal-panel label:last-child {
+  margin-bottom: 0;
+}
+
+.lab-normal-panel input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.lab-normal-panel output {
+  min-width: 2.1rem;
+  padding: 0.08rem 0.35rem;
+  border-radius: 4px;
+  background: #3f8fca;
+  color: #fff;
+  text-align: center;
+  font-weight: 800;
+}
+
+.lab-normal-green {
+  color: #006b12;
+}
+
+.lab-normal-blue {
+  color: #0000ff;
+}
+
+.lab-normal-red {
+  color: #ff0000;
+}
+
+.lab-normal-axis-panel {
+  margin: 0 0 2rem;
+}
+
+.lab-normal-axis-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.lab-normal-plot-wrap {
+  max-width: 100%;
+  margin: 0.75rem 0 0;
+}
+
+.lab-normal-curves-plot {
+  min-height: 430px;
+  border-color: #666;
+  border-radius: 0;
+}
+
+@media (max-width: 900px) {
+  .lab-normal-panel-grid,
+  .lab-normal-axis-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
 .lab-check {
   grid-template-columns: auto 1fr;
   align-items: center;

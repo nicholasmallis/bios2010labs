@@ -1317,26 +1317,43 @@ const standardNormalQuantile = (p) => {
 const normalQuantile = (p, mean, sd) => mean + sd * standardNormalQuantile(p);
 
 const drawNormalAxes = (svg, config) => {
-  const { width, height, margin, xMin, xMax, yMax, xScale, yScale, title, xTitle, yTitle } = config;
+  const {
+    width,
+    height,
+    margin,
+    xMin,
+    xMax,
+    yMax,
+    xScale,
+    yScale,
+    title,
+    xTitle,
+    yTitle,
+    xTickCount = 6,
+    yTickCount = 4,
+    yLabelFormat = (value) => value.toFixed(2),
+  } = config;
   const axisColor = "#2f3944";
   const plotHeight = height - margin.top - margin.bottom;
-  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = title;
+  if (title) {
+    svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = title;
+  }
   svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
   svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
 
-  for (let index = 0; index <= 6; index += 1) {
-    const value = xMin + ((xMax - xMin) * index) / 6;
+  for (let index = 0; index <= xTickCount; index += 1) {
+    const value = xMin + ((xMax - xMin) * index) / xTickCount;
     const x = xScale(value);
     svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
     svg.appendChild(svgEl("text", { x, y: height - 42, "text-anchor": "middle", class: "lab-axis-label" })).textContent =
       Math.abs(value) >= 10 ? value.toFixed(0) : value.toFixed(1);
   }
 
-  for (let index = 0; index <= 4; index += 1) {
-    const value = (yMax * index) / 4;
+  for (let index = 0; index <= yTickCount; index += 1) {
+    const value = (yMax * index) / yTickCount;
     const y = yScale(value);
     svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
-    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(2);
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = yLabelFormat(value);
   }
 
   svg.appendChild(svgEl("text", { x: width / 2, y: height - 12, "text-anchor": "middle", class: "lab-axis-title" })).textContent = xTitle;
@@ -1364,7 +1381,7 @@ const initNormalCurvesWidget = (root) => {
   const svg = root.querySelector("svg");
   const controls = ["green", "blue", "red"].map((name) => ({
     name,
-    color: name === "green" ? "#177245" : name === "blue" ? "#1455a0" : "#b42318",
+    color: name === "green" ? "#006b12" : name === "blue" ? "#0000ff" : "#ff0000",
     mean: root.querySelector(`[data-normal-mean="${name}"]`),
     sd: root.querySelector(`[data-normal-sd="${name}"]`),
     meanOutput: root.querySelector(`[data-normal-mean-output="${name}"]`),
@@ -1374,6 +1391,7 @@ const initNormalCurvesWidget = (root) => {
   const xMaxInput = root.querySelector("[data-normal-x-max]");
   const xMinOutput = root.querySelector("[data-normal-x-min-output]");
   const xMaxOutput = root.querySelector("[data-normal-x-max-output]");
+  const formatControlValue = (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1);
 
   const draw = () => {
     let xMin = Number(xMinInput.value);
@@ -1385,32 +1403,51 @@ const initNormalCurvesWidget = (root) => {
     const series = controls.map((control) => {
       const mean = Number(control.mean.value);
       const sd = Math.max(Number(control.sd.value), 0.1);
-      control.meanOutput.value = mean.toFixed(1);
-      control.sdOutput.value = sd.toFixed(1);
+      control.meanOutput.value = formatControlValue(mean);
+      control.sdOutput.value = formatControlValue(sd);
       return {
-        label: `N(mu = ${mean.toFixed(1)}, sigma = ${sd.toFixed(1)})`,
+        label: `N(\u03bc = ${formatControlValue(mean)}, \u03c3 = ${formatControlValue(sd)})`,
         color: control.color,
         points: normalPoints(mean, sd, xMin, xMax),
       };
     });
 
     const width = 760;
-    const height = 420;
-    const margin = { top: 46, right: 28, bottom: 86, left: 70 };
+    const height = 470;
+    const margin = { top: 28, right: 18, bottom: 104, left: 58 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
-    const yMax = Math.max(...series.flatMap((item) => item.points.map((point) => point.y)), 0.01) * 1.15;
+    const peak = Math.max(...series.flatMap((item) => item.points.map((point) => point.y)), 0.01);
+    const yMax = Math.max(Math.ceil(peak * 10) / 10, 0.1);
     const xScale = (value) => margin.left + ((value - xMin) / (xMax - xMin || 1)) * plotWidth;
     const yScale = (value) => margin.top + plotHeight - (value / yMax) * plotHeight;
 
     svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
-    drawNormalAxes(svg, { width, height, margin, xMin, xMax, yMax, xScale, yScale, title: "Normal Distribution Curves", xTitle: "Possible Values", yTitle: "Probability" });
+    drawNormalAxes(svg, {
+      width,
+      height,
+      margin,
+      xMin,
+      xMax,
+      yMax,
+      xScale,
+      yScale,
+      title: "",
+      xTitle: "Possible Values",
+      yTitle: "Probability",
+      xTickCount: 3,
+      yTickCount: 4,
+      yLabelFormat: (value) => value.toFixed(1),
+    });
     series.forEach((item) => drawNormalPath(svg, item.points, xScale, yScale, item.color));
 
     const legend = svgEl("g", { class: "lab-legend" });
+    const legendY = height - 36;
+    legend.appendChild(svgEl("text", { x: margin.left + 78, y: legendY, "text-anchor": "end", class: "lab-axis-title" })).textContent =
+      "Distribution Parameters";
     series.forEach((item, index) => {
-      const x = margin.left + index * 218;
-      const y = height - 62;
+      const x = margin.left + 92 + index * 188;
+      const y = legendY;
       legend.appendChild(svgEl("line", { x1: x, x2: x + 24, y1: y - 4, y2: y - 4, stroke: item.color, "stroke-width": 3 }));
       legend.appendChild(svgEl("text", { x: x + 30, y, class: "lab-axis-label" })).textContent = item.label;
     });
