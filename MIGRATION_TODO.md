@@ -39,6 +39,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-15: Removed generic Lab 4 answer-level feedback attributes so cached browsers cannot show duplicate "Correct." or "Try again." messages.
 - 2026-06-15: Started the Lab 8 polish pass. Added the shared guided-lab layout, replaced the three normal distribution Shiny activities with browser-side JavaScript widgets, removed the Shiny migration callouts, corrected quiz numbering through Question 11, and removed generic answer-level feedback attributes.
 - 2026-06-16: Refined Lab 8 Exercise 1 so the normal curve controls more closely match the original Shiny layout: three colored parameter panels, a separate X-axis panel, and a cleaner legend-under-plot display.
+- 2026-06-22: Removed the leftover Lab 8 conversion tip callout from the top of the page for consistency with the other polished labs.
 
 ## Lab Inventory
 

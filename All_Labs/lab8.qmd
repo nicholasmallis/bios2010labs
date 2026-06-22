@@ -75,10 +75,6 @@ quiet_library("ggplot2")
 
 <div data-guided-lab data-lab-title="Lab 8"></div>
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
-
 ## Introduction
 
 In this lab you will explore the normal distribution. 
