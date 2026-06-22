@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -111,6 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -243,18 +209,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 </script>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.</p>
-</div>
+<div data-guided-lab="" data-lab-title="Lab 9">
+
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -273,107 +229,39 @@ Tip
 <strong>Weight:</strong> Student weight (pounds)<br>
 <strong>Height:</strong> Student height (inches)<br>
 <strong>Classes:</strong> Number of classes for the current semester in college</p>
-<p><strong>Instructions</strong> Use the interactive plot and summary below to determine the distributions for each of the variables. Then answer quiz questions 1-5.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">'Data about UGA undergraduates from 2018 (made up)'</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="dv">3</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">'var'</span>, <span class="at">label =</span> <span class="st">"Select Variable to Summarize"</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"sex"</span>, <span class="st">"age"</span>, <span class="st">"weight"</span>, <span class="st">"height"</span>, <span class="st">"classes"</span>), </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">selected =</span> <span class="st">"sex"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>, </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="st">"Plot of Selected Variable"</span>),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="at">outputId =</span> <span class="st">'plot'</span>, <span class="at">width =</span> <span class="st">"100%"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="st">"Data"</span>),</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">'rawdata'</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="dv">12</span>,</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="st">"Summary of Selected Variable"</span>),</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">verbatimTextOutput</span>(<span class="st">"summary"</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Basic plot of the selected variable</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>var), <span class="st">'Please select a variable to show the plot.'</span>))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.numeric</span>(UGA18[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">&lt;-</span> UGA18[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      bins <span class="ot">&lt;-</span> <span class="fu">round</span>((<span class="fu">max</span>(x)<span class="sc">-</span><span class="fu">min</span>(x))<span class="sc">/</span>(<span class="fl">3.5</span><span class="sc">*</span>(<span class="fu">sd</span>(x)<span class="sc">/</span><span class="dv">29611</span><span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))),<span class="dv">0</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(UGA18[ ,input<span class="sc">$</span>var],</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">breaks =</span> bins,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var))</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.integer</span>(UGA18[ ,input<span class="sc">$</span>var])<span class="sc">||</span><span class="fu">is.factor</span>(UGA18[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      x<span class="ot">&lt;-</span>UGA18[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      x<span class="ot">&lt;-</span><span class="fu">table</span>(x)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">barplot</span>(x,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">ylab =</span> <span class="st">"Count"</span>,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">xlab =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var))</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show raw data</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>rawdata <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>   DT<span class="sc">::</span><span class="fu">datatable</span>(UGA18, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">lengthMenu =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">50</span>), <span class="at">pageLength =</span> <span class="dv">5</span>)) </span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show a summary of the selected variable</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>summary <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>var), <span class="st">'Please select a variable to show the summary.'</span>))</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> UGA18[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(x)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p><strong>Instructions</strong> Use the interactive plot and summary below to determine the distributions for each of the variables. Then answer quiz questions 1-6.</p>
+<div class="lab-widget" data-uga-distribution="" data-csv="../tutorials/Lab9/www/UGA18.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable to Summarize
+      <select data-uga-variable="">
+        <option value="sex">sex</option>
+        <option value="age">age</option>
+        <option value="weight">weight</option>
+        <option value="height">height</option>
+        <option value="classes">classes</option>
+      </select>
+    </label>
+  </div>
+  <div class="lab-split-widget">
+    <div>
+      <h4 class="anchored">Plot of Selected Variable</h4>
+      <svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="Plot of selected UGA variable"></svg>
+    </div>
+    <div>
+      <h4 class="anchored">Data</h4>
+      <div class="lab-table-count" data-uga-count=""></div>
+      <div class="lab-table-wrap">
+        <table class="lab-data-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <h4 class="anchored">Summary of Selected Variable</h4>
+  <div class="lab-table-wrap lab-summary-table-wrap">
+    <table class="lab-data-table" data-uga-summary=""></table>
+  </div>
 </div>
 </section>
 <section id="quiz-questions-1-6" class="level3">
@@ -386,10 +274,10 @@ Question 1
 These summaries are showing the population parameters.
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 True
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 False
 </button>
 </div>
@@ -405,16 +293,16 @@ Question 2
 Which distribution should we use to describe the variable <strong>sex</strong>?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Uniform
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Binomial
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Normal
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Poisson
 </button>
 </div>
@@ -430,16 +318,16 @@ Question 3
 Which distribution should we use to describe the variable <strong>age</strong>?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Uniform
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Binomial
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Normal
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Poisson
 </button>
 </div>
@@ -455,16 +343,16 @@ Question 4
 Which distribution should we use to describe the variable <strong>weight</strong>?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Uniform
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Binomial
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Normal
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Poisson
 </button>
 </div>
@@ -480,16 +368,16 @@ Question 5
 Which distribution should we use to describe the variable <strong>height</strong>?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Uniform
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Binomial
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Normal
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Poisson
 </button>
 </div>
@@ -505,16 +393,16 @@ Question 6
 Which distribution should we use to describe the variable <strong>classes</strong>?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Uniform
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Binomial
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Normal
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Poisson
 </button>
 </div>
@@ -540,64 +428,42 @@ Poisson
 <strong>Weight:</strong> Student weight (pounds)<br>
 <strong>Height:</strong> Student height (inches)<br>
 <strong>Classes:</strong> Number of classes for the current semester in college</p>
-<p><strong>Instructions:</strong> Select a variable and then specify the size of the random sample you want to select from the UGA population. Use the random sample generator to answer the quiz questions.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(  </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wellPanel</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidRow</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="st">"Select the Size of the Random Sample"</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">6</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">numericInput</span>(<span class="st">"samp1"</span>, <span class="at">label =</span> <span class="st">"Specify a Random Sample Size:"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">value =</span> <span class="dv">5</span>, <span class="at">step =</span> <span class="dv">10</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">h4</span>(<span class="st">"Compare the Population Parameter to the Statistics of a Random Sample"</span>),</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="dv">12</span>, </span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">"data2"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p><strong>Instructions:</strong> Specify the size of the random sample you want to select from the UGA population. Use the random sample generator to answer the quiz questions.</p>
+<div class="lab-widget" data-uga-sample="" data-summary-csv="../tutorials/Lab9/www/UGA18_sample_summary.csv">
+  <div class="lab-widget-controls">
+    <label>Specify a Random Sample Size
+      <input type="number" min="1" max="10000" step="1" value="5" data-uga-sample-size="">
+    </label>
+  </div>
+  <h4 class="anchored">Compare the Population Parameter to the Statistics of a Random Sample</h4>
+  <div class="lab-table-wrap">
+    <table class="lab-data-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </div>
 </section>
 <section id="quiz-questions-7-9" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-7-9">Quiz: Questions 7-9</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 7
 </h4>
 <p>
 What is the smallest sample size gives you an absolute difference less than 1 for all the variables?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 n = 122 Students
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 n = 3 Students
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 n = 21 Students
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 n = 57 Students
 </button>
 </div>
@@ -607,22 +473,22 @@ n = 57 Students
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 8
 </h4>
 <p>
 Set the sample size to 100. Record the absolute difference for all the variables. Now set the sample size to 10,000. For all the variables what are differences between the absolute differences of the two random samples?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
-0.009, 0.095, 0.239, 0.517, 0.077
+<button type="button" class="lab-answer" data-correct="true">
+0.006, 0.095, 0.239, 0.517, 0.077
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
-0.006, 0.905, 0.923, 0.157, 0.577
+<button type="button" class="lab-answer" data-correct="false">
+0.009, 0.905, 0.923, 0.157, 0.577
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.029, 0.193, 0.536, 0.527, 0.127
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.927, 0.346, 0.749, 0.187, 0.420
 </button>
 </div>
@@ -632,16 +498,16 @@ Set the sample size to 100. Record the absolute difference for all the variables
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 9
 </h4>
 <p>
 It is worth the extra time and money to collect the data for a sample of 10,000 compared to 100.
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 True
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 False
 </button>
 </div>
@@ -653,52 +519,27 @@ False
 <section id="exercise-3-size-of-random-sample" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3-size-of-random-sample">Exercise 3: Size of Random Sample</h3>
 <p>I am always surprised how well a relatively small sample can produce really good estimates of population parameters. In the last exercise we were looking at one sample at a time. In this exercise we will look at a range of sample sizes to get a better understanding of how sample estimates change as sample size increase.</p>
-<p><strong>Instructions:</strong> Using the interactive plot below by selecting different variables. The plot that is generated will show the estimates from different random sample sizes (1 to 5,000). <strong>Pay attention to the y axis</strong>. Use the plots to answer the quiz questions.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wellPanel</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidRow</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">4</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">selectInput</span>(<span class="st">"var1"</span>, <span class="at">label =</span> <span class="st">"Select Variable to Summarize"</span>, </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"age"</span>, <span class="st">"weight"</span>, <span class="st">"height"</span>, <span class="st">"classes"</span>), </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">selected =</span> <span class="st">"sex"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="dv">4</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">numericInput</span>(<span class="st">"xLow"</span>, <span class="at">label =</span> <span class="st">"Set X axis lower limit:"</span>, </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">value =</span> <span class="dv">1</span>, <span class="at">step =</span> <span class="dv">100</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="dv">4</span>,</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">numericInput</span>(<span class="st">"xUp"</span>, <span class="at">label =</span> <span class="st">"Set X axis upper limit:"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">value =</span> <span class="dv">5000</span>, <span class="at">step =</span> <span class="dv">100</span>)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">h4</span>(<span class="st">"Random Samples of Varying Size"</span>),</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>      <span class="dv">12</span>, </span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="at">outputId =</span> <span class="st">'plot1'</span>)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p><strong>Instructions:</strong> Use the interactive plot below by selecting different variables. The plot shows estimates from different random sample sizes (1 to 5,000). <strong>Pay attention to the y axis</strong>. Use the plots to answer the quiz questions.</p>
+<div class="lab-widget" data-uga-sample-size="" data-path-csv="../tutorials/Lab9/www/UGA18_sample_size_paths.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable to Summarize
+      <select data-uga-path-variable="">
+        <option value="sex">sex</option>
+        <option value="age">age</option>
+        <option value="weight">weight</option>
+        <option value="height">height</option>
+        <option value="classes">classes</option>
+      </select>
+    </label>
+    <label>Set X axis lower limit
+      <input type="number" min="1" max="5000" step="1" value="1" data-uga-x-low="">
+    </label>
+    <label>Set X axis upper limit
+      <input type="number" min="1" max="5000" step="1" value="5000" data-uga-x-up="">
+    </label>
+  </div>
+  <h4 class="anchored">Random Samples of Varying Size</h4>
+  <svg class="lab-plot" viewbox="0 0 760 460" role="img" aria-label="Random samples of varying size"></svg>
 </div>
 <p><strong>Explanation of Plot:</strong><br>
 The <span style="color:darkgreen"><strong>green</strong></span> line shows the population parameter value for the variable you selected. Notice that is constant it will only change if the population changes.<br>
@@ -709,22 +550,22 @@ The <span style="color:red"><strong>red</strong></span> line is a smoothed line 
 <h3 class="anchored" data-anchor-id="quiz-questions-10-12">Quiz: Questions 10-12</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 10
 </h4>
 <p>
 Look at the plots for all the variables. For all the variables what happens to the estimates as the sample size increases? (X axis 1 to 5000)
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Nothing worth mentioning
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 The graph is different for all the variables
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 There is not a clear pattern
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 The estimates become less variable and get closer to the parameter value as the sample size increases
 </button>
 </div>
@@ -734,22 +575,22 @@ The estimates become less variable and get closer to the parameter value as the 
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 11
 </h4>
 <p>
 Why is the estimated mean age very close to the true mean even with a very small sample? (X axis to 1 and 100)
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 It is impossible to know
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Just lucky
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 The range of possible values is small
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Mostly do to biased sampling
 </button>
 </div>
@@ -759,22 +600,22 @@ Mostly do to biased sampling
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 12
 </h4>
 <p>
 Why does the estimated mean weight take so long to before the red line is consistently near the true mean? (X axis to 1 and 1000)?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 The weight variable has the most variation
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 weight is hard to measure accurately
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Because no one reported their actual weight
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Bad luck
 </button>
 </div>
@@ -782,167 +623,6 @@ Bad luck
 
 </div>
 </section>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> output<span class="sc">$</span>plot1 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>xUp), <span class="st">'Please provide an upper bound for the plot'</span>),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.na</span>(input<span class="sc">$</span>xLow), <span class="st">'Please provide an lower bound for the plot'</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">need</span>(input<span class="sc">$</span>xLow<span class="sc">&lt;</span>input<span class="sc">$</span>xUp, <span class="st">'The lower bound has to be smaller than the upper bound'</span>),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">need</span>(input<span class="sc">$</span>xLow<span class="sc">&gt;=</span><span class="dv">1</span>, <span class="st">'Make sure the lower bound is greater than or equal to 1. The smallest sample possible is 1!'</span>))    </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(input<span class="sc">$</span>var1<span class="sc">!=</span><span class="st">"sex"</span>){</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">set.seed</span>(<span class="dv">1987</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      smean<span class="ot">&lt;-</span><span class="cn">NULL</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      vs<span class="ot">&lt;-</span>UGA18[ ,input<span class="sc">$</span>var1]</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>){</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        sx<span class="ot">&lt;-</span><span class="fu">sample</span>(vs,i, <span class="at">replace =</span> F)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        smean[i]<span class="ot">&lt;-</span><span class="fu">mean</span>(sx)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">=</span> input<span class="sc">$</span>xLow<span class="sc">:</span>input<span class="sc">$</span>xUp</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> smean[input<span class="sc">$</span>xLow<span class="sc">:</span>input<span class="sc">$</span>xUp]</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>DF<span class="ot">&lt;-</span><span class="fu">data.frame</span>(x, y)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>span <span class="ot">&lt;-</span> <span class="dv">7</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">with</span>(DF,</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ksmooth</span>(x, y,  <span class="at">x.points =</span> x, <span class="at">kernel=</span><span class="st">"normal"</span>, <span class="at">bandwidth =</span> span))</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>DF <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">smooth=</span>fit<span class="sc">$</span>y) <span class="sc">%&gt;%</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(UGA18[ ,input<span class="sc">$</span>var1]), <span class="at">color=</span><span class="st">"line1"</span>),<span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> .<span class="dv">5</span>, <span class="fu">aes</span>(<span class="at">color=</span><span class="st">"line2"</span>), <span class="at">alpha=</span><span class="fl">0.80</span>) <span class="sc">+</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> smooth, <span class="at">color=</span><span class="st">"line3"</span>), <span class="at">alpha=</span><span class="fl">0.80</span>, <span class="at">size=</span><span class="fl">1.5</span>)<span class="sc">+</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(input<span class="sc">$</span>xLow, input<span class="sc">$</span>xUp))<span class="sc">+</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(DF<span class="sc">$</span>y), <span class="fu">max</span>(DF<span class="sc">$</span>y)))<span class="sc">+</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"line1"</span><span class="ot">=</span><span class="st">"darkgreen"</span>,</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>               <span class="st">"line2"</span><span class="ot">=</span><span class="st">"blue"</span>,</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>               <span class="st">"line3"</span><span class="ot">=</span><span class="st">"red"</span>),</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"line1"</span><span class="ot">=</span> <span class="st">"Parameter Value"</span>,</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>             <span class="st">"line2"</span><span class="ot">=</span> <span class="st">"Mean for each Sample Size"</span>,</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>             <span class="st">"line3"</span><span class="ot">=</span> <span class="st">"Smoothed Mean"</span>))<span class="sc">+</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Size of Random Samples"</span>,</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">paste</span>(<span class="st">"Estimated Mean ("</span>,input<span class="sc">$</span>var1,<span class="st">")"</span>,<span class="at">sep=</span><span class="st">""</span>),</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span> <span class="st">"Lines:"</span>)<span class="sc">+</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>),</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">1.25</span>),</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>      <span class="fu">set.seed</span>(<span class="dv">1987</span>)</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>      smean<span class="ot">&lt;-</span><span class="cn">NULL</span></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>      vs<span class="ot">&lt;-</span>UGA18[ ,input<span class="sc">$</span>var1]</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>){</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        sx<span class="ot">&lt;-</span><span class="fu">sample</span>(vs,i, <span class="at">replace =</span> F)</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        sx1<span class="ot">&lt;-</span>sx<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">"Male"</span>)</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>        smean[i]<span class="ot">&lt;-</span><span class="fu">mean</span>(sx1)</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">=</span> input<span class="sc">$</span>xLow<span class="sc">:</span>input<span class="sc">$</span>xUp</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> smean[input<span class="sc">$</span>xLow<span class="sc">:</span>input<span class="sc">$</span>xUp]</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>DF<span class="ot">&lt;-</span><span class="fu">data.frame</span>(x, y)</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>span <span class="ot">&lt;-</span> <span class="dv">7</span></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">with</span>(DF,</span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ksmooth</span>(x, y,  <span class="at">x.points =</span> x, <span class="at">kernel=</span><span class="st">"normal"</span>, <span class="at">bandwidth =</span> span))</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>DF <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">smooth=</span>fit<span class="sc">$</span>y) <span class="sc">%&gt;%</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(UGA18[ ,input<span class="sc">$</span>var1]<span class="sc">==</span><span class="st">"Male"</span>), <span class="at">color=</span><span class="st">"line1"</span>),<span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> .<span class="dv">5</span>, <span class="fu">aes</span>(<span class="at">color=</span><span class="st">"line2"</span>), <span class="at">alpha=</span><span class="fl">0.80</span>) <span class="sc">+</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> smooth, <span class="at">color=</span><span class="st">"line3"</span>), <span class="at">alpha=</span><span class="fl">0.80</span>, <span class="at">size=</span><span class="fl">1.5</span>)<span class="sc">+</span></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(input<span class="sc">$</span>xLow, input<span class="sc">$</span>xUp))<span class="sc">+</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(DF<span class="sc">$</span>y), <span class="fu">max</span>(DF<span class="sc">$</span>y)))<span class="sc">+</span></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"line1"</span><span class="ot">=</span><span class="st">"darkgreen"</span>,</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>               <span class="st">"line2"</span><span class="ot">=</span><span class="st">"blue"</span>,</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>               <span class="st">"line3"</span><span class="ot">=</span><span class="st">"red"</span>),</span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"line1"</span><span class="ot">=</span> <span class="st">"Parameter Value"</span>,</span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>             <span class="st">"line2"</span><span class="ot">=</span> <span class="st">"Proportion Male for each Sample Size"</span>,</span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>             <span class="st">"line3"</span><span class="ot">=</span> <span class="st">"Smoothed Proportion"</span>))<span class="sc">+</span></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Size of Random Samples"</span>,</span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Estimated Proportion of Males"</span>,</span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span> <span class="st">"Lines:"</span>)<span class="sc">+</span></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>),</span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">1.25</span>),</span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Nice comparison of the population parameter and a sample statistic for random samples of varying size</span></span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>data2 <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(input<span class="sc">$</span>samp1<span class="sc">&lt;=</span><span class="dv">10000</span>, <span class="st">'Please select a sample of 10000 or less. Generating random samples larger than 10000 takes a while!'</span>),</span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>           <span class="fu">need</span>(input<span class="sc">$</span>samp1<span class="sc">&gt;=</span><span class="dv">1</span>, <span class="st">'Samples less than 1 are not possible!'</span>))</span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1987</span>)</span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>    sx<span class="ot">&lt;-</span>UGA18[<span class="fu">sample</span>(<span class="fu">nrow</span>(UGA18), input<span class="sc">$</span>samp1, <span class="at">replace =</span> F), ]</span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>    r2<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Proportion Male:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"sex"</span>]<span class="sc">==</span><span class="st">"Male"</span>), <span class="dv">3</span>), <span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"sex"</span>]<span class="sc">==</span><span class="st">"Male"</span>), <span class="dv">3</span>), <span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"sex"</span>]<span class="sc">==</span><span class="st">"Male"</span>), <span class="dv">3</span>)<span class="sc">-</span><span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"sex"</span>]<span class="sc">==</span><span class="st">"Male"</span>), <span class="dv">3</span>)),<span class="dv">3</span>))</span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>    r3<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Mean Age:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"age"</span>]), <span class="dv">3</span>),<span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"age"</span>]), <span class="dv">3</span>), <span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"age"</span>]), <span class="dv">3</span>)<span class="sc">-</span><span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"age"</span>]), <span class="dv">3</span>)),<span class="dv">3</span>))</span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>    r4<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Mean Weight:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"weight"</span>]), <span class="dv">3</span>),<span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"weight"</span>]), <span class="dv">3</span>), <span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"weight"</span>]), <span class="dv">3</span>)<span class="sc">-</span><span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"weight"</span>]), <span class="dv">3</span>)),<span class="dv">3</span>))</span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>    r5<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Mean Height:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"height"</span>]), <span class="dv">3</span>),<span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"height"</span>]), <span class="dv">3</span>), <span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"height"</span>]), <span class="dv">3</span>)<span class="sc">-</span><span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"height"</span>]), <span class="dv">3</span>)),<span class="dv">3</span>))</span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>    r6<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Mean Number of Classes:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"classes"</span>]), <span class="dv">3</span>),<span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"classes"</span>]), <span class="dv">3</span>), <span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">round</span>(<span class="fu">mean</span>(UGA18[ ,<span class="st">"classes"</span>]), <span class="dv">3</span>)<span class="sc">-</span><span class="fu">round</span>(<span class="fu">mean</span>(sx[ ,<span class="st">"classes"</span>]), <span class="dv">3</span>)),<span class="dv">3</span>))</span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>    sxsum<span class="ot">&lt;-</span><span class="fu">rbind</span>(r2,r3,r4,r5,r6)</span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>    sxsum<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(sxsum)</span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>    sxsum<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(sxsum, <span class="at">row.names =</span> <span class="cn">NULL</span>) </span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(sxsum)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Variables"</span>,<span class="st">"Population Parameter Values"</span>, <span class="st">"Sample Statistic Values"</span>, <span class="st">"Absolute Difference"</span>)</span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames</span>(sxsum)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="cn">NULL</span>)</span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>    DT<span class="sc">::</span><span class="fu">datatable</span>(sxsum, <span class="at">options=</span><span class="fu">list</span>(<span class="at">searching=</span><span class="cn">FALSE</span>, <span class="at">paging=</span><span class="cn">FALSE</span>))</span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>    })</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="central-limit-theorem" class="level2">
@@ -951,169 +631,52 @@ Bad luck
 <p>We are going to put this to the test in our next exercise.</p>
 <section id="exercise-4-visualizing-the-ctl" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4-visualizing-the-ctl">Exercise 4: Visualizing the CTL</h3>
-<p><strong>Instructions</strong> choose different sample sizes and the number of times they are resampled. Use the plot to answer the quiz questions</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wellPanel</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidRow</span>(</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">selectInput</span>(<span class="st">"var2"</span>, <span class="at">label =</span> <span class="st">"Select Variable"</span>, </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"age"</span>, <span class="st">"weight"</span>, <span class="st">"height"</span>, <span class="st">"classes"</span>), </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">selected =</span> <span class="st">"sex"</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">numericInput</span>(<span class="st">"samp2"</span>, <span class="at">label =</span> <span class="st">"Sample size:"</span>, </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">value =</span> <span class="dv">40</span>, <span class="at">step =</span> <span class="dv">50</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="dv">6</span>,</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">numericInput</span>(<span class="st">"sampN"</span>, <span class="at">label =</span> <span class="st">"Number of Repeated Samples:"</span>,</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">value =</span> <span class="dv">100</span>, <span class="at">step =</span> <span class="dv">50</span>)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">h4</span>(<span class="st">"Distribution of Sample Means"</span>),</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>      <span class="dv">12</span>, </span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="at">outputId =</span> <span class="st">'plot2'</span>)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<p><strong>Instructions</strong> choose different sample sizes and the number of times they are resampled. Use the plot to answer the quiz questions.</p>
+<div class="lab-widget" data-uga-clt="" data-csv="../tutorials/Lab9/www/UGA18.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable
+      <select data-uga-clt-variable="">
+        <option value="sex">sex</option>
+        <option value="age">age</option>
+        <option value="weight">weight</option>
+        <option value="height">height</option>
+        <option value="classes">classes</option>
+      </select>
+    </label>
+    <label>Sample size
+      <input type="number" min="1" max="1000" step="1" value="40" data-uga-clt-size="">
+    </label>
+    <label>Number of Repeated Samples
+      <input type="number" min="1" max="10000" step="50" value="100" data-uga-clt-reps="">
+    </label>
+  </div>
+  <h4 class="anchored">Distribution of Sample Means</h4>
+  <svg class="lab-plot" viewbox="0 0 760 430" role="img" aria-label="Distribution of sample means"></svg>
+  <p class="lab-widget-note" data-uga-clt-note=""></p>
 </div>
 <p><strong>Explanation of Plot:</strong><br>
 The histogram shows the distribution of the means from all the repeated samples. The smoothed curve is the density of different mean values of the repeated samples. The vertical green line shows the value of the population parameter for the selected variable.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>plot2 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate</span>(<span class="fu">need</span>(input<span class="sc">$</span>sampN<span class="sc">&gt;=</span><span class="dv">1</span>, <span class="st">'You have to have at least 1 repeated sample'</span>),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">need</span>(input<span class="sc">$</span>samp2<span class="sc">&gt;=</span><span class="dv">1</span>, <span class="st">'The smallest sample possible is 1!'</span>))</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(input<span class="sc">$</span>var2<span class="sc">!=</span><span class="st">"sex"</span>){</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1987</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    rsmean<span class="ot">&lt;-</span><span class="cn">NULL</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>input<span class="sc">$</span>sampN){</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        rsx<span class="ot">&lt;-</span>UGA18[<span class="fu">sample</span>(<span class="fu">nrow</span>(UGA18), input<span class="sc">$</span>samp2, <span class="at">replace =</span> F), input<span class="sc">$</span>var2]</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        rsmean[i]<span class="ot">&lt;-</span><span class="fu">mean</span>(rsx)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#set bin width based on the data</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  binN <span class="ot">&lt;-</span> <span class="fu">round</span>((<span class="fu">max</span>(rsmean)<span class="sc">-</span><span class="fu">min</span>(rsmean))<span class="sc">/</span>(<span class="fl">3.5</span><span class="sc">*</span>(<span class="fu">sd</span>(rsmean)<span class="sc">/</span><span class="fu">length</span>(rsmean)<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))),<span class="dv">0</span>)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data frame of means</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  DF<span class="ot">&lt;-</span><span class="fu">data.frame</span>(rsmean)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Curve of the theoretical sampling distribution Xbar~N(mu,sd/sqrt(n))</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">#xvs &lt;- seq(min(UGA18[,input$var2]), max(UGA18[,input$var2]), length.out=length(UGA18[,input$var2]))</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">#CurveDF &lt;-data.frame(x = xvs, y = dnorm(xvs, mean(UGA18[,input$var2]), sd(UGA18[,input$var2])/sqrt(input$sampN)))</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(DF) <span class="sc">+</span> </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_histogram</span>(<span class="at">bins=</span>binN, <span class="at">color=</span><span class="st">"blue"</span>, <span class="at">fill=</span><span class="st">"blue"</span>, <span class="at">alpha=</span>.<span class="dv">75</span>, <span class="fu">aes</span>(<span class="at">x =</span> rsmean, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_density</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">color=</span><span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"red"</span>, <span class="fu">aes</span>(<span class="at">x =</span> rsmean)) <span class="sc">+</span> </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Means"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(UGA18[,input<span class="sc">$</span>var2]), <span class="at">color=</span><span class="st">"darkgreen"</span>, <span class="at">size=</span><span class="fl">1.5</span>)<span class="sc">+</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1987</span>)</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    rsmean<span class="ot">&lt;-</span><span class="cn">NULL</span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>input<span class="sc">$</span>sampN){</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>        rsx<span class="ot">&lt;-</span>UGA18[<span class="fu">sample</span>(<span class="fu">nrow</span>(UGA18), input<span class="sc">$</span>samp2, <span class="at">replace =</span> F), input<span class="sc">$</span>var2]</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>        rsx1<span class="ot">&lt;-</span>rsx<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">"Male"</span>)</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        rsmean[i]<span class="ot">&lt;-</span><span class="fu">mean</span>(rsx1)</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">#set bin width based on the data</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    binN <span class="ot">&lt;-</span> <span class="fu">round</span>((<span class="fu">max</span>(rsmean)<span class="sc">-</span><span class="fu">min</span>(rsmean))<span class="sc">/</span>(<span class="fl">3.5</span><span class="sc">*</span>(<span class="fu">sd</span>(rsmean)<span class="sc">/</span><span class="fu">length</span>(rsmean)<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))),<span class="dv">0</span>)</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>    DF<span class="ot">&lt;-</span><span class="fu">data.frame</span>(rsmean)</span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(DF) <span class="sc">+</span> </span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_histogram</span>(<span class="at">bins=</span>binN, <span class="at">colour=</span><span class="st">"blue"</span>, <span class="at">fill=</span><span class="st">"blue"</span>, <span class="at">alpha=</span>.<span class="dv">75</span>, <span class="fu">aes</span>(<span class="at">x =</span> rsmean, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_density</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">fill=</span><span class="st">"red"</span>, <span class="at">color=</span><span class="st">"red"</span>,<span class="fu">aes</span>(<span class="at">x =</span> rsmean)) <span class="sc">+</span> </span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion Male"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(UGA18[,input<span class="sc">$</span>var2]<span class="sc">==</span><span class="st">"Male"</span>), <span class="at">color=</span><span class="st">"darkgreen"</span>, <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>), </span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
 </section>
 <section id="quiz-questions-13-17" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-13-17">Quiz: Questions 13-17</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 13
 </h4>
 <p>
 Does it work for Age? (Sample size:40, Repeated Samples:10000)
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes it looks normal, but age is already normally distributed
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No the curve is not even approximately bell shaped, and age is uniformly distributed
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes it looks normal, even though age is uniformly distributed
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 There is not enough information to say
 </button>
 </div>
@@ -1123,22 +686,22 @@ There is not enough information to say
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 14
 </h4>
 <p>
 Does it work for Weight? (Sample size:40, Repeated Samples:10000)
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 There is not enough information to say
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes it looks normal, weight has a skewed distributed
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No the curve is not even approximately bell shaped, and weight is skewed
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes it looks normal, but weight is uniformly distributed
 </button>
 </div>
@@ -1148,22 +711,22 @@ Yes it looks normal, but weight is uniformly distributed
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 15
 </h4>
 <p>
 Does it work for Height? (Sample size:40, Repeated Samples:10000)
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No the curve is not even a little bell shaped
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes it looks normal, even though height seems to have a Poisson distribution
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 There is not enough information to say
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes it looks normal, height is normally distributed
 </button>
 </div>
@@ -1173,22 +736,22 @@ Yes it looks normal, height is normally distributed
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 4
+Question 16
 </h4>
 <p>
 Does it work for Classes? (Sample size:40, Repeated Samples:10000)
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes it looks normal, even though the classes variable is Poisson distributed
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No one really knows
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes it looks normal, but classes was already normally distributed
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Look more like a negative binomial distribution
 </button>
 </div>
@@ -1198,22 +761,22 @@ Look more like a negative binomial distribution
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 5
+Question 17
 </h4>
 <p>
 Does it work for Sex? (Sample size:40, Repeated Samples:10000)
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No!
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Kinda of normal, it is a little jagged
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes it looks perfectly normal
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Still looks like a binomial distribution
 </button>
 </div>

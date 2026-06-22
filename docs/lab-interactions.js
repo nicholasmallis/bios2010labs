@@ -1559,6 +1559,443 @@ const initNormalCalculatorWidget = (root) => {
   draw();
 };
 
+const ugaVariableLabels = {
+  sex: "Sex",
+  age: "Age",
+  weight: "Weight",
+  height: "Height",
+  classes: "Classes",
+};
+
+const ugaStatisticLabels = {
+  sex: "Proportion Male",
+  age: "Mean Age",
+  weight: "Mean Weight",
+  height: "Mean Height",
+  classes: "Mean Number of Classes",
+};
+
+const formatUgaValue = (value, digits = 3) => {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return String(value);
+  return Number.isInteger(number) ? String(number) : number.toFixed(digits).replace(/0+$/, "").replace(/\.$/, "");
+};
+
+const renderSimpleTable = (table, columns, rows, headings = columns) => {
+  const thead = table.querySelector("thead") || table.createTHead();
+  const tbody = table.querySelector("tbody") || table.createTBody();
+  const headerRow = document.createElement("tr");
+  headings.forEach((heading) => {
+    const th = document.createElement("th");
+    th.textContent = heading;
+    headerRow.appendChild(th);
+  });
+  thead.replaceChildren(headerRow);
+  tbody.replaceChildren(...rows.map((row) => {
+    const tr = document.createElement("tr");
+    columns.forEach((column) => {
+      const td = document.createElement("td");
+      td.textContent = row[column] ?? "";
+      tr.appendChild(td);
+    });
+    return tr;
+  }));
+};
+
+const ugaNumericRows = (rows, variable) => rows
+  .map((row) => Number(row[variable]))
+  .filter(Number.isFinite);
+
+const ugaPopulationParameter = (rows, variable) => {
+  if (variable === "sex") return rows.filter((row) => row.sex === "Male").length / rows.length;
+  const values = ugaNumericRows(rows, variable);
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+};
+
+const drawUgaBarPlot = (svg, counts, config) => {
+  const width = 760;
+  const height = 420;
+  const margin = { top: 42, right: 24, bottom: 76, left: 76 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const keys = Object.keys(counts);
+  const yMax = Math.max(...Object.values(counts), 1) * 1.12;
+  const yScale = (value) => margin.top + plotHeight - (value / yMax) * plotHeight;
+  const band = plotWidth / keys.length;
+  const axisColor = "#2f3944";
+
+  svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = config.title;
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+  keys.forEach((key, index) => {
+    const barWidth = Math.min(band * 0.68, 86);
+    const x = margin.left + index * band + (band - barWidth) / 2;
+    const y = yScale(counts[key]);
+    svg.appendChild(svgEl("rect", {
+      x,
+      y,
+      width: barWidth,
+      height: margin.top + plotHeight - y,
+      class: "lab-hist-bar",
+    }));
+    svg.appendChild(svgEl("text", { x: margin.left + index * band + band / 2, y: height - 46, "text-anchor": "middle", class: "lab-axis-label" })).textContent = key;
+  });
+
+  for (let index = 0; index <= 4; index += 1) {
+    const value = (yMax * index) / 4;
+    const y = yScale(value);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(0);
+  }
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 14, "text-anchor": "middle", class: "lab-axis-title" })).textContent = config.xTitle;
+  const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitle.textContent = "Count";
+  svg.appendChild(yTitle);
+};
+
+const drawUgaHistogram = (svg, values, config) => {
+  const width = 760;
+  const height = 420;
+  const margin = { top: 42, right: 24, bottom: 76, left: 76 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const binCount = Math.max(8, Math.min(40, Math.round((max - min) / (3.5 * (standardDeviation(values) / values.length ** (1 / 3)))) || 15));
+  const binWidth = (max - min) / binCount || 1;
+  const bins = Array.from({ length: binCount }, (_, index) => ({ x0: min + index * binWidth, x1: min + (index + 1) * binWidth, count: 0 }));
+  values.forEach((value) => {
+    const index = Math.min(Math.floor((value - min) / binWidth), binCount - 1);
+    bins[Math.max(index, 0)].count += 1;
+  });
+  const yMax = Math.max(...bins.map((bin) => bin.count), 1) * 1.12;
+  const xScale = (value) => margin.left + ((value - min) / (max - min || 1)) * plotWidth;
+  const yScale = (value) => margin.top + plotHeight - (value / yMax) * plotHeight;
+  const axisColor = "#2f3944";
+
+  svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = config.title;
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+  bins.forEach((bin) => {
+    const x = xScale(bin.x0) + 1;
+    const y = yScale(bin.count);
+    svg.appendChild(svgEl("rect", {
+      x,
+      y,
+      width: Math.max(xScale(bin.x1) - xScale(bin.x0) - 2, 1),
+      height: margin.top + plotHeight - y,
+      class: "lab-hist-bar",
+    }));
+  });
+
+  for (let index = 0; index <= 5; index += 1) {
+    const value = min + ((max - min) * index) / 5;
+    const x = xScale(value);
+    svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x, y: height - 46, "text-anchor": "middle", class: "lab-axis-label" })).textContent = formatUgaValue(value, 1);
+  }
+  for (let index = 0; index <= 4; index += 1) {
+    const value = (yMax * index) / 4;
+    const y = yScale(value);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(0);
+  }
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 14, "text-anchor": "middle", class: "lab-axis-title" })).textContent = config.xTitle;
+  const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitle.textContent = "Count";
+  svg.appendChild(yTitle);
+};
+
+const initUgaDistributionWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const select = root.querySelector("[data-uga-variable]");
+  const svg = root.querySelector("svg");
+  const count = root.querySelector("[data-uga-count]");
+  const dataTable = root.querySelector(".lab-table-wrap table:not([data-uga-summary])");
+  const summaryTable = root.querySelector("[data-uga-summary]");
+  const columns = ["sex", "age", "weight", "height", "classes"];
+
+  const draw = () => {
+    const variable = select.value;
+    count.textContent = `Showing first 5 of ${data.length.toLocaleString()} entries`;
+    renderSimpleTable(dataTable, columns, data.slice(0, 5), columns);
+
+    if (variable === "sex" || variable === "age" || variable === "classes") {
+      const counts = {};
+      data.forEach((row) => { counts[row[variable]] = (counts[row[variable]] || 0) + 1; });
+      const sortedCounts = Object.fromEntries(Object.entries(counts).sort(([a], [b]) => Number.isFinite(Number(a)) ? Number(a) - Number(b) : a.localeCompare(b)));
+      drawUgaBarPlot(svg, sortedCounts, { title: variable, xTitle: variable });
+      renderSimpleTable(summaryTable, ["Level", "Count", "Percent"], Object.entries(sortedCounts).map(([level, value]) => ({
+        Level: level,
+        Count: value.toLocaleString(),
+        Percent: `${((value / data.length) * 100).toFixed(1)}%`,
+      })));
+    } else {
+      const values = ugaNumericRows(data, variable);
+      drawUgaHistogram(svg, values, { title: variable, xTitle: variable });
+      const summary = [
+        { Statistic: "Min.", Value: formatUgaValue(Math.min(...values), 2) },
+        { Statistic: "1st Qu.", Value: formatUgaValue(quantile(values, 0.25), 2) },
+        { Statistic: "Median", Value: formatUgaValue(quantile(values, 0.5), 2) },
+        { Statistic: "Mean", Value: formatUgaValue(ugaPopulationParameter(data, variable), 2) },
+        { Statistic: "3rd Qu.", Value: formatUgaValue(quantile(values, 0.75), 2) },
+        { Statistic: "Max.", Value: formatUgaValue(Math.max(...values), 2) },
+      ];
+      renderSimpleTable(summaryTable, ["Statistic", "Value"], summary);
+    }
+  };
+
+  select.addEventListener("change", draw);
+  draw();
+};
+
+const initUgaSampleWidget = async (root) => {
+  const rows = await fetchCsv(root.dataset.summaryCsv);
+  const input = root.querySelector("[data-uga-sample-size]");
+  const table = root.querySelector("table");
+  const headings = ["Variables", "Population Parameter Values", "Sample Statistic Values", "Absolute Difference"];
+  const columns = ["Variables", "Population_Parameter_Values", "Sample_Statistic_Values", "Absolute_Difference"];
+  const bySize = rows.reduce((map, row) => {
+    const key = row.sample_size;
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(row);
+    return map;
+  }, new Map());
+
+  const draw = () => {
+    const n = Math.min(Math.max(Math.round(Number(input.value) || 1), 1), 10000);
+    input.value = n;
+    renderSimpleTable(table, columns, bySize.get(String(n)) || [], headings);
+  };
+
+  input.addEventListener("input", draw);
+  draw();
+};
+
+const drawUgaSampleSizePlot = (svg, rows, variable, xLow, xUp) => {
+  const selected = rows
+    .filter((row) => row.variable === variable && row.sample_size >= xLow && row.sample_size <= xUp)
+    .sort((a, b) => a.sample_size - b.sample_size);
+  if (selected.length === 0) return;
+
+  const width = 760;
+  const height = 460;
+  const margin = { top: 42, right: 28, bottom: 98, left: 78 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const values = selected.flatMap((row) => [row.estimate, row.smooth, row.parameter]).filter(Number.isFinite);
+  const pad = (Math.max(...values) - Math.min(...values) || 1) * 0.08;
+  const yMin = Math.min(...values) - pad;
+  const yMax = Math.max(...values) + pad;
+  const xScale = (value) => margin.left + ((value - xLow) / (xUp - xLow || 1)) * plotWidth;
+  const yScale = (value) => margin.top + plotHeight - ((value - yMin) / (yMax - yMin || 1)) * plotHeight;
+  const axisColor = "#2f3944";
+  const label = selected[0].label;
+
+  svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = "Random Samples of Varying Size";
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+  for (let index = 0; index <= 5; index += 1) {
+    const value = xLow + ((xUp - xLow) * index) / 5;
+    const x = xScale(value);
+    svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x, y: height - 58, "text-anchor": "middle", class: "lab-axis-label" })).textContent = value.toFixed(0);
+  }
+  for (let index = 0; index <= 4; index += 1) {
+    const value = yMin + ((yMax - yMin) * index) / 4;
+    const y = yScale(value);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = formatUgaValue(value, 2);
+  }
+
+  const parameter = selected[0].parameter;
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: yScale(parameter), y2: yScale(parameter), stroke: "darkgreen", "stroke-width": 3 }));
+  svg.appendChild(svgEl("path", { d: linePath(selected.map((row) => ({ x: row.sample_size, y: row.estimate })), xScale, yScale), class: "lab-line-path", stroke: "blue" }));
+  svg.appendChild(svgEl("path", { d: linePath(selected.map((row) => ({ x: row.sample_size, y: row.smooth })), xScale, yScale), class: "lab-line-path", stroke: "red" }));
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 30, "text-anchor": "middle", class: "lab-axis-title" })).textContent = "Size of Random Samples";
+  const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitle.textContent = variable === "sex" ? "Estimated Proportion of Males" : `Estimated Mean (${variable})`;
+  svg.appendChild(yTitle);
+
+  const legend = svgEl("g", { class: "lab-legend" });
+  [
+    ["Parameter Value", "darkgreen"],
+    [label === "Proportion Male" ? "Proportion Male for each Sample Size" : "Mean for each Sample Size", "blue"],
+    [label === "Proportion Male" ? "Smoothed Proportion" : "Smoothed Mean", "red"],
+  ].forEach(([text, color], index) => {
+    const x = margin.left + index * 220;
+    const y = height - 72;
+    legend.appendChild(svgEl("line", { x1: x, x2: x + 22, y1: y - 4, y2: y - 4, stroke: color, "stroke-width": 3 }));
+    legend.appendChild(svgEl("text", { x: x + 28, y, class: "lab-axis-label" })).textContent = text;
+  });
+  svg.appendChild(legend);
+};
+
+const initUgaSampleSizeWidget = async (root) => {
+  const rows = (await fetchCsv(root.dataset.pathCsv)).map((row) => ({
+    variable: row.variable,
+    label: row.label,
+    sample_size: Number(row.sample_size),
+    estimate: Number(row.estimate),
+    smooth: Number(row.smooth),
+    parameter: Number(row.parameter),
+  }));
+  const variableSelect = root.querySelector("[data-uga-path-variable]");
+  const lowInput = root.querySelector("[data-uga-x-low]");
+  const upInput = root.querySelector("[data-uga-x-up]");
+  const svg = root.querySelector("svg");
+
+  const draw = () => {
+    let xLow = Math.min(Math.max(Math.round(Number(lowInput.value) || 1), 1), 5000);
+    let xUp = Math.min(Math.max(Math.round(Number(upInput.value) || 5000), 1), 5000);
+    if (xLow > xUp) [xLow, xUp] = [xUp, xLow];
+    if (xLow === xUp) {
+      if (xUp < 5000) xUp += 1;
+      else xLow -= 1;
+    }
+    lowInput.value = xLow;
+    upInput.value = xUp;
+    drawUgaSampleSizePlot(svg, rows, variableSelect.value, xLow, xUp);
+  };
+
+  [variableSelect, lowInput, upInput].forEach((control) => control.addEventListener("input", draw));
+  draw();
+};
+
+const seededRandom = (seed) => {
+  let state = seed >>> 0;
+  return () => {
+    state += 0x6D2B79F5;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
+const repeatedSampleMeans = (rows, variable, sampleSize, reps) => {
+  const values = variable === "sex"
+    ? rows.map((row) => row.sex === "Male" ? 1 : 0)
+    : rows.map((row) => Number(row[variable])).filter(Number.isFinite);
+  const rng = seededRandom(1987 + variable.length * 1009 + sampleSize * 17 + reps);
+  const sampleN = Math.min(sampleSize, values.length);
+  const means = [];
+
+  for (let rep = 0; rep < reps; rep += 1) {
+    const seen = new Set();
+    let sum = 0;
+    while (seen.size < sampleN) {
+      const index = Math.floor(rng() * values.length);
+      if (seen.has(index)) continue;
+      seen.add(index);
+      sum += values[index];
+    }
+    means.push(sum / sampleN);
+  }
+  return means;
+};
+
+const drawUgaCltPlot = (svg, means, parameter, variable) => {
+  const width = 760;
+  const height = 430;
+  const margin = { top: 42, right: 28, bottom: 72, left: 76 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const min = Math.min(...means, parameter);
+  const max = Math.max(...means, parameter);
+  const span = max - min || 1;
+  const xMin = min - span * 0.08;
+  const xMax = max + span * 0.08;
+  const rawSd = standardDeviation(means);
+  const sd = Number.isFinite(rawSd) ? rawSd : 0;
+  const binCount = Math.max(5, Math.min(45, Math.round(span / (3.5 * (sd / means.length ** (1 / 3)))) || 12));
+  const binWidth = (xMax - xMin) / binCount;
+  const bins = Array.from({ length: binCount }, (_, index) => ({ x0: xMin + index * binWidth, x1: xMin + (index + 1) * binWidth, count: 0 }));
+  means.forEach((value) => {
+    const index = Math.min(Math.floor((value - xMin) / binWidth), binCount - 1);
+    bins[Math.max(index, 0)].count += 1;
+  });
+  const densities = bins.map((bin) => bin.count / (means.length * binWidth));
+  const meanOfMeans = means.reduce((sum, value) => sum + value, 0) / means.length;
+  const densityPoints = normalPoints(meanOfMeans, Math.max(sd, 0.0001), xMin, xMax, 180);
+  const yMax = Math.max(...densities, ...densityPoints.map((point) => point.y), 1) * 1.12;
+  const xScale = (value) => margin.left + ((value - xMin) / (xMax - xMin || 1)) * plotWidth;
+  const yScale = (value) => margin.top + plotHeight - (value / yMax) * plotHeight;
+
+  svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  drawNormalAxes(svg, {
+    width,
+    height,
+    margin,
+    xMin,
+    xMax,
+    yMax,
+    xScale,
+    yScale,
+    title: "Distribution of Sample Means",
+    xTitle: variable === "sex" ? "Proportion Male" : "Means",
+    yTitle: "Density",
+    yLabelFormat: (value) => value.toFixed(2),
+  });
+
+  bins.forEach((bin) => {
+    const density = bin.count / (means.length * binWidth);
+    const x = xScale(bin.x0) + 1;
+    const y = yScale(density);
+    svg.appendChild(svgEl("rect", {
+      x,
+      y,
+      width: Math.max(xScale(bin.x1) - xScale(bin.x0) - 2, 1),
+      height: margin.top + plotHeight - y,
+      fill: "rgba(31, 111, 235, 0.62)",
+      stroke: "#1455a0",
+    }));
+  });
+
+  drawNormalPath(svg, densityPoints, xScale, yScale, "red");
+  svg.appendChild(svgEl("line", {
+    x1: xScale(parameter),
+    x2: xScale(parameter),
+    y1: margin.top,
+    y2: margin.top + plotHeight,
+    stroke: "darkgreen",
+    "stroke-width": 3,
+  }));
+};
+
+const initUgaCltWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const variableSelect = root.querySelector("[data-uga-clt-variable]");
+  const sizeInput = root.querySelector("[data-uga-clt-size]");
+  const repsInput = root.querySelector("[data-uga-clt-reps]");
+  const svg = root.querySelector("svg");
+  const note = root.querySelector("[data-uga-clt-note]");
+
+  const draw = () => {
+    const sampleSize = Math.min(Math.max(Math.round(Number(sizeInput.value) || 40), 1), 1000);
+    const reps = Math.min(Math.max(Math.round(Number(repsInput.value) || 100), 1), 10000);
+    sizeInput.value = sampleSize;
+    repsInput.value = reps;
+    const variable = variableSelect.value;
+    const means = repeatedSampleMeans(data, variable, sampleSize, reps);
+    const parameter = ugaPopulationParameter(data, variable);
+    drawUgaCltPlot(svg, means, parameter, variable);
+    note.textContent = `${reps.toLocaleString()} repeated samples of size ${sampleSize}; population ${ugaStatisticLabels[variable].toLowerCase()} = ${formatUgaValue(parameter, 3)}.`;
+  };
+
+  [variableSelect, sizeInput, repsInput].forEach((control) => control.addEventListener("input", draw));
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -1830,4 +2267,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-normal-curves]").forEach(initNormalCurvesWidget);
 
   document.querySelectorAll("[data-normal-calculator]").forEach(initNormalCalculatorWidget);
+
+  document.querySelectorAll("[data-uga-distribution]").forEach((root) => {
+    initUgaDistributionWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-uga-sample]").forEach((root) => {
+    initUgaSampleWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-uga-sample-size]").forEach((root) => {
+    initUgaSampleSizeWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-uga-clt]").forEach((root) => {
+    initUgaCltWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
 });

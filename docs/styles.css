@@ -240,8 +240,33 @@
 }
 
 .lab-widget-controls select,
-.lab-widget-controls input[type="range"] {
+.lab-widget-controls input[type="range"],
+.lab-widget-controls input[type="number"] {
   width: 100%;
+}
+
+.lab-split-widget {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(260px, 0.85fr);
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.lab-summary-table-wrap {
+  max-height: 260px;
+}
+
+.lab-widget-note {
+  margin: 0.7rem 0 0;
+  color: var(--lab-muted);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .lab-split-widget {
+    grid-template-columns: 1fr;
+  }
 }
 
 .lab-normal-curves-widget {

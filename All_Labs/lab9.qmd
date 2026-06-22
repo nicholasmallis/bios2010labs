@@ -3,6 +3,7 @@ title: "Lab 9: Random Sampling and Central Limit Theorem"
 subtitle: "Computer Lab 9"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -78,9 +79,7 @@ quiet_library("dplyr")
 UGA18<- readRDS("tutorials/Lab9/www/UGA18.Rda")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 9"></div>
 
 ## Introduction
 
@@ -104,130 +103,79 @@ The data set is named UGA18 and includes the following variables:
 **Classes:** Number of classes for the current semester in college      
 
  
-**Instructions** Use the interactive plot and summary below to determine the distributions for each of the variables. Then answer quiz questions 1-5.
+**Instructions** Use the interactive plot and summary below to determine the distributions for each of the variables. Then answer quiz questions 1-6.
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidPage(
-  title = 'Data about UGA undergraduates from 2018 (made up)',
-  fluidRow(
-    column(
-      3,
-      selectInput('var', label = "Select Variable to Summarize", 
-                     choices = list("sex", "age", "weight", "height", "classes"), 
-                     selected = "sex")
-      )
-    ),
-  fluidRow(
-    column(
-      6, 
-      h4("Plot of Selected Variable"),
-      plotOutput(outputId = 'plot', width = "100%")
-      ),
-    column(
-      6,
-      h4("Data"),
-      DT::dataTableOutput('rawdata')
-      )
-    ),
-  fluidRow(
-    column(
-      12,
-      h4("Summary of Selected Variable"),
-      verbatimTextOutput("summary")
-      )
-    )
-  )
+```{=html}
+<div class="lab-widget" data-uga-distribution data-csv="../tutorials/Lab9/www/UGA18.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable to Summarize
+      <select data-uga-variable>
+        <option value="sex">sex</option>
+        <option value="age">age</option>
+        <option value="weight">weight</option>
+        <option value="height">height</option>
+        <option value="classes">classes</option>
+      </select>
+    </label>
+  </div>
+  <div class="lab-split-widget">
+    <div>
+      <h4>Plot of Selected Variable</h4>
+      <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Plot of selected UGA variable"></svg>
+    </div>
+    <div>
+      <h4>Data</h4>
+      <div class="lab-table-count" data-uga-count></div>
+      <div class="lab-table-wrap">
+        <table class="lab-data-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <h4>Summary of Selected Variable</h4>
+  <div class="lab-table-wrap lab-summary-table-wrap">
+    <table class="lab-data-table" data-uga-summary></table>
+  </div>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-#Basic plot of the selected variable
-  output$plot <- renderPlot({
-    
-    validate(need(!is.null(input$var), 'Please select a variable to show the plot.'))
-    
-    if(is.numeric(UGA18[ ,input$var])){
-      x <- UGA18[ ,input$var]
-      bins <- round((max(x)-min(x))/(3.5*(sd(x)/29611^(1/3))),0)
-  
-    hist(UGA18[ ,input$var],
-      breaks = bins,
-      main = paste(input$var),
-      xlab = paste(input$var))
-    }
-    
-    if(is.integer(UGA18[ ,input$var])||is.factor(UGA18[ ,input$var])){
-      x<-UGA18[ ,input$var]
-      x<-table(x)
-      barplot(x,
-              ylab = "Count",
-              xlab = paste(input$var))
-    }
-  })
-
-  # show raw data
-  output$rawdata <- DT::renderDataTable({
-   DT::datatable(UGA18, options = list(lengthMenu = c(5, 30, 50), pageLength = 5)) 
-  })
-  
-  
-  # show a summary of the selected variable
-  output$summary <- renderPrint({
-    
-    validate(need(!is.null(input$var), 'Please select a variable to show the summary.'))
-    
-    x <- UGA18[ ,input$var]
-    summary(x)
-    })
-  
-```
-:::
 
 ### Quiz: Questions 1-6
 
 <section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>These summaries are showing the population parameters.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">True</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">False</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">True</button>
+<button type="button" class="lab-answer" data-correct="false">False</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Which distribution should we use to describe the variable <strong>sex</strong>?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Uniform</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Binomial</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Poisson</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Uniform</button>
+<button type="button" class="lab-answer" data-correct="true">Binomial</button>
+<button type="button" class="lab-answer" data-correct="false">Normal</button>
+<button type="button" class="lab-answer" data-correct="false">Poisson</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Which distribution should we use to describe the variable <strong>age</strong>?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Uniform</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Binomial</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Poisson</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Uniform</button>
+<button type="button" class="lab-answer" data-correct="false">Binomial</button>
+<button type="button" class="lab-answer" data-correct="false">Normal</button>
+<button type="button" class="lab-answer" data-correct="false">Poisson</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Which distribution should we use to describe the variable <strong>weight</strong>?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Uniform</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Binomial</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Poisson</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Uniform</button>
+<button type="button" class="lab-answer" data-correct="false">Binomial</button>
+<button type="button" class="lab-answer" data-correct="true">Normal</button>
+<button type="button" class="lab-answer" data-correct="false">Poisson</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>Which distribution should we use to describe the variable <strong>height</strong>?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Uniform</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Binomial</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Poisson</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Uniform</button>
+<button type="button" class="lab-answer" data-correct="false">Binomial</button>
+<button type="button" class="lab-answer" data-correct="true">Normal</button>
+<button type="button" class="lab-answer" data-correct="false">Poisson</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>Which distribution should we use to describe the variable <strong>classes</strong>?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Uniform</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Binomial</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Normal</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Poisson</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Uniform</button>
+<button type="button" class="lab-answer" data-correct="false">Binomial</button>
+<button type="button" class="lab-answer" data-correct="false">Normal</button>
+<button type="button" class="lab-answer" data-correct="true">Poisson</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Random Samples
 
@@ -252,99 +200,72 @@ The data set is named UGA18 and includes the following variables:
 **Height:** Student height (inches)    
 **Classes:** Number of classes for the current semester in college    
 
-**Instructions:** Select a variable and then specify the size of the random sample you want to select from the UGA population. Use the random sample generator to answer the quiz questions.  
+**Instructions:** Specify the size of the random sample you want to select from the UGA population. Use the random sample generator to answer the quiz questions.  
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidPage(  
-  wellPanel(
-    fluidRow(
-      h4("Select the Size of the Random Sample"),
-      column(
-        6, 
-        numericInput("samp1", label = "Specify a Random Sample Size:",
-                   value = 5, step = 10)
-        )
-      )
-    ),
-  fluidRow(
-    h4("Compare the Population Parameter to the Statistics of a Random Sample"),
-    column(
-      12, 
-      DT::dataTableOutput("data2")
-      )
-    )
-  )
-  
+```{=html}
+<div class="lab-widget" data-uga-sample data-summary-csv="../tutorials/Lab9/www/UGA18_sample_summary.csv">
+  <div class="lab-widget-controls">
+    <label>Specify a Random Sample Size
+      <input type="number" min="1" max="10000" step="1" value="5" data-uga-sample-size>
+    </label>
+  </div>
+  <h4>Compare the Population Parameter to the Statistics of a Random Sample</h4>
+  <div class="lab-table-wrap">
+    <table class="lab-data-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
 ```
-:::
 
 ### Quiz: Questions 7-9
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the smallest sample size gives you an absolute difference less than 1 for all the variables?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">n = 122 Students</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">n = 3 Students</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">n = 21 Students</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">n = 57 Students</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>What is the smallest sample size gives you an absolute difference less than 1 for all the variables?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">n = 122 Students</button>
+<button type="button" class="lab-answer" data-correct="false">n = 3 Students</button>
+<button type="button" class="lab-answer" data-correct="true">n = 21 Students</button>
+<button type="button" class="lab-answer" data-correct="false">n = 57 Students</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Set the sample size to 100. Record the absolute difference for all the variables. Now set the sample size to 10,000. For all the variables what are differences between the absolute differences of the two random samples?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">0.009, 0.095, 0.239, 0.517, 0.077</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">0.006, 0.905, 0.923, 0.157, 0.577</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">0.029, 0.193, 0.536, 0.527, 0.127</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">0.927, 0.346, 0.749, 0.187, 0.420</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>Set the sample size to 100. Record the absolute difference for all the variables. Now set the sample size to 10,000. For all the variables what are differences between the absolute differences of the two random samples?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">0.006, 0.095, 0.239, 0.517, 0.077</button>
+<button type="button" class="lab-answer" data-correct="false">0.009, 0.905, 0.923, 0.157, 0.577</button>
+<button type="button" class="lab-answer" data-correct="false">0.029, 0.193, 0.536, 0.527, 0.127</button>
+<button type="button" class="lab-answer" data-correct="false">0.927, 0.346, 0.749, 0.187, 0.420</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>It is worth the extra time and money to collect the data for a sample of 10,000 compared to 100.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">True</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">False</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>It is worth the extra time and money to collect the data for a sample of 10,000 compared to 100.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">True</button>
+<button type="button" class="lab-answer" data-correct="true">False</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 3: Size of Random Sample  
 
 I am always surprised how well a relatively small sample can produce really good estimates of population parameters. In the last exercise we were looking at one sample at a time. In this exercise we will look at a range of sample sizes to get a better understanding of how sample estimates change as sample size increase.  
 
-**Instructions:** Using the interactive plot below by selecting different variables. The plot that is generated will show the estimates from different random sample sizes (1 to 5,000). **Pay attention to the y axis**. Use the plots to answer the quiz questions. 
+**Instructions:** Use the interactive plot below by selecting different variables. The plot shows estimates from different random sample sizes (1 to 5,000). **Pay attention to the y axis**. Use the plots to answer the quiz questions. 
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidPage(
-  wellPanel(
-    fluidRow(
-      column(
-        4,
-        selectInput("var1", label = "Select Variable to Summarize", 
-                     choices = c("sex", "age", "weight", "height", "classes"), 
-                     selected = "sex")
-        ),
-      column(
-        4,
-        numericInput("xLow", label = "Set X axis lower limit:", 
-                   value = 1, step = 100)
-        ),
-      column(
-        4,
-        numericInput("xUp", label = "Set X axis upper limit:",
-                   value = 5000, step = 100)
-        )
-      )
-    ),
-  fluidRow(
-    h4("Random Samples of Varying Size"),
-    column(
-      12, 
-      plotOutput(outputId = 'plot1')
-      )
-    )
-  )
-  
+```{=html}
+<div class="lab-widget" data-uga-sample-size data-path-csv="../tutorials/Lab9/www/UGA18_sample_size_paths.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable to Summarize
+      <select data-uga-path-variable>
+        <option value="sex">sex</option>
+        <option value="age">age</option>
+        <option value="weight">weight</option>
+        <option value="height">height</option>
+        <option value="classes">classes</option>
+      </select>
+    </label>
+    <label>Set X axis lower limit
+      <input type="number" min="1" max="5000" step="1" value="1" data-uga-x-low>
+    </label>
+    <label>Set X axis upper limit
+      <input type="number" min="1" max="5000" step="1" value="5000" data-uga-x-up>
+    </label>
+  </div>
+  <h4>Random Samples of Varying Size</h4>
+  <svg class="lab-plot" viewBox="0 0 760 460" role="img" aria-label="Random samples of varying size"></svg>
+</div>
 ```
-:::
 
 **Explanation of Plot:**   
 The <span style="color:darkgreen">**green**</span> line shows the population parameter value for the variable you selected. Notice that is constant it will only change if the population changes.   
@@ -353,178 +274,24 @@ The <span style="color:red">**red**</span> line is a smoothed line since it can 
 
 ### Quiz: Questions 10-12
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Look at the plots for all the variables. For all the variables what happens to the estimates as the sample size increases? (X axis 1 to 5000)</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Nothing worth mentioning</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">The graph is different for all the variables</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">There is not a clear pattern</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">The estimates become less variable and get closer to the parameter value as the sample size increases</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>Look at the plots for all the variables. For all the variables what happens to the estimates as the sample size increases? (X axis 1 to 5000)</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Nothing worth mentioning</button>
+<button type="button" class="lab-answer" data-correct="false">The graph is different for all the variables</button>
+<button type="button" class="lab-answer" data-correct="false">There is not a clear pattern</button>
+<button type="button" class="lab-answer" data-correct="true">The estimates become less variable and get closer to the parameter value as the sample size increases</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Why is the estimated mean age very close to the true mean even with a very small sample? (X axis to 1 and 100)</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">It is impossible to know</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Just lucky</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">The range of possible values is small</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Mostly do to biased sampling</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 11</h4><p>Why is the estimated mean age very close to the true mean even with a very small sample? (X axis to 1 and 100)</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">It is impossible to know</button>
+<button type="button" class="lab-answer" data-correct="false">Just lucky</button>
+<button type="button" class="lab-answer" data-correct="true">The range of possible values is small</button>
+<button type="button" class="lab-answer" data-correct="false">Mostly do to biased sampling</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Why does the estimated mean weight take so long to before the red line is consistently near the true mean? (X axis to 1 and 1000)?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">The weight variable has the most variation</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">weight is hard to measure accurately</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Because no one reported their actual weight</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Bad luck</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>Why does the estimated mean weight take so long to before the red line is consistently near the true mean? (X axis to 1 and 1000)?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">The weight variable has the most variation</button>
+<button type="button" class="lab-answer" data-correct="false">weight is hard to measure accurately</button>
+<button type="button" class="lab-answer" data-correct="false">Because no one reported their actual weight</button>
+<button type="button" class="lab-answer" data-correct="false">Bad luck</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
- output$plot1 <- renderPlot({
-    
-    validate(need(!is.na(input$xUp), 'Please provide an upper bound for the plot'),
-             need(!is.na(input$xLow), 'Please provide an lower bound for the plot'),
-             need(input$xLow<input$xUp, 'The lower bound has to be smaller than the upper bound'),
-             need(input$xLow>=1, 'Make sure the lower bound is greater than or equal to 1. The smallest sample possible is 1!'))    
-
-    if(input$var1!="sex"){
-    
-      set.seed(1987)
-      
-      smean<-NULL
-      
-      vs<-UGA18[ ,input$var1]
-      
-      for (i in 1:5000){
-        sx<-sample(vs,i, replace = F)
-        smean[i]<-mean(sx)
-        }
-      
-      x = input$xLow:input$xUp
-y = smean[input$xLow:input$xUp]
-
-DF<-data.frame(x, y)
-
-span <- 7
-fit <- with(DF,
-            ksmooth(x, y,  x.points = x, kernel="normal", bandwidth = span))
-DF %>% mutate(smooth=fit$y) %>%
-  ggplot(aes(x = x, y = y)) + 
-  geom_hline(aes(yintercept = mean(UGA18[ ,input$var1]), color="line1"),size=1.5) +
-  geom_line(size = .5, aes(color="line2"), alpha=0.80) +
-  geom_line(aes(x = x, y = smooth, color="line3"), alpha=0.80, size=1.5)+
-  scale_x_continuous(limits = c(input$xLow, input$xUp))+
-  scale_y_continuous(limits = c(min(DF$y), max(DF$y)))+
-  scale_color_manual(
-    values = c("line1"="darkgreen",
-               "line2"="blue",
-               "line3"="red"),
-    labels=c("line1"= "Parameter Value",
-             "line2"= "Mean for each Sample Size",
-             "line3"= "Smoothed Mean"))+
-  labs(x = "Size of Random Samples",
-       y = paste("Estimated Mean (",input$var1,")",sep=""),
-       color= "Lines:")+
-  theme(axis.title.x = element_text(face="bold", colour="black", size = 12),
-        axis.title.y = element_text(face="bold", colour="black", size = 12),
-        axis.text.x = element_text(colour="black", size = 12),
-        axis.text.y = element_text(colour="black", size = 12),
-        legend.title = element_text(face="bold", size = 14),
-        legend.text = element_text(size=14),
-        legend.key = element_rect(fill = "white", size = 1.25),
-        legend.position = "bottom", 
-        panel.background = element_rect(fill = "white", color = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-    
-    } else {
-      
-      set.seed(1987)
-      
-      smean<-NULL
-      
-      vs<-UGA18[ ,input$var1]
-      
-      for (i in 1:5000){
-        sx<-sample(vs,i, replace = F)
-        sx1<-sx%in%c("Male")
-        smean[i]<-mean(sx1)
-        }
-      
-      x = input$xLow:input$xUp
-y = smean[input$xLow:input$xUp]
-
-DF<-data.frame(x, y)
-
-span <- 7
-fit <- with(DF,
-            ksmooth(x, y,  x.points = x, kernel="normal", bandwidth = span))
-DF %>% mutate(smooth=fit$y) %>%
-  ggplot(aes(x = x, y = y)) + 
-  geom_hline(aes(yintercept = mean(UGA18[ ,input$var1]=="Male"), color="line1"),size=1.5) +
-  geom_line(size = .5, aes(color="line2"), alpha=0.80) +
-  geom_line(aes(x = x, y = smooth, color="line3"), alpha=0.80, size=1.5)+
-  scale_x_continuous(limits = c(input$xLow, input$xUp))+
-  scale_y_continuous(limits = c(min(DF$y), max(DF$y)))+
-  scale_color_manual(
-    values = c("line1"="darkgreen",
-               "line2"="blue",
-               "line3"="red"),
-    labels=c("line1"= "Parameter Value",
-             "line2"= "Proportion Male for each Sample Size",
-             "line3"= "Smoothed Proportion"))+
-  labs(x = "Size of Random Samples",
-       y = "Estimated Proportion of Males",
-       color= "Lines:")+
-  theme(axis.title.x = element_text(face="bold", colour="black", size = 12),
-        axis.title.y = element_text(face="bold", colour="black", size = 12),
-        axis.text.x = element_text(colour="black", size = 12),
-        axis.text.y = element_text(colour="black", size = 12),
-        legend.title = element_text(face="bold", size = 14),
-        legend.text = element_text(size=14),
-        legend.key = element_rect(fill = "white", size = 1.25),
-        legend.position = "bottom", 
-        panel.background = element_rect(fill = "white", color = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-    
-    }
-  })
-
-  # Nice comparison of the population parameter and a sample statistic for random samples of varying size
-  output$data2 <- DT::renderDataTable({
-    
-    validate(need(input$samp1<=10000, 'Please select a sample of 10000 or less. Generating random samples larger than 10000 takes a while!'),
-           need(input$samp1>=1, 'Samples less than 1 are not possible!'))
-    
-    set.seed(1987)
-
-    sx<-UGA18[sample(nrow(UGA18), input$samp1, replace = F), ]
-    
-    r2<-c("Proportion Male:", round(mean(UGA18[ ,"sex"]=="Male"), 3), round(mean(sx[ ,"sex"]=="Male"), 3), round(abs(round(mean(UGA18[ ,"sex"]=="Male"), 3)-round(mean(sx[ ,"sex"]=="Male"), 3)),3))
-    
-    r3<-c("Mean Age:", round(mean(UGA18[ ,"age"]), 3),round(mean(sx[ ,"age"]), 3), round(abs(round(mean(UGA18[ ,"age"]), 3)-round(mean(sx[ ,"age"]), 3)),3))
-    
-    r4<-c("Mean Weight:", round(mean(UGA18[ ,"weight"]), 3),round(mean(sx[ ,"weight"]), 3), round(abs(round(mean(UGA18[ ,"weight"]), 3)-round(mean(sx[ ,"weight"]), 3)),3))
-    
-    r5<-c("Mean Height:", round(mean(UGA18[ ,"height"]), 3),round(mean(sx[ ,"height"]), 3), round(abs(round(mean(UGA18[ ,"height"]), 3)-round(mean(sx[ ,"height"]), 3)),3))
-    
-    r6<-c("Mean Number of Classes:", round(mean(UGA18[ ,"classes"]), 3),round(mean(sx[ ,"classes"]), 3), round(abs(round(mean(UGA18[ ,"classes"]), 3)-round(mean(sx[ ,"classes"]), 3)),3))
-    
-    sxsum<-rbind(r2,r3,r4,r5,r6)
-    
-    sxsum<-as.matrix(sxsum)
-    
-    sxsum<-as.data.frame(sxsum, row.names = NULL) 
-    
-    colnames(sxsum)<-c("Variables","Population Parameter Values", "Sample Statistic Values", "Absolute Difference")
-    
-    rownames(sxsum)<-c(NULL)
-    
-    
-    DT::datatable(sxsum, options=list(searching=FALSE, paging=FALSE))
-    
-    })
-```
-:::
 
 ## Central Limit Theorem
 
@@ -534,167 +301,67 @@ We are going to put this to the test in our next exercise.
 
 ### Exercise 4: Visualizing the CTL
 
-**Instructions** choose different sample sizes and the number of times they are resampled. Use the plot to answer the quiz questions 
+**Instructions** choose different sample sizes and the number of times they are resampled. Use the plot to answer the quiz questions.
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidPage(
-  wellPanel(
-    fluidRow(
-      column(
-        3,
-        selectInput("var2", label = "Select Variable", 
-                     choices = c("sex", "age", "weight", "height", "classes"), 
-                     selected = "sex")
-        ),
-      column(
-        3,
-        numericInput("samp2", label = "Sample size:", 
-                   value = 40, step = 50)
-        ),
-      column(
-        6,
-        numericInput("sampN", label = "Number of Repeated Samples:",
-                   value = 100, step = 50)
-        )
-      )
-    ),
-  fluidRow(
-    h4("Distribution of Sample Means"),
-    column(
-      12, 
-      plotOutput(outputId = 'plot2')
-      )
-    )
-  )
-  
+```{=html}
+<div class="lab-widget" data-uga-clt data-csv="../tutorials/Lab9/www/UGA18.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable
+      <select data-uga-clt-variable>
+        <option value="sex">sex</option>
+        <option value="age">age</option>
+        <option value="weight">weight</option>
+        <option value="height">height</option>
+        <option value="classes">classes</option>
+      </select>
+    </label>
+    <label>Sample size
+      <input type="number" min="1" max="1000" step="1" value="40" data-uga-clt-size>
+    </label>
+    <label>Number of Repeated Samples
+      <input type="number" min="1" max="10000" step="50" value="100" data-uga-clt-reps>
+    </label>
+  </div>
+  <h4>Distribution of Sample Means</h4>
+  <svg class="lab-plot" viewBox="0 0 760 430" role="img" aria-label="Distribution of sample means"></svg>
+  <p class="lab-widget-note" data-uga-clt-note></p>
+</div>
 ```
-:::
 
 **Explanation of Plot:**  
 The histogram shows the distribution of the means from all the repeated samples. The smoothed curve is the density of different mean values of the repeated samples. The vertical green line shows the value of the population parameter for the selected variable.  
 
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-output$plot2 <- renderPlot({
-  
-  
-  validate(need(input$sampN>=1, 'You have to have at least 1 repeated sample'),
-           need(input$samp2>=1, 'The smallest sample possible is 1!'))
-  
-  
-  
-  if(input$var2!="sex"){
-    
-    set.seed(1987)
-  
-    rsmean<-NULL
-    
-      for (i in 1:input$sampN){
-        rsx<-UGA18[sample(nrow(UGA18), input$samp2, replace = F), input$var2]
-        rsmean[i]<-mean(rsx)
-        }
-  
-  #set bin width based on the data
-  binN <- round((max(rsmean)-min(rsmean))/(3.5*(sd(rsmean)/length(rsmean)^(1/3))),0)
-  
-  # Data frame of means
-  DF<-data.frame(rsmean)
-  
-  # Curve of the theoretical sampling distribution Xbar~N(mu,sd/sqrt(n))
-  
-  #xvs <- seq(min(UGA18[,input$var2]), max(UGA18[,input$var2]), length.out=length(UGA18[,input$var2]))
-  #CurveDF <-data.frame(x = xvs, y = dnorm(xvs, mean(UGA18[,input$var2]), sd(UGA18[,input$var2])/sqrt(input$sampN)))
-  
-  
- ggplot(DF) + 
-   geom_histogram(bins=binN, color="blue", fill="blue", alpha=.75, aes(x = rsmean, y = ..density..)) +
-   geom_density(alpha=.5, color="red", fill="red", aes(x = rsmean)) + 
-   labs(x = "Means", y = "Density") +
-   geom_vline(xintercept = mean(UGA18[,input$var2]), color="darkgreen", size=1.5)+
-   theme(axis.title.x = element_text(face="bold", colour="black", size = 14),
-        axis.title.y = element_text(face="bold", colour="black", size = 14),
-        axis.text.x = element_text(colour="black", size = 12),
-        axis.text.y = element_text(colour="black", size = 12),
-        panel.background = element_rect(fill = "white", color = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-   
-  }else{
-    
-    set.seed(1987)
-  
-    rsmean<-NULL
-    
-    for (i in 1:input$sampN){
-        rsx<-UGA18[sample(nrow(UGA18), input$samp2, replace = F), input$var2]
-        rsx1<-rsx%in%c("Male")
-        rsmean[i]<-mean(rsx1)
-        }
-    
-    #set bin width based on the data
-    binN <- round((max(rsmean)-min(rsmean))/(3.5*(sd(rsmean)/length(rsmean)^(1/3))),0)
-    
-    DF<-data.frame(rsmean)
-    
-    ggplot(DF) + 
-      geom_histogram(bins=binN, colour="blue", fill="blue", alpha=.75, aes(x = rsmean, y = ..density..)) +
-      geom_density(alpha=.5, fill="red", color="red",aes(x = rsmean)) + 
-      labs(x = "Proportion Male", y = "Density") +
-      geom_vline(xintercept = mean(UGA18[,input$var2]=="Male"), color="darkgreen", size=1.5) +
-      theme(axis.title.x = element_text(face="bold", colour="black", size = 14),
-        axis.title.y = element_text(face="bold", colour="black", size = 14),
-        axis.text.x = element_text(colour="black", size = 12),
-        axis.text.y = element_text(colour="black", size = 12), 
-        panel.background = element_rect(fill = "white", color = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-    }
-
-  
-})
-```
-:::
-
 ### Quiz: Questions 13-17
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Does it work for Age? (Sample size:40, Repeated Samples:10000)</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes it looks normal, but age is already normally distributed</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No the curve is not even approximately bell shaped, and age is uniformly distributed</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes it looks normal, even though age is uniformly distributed</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">There is not enough information to say</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 13</h4><p>Does it work for Age? (Sample size:40, Repeated Samples:10000)</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Yes it looks normal, but age is already normally distributed</button>
+<button type="button" class="lab-answer" data-correct="false">No the curve is not even approximately bell shaped, and age is uniformly distributed</button>
+<button type="button" class="lab-answer" data-correct="true">Yes it looks normal, even though age is uniformly distributed</button>
+<button type="button" class="lab-answer" data-correct="false">There is not enough information to say</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Does it work for Weight? (Sample size:40, Repeated Samples:10000)</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">There is not enough information to say</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes it looks normal, weight has a skewed distributed</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No the curve is not even approximately bell shaped, and weight is skewed</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes it looks normal, but weight is uniformly distributed</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 14</h4><p>Does it work for Weight? (Sample size:40, Repeated Samples:10000)</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">There is not enough information to say</button>
+<button type="button" class="lab-answer" data-correct="true">Yes it looks normal, weight has a skewed distributed</button>
+<button type="button" class="lab-answer" data-correct="false">No the curve is not even approximately bell shaped, and weight is skewed</button>
+<button type="button" class="lab-answer" data-correct="false">Yes it looks normal, but weight is uniformly distributed</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Does it work for Height? (Sample size:40, Repeated Samples:10000)</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No the curve is not even a little bell shaped</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes it looks normal, even though height seems to have a Poisson distribution</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">There is not enough information to say</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes it looks normal, height is normally distributed</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 15</h4><p>Does it work for Height? (Sample size:40, Repeated Samples:10000)</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">No the curve is not even a little bell shaped</button>
+<button type="button" class="lab-answer" data-correct="false">Yes it looks normal, even though height seems to have a Poisson distribution</button>
+<button type="button" class="lab-answer" data-correct="false">There is not enough information to say</button>
+<button type="button" class="lab-answer" data-correct="true">Yes it looks normal, height is normally distributed</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Does it work for Classes? (Sample size:40, Repeated Samples:10000)</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes it looks normal, even though the classes variable is Poisson distributed</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No one really knows</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes it looks normal, but classes was already normally distributed</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Look more like a negative binomial distribution</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 16</h4><p>Does it work for Classes? (Sample size:40, Repeated Samples:10000)</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Yes it looks normal, even though the classes variable is Poisson distributed</button>
+<button type="button" class="lab-answer" data-correct="false">No one really knows</button>
+<button type="button" class="lab-answer" data-correct="false">Yes it looks normal, but classes was already normally distributed</button>
+<button type="button" class="lab-answer" data-correct="false">Look more like a negative binomial distribution</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>Does it work for Sex? (Sample size:40, Repeated Samples:10000)</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No!</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Kinda of normal, it is a little jagged</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes it looks perfectly normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Still looks like a binomial distribution</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 17</h4><p>Does it work for Sex? (Sample size:40, Repeated Samples:10000)</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">No!</button>
+<button type="button" class="lab-answer" data-correct="true">Kinda of normal, it is a little jagged</button>
+<button type="button" class="lab-answer" data-correct="false">Yes it looks perfectly normal</button>
+<button type="button" class="lab-answer" data-correct="false">Still looks like a binomial distribution</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Summary
 

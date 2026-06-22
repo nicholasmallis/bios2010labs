@@ -40,6 +40,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-15: Started the Lab 8 polish pass. Added the shared guided-lab layout, replaced the three normal distribution Shiny activities with browser-side JavaScript widgets, removed the Shiny migration callouts, corrected quiz numbering through Question 11, and removed generic answer-level feedback attributes.
 - 2026-06-16: Refined Lab 8 Exercise 1 so the normal curve controls more closely match the original Shiny layout: three colored parameter panels, a separate X-axis panel, and a cleaner legend-under-plot display.
 - 2026-06-22: Removed the leftover Lab 8 conversion tip callout from the top of the page for consistency with the other polished labs.
+- 2026-06-22: Started the Lab 9 polish pass. Added the shared guided-lab layout, exported the UGA18 data and exact sample-summary data to CSV, replaced the distribution review, random sampling, varying sample-size, and CLT Shiny activities with browser-side JavaScript widgets, removed the Shiny migration callouts, corrected quiz numbering through Question 17, and removed generic answer-level feedback attributes.
 
 ## Lab Inventory
 
@@ -53,7 +54,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 | 6 | Diagnostic and Screening Tests | 2 | 12 | 0 |
 | 7 | Discrete Distributions | 2 | 12 | 0 |
 | 8 | Normal Distribution | 0 | 11 | 0 |
-| 9 | Random Sampling and Central Limit Theorem | 0 | 34 | 7 |
+| 9 | Random Sampling and Central Limit Theorem | 0 | 17 | 0 |
 | 10 | One Sample T Methods | 7 | 26 | 2 |
 | 11 | Paired t Test | 3 | 20 | 2 |
 | 12 | Two Sample *t* Test | 4 | 20 | 4 |
