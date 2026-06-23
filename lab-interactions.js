@@ -1996,6 +1996,37 @@ const initUgaCltWidget = async (root) => {
   draw();
 };
 
+const initNurseDietSummaryWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const select = root.querySelector("[data-nurse-variable]");
+  const svg = root.querySelector("svg");
+  const count = root.querySelector("[data-nurse-count]");
+  const dataTable = root.querySelector(".lab-table-wrap table:not([data-nurse-summary])");
+  const summaryTable = root.querySelector("[data-nurse-summary]");
+  const columns = ["SatFat", "TotalFat", "Calories"];
+
+  const draw = () => {
+    const variable = select.value;
+    const values = data.map((row) => Number(row[variable])).filter(Number.isFinite);
+    count.textContent = `Showing first 5 of ${data.length.toLocaleString()} entries`;
+    renderSimpleTable(dataTable, columns, data.slice(0, 5), columns);
+    drawUgaHistogram(svg, values, { title: variable, xTitle: variable });
+
+    const summary = [
+      { Statistic: "Min.", Value: formatUgaValue(Math.min(...values), 2) },
+      { Statistic: "1st Qu.", Value: formatUgaValue(quantile(values, 0.25), 2) },
+      { Statistic: "Median", Value: formatUgaValue(quantile(values, 0.5), 2) },
+      { Statistic: "Mean", Value: formatUgaValue(values.reduce((sum, value) => sum + value, 0) / values.length, 2) },
+      { Statistic: "3rd Qu.", Value: formatUgaValue(quantile(values, 0.75), 2) },
+      { Statistic: "Max.", Value: formatUgaValue(Math.max(...values), 2) },
+    ];
+    renderSimpleTable(summaryTable, ["Statistic", "Value"], summary);
+  };
+
+  select.addEventListener("change", draw);
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -2282,5 +2313,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-uga-clt]").forEach((root) => {
     initUgaCltWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-nurse-diet-summary]").forEach((root) => {
+    initNurseDietSummaryWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 });

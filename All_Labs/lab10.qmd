@@ -1,8 +1,9 @@
 ---
 title: "Lab 10: One Sample T Methods"
-subtitle: "Computer Lab "
+subtitle: "Computer Lab 10"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -73,9 +74,7 @@ if (!exists("ggpaired", mode = "function")) {
 NurseDiet<- read.csv("tutorials/Lab10/www/NurseDiet.csv")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 10"></div>
 
 ## Introduction
 
@@ -95,107 +94,53 @@ For this lab we will use a data set called "NurseDiet". The dietary data is from
 ### Exercise 1: Checking the data
 **Instructions** In data analysis you always have check the data before performing any analysis. Use the interactive plot and summary app to get a feel for the variables and answer the quiz questions.
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidPage(
-  wellPanel(
-    fluidRow(
-      column(
-        6,
-        selectInput('var', label = "Select Variable to Summarize", 
-                     choices = list("SatFat", "TotalFat", "Calories"), 
-                     selected = "SatFat")
-        )
-      )
-    ),
-  fluidRow(
-    column(
-      6, 
-      h4(strong("Plot of Selected Variable")),
-      plotOutput(outputId = 'plot', width = "100%")
-      ),
-    column(
-      6,
-      h4(strong("Data")),
-      DT::dataTableOutput('rawdata')
-      )
-    ),
-  fluidRow(
-    column(
-      12,
-      h4("Summary of Selected Variable"),
-      verbatimTextOutput("summary")
-      )
-    )
-  )
+```{=html}
+<div class="lab-widget" data-nurse-diet-summary data-csv="../tutorials/Lab10/www/NurseDiet.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable to Summarize
+      <select data-nurse-variable>
+        <option value="SatFat">SatFat</option>
+        <option value="TotalFat">TotalFat</option>
+        <option value="Calories">Calories</option>
+      </select>
+    </label>
+  </div>
+  <div class="lab-split-widget">
+    <div>
+      <h4>Plot of Selected Variable</h4>
+      <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Plot of selected NurseDiet variable"></svg>
+    </div>
+    <div>
+      <h4>Data</h4>
+      <div class="lab-table-count" data-nurse-count></div>
+      <div class="lab-table-wrap">
+        <table class="lab-data-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <h4>Summary of Selected Variable</h4>
+  <div class="lab-table-wrap lab-summary-table-wrap">
+    <table class="lab-data-table" data-nurse-summary></table>
+  </div>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-#Basic plot of the selected variable
-  output$plot <- renderPlot({
-    
-    validate(need(!is.null(input$var), 'Please select a variable to show the plot.'))
-    
-    if(is.numeric(NurseDiet[ ,input$var])){
-      x <- NurseDiet[ ,input$var]
-      bins <- round((max(x)-min(x))/(3.5*(sd(x)/length(NurseDiet[ ,input$var])^(1/3))),0)
-  
-    hist(NurseDiet[ ,input$var],
-      breaks = bins,
-      main = paste(input$var),
-      xlab = paste(input$var))
-    }
-    
-    if(is.integer(NurseDiet[ ,input$var])||is.factor(NurseDiet[ ,input$var])){
-      x<-NurseDiet[ ,input$var]
-      x<-table(x)
-      barplot(x,
-              ylab = "Count",
-              xlab = paste(input$var))
-    }
-  })
-
-  # show raw data
-  output$rawdata <- DT::renderDataTable({
-   DT::datatable(NurseDiet, options = list(lengthMenu = c(5, 30, 50), pageLength = 5)) 
-  })
-  
-  
-  # show a summary of the selected variable
-  output$summary <- renderPrint({
-    
-    validate(need(!is.null(input$var), 'Please select a variable to show the summary.'))
-    
-    x <- NurseDiet[ ,input$var]
-    summary(x)
-    })
-  
-```
-:::
 
 ### Quiz: Questions 1-2
 
 <section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>For the nurses in the sample what is the mean total intake of calories?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">2518 cal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">1781 cal</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">1620 cal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">1606 cal</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">2518 cal</button>
+<button type="button" class="lab-answer" data-correct="false">1781 cal</button>
+<button type="button" class="lab-answer" data-correct="true">1620 cal</button>
+<button type="button" class="lab-answer" data-correct="false">1606 cal</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>For the nurses in the sample what is the highest mean total intake of saturated fat?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">42.42 g</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">24.16 g</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">28.26 g</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">46.36 g</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">42.42 g</button>
+<button type="button" class="lab-answer" data-correct="false">24.16 g</button>
+<button type="button" class="lab-answer" data-correct="false">28.26 g</button>
+<button type="button" class="lab-answer" data-correct="true">46.36 g</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 2: Checking the Assumptions
 
@@ -219,11 +164,11 @@ qqline(NurseDiet)
 ```
 ### Quiz: Question 3
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Between which values of the Theoretical Quantiles is the data normal?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Between -1.5 and 1 the values are close to normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">There are no departures for normality</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Below -1 and above 1 the values are close to normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">It is not normal over any values of the theoretical quantiles</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Between which values of the Theoretical Quantiles is the data normal?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Between -1.5 and 1 the values are close to normal</button>
+<button type="button" class="lab-answer" data-correct="false">There are no departures for normality</button>
+<button type="button" class="lab-answer" data-correct="false">Below -1 and above 1 the values are close to normal</button>
+<button type="button" class="lab-answer" data-correct="false">It is not normal over any values of the theoretical quantiles</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 3: 1-sample *t* Test
 
@@ -249,29 +194,29 @@ t.test(NurseDiet$Calories, mu= , alternative="two.sided")
 ```
 ### Quiz: Questions 4-7
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Which values match the results of your test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = -5.46, df = 173, p-value &lt; 2.2e+16</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = -3835.7, df = 172, p-value &lt; 2.2e-16</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = -42.42, df = 172, p-value &lt; 1.2e-32</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">t = -15.46, df = 172, p-value &lt; 2.2e-16</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Which values match the results of your test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">t = -5.46, df = 173, p-value &lt; 2.2e+16</button>
+<button type="button" class="lab-answer" data-correct="false">t = -3835.7, df = 172, p-value &lt; 2.2e-16</button>
+<button type="button" class="lab-answer" data-correct="false">t = -42.42, df = 172, p-value &lt; 1.2e-32</button>
+<button type="button" class="lab-answer" data-correct="true">t = -15.46, df = 172, p-value &lt; 2.2e-16</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What was the mean of the total calorie intake?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">1939.103 cal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">1734.931 cal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">1242.842 cal</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">1619.873 cal</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>What was the mean of the total calorie intake?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">1939.103 cal</button>
+<button type="button" class="lab-answer" data-correct="false">1734.931 cal</button>
+<button type="button" class="lab-answer" data-correct="false">1242.842 cal</button>
+<button type="button" class="lab-answer" data-correct="true">1619.873 cal</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the conclusion from the results of the test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is not 2000 calories.</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Since p &gt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 2000 calories.</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 2000 calories.</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Since p &lt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 2000 calories.</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>What is the conclusion from the results of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is not 2000 calories.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &gt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 2000 calories.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 2000 calories.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 2000 calories.</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>What is the 95% confidence interval for the mean total intake of calories?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (1517.269, 1768.420)</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">95% CI (1571.339, 1668.407)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (1031.671, 1996.710)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (561.273, 1340.007)</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>What is the 95% confidence interval for the mean total intake of calories?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">95% CI (1517.269, 1768.420)</button>
+<button type="button" class="lab-answer" data-correct="true">95% CI (1571.339, 1668.407)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (1031.671, 1996.710)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (561.273, 1340.007)</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Making a new variable in R
 
@@ -288,11 +233,11 @@ summary()
 ```
 ### Quiz: Question 8
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the mean and max of the new ExcFat variable?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">$\mu$ = 17.420, max = 41.360</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">$\mu$ = 12.770, max = 26.915</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">$\mu$ = 15.970, max = 43.975</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">$\mu$ = 19.709, max = 34.795</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>What is the mean and max of the new ExcFat variable?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">$\mu$ = 17.420, max = 41.360</button>
+<button type="button" class="lab-answer" data-correct="false">$\mu$ = 12.770, max = 26.915</button>
+<button type="button" class="lab-answer" data-correct="true">$\mu$ = 15.970, max = 43.975</button>
+<button type="button" class="lab-answer" data-correct="false">$\mu$ = 19.709, max = 34.795</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 5: *t* Test for New Variable
 
@@ -337,35 +282,35 @@ t.test( , mu= , alternative= )
 ```
 ### Quiz: Questions 9-13
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Between which values of the Theoretical Quantiles is the ExcFat data normal?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">There are no departures from normality</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Between -1.5 and 2 the values are close to normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">above 1 all the values are normal</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">It is not normal over any values of the theoretical quantiles</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>Between which values of the Theoretical Quantiles is the ExcFat data normal?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">There are no departures from normality</button>
+<button type="button" class="lab-answer" data-correct="true">Between -1.5 and 2 the values are close to normal</button>
+<button type="button" class="lab-answer" data-correct="false">above 1 all the values are normal</button>
+<button type="button" class="lab-answer" data-correct="false">It is not normal over any values of the theoretical quantiles</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Which values match the results of your test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 5.46, df = 173, p-value &lt; 2.2e+15</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 3835.7, df = 172, p-value &lt; 2.2e-16</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">t = 24.593, df = 172, p-value &lt; 2.2e-16</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 15.46, df = 171, p-value &lt; 2.2e-12</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>Which values match the results of your test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">t = 5.46, df = 173, p-value &lt; 2.2e+15</button>
+<button type="button" class="lab-answer" data-correct="false">t = 3835.7, df = 172, p-value &lt; 2.2e-16</button>
+<button type="button" class="lab-answer" data-correct="true">t = 24.593, df = 172, p-value &lt; 2.2e-16</button>
+<button type="button" class="lab-answer" data-correct="false">t = 15.46, df = 171, p-value &lt; 2.2e-12</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What was the mean of the total excess fat?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">15.96951 g</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">17.34931 g</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">12.42842 g</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">16.19873 g</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 11</h4><p>What was the mean of the total excess fat?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">15.96951 g</button>
+<button type="button" class="lab-answer" data-correct="false">17.34931 g</button>
+<button type="button" class="lab-answer" data-correct="false">12.42842 g</button>
+<button type="button" class="lab-answer" data-correct="false">16.19873 g</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>What is the conclusion from the results of the test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is not 0 grams of excess fat.</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Since p &gt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 0 grams of excess fat.</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 0 grams of excess fat.</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Since p &lt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 0 grams of excess fat.</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>What is the conclusion from the results of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is not 0 grams of excess fat.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &gt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 0 grams of excess fat.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 0 grams of excess fat.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 0 grams of excess fat.</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>What is the 95% confidence interval for the mean total intake of calories?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (15.17269, 17.68420)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (15.71339, 16.68407)</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">95% CI (14.68776, 17.25125)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (5.612730, 13.40007)</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 13</h4><p>What is the 95% confidence interval for the mean total intake of calories?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">95% CI (15.17269, 17.68420)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (15.71339, 16.68407)</button>
+<button type="button" class="lab-answer" data-correct="true">95% CI (14.68776, 17.25125)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (5.612730, 13.40007)</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Summary
 
@@ -378,4 +323,4 @@ The lab covered 2 topics:
 
 You are done with lab! Well done! **Don't forget to record your answers and take the eLC quiz to get credit.** 
 
-![](../tutorials/Lab10/images/1samptest.jpg)
+![](../tutorials/Lab10/images/1samptest.jpg){.lab-summary-image}
