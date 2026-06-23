@@ -72,6 +72,7 @@ if (!exists("ggpaired", mode = "function")) {
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
 NurseDiet<- read.csv("tutorials/Lab10/www/NurseDiet.csv")
+NurseDiet$ExcFat<-NurseDiet$TotalFat-(65*(NurseDiet$Calories/2000))
 ```
 
 <div data-guided-lab data-lab-title="Lab 10"></div>
@@ -248,15 +249,10 @@ $$\mu_{0}=0$$
 
 $$H_{0}: \mu=0$$
 $$H_{A}: \mu\neq 0$$
+
 Before we do the test we have to check the normality assumption
 **Instructions:** Write the code required to make a Q-Q plot of the new variables ExcFat. Use the example code in the chunk as a guide. Use the plot to answer the quiz question.
 
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-NurseDiet$ExcFat<-NurseDiet$TotalFat-(65*(NurseDiet$Calories/2000))
-```
 ```{webr}
 #| edit: true
 #| min-lines: 4
@@ -266,12 +262,6 @@ NurseDiet$ExcFat<-NurseDiet$TotalFat-(65*(NurseDiet$Calories/2000))
 ```
 **Instructions:** Once you have check to see if the variable is normal. Complete the code to test the hypothesis for the new variable ExcFat. Use the results to answer the quiz question.
 
-```{webr}
-#| edit: true
-#| min-lines: 4
-#| autorun: false
-NurseDiet$ExcFat<-NurseDiet$TotalFat-(65*(NurseDiet$Calories/2000))
-```
 ```{webr}
 #| edit: true
 #| min-lines: 4
