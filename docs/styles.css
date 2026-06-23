@@ -263,6 +263,12 @@
   font-weight: 600;
 }
 
+.lab-summary-image {
+  display: block;
+  max-width: 100%;
+  margin: 1.25rem 0;
+}
+
 @media (max-width: 900px) {
   .lab-split-widget {
     grid-template-columns: 1fr;
