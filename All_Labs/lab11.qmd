@@ -3,6 +3,7 @@ title: "Lab 11: Paired t Test"
 subtitle: "Computer Lab 11"
 format:
   live-html:
+    css: ../styles.css
     include-after-body:
       - ../lab-interactions-lab.html
 engine: knitr
@@ -17,6 +18,7 @@ webr:
     - ../tutorials/Lab11/www/Script_for_lab_11_Data.R
     - ../tutorials/Lab11/www/Tennis3.Rda
     - ../tutorials/Lab11/www/Tennis3.csv
+    - ../tutorials/Lab11/www/Tennis3_clean.csv
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -78,9 +80,7 @@ quiet_library("ggpubr")
 Tennis3<-readRDS("tutorials/Lab11/www/Tennis3.Rda")
 ```
 
-::: {.callout-tip}
-Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.
-:::
+<div data-guided-lab data-lab-title="Lab 11"></div>
 
 ## Introduction
 
@@ -196,117 +196,71 @@ Delta3: Difference between Motrin and placebo at the end of the treatment period
 
 **Instructions** Review the data and variable distributions. Answer the quiz questions. 
 
-::: {.callout-note collapse="true"}
-## Original Shiny interface
-
-This widget needs a browser-side replacement in WebR or JavaScript.
-
-```r
-fluidPage(
-  wellPanel(
-    fluidRow(
-      column(
-        6,
-        selectInput('var', label = "Select Variable to Summarize", 
-                     choices = list("Age", "Motrin1", "Motrin2", "Motrin3", "Placebo1", "Placebo2", "Placebo3", "Delta1", "Delta2", "Delta3"), 
-                     selected = "Age")
-        )
-      )
-    ),
-  fluidRow(
-    column(
-      12,
-      h4(strong("Data")),
-      DT::dataTableOutput('rawdata')
-      )
-    ),
-  fluidRow(
-    column(
-      6, 
-      h4(strong("Plot of Selected Variable")),
-      plotOutput(outputId = 'plot', width = "100%")
-      ),
-    column(
-      6,
-      h4(strong("Summary of Selected Variable")),
-      verbatimTextOutput("summary")
-      )
-    )
-  )
+```{=html}
+<div class="lab-widget" data-tennis-summary data-csv="../tutorials/Lab11/www/Tennis3_clean.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable to Summarize
+      <select data-tennis-variable>
+        <option value="Age">Age</option>
+        <option value="Motrin1">Motrin1</option>
+        <option value="Motrin2">Motrin2</option>
+        <option value="Motrin3">Motrin3</option>
+        <option value="Placebo1">Placebo1</option>
+        <option value="Placebo2">Placebo2</option>
+        <option value="Placebo3">Placebo3</option>
+        <option value="Delta1">Delta1</option>
+        <option value="Delta2">Delta2</option>
+        <option value="Delta3">Delta3</option>
+      </select>
+    </label>
+  </div>
+  <h4>Data</h4>
+  <div class="lab-table-count" data-tennis-count></div>
+  <div class="lab-table-wrap">
+    <table class="lab-data-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="lab-split-widget">
+    <div>
+      <h4>Plot of Selected Variable</h4>
+      <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Plot of selected Tennis3 variable"></svg>
+    </div>
+    <div>
+      <h4>Summary of Selected Variable</h4>
+      <div class="lab-table-wrap lab-summary-table-wrap">
+        <table class="lab-data-table" data-tennis-summary></table>
+      </div>
+    </div>
+  </div>
+</div>
 ```
-:::
-
-::: {.callout-note collapse="true"}
-## Original Shiny server logic
-
-This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.
-
-```r
-#Basic plot of the selected variable
-  output$plot <- renderPlot({
-    
-    validate(need(!is.null(input$var), 'Please select a variable to show the plot.'))
-    
-    if(is.numeric(Tennis3[ ,input$var])){
-      x <- Tennis3[ ,input$var]
-      bins <- round((max(x)-min(x))/(3.5*(sd(x)/length(Tennis3[ ,input$var])^(1/3))),0)
-  
-    hist(Tennis3[ ,input$var],
-      breaks = bins,
-      main = paste(input$var),
-      xlab = paste(input$var))
-    }
-    
-    if(is.integer(Tennis3[ ,input$var])||is.factor(Tennis3[ ,input$var])){
-      x<-Tennis3[ ,input$var]
-      x<-table(x)
-      barplot(x,
-              ylab = "Count",
-              xlab = paste(input$var))
-    }
-  })
-
-  # show raw data
-  output$rawdata <- DT::renderDataTable({
-   DT::datatable(Tennis3, options = list(lengthMenu = c(5, 30, 50), pageLength = 5)) 
-  })
-  
-  
-  # show a summary of the selected variable
-  output$summary <- renderPrint({
-    
-    validate(need(!is.null(input$var), 'Please select a variable to show the summary.'))
-    
-    x <- Tennis3[ ,input$var]
-    summary(x)
-    })
-  
-```
-:::
 
 ### Quiz: Questions 1-3
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Which variables need to have a normal distribution for the paired t test? (Select all the apply)</p><p class="quiz-note"> Select all correct answers.</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Age</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Motrin1</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Motrin2</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Motrin3</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Placebo1</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Placebo2</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Placebo3</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Delta1</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Delta2</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Delta3</button></div>
+<section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 1</h4><p>Which variables need to have a normal distribution for the paired t test? (Select all that apply)</p><p class="quiz-note"> Select all correct answers.</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Age</button>
+<button type="button" class="lab-answer" data-correct="false">Motrin1</button>
+<button type="button" class="lab-answer" data-correct="false">Motrin2</button>
+<button type="button" class="lab-answer" data-correct="false">Motrin3</button>
+<button type="button" class="lab-answer" data-correct="false">Placebo1</button>
+<button type="button" class="lab-answer" data-correct="false">Placebo2</button>
+<button type="button" class="lab-answer" data-correct="false">Placebo3</button>
+<button type="button" class="lab-answer" data-correct="true">Delta1</button>
+<button type="button" class="lab-answer" data-correct="true">Delta2</button>
+<button type="button" class="lab-answer" data-correct="true">Delta3</button></div>
+<button type="button" class="lab-check-answer" data-check-answers>Check Answers</button>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Since the data is not normal can we use the Central Limit Theorem?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, our sample size is &gt; 40</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, we don&#x27;t meet the requirements of the CLT</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Yes, our sample size is &gt; 40</button>
+<button type="button" class="lab-answer" data-correct="false">No, we don&#x27;t meet the requirements of the CLT</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Does our data meet the simple random sample requirement?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes. It is a biologic process and the treatment is randomized</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes. They are randomized</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No. We shouldn&#x27;t do the test</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">You don&#x27;t need a random sample for the paired t test</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Yes. It is a biologic process and the treatment is randomized</button>
+<button type="button" class="lab-answer" data-correct="false">Yes. They are randomized</button>
+<button type="button" class="lab-answer" data-correct="false">No. We shouldn&#x27;t do the test</button>
+<button type="button" class="lab-answer" data-correct="false">You don&#x27;t need a random sample for the paired t test</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 2: Does Motrin reduce pain while playing tennis? 
 
@@ -333,23 +287,23 @@ t.test(  , mu=0, alternative = "two.sided")
 ```
 ### Quiz: Questions 4-6
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the test statistic, degrees of freedom, and p-value of the test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 12.101, df = 82, p-value = 1.253e-12</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 9.1163, df = 81, p-value = 9.983e-04</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">t = 4.1061, df = 81, p-value = 9.551e-05</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 2.6041, df = 83, p-value = 3.511e-05</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>What is the test statistic, degrees of freedom, and p-value of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">t = 12.101, df = 82, p-value = 1.253e-12</button>
+<button type="button" class="lab-answer" data-correct="false">t = 9.1163, df = 81, p-value = 9.983e-04</button>
+<button type="button" class="lab-answer" data-correct="true">t = 4.1061, df = 81, p-value = 9.551e-05</button>
+<button type="button" class="lab-answer" data-correct="false">t = 2.6041, df = 83, p-value = 3.511e-05</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the 95% confidence interval for the mean difference between the treatment groups?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">95% CI (0.4337173, 1.2492095)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (0.6237121, 1.9220692)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (0.3637334, 2.1492462)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (0.3433317, 1.4920852)</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 5</h4><p>What is the 95% confidence interval for the mean difference between the treatment groups?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">95% CI (0.4337173, 1.2492095)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (0.6237121, 1.9220692)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (0.3637334, 2.1492462)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (0.3433317, 1.4920852)</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Can you infer that Motrin causes a change in pain level while playing tennis?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, the patients were randomized to treatment groups.</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the sample was made up of volunteers</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, we used the right test</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the sample was two small</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>Can you infer that Motrin causes a change in pain level while playing tennis?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Yes, the patients were randomized to treatment groups.</button>
+<button type="button" class="lab-answer" data-correct="false">No, the sample was made up of volunteers</button>
+<button type="button" class="lab-answer" data-correct="false">Yes, we used the right test</button>
+<button type="button" class="lab-answer" data-correct="false">No, the sample was two small</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 3: Does Motrin reduce pain after playing tennis? 
 
@@ -369,23 +323,23 @@ $$H_{A}: \mu_{Motrin}-\mu_{Placebo}\neq0$$
 ```
 ### Quiz: Questions 7-9
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What is the test statistic, degrees of freedom, and p-value of the test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 4.3157, df = 83, p-value = 0.1201424</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">t = 4.0417, df = 81, p-value = 0.0001201</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 3.1954, df = 80, p-value = 0.3400242</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">t = 4.0417, df = 82, p-value = 0.5487313</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>What is the test statistic, degrees of freedom, and p-value of the test?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">t = 4.3157, df = 83, p-value = 0.1201424</button>
+<button type="button" class="lab-answer" data-correct="true">t = 4.0417, df = 81, p-value = 0.0001201</button>
+<button type="button" class="lab-answer" data-correct="false">t = 3.1954, df = 80, p-value = 0.3400242</button>
+<button type="button" class="lab-answer" data-correct="false">t = 4.0417, df = 82, p-value = 0.5487313</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the 95% confidence interval for the mean difference between the treatment groups?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (0.3216711, 2.2334603)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (0.2210420, 1.2375043)</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">95% CI (0.4210623, 1.3245043)</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">95% CI (0.4210323, 1.2375043)</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 8</h4><p>What is the 95% confidence interval for the mean difference between the treatment groups?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">95% CI (0.3216711, 2.2334603)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (0.2210420, 1.2375043)</button>
+<button type="button" class="lab-answer" data-correct="false">95% CI (0.4210623, 1.3245043)</button>
+<button type="button" class="lab-answer" data-correct="true">95% CI (0.4210323, 1.2375043)</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
-<section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>Can you infer that Motrin causes a change in pain level after playing tennis?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the sample was made up of volunteers</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, we used the right test</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">Yes, the patients were randomized to treatment groups</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, the sample was two small</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 9</h4><p>Can you infer that Motrin causes a change in pain level after playing tennis?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">No, the sample was made up of volunteers</button>
+<button type="button" class="lab-answer" data-correct="false">Yes, we used the right test</button>
+<button type="button" class="lab-answer" data-correct="true">Yes, the patients were randomized to treatment groups</button>
+<button type="button" class="lab-answer" data-correct="false">No, the sample was two small</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Visualizing Paired Data
 
@@ -404,11 +358,11 @@ ggpaired(Tennis3, cond1="Placebo3", cond2 = "Motrin3", fill = "condition", line.
 
 ### Quiz: Question 10
 
-<section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>Based on the plot did everyone report having less pain with Motrin compared to placebo?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, all the participants had higher scores when on Motrin</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">No, some participants had higher scores when on placebo and others had no change</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">No, there are only 23 lines so not all the participants are shown</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">Yes, everyone knows Motrin reduces pain</button></div>
+<section class="lab-quiz" data-lab-quiz><h4>Question 10</h4><p>Based on the plot did everyone report having less pain with Motrin compared to placebo?</p>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Yes, all the participants had higher scores when on Motrin</button>
+<button type="button" class="lab-answer" data-correct="true">No, some participants had higher scores when on placebo and others had no change</button>
+<button type="button" class="lab-answer" data-correct="false">No, there are only 23 lines so not all the participants are shown</button>
+<button type="button" class="lab-answer" data-correct="false">Yes, everyone knows Motrin reduces pain</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Summary
 
@@ -423,4 +377,4 @@ Great work you are done with lab! **Don't forget to record your answers and take
 
 If you have time here is another rabbit hole to explore. The placebo effect is real and if you want to know more about it a good place to start is the article in [The Scientist](https://www.the-scientist.com/research/the-biological-basis-of-the-placebo-effect-52396) magazine.
 
-![](../tutorials/Lab11/images/pvalue_meme.jpg)
+![](../tutorials/Lab11/images/pvalue_meme.jpg){.lab-summary-image}

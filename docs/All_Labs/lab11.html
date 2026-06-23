@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -140,6 +105,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -272,18 +238,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 </script>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.</p>
-</div>
+<div data-guided-lab="" data-lab-title="Lab 11">
+
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -474,153 +430,92 @@ Delta1: Difference between Motrin and placebo while playing tennis (Motrin1 minu
 Delta2: Difference between Motrin and placebo 12 hours after playing tennis (Motrin2 minus Placebo2)<br>
 Delta3: Difference between Motrin and placebo at the end of the treatment period (Motrin3 minus Placebo3)</p>
 <p><strong>Instructions</strong> Review the data and variable distributions. Answer the quiz questions.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wellPanel</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidRow</span>(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">6</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">selectInput</span>(<span class="st">'var'</span>, <span class="at">label =</span> <span class="st">"Select Variable to Summarize"</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"Age"</span>, <span class="st">"Motrin1"</span>, <span class="st">"Motrin2"</span>, <span class="st">"Motrin3"</span>, <span class="st">"Placebo1"</span>, <span class="st">"Placebo2"</span>, <span class="st">"Placebo3"</span>, <span class="st">"Delta1"</span>, <span class="st">"Delta2"</span>, <span class="st">"Delta3"</span>), </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">selected =</span> <span class="st">"Age"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="dv">12</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Data"</span>)),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">'rawdata'</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>, </span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Plot of Selected Variable"</span>)),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="at">outputId =</span> <span class="st">'plot'</span>, <span class="at">width =</span> <span class="st">"100%"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Summary of Selected Variable"</span>)),</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">verbatimTextOutput</span>(<span class="st">"summary"</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Basic plot of the selected variable</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>var), <span class="st">'Please select a variable to show the plot.'</span>))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.numeric</span>(Tennis3[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">&lt;-</span> Tennis3[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      bins <span class="ot">&lt;-</span> <span class="fu">round</span>((<span class="fu">max</span>(x)<span class="sc">-</span><span class="fu">min</span>(x))<span class="sc">/</span>(<span class="fl">3.5</span><span class="sc">*</span>(<span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">length</span>(Tennis3[ ,input<span class="sc">$</span>var])<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))),<span class="dv">0</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(Tennis3[ ,input<span class="sc">$</span>var],</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">breaks =</span> bins,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var))</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.integer</span>(Tennis3[ ,input<span class="sc">$</span>var])<span class="sc">||</span><span class="fu">is.factor</span>(Tennis3[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      x<span class="ot">&lt;-</span>Tennis3[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      x<span class="ot">&lt;-</span><span class="fu">table</span>(x)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">barplot</span>(x,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">ylab =</span> <span class="st">"Count"</span>,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">xlab =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var))</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show raw data</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>rawdata <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>   DT<span class="sc">::</span><span class="fu">datatable</span>(Tennis3, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">lengthMenu =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">50</span>), <span class="at">pageLength =</span> <span class="dv">5</span>)) </span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show a summary of the selected variable</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>summary <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>var), <span class="st">'Please select a variable to show the summary.'</span>))</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> Tennis3[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(x)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<div class="lab-widget" data-tennis-summary="" data-csv="../tutorials/Lab11/www/Tennis3_clean.csv">
+  <div class="lab-widget-controls">
+    <label>Select Variable to Summarize
+      <select data-tennis-variable="">
+        <option value="Age">Age</option>
+        <option value="Motrin1">Motrin1</option>
+        <option value="Motrin2">Motrin2</option>
+        <option value="Motrin3">Motrin3</option>
+        <option value="Placebo1">Placebo1</option>
+        <option value="Placebo2">Placebo2</option>
+        <option value="Placebo3">Placebo3</option>
+        <option value="Delta1">Delta1</option>
+        <option value="Delta2">Delta2</option>
+        <option value="Delta3">Delta3</option>
+      </select>
+    </label>
+  </div>
+  <h4 class="anchored">Data</h4>
+  <div class="lab-table-count" data-tennis-count=""></div>
+  <div class="lab-table-wrap">
+    <table class="lab-data-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="lab-split-widget">
+    <div>
+      <h4 class="anchored">Plot of Selected Variable</h4>
+      <svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="Plot of selected Tennis3 variable"></svg>
+    </div>
+    <div>
+      <h4 class="anchored">Summary of Selected Variable</h4>
+      <div class="lab-table-wrap lab-summary-table-wrap">
+        <table class="lab-data-table" data-tennis-summary=""></table>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 <section id="quiz-questions-1-3" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-1-3">Quiz: Questions 1-3</h3>
-<section class="lab-quiz" data-lab-quiz="">
+<section class="lab-quiz" data-lab-quiz="" data-multi-quiz="true">
 <h4 class="anchored">
 Question 1
 </h4>
 <p>
-Which variables need to have a normal distribution for the paired t test? (Select all the apply)
+Which variables need to have a normal distribution for the paired t test? (Select all that apply)
 </p>
 <p class="quiz-note">
 Select all correct answers.
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Age
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Motrin1
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Motrin2
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Motrin3
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Placebo1
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Placebo2
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Placebo3
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Delta1
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Delta2
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Delta3
 </button>
 </div>
+<button type="button" class="lab-check-answer" data-check-answers="">
+Check Answers
+</button>
 <div class="lab-feedback" aria-live="polite">
 
 </div>
@@ -633,10 +528,10 @@ Question 2
 Since the data is not normal can we use the Central Limit Theorem?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes, our sample size is &gt; 40
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No, we don't meet the requirements of the CLT
 </button>
 </div>
@@ -652,16 +547,16 @@ Question 3
 Does our data meet the simple random sample requirement?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes. It is a biologic process and the treatment is randomized
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes. They are randomized
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No.&nbsp;We shouldn't do the test
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 You don't need a random sample for the paired t test
 </button>
 </div>
@@ -692,22 +587,22 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIFdl
 <h3 class="anchored" data-anchor-id="quiz-questions-4-6">Quiz: Questions 4-6</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 4
 </h4>
 <p>
 What is the test statistic, degrees of freedom, and p-value of the test?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 t = 12.101, df = 82, p-value = 1.253e-12
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 t = 9.1163, df = 81, p-value = 9.983e-04
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 t = 4.1061, df = 81, p-value = 9.551e-05
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 t = 2.6041, df = 83, p-value = 3.511e-05
 </button>
 </div>
@@ -717,22 +612,22 @@ t = 2.6041, df = 83, p-value = 3.511e-05
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 5
 </h4>
 <p>
 What is the 95% confidence interval for the mean difference between the treatment groups?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 95% CI (0.4337173, 1.2492095)
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 95% CI (0.6237121, 1.9220692)
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 95% CI (0.3637334, 2.1492462)
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 95% CI (0.3433317, 1.4920852)
 </button>
 </div>
@@ -742,22 +637,22 @@ What is the 95% confidence interval for the mean difference between the treatmen
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 6
 </h4>
 <p>
 Can you infer that Motrin causes a change in pain level while playing tennis?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes, the patients were randomized to treatment groups.
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No, the sample was made up of volunteers
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes, we used the right test
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No, the sample was two small
 </button>
 </div>
@@ -787,22 +682,22 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiIjIFdy
 <h3 class="anchored" data-anchor-id="quiz-questions-7-9">Quiz: Questions 7-9</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 7
 </h4>
 <p>
 What is the test statistic, degrees of freedom, and p-value of the test?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 t = 4.3157, df = 83, p-value = 0.1201424
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 t = 4.0417, df = 81, p-value = 0.0001201
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 t = 3.1954, df = 80, p-value = 0.3400242
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 t = 4.0417, df = 82, p-value = 0.5487313
 </button>
 </div>
@@ -812,22 +707,22 @@ t = 4.0417, df = 82, p-value = 0.5487313
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 8
 </h4>
 <p>
 What is the 95% confidence interval for the mean difference between the treatment groups?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 95% CI (0.3216711, 2.2334603)
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 95% CI (0.2210420, 1.2375043)
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 95% CI (0.4210623, 1.3245043)
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 95% CI (0.4210323, 1.2375043)
 </button>
 </div>
@@ -837,22 +732,22 @@ What is the 95% confidence interval for the mean difference between the treatmen
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 9
 </h4>
 <p>
 Can you infer that Motrin causes a change in pain level after playing tennis?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No, the sample was made up of volunteers
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes, we used the right test
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Yes, the patients were randomized to treatment groups
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No, the sample was two small
 </button>
 </div>
@@ -884,22 +779,22 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiJnZ3Bh
 <h3 class="anchored" data-anchor-id="quiz-question-10">Quiz: Question 10</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 10
 </h4>
 <p>
 Based on the plot did everyone report having less pain with Motrin compared to placebo?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes, all the participants had higher scores when on Motrin
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 No, some participants had higher scores when on placebo and others had no change
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 No, there are only 23 lines so not all the participants are shown
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes, everyone knows Motrin reduces pain
 </button>
 </div>
@@ -919,7 +814,7 @@ Yes, everyone knows Motrin reduces pain
 </ol>
 <p>Great work you are done with lab! <strong>Don’t forget to record your answers and take the eLC quiz to get credit</strong></p>
 <p>If you have time here is another rabbit hole to explore. The placebo effect is real and if you want to know more about it a good place to start is the article in <a href="https://www.the-scientist.com/research/the-biological-basis-of-the-placebo-effect-52396">The Scientist</a> magazine.</p>
-<p><img src="../tutorials/Lab11/images/pvalue_meme.jpg" class="img-fluid"></p>
+<p><img src="../tutorials/Lab11/images/pvalue_meme.jpg" class="lab-summary-image img-fluid"></p>
 
 
 <script type="webr-data">
@@ -937,7 +832,7 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC00IiwiaW5saW5lIjpmYWxzZSwibWV0
 </div>
 </div>
 <script type="vfs-file">
-WyIuLi90dXRvcmlhbHMvTGFiMTEvd3d3L1NjcmlwdF9mb3JfbGFiXzExX0RhdGEuUiIsIi4uL3R1dG9yaWFscy9MYWIxMS93d3cvVGVubmlzMy5SZGEiLCIuLi90dXRvcmlhbHMvTGFiMTEvd3d3L1Rlbm5pczMuY3N2Il0=
+WyIuLi90dXRvcmlhbHMvTGFiMTEvd3d3L1NjcmlwdF9mb3JfbGFiXzExX0RhdGEuUiIsIi4uL3R1dG9yaWFscy9MYWIxMS93d3cvVGVubmlzMy5SZGEiLCIuLi90dXRvcmlhbHMvTGFiMTEvd3d3L1Rlbm5pczMuY3N2IiwiLi4vdHV0b3JpYWxzL0xhYjExL3d3dy9UZW5uaXMzX2NsZWFuLmNzdiJd
 </script>
 </section>
 
