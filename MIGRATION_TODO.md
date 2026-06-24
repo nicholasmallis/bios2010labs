@@ -44,6 +44,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-23: Started the Lab 10 polish pass. Added the shared guided-lab layout, replaced the NurseDiet Shiny summary app with a browser-side histogram/table/summary widget, removed the Shiny migration callouts, corrected quiz numbering through Question 13, removed generic answer-level feedback attributes, and cleaned up the summary image.
 - 2026-06-23: Cleaned up Lab 10 Exercise 5 so hidden setup code for the ExcFat variable no longer appears as extra student-facing code cells.
 - 2026-06-23: Started the Lab 11 polish pass. Added the shared guided-lab layout, exported the cleaned Tennis3 data for browser use, replaced the Tennis3 Shiny summary app with a browser-side histogram/table/summary widget, fixed the select-all quiz behavior, removed Shiny migration callouts, corrected quiz numbering through Question 10, removed generic answer-level feedback attributes, and cleaned up the summary image.
+- 2026-06-24: Started the Lab 12 polish pass. Added the shared guided-lab layout, exported the Calf and Datasaurus data to CSV, replaced the calf feed summary and Datasaurus Shiny activities with browser-side JavaScript widgets, removed Shiny migration callouts, corrected quiz numbering through Question 10, removed generic answer-level feedback attributes, and cleaned up the summary image.
 
 ## Lab Inventory
 
@@ -60,7 +61,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 | 9 | Random Sampling and Central Limit Theorem | 0 | 17 | 0 |
 | 10 | One Sample T Methods | 7 | 13 | 0 |
 | 11 | Paired t Test | 3 | 10 | 0 |
-| 12 | Two Sample *t* Test | 4 | 20 | 4 |
+| 12 | Two Sample *t* Test | 4 | 10 | 0 |
 | 13 | Hypothesis Tests and Confidence Intervals for Proportions | 2 | 22 | 4 |
 
 ## Remaining TODO

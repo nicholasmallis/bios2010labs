@@ -2058,6 +2058,138 @@ const initTennisSummaryWidget = async (root) => {
   draw();
 };
 
+const initCalfSummaryWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const select = root.querySelector("[data-calf-feed]");
+  const svg = root.querySelector("svg");
+  const count = root.querySelector("[data-calf-count]");
+  const dataTable = root.querySelector(".lab-table-wrap table:not([data-calf-summary])");
+  const summaryTable = root.querySelector("[data-calf-summary]");
+  const columns = ["Feed", "Weight_Gain"];
+
+  const displayRows = data.slice(0, 10).map((row) => ({
+    Feed: row.Feed,
+    Weight_Gain: formatUgaValue(row.Weight_Gain, 2),
+  }));
+
+  const draw = () => {
+    const feed = select.value;
+    const values = data
+      .filter((row) => row.Feed === feed)
+      .map((row) => Number(row.Weight_Gain))
+      .filter(Number.isFinite);
+
+    count.textContent = `Showing first 10 of ${data.length.toLocaleString()} entries`;
+    renderSimpleTable(dataTable, columns, displayRows, ["Feed", "Weight_Gain"]);
+    drawUgaHistogram(svg, values, { title: feed, xTitle: "Weight_Gain" });
+
+    const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+    const summary = [
+      { Statistic: "Min.", Value: formatUgaValue(Math.min(...values), 2) },
+      { Statistic: "1st Qu.", Value: formatUgaValue(quantile(values, 0.25), 2) },
+      { Statistic: "Median", Value: formatUgaValue(quantile(values, 0.5), 2) },
+      { Statistic: "Mean", Value: formatUgaValue(mean, 2) },
+      { Statistic: "3rd Qu.", Value: formatUgaValue(quantile(values, 0.75), 2) },
+      { Statistic: "Max.", Value: formatUgaValue(Math.max(...values), 2) },
+    ];
+    renderSimpleTable(summaryTable, ["Statistic", "Value"], summary);
+  };
+
+  select.addEventListener("change", draw);
+  draw();
+};
+
+const drawDatasaurusScatter = (svg, rows, title) => {
+  const width = 760;
+  const height = 420;
+  const margin = { top: 42, right: 24, bottom: 76, left: 76 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const xValues = rows.map((row) => row.x);
+  const yValues = rows.map((row) => row.y);
+  const xMinRaw = Math.min(...xValues);
+  const xMaxRaw = Math.max(...xValues);
+  const yMinRaw = Math.min(...yValues);
+  const yMaxRaw = Math.max(...yValues);
+  const xPad = (xMaxRaw - xMinRaw) * 0.08 || 1;
+  const yPad = (yMaxRaw - yMinRaw) * 0.08 || 1;
+  const xMin = xMinRaw - xPad;
+  const xMax = xMaxRaw + xPad;
+  const yMin = yMinRaw - yPad;
+  const yMax = yMaxRaw + yPad;
+  const xScale = (value) => margin.left + ((value - xMin) / (xMax - xMin)) * plotWidth;
+  const yScale = (value) => margin.top + plotHeight - ((value - yMin) / (yMax - yMin)) * plotHeight;
+  const axisColor = "#2f3944";
+
+  svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
+  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = title;
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+
+  for (let index = 0; index <= 5; index += 1) {
+    const value = xMin + ((xMax - xMin) * index) / 5;
+    const x = xScale(value);
+    svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x, y: height - 46, "text-anchor": "middle", class: "lab-axis-label" })).textContent = formatUgaValue(value, 1);
+  }
+
+  for (let index = 0; index <= 4; index += 1) {
+    const value = yMin + ((yMax - yMin) * index) / 4;
+    const y = yScale(value);
+    svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = formatUgaValue(value, 1);
+  }
+
+  rows.forEach((row) => {
+    svg.appendChild(svgEl("circle", {
+      cx: xScale(row.x),
+      cy: yScale(row.y),
+      r: 3.5,
+      fill: "#2563eb",
+      opacity: 0.82,
+    }));
+  });
+
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 14, "text-anchor": "middle", class: "lab-axis-title" })).textContent = "x";
+  const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  yTitle.textContent = "y";
+  svg.appendChild(yTitle);
+};
+
+const initDatasaurusWidget = async (root) => {
+  const data = (await fetchCsv(root.dataset.csv)).map((row) => ({
+    dataset: row.dataset,
+    x: Number(row.x),
+    y: Number(row.y),
+  })).filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
+  const select = root.querySelector("[data-datasaurus-dataset]");
+  const svg = root.querySelector("svg");
+  const table = root.querySelector("[data-datasaurus-summary]");
+
+  const draw = () => {
+    const selected = select.value;
+    const rows = data.filter((row) => row.dataset === selected);
+    const xValues = rows.map((row) => row.x);
+    const yValues = rows.map((row) => row.y);
+    drawDatasaurusScatter(svg, rows, `Scatter Plot of ${selected}`);
+    renderSimpleTable(table, ["Statistic", "x", "y"], [
+      {
+        Statistic: "Mean",
+        x: formatUgaValue(xValues.reduce((sum, value) => sum + value, 0) / xValues.length, 4),
+        y: formatUgaValue(yValues.reduce((sum, value) => sum + value, 0) / yValues.length, 4),
+      },
+      {
+        Statistic: "SD",
+        x: formatUgaValue(standardDeviation(xValues), 4),
+        y: formatUgaValue(standardDeviation(yValues), 4),
+      },
+    ]);
+  };
+
+  select.addEventListener("change", draw);
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -2352,5 +2484,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-tennis-summary]").forEach((root) => {
     initTennisSummaryWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-calf-widget]").forEach((root) => {
+    initCalfSummaryWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-datasaurus-widget]").forEach((root) => {
+    initDatasaurusWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 });
