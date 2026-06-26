@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -140,6 +105,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -272,19 +238,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 </script>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Run the R code cells directly in your browser. Use the quiz buttons for immediate feedback, then record your answers in eLC.</p>
-</div>
-</div>
+<div data-guided-lab="" data-lab-title="Lab 13"></div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>In this lab you will learn how to test hypothesis for proportions in R.</p>
@@ -310,124 +264,44 @@ pre: (0,1) 1 mother received a diagnosis of pre-eclampsia, 0 means the mother di
 gestage: Total gestation time (weeks)<br>
 apgar5: The APGAR score is a test given to newborns soon after birth. values range from (0 to 10) with 10 being the best.</p>
 <p><strong>Instructions</strong> Review the data and check and see if we meet the <span class="math inline">\(np\ge10\)</span> and <span class="math inline">\(n(1-p)\ge10\)</span> to use the normal approximation. Answer the quiz questions.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wellPanel</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidRow</span>(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">6</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">selectInput</span>(<span class="st">'var'</span>, <span class="at">label =</span> <span class="st">"Select Variable to Summarize"</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"sbp"</span>, <span class="st">"sex"</span>, <span class="st">"pre"</span>, <span class="st">"gestage"</span>, <span class="st">"apgar5"</span>), </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">selected =</span> <span class="st">"pre"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>, </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Plot of Selected Variable"</span>)),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="at">outputId =</span> <span class="st">'plot'</span>, <span class="at">width =</span> <span class="st">"100%"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Data"</span>)),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">'rawdata'</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dv">12</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Summary of Selected Variable"</span>)),</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">verbatimTextOutput</span>(<span class="st">"summary"</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Basic plot of the selected variable</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>var), <span class="st">'Please select a variable to show the plot.'</span>))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.numeric</span>(lowbwt[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">&lt;-</span> lowbwt[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      bins <span class="ot">&lt;-</span> <span class="fu">round</span>((<span class="fu">max</span>(x)<span class="sc">-</span><span class="fu">min</span>(x))<span class="sc">/</span>(<span class="fl">3.5</span><span class="sc">*</span>(<span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">length</span>(lowbwt[ ,input<span class="sc">$</span>var])<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))),<span class="dv">0</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(lowbwt[ ,input<span class="sc">$</span>var],</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">breaks =</span> bins,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var))</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.integer</span>(lowbwt[ ,input<span class="sc">$</span>var])<span class="sc">||</span><span class="fu">is.factor</span>(lowbwt[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      x<span class="ot">&lt;-</span>lowbwt[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      x<span class="ot">&lt;-</span><span class="fu">table</span>(x)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">barplot</span>(x,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">ylab =</span> <span class="st">"Count"</span>,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">xlab =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var))</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show raw data</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>rawdata <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>   DT<span class="sc">::</span><span class="fu">datatable</span>(lowbwt, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">lengthMenu =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">50</span>), <span class="at">pageLength =</span> <span class="dv">5</span>)) </span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show a summary of the selected variable</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>summary <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">validate</span>(<span class="fu">need</span>(<span class="sc">!</span><span class="fu">is.null</span>(input<span class="sc">$</span>var), <span class="st">'Please select a variable to show the summary.'</span>))</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.numeric</span>(lowbwt[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> lowbwt[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(x)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span>(<span class="fu">is.integer</span>(lowbwt[ ,input<span class="sc">$</span>var])<span class="sc">||</span><span class="fu">is.factor</span>(lowbwt[ ,input<span class="sc">$</span>var])){</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    x<span class="ot">&lt;-</span>lowbwt[ ,input<span class="sc">$</span>var]</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    y<span class="ot">&lt;-</span><span class="fu">table</span>(x)</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    c1<span class="ot">&lt;-</span><span class="fu">round</span>(<span class="fu">addmargins</span>(y),<span class="dv">0</span>)</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    c2<span class="ot">&lt;-</span><span class="fu">round</span>(<span class="fu">summary</span>(x),<span class="dv">4</span>)</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">" 0 = %i</span><span class="sc">\n</span><span class="st"> 1 = %i</span><span class="sc">\n</span><span class="st"> Total = %i</span><span class="sc">\n</span><span class="st"> Proportion = %.4f"</span>, c1[<span class="dv">1</span>],c1[<span class="dv">2</span>],c1[<span class="dv">3</span>],c2[<span class="dv">4</span>]))</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    } </span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<div class="lab-widget" data-lowbwt-widget="" data-csv="../tutorials/Lab13/www/lowbwt.csv">
+  <div class="lab-widget-controls">
+    <label>
+      Select Variable to Summarize
+      <select data-lowbwt-variable="">
+        <option value="pre">pre</option>
+        <option value="sbp">sbp</option>
+        <option value="sex">sex</option>
+        <option value="gestage">gestage</option>
+        <option value="apgar5">apgar5</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="lab-split-widget">
+    <div>
+      <h4 class="anchored">Plot of Selected Variable</h4>
+      <svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="Plot of selected low birth weight variable"></svg>
+    </div>
+    <div>
+      <h4 class="anchored">Data</h4>
+      <div class="lab-table-count" data-lowbwt-count=""></div>
+      <div class="lab-table-wrap">
+        <table class="lab-data-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="anchored">Summary of Selected Variable</h4>
+  <div class="lab-table-wrap lab-summary-table-wrap">
+    <table class="lab-data-table" data-lowbwt-summary="">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </div>
 </section>
 <section id="quiz-questions-1-2" class="level3">
@@ -440,16 +314,16 @@ Question 1
 What is prevalence of pre-eclampsia among the women?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.34
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 0.21
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.50
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.42
 </button>
 </div>
@@ -465,16 +339,16 @@ Question 2
 What does <span class="math inline">\(np\)</span> and <span class="math inline">\(n(1-p)\)</span> equal for pre-eclampsia?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 <span class="math inline">\(np=21, n(1-p)=79\)</span>
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 <span class="math inline">\(np=79, n(1-p)=21\)</span>
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 <span class="math inline">\(np=12, n(1-p)=42\)</span>
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 <span class="math inline">\(np=5, n(1-p)=36\)</span>
 </button>
 </div>
@@ -505,22 +379,22 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiJwcm9w
 <h3 class="anchored" data-anchor-id="quiz-questions-3-4">Quiz: Questions 3-4</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 3
 </h4>
 <p>
 What is the test statistic, degrees of freedom, and p-value?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 X-squared = 0.95379, df = 1, p-value = 0.2891
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 X-squared = 0.15230, df = 1, p-value = 0.8934
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 X-squared = 0.85333, df = 1, p-value = 0.3556
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 X-squared = 0.43533, df = 1, p-value = 0.5892
 </button>
 </div>
@@ -530,22 +404,22 @@ X-squared = 0.43533, df = 1, p-value = 0.5892
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 4
 </h4>
 <p>
 What may you conclude from the results of the above hypothesis test?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Since p=0.03605, reject the null hypothesis to conclude that there is sufficient evidence that the proportion with pre-eclampsia is different from 0.25.
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Since p=0.6553, fail to reject the null hypothesis to conclude that there is sufficient evidence that the proportion with pre-eclampsia is different from 0.52.
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Since p=0.5554, reject the null hypothesis to conclude that there is insufficient evidence that the proportion with pre-eclampsia is different from 0.42.
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Since p=0.3556, fail to reject the null hypothesis to conclude that there is insufficient evidence that the proportion with pre-eclampsia is different from 0.25.
 </button>
 </div>
@@ -569,137 +443,76 @@ Since p=0.3556, fail to reject the null hypothesis to conclude that there is ins
 hiv = (0,1) 0 is HIV seronegative, and 1 is HIV seropositive<br>
 ivdu = (0,1) 0 no history of intravenous drug use, 1 history of intravenous drug use</p>
 <p><strong>Instructions</strong> Review the data and check and see if we meet the <span class="math inline">\(np\ge10\)</span> and <span class="math inline">\(n(1-p)\ge10\)</span> to use the normal approximation. Answer the quiz questions.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny interface
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This widget needs a browser-side replacement in WebR or JavaScript.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wellPanel</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidRow</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">column</span>(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">6</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">selectInput</span>(<span class="st">'var1'</span>, <span class="at">label =</span> <span class="st">"Select Variable to Summarize"</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="fu">list</span>(<span class="st">"hiv"</span>, <span class="st">"ivdu"</span>), </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">selected =</span> <span class="st">"hiv"</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>, </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Plot of Selected Variable"</span>)),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="at">outputId =</span> <span class="st">'plot2'</span>, <span class="at">width =</span> <span class="st">"100%"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Data"</span>)),</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">'rawdata2'</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>,</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"Summary of Selected Variable"</span>)),</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">verbatimTextOutput</span>(<span class="st">"summary2"</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column</span>(</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>      <span class="dv">6</span>,</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h4</span>(<span class="fu">strong</span>(<span class="st">"2x2 Table"</span>)),</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">verbatimTextOutput</span>(<span class="st">"table"</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Original Shiny server logic
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This code is retained for migration reference. The static replacement should run in the browser without a Shiny server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Basic plot of the selected variable</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plot2 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    x<span class="ot">&lt;-</span>Prison[ ,input<span class="sc">$</span>var1]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      x<span class="ot">&lt;-</span><span class="fu">table</span>(x)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">barplot</span>(x,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">ylab =</span> <span class="st">"Count"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">xlab =</span> <span class="fu">paste</span>(input<span class="sc">$</span>var1))</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show raw data</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>rawdata2 <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    DT<span class="sc">::</span><span class="fu">datatable</span>(Prison, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">lengthMenu =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">50</span>), <span class="at">pageLength =</span> <span class="dv">5</span>)) </span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show a summary of the selected variable</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>summary2 <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    x<span class="ot">&lt;-</span>Prison[ ,input<span class="sc">$</span>var1]</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    y<span class="ot">&lt;-</span><span class="fu">table</span>(x)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    c1<span class="ot">&lt;-</span><span class="fu">round</span>(<span class="fu">addmargins</span>(y),<span class="dv">0</span>)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    c2<span class="ot">&lt;-</span><span class="fu">round</span>(<span class="fu">summary</span>(x),<span class="dv">4</span>)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">" 0 = %i</span><span class="sc">\n</span><span class="st"> 1 = %i</span><span class="sc">\n</span><span class="st"> Total = %i</span><span class="sc">\n</span><span class="st"> Proportion = %.4f"</span>, c1[<span class="dv">1</span>],c1[<span class="dv">2</span>],c1[<span class="dv">3</span>],c2[<span class="dv">4</span>]))</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2x2 table of the variables </span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>   output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({ </span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>     <span class="co"># change to ordered factor so that the table is right</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>     Prison<span class="sc">$</span>hiv<span class="ot">&lt;-</span><span class="fu">factor</span>(Prison<span class="sc">$</span>hiv, <span class="at">ordered =</span> <span class="cn">TRUE</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>))</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>     Prison<span class="sc">$</span>ivdu<span class="ot">&lt;-</span><span class="fu">factor</span>(Prison<span class="sc">$</span>ivdu, <span class="at">ordered =</span> <span class="cn">TRUE</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>))</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ftable</span>(Prison)</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>   })</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
+<div class="lab-widget" data-prison-summary-widget="" data-csv="../tutorials/Lab13/www/Prison.csv">
+  <div class="lab-widget-controls">
+    <label>
+      Select Variable to Summarize
+      <select data-prison-variable="">
+        <option value="hiv">hiv</option>
+        <option value="ivdu">ivdu</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="lab-split-widget">
+    <div>
+      <h4 class="anchored">Plot of Selected Variable</h4>
+      <svg class="lab-plot" viewbox="0 0 760 420" role="img" aria-label="Plot of selected prison variable"></svg>
+    </div>
+    <div>
+      <h4 class="anchored">Data</h4>
+      <div class="lab-table-count" data-prison-count=""></div>
+      <div class="lab-table-wrap">
+        <table class="lab-data-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="lab-split-widget">
+    <div>
+      <h4 class="anchored">Summary of Selected Variable</h4>
+      <div class="lab-table-wrap lab-summary-table-wrap">
+        <table class="lab-data-table" data-prison-summary="">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h4 class="anchored">2x2 Table</h4>
+      <div class="lab-table-wrap lab-summary-table-wrap">
+        <table class="lab-data-table" data-prison-cross-table="">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 <section id="quiz-questions-5-9" class="level3">
 <h3 class="anchored" data-anchor-id="quiz-questions-5-9">Quiz Questions: 5-9</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 5
 </h4>
 <p>
 What is prevalence of HIV among the women?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.1853
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.7137
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 0.8147
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.2863
 </button>
 </div>
@@ -709,22 +522,22 @@ What is prevalence of HIV among the women?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 6
 </h4>
 <p>
 What is the prevalence of intravenous drug use in the women?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.1853
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 0.7137
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.8147
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.2863
 </button>
 </div>
@@ -734,22 +547,22 @@ What is the prevalence of intravenous drug use in the women?
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 3
+Question 7
 </h4>
 <p>
 What is the prevalence of HIV among women <strong>with</strong> a history of intravenous drug use?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.0797
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.8147
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.7137
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 0.9203
 </button>
 </div>
@@ -759,22 +572,22 @@ What is the prevalence of HIV among women <strong>with</strong> a history of int
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 4
+Question 8
 </h4>
 <p>
 What is the prevalence of HIV among women <strong>without</strong> a history of intravenous drug use?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 0.5514
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.8062
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.4486
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 0.8133
 </button>
 </div>
@@ -784,16 +597,16 @@ What is the prevalence of HIV among women <strong>without</strong> a history of 
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 5
+Question 9
 </h4>
 <p>
 Are any of the values in the 2x2 table less than 10?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Yes
 </button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 No
 </button>
 </div>
@@ -804,11 +617,11 @@ No
 </section>
 <section id="exercise-4-intravenous-drug-use-and-hiv-seropositivity" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4-intravenous-drug-use-and-hiv-seropositivity">Exercise 4: Intravenous Drug Use and HIV Seropositivity</h3>
-<p>No that we know that our data meets the requirements we can start testing different hypothesis about the proportions. The general form of the function is <strong>prop.test(x = c(x1, x2), n = c(n1, n2), correct = FALSE)</strong>. The first value to specify is the number of successes in each group (the first row in the 2x2 table above). The next value is the total number of trials in each group (the sum of each column in the 2x2 table above). Finally by setting correct to FALSE R will not apply the Yates correction for small samples.</p>
+<p>Now that we know that our data meets the requirements we can start testing different hypothesis about the proportions. The general form of the function is <strong>prop.test(x = c(x1, x2), n = c(n1, n2), correct = FALSE)</strong>. The first value to specify is the number of successes in each group (the first row in the 2x2 table above). The next value is the total number of trials in each group (the sum of each column in the 2x2 table above). Finally by setting correct to FALSE R will not apply the Yates correction for small samples.</p>
 <p>What is the impact of intravenous drug use on the prevalence of HIV?</p>
 <p>Test the null hypothesis that the proportion of HIV+ is the same for women with a history of intravenous drug use as those without a history of intravenous drug use. Use a two-sided alternative hypothesis:</p>
 <p><span class="math display">\[\alpha=0.05\]</span></p>
-<p><span class="math display">\[H_{0}: p_{~HIV+,~No~IVDU} = p_{~HIV+,~No~IVDU}\]</span> <span class="math display">\[H_{A}: p_{~HIV+,~No~IVDU}\neq p_{~HIV+,~No~IVDU} \]</span></p>
+<p><span class="math display">\[H_{0}: p_{~HIV+,~IVDU} = p_{~HIV+,~No~IVDU}\]</span> <span class="math display">\[H_{A}: p_{~HIV+,~IVDU}\neq p_{~HIV+,~No~IVDU} \]</span></p>
 <p><strong>Instructions</strong> Complete the code below to test the hypothesis and click the run code button. Use the output to answer the quiz questions. If you are having a hard time check out the examples from STHDA <a href="http://www.sthda.com/english/wiki/two-proportions-z-test-in-r">Two-Proportion Z-Test in R</a>.</p>
 <div class="cell" data-edit="true" data-min-lines="4">
 <div>
@@ -825,22 +638,22 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1pbi1saW5lcyI6NH0sImNvZGUiOiJwcm9w
 <h3 class="anchored" data-anchor-id="quiz-questions10-11">Quiz Questions:10-11</h3>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 1
+Question 10
 </h4>
 <p>
 What is the test statistic, degrees of freedom, and p-value?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 X-squared = 87.502, df = 1, p-value &lt; 2.2e-16
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 X-squared = 78.202, df = 1, p-value &lt; 1.2e-13
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 X-squared = 99.247, df = 1, p-value &lt; 2.2e-19
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 X-squared = 57.542, df = 1, p-value &lt; 7.2e-10
 </button>
 </div>
@@ -850,22 +663,22 @@ X-squared = 57.542, df = 1, p-value &lt; 7.2e-10
 </section>
 <section class="lab-quiz" data-lab-quiz="">
 <h4 class="anchored">
-Question 2
+Question 11
 </h4>
 <p>
 What may you conclude from the results of the hypothesis test?
 </p>
 <div class="lab-answers">
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">
+<button type="button" class="lab-answer" data-correct="true">
 Since p &lt; 2.2e-16, reject the null hypothesis, there is sufficient evidence that the prevalence of HIV is not the same for women with a history of IVDU and those without a history of IVDU.
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Since p &lt; 1.2e-13, fail to reject the null hypothesis that the prevalence of HIV is the same regardless of a woman's IVDU status.
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Since p &lt; 2.2e-19, reject the null hypothesis that the prevalence of HIV is much higher in those women with a history of IVDU.
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 Since p &lt; 7.2e-10, fail to reject the null hypothesis that the prevalence of HIV and IVDU are the same.
 </button>
 </div>
@@ -884,7 +697,7 @@ Since p &lt; 7.2e-10, fail to reject the null hypothesis that the prevalence of 
 <li>Two Proportion tests in R</li>
 </ol>
 <p>You finished the last lab! Don’t be too sad, you can still learn more by taking BIOS3000 next semester. <strong>Don’t forget to record your answers and take the eLC quiz to get credit</strong></p>
-<p><img src="../tutorials/Lab13/images/catNull.jpg" class="img-fluid"></p>
+<p><img src="../tutorials/Lab13/images/catNull.jpg" class="lab-summary-image img-fluid"></p>
 
 
 <script type="webr-data">

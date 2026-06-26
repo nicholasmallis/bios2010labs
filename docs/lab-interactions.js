@@ -2190,6 +2190,107 @@ const initDatasaurusWidget = async (root) => {
   draw();
 };
 
+const lowbwtCategoricalVariables = new Set(["sex", "pre", "apgar5"]);
+
+const initLowbwtSummaryWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const select = root.querySelector("[data-lowbwt-variable]");
+  const svg = root.querySelector("svg");
+  const count = root.querySelector("[data-lowbwt-count]");
+  const dataTable = root.querySelector(".lab-table-wrap table:not([data-lowbwt-summary])");
+  const summaryTable = root.querySelector("[data-lowbwt-summary]");
+  const columns = ["sbp", "sex", "pre", "gestage", "apgar5"];
+
+  const draw = () => {
+    const variable = select.value;
+    const values = data.map((row) => Number(row[variable])).filter(Number.isFinite);
+    count.textContent = `Showing first 5 of ${data.length.toLocaleString()} entries`;
+    renderSimpleTable(dataTable, columns, data.slice(0, 5), columns);
+
+    if (lowbwtCategoricalVariables.has(variable)) {
+      const counts = {};
+      values.forEach((value) => { counts[value] = (counts[value] || 0) + 1; });
+      const sortedCounts = Object.fromEntries(Object.entries(counts).sort(([a], [b]) => Number(a) - Number(b)));
+      drawUgaBarPlot(svg, sortedCounts, { title: variable, xTitle: variable });
+      renderSimpleTable(summaryTable, ["Level", "Count", "Percent"], Object.entries(sortedCounts).map(([level, value]) => ({
+        Level: level,
+        Count: value.toLocaleString(),
+        Percent: `${((value / values.length) * 100).toFixed(1)}%`,
+      })).concat([{
+        Level: "Total",
+        Count: values.length.toLocaleString(),
+        Percent: "100.0%",
+      }]));
+    } else {
+      drawUgaHistogram(svg, values, { title: variable, xTitle: variable });
+      const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+      const summary = [
+        { Statistic: "Min.", Value: formatUgaValue(Math.min(...values), 2) },
+        { Statistic: "1st Qu.", Value: formatUgaValue(quantile(values, 0.25), 2) },
+        { Statistic: "Median", Value: formatUgaValue(quantile(values, 0.5), 2) },
+        { Statistic: "Mean", Value: formatUgaValue(mean, 2) },
+        { Statistic: "3rd Qu.", Value: formatUgaValue(quantile(values, 0.75), 2) },
+        { Statistic: "Max.", Value: formatUgaValue(Math.max(...values), 2) },
+      ];
+      renderSimpleTable(summaryTable, ["Statistic", "Value"], summary);
+    }
+  };
+
+  select.addEventListener("change", draw);
+  draw();
+};
+
+const initPrisonSummaryWidget = async (root) => {
+  const data = await fetchCsv(root.dataset.csv);
+  const select = root.querySelector("[data-prison-variable]");
+  const svg = root.querySelector("svg");
+  const count = root.querySelector("[data-prison-count]");
+  const dataTable = root.querySelector(".lab-table-wrap table:not([data-prison-summary]):not([data-prison-cross-table])");
+  const summaryTable = root.querySelector("[data-prison-summary]");
+  const crossTable = root.querySelector("[data-prison-cross-table]");
+  const columns = ["hiv", "ivdu"];
+
+  const countsFor = (variable) => {
+    const counts = {};
+    data.forEach((row) => { counts[row[variable]] = (counts[row[variable]] || 0) + 1; });
+    return Object.fromEntries(Object.entries(counts).sort(([a], [b]) => Number(a) - Number(b)));
+  };
+
+  const drawCrossTable = () => {
+    const rows = [
+      { hiv: "1", ivdu1: 0, ivdu0: 0 },
+      { hiv: "0", ivdu1: 0, ivdu0: 0 },
+    ];
+    data.forEach((row) => {
+      const tableRow = rows.find((item) => item.hiv === row.hiv);
+      if (row.ivdu === "1") tableRow.ivdu1 += 1;
+      if (row.ivdu === "0") tableRow.ivdu0 += 1;
+    });
+    renderSimpleTable(crossTable, ["hiv", "ivdu1", "ivdu0"], rows, ["hiv", "ivdu = 1", "ivdu = 0"]);
+  };
+
+  const draw = () => {
+    const variable = select.value;
+    const counts = countsFor(variable);
+    count.textContent = `Showing first 5 of ${data.length.toLocaleString()} entries`;
+    renderSimpleTable(dataTable, columns, data.slice(0, 5), columns);
+    drawUgaBarPlot(svg, counts, { title: variable, xTitle: variable });
+    renderSimpleTable(summaryTable, ["Level", "Count", "Percent"], Object.entries(counts).map(([level, value]) => ({
+      Level: level,
+      Count: value.toLocaleString(),
+      Percent: `${((value / data.length) * 100).toFixed(1)}%`,
+    })).concat([{
+      Level: "Total",
+      Count: data.length.toLocaleString(),
+      Percent: "100.0%",
+    }]));
+    drawCrossTable();
+  };
+
+  select.addEventListener("change", draw);
+  draw();
+};
+
 const initHeartTable = async (root) => {
   const data = await fetchCsv(root.dataset.csv);
   const columns = ["age", "sex", "trestbps", "chol", "fbs", "thalach", "exang", "oldpeak"];
@@ -2492,5 +2593,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-datasaurus-widget]").forEach((root) => {
     initDatasaurusWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-lowbwt-widget]").forEach((root) => {
+    initLowbwtSummaryWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
+  });
+
+  document.querySelectorAll("[data-prison-summary-widget]").forEach((root) => {
+    initPrisonSummaryWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 });
