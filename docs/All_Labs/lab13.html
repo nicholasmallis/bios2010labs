@@ -140,9 +140,8 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
     <a class="dropdown-item" href="../All_Labs/lab1.html">
- <span class="dropdown-text">Lab 1 Prototype</span></a>
+ <span class="dropdown-text">Lab 1</span></a>
   </li>  
-        <li class="dropdown-header">Experimental / unfinished</li>
         <li>
     <a class="dropdown-item" href="../All_Labs/lab2.html">
  <span class="dropdown-text">Lab 2</span></a>
@@ -241,7 +240,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 <div data-guided-lab="" data-lab-title="Lab 13"></div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In this lab you will learn how to test hypothesis for proportions in R.</p>
+<p>In this lab you will learn how to test hypotheses for proportions in R.</p>
 <section id="tests-for-proportions" class="level3">
 <h3 class="anchored" data-anchor-id="tests-for-proportions">Tests for Proportions</h3>
 <p>Like the <em>t</em> test there are one and two sample versions of the Z tests for proportions. In both cases the proportion is only calculated for dichotomous outcomes. The one proportion Z-test is used to compare the proportion in a sample to a theoretical one. The two-proportion Z test is used to compare two observed proportions. The R function to conduct Z tests for proportions is <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/prop.test">prop.test()</a>. The same function is used for both the one and two proportion tests. The function reports the chi-squared (<span class="math inline">\(X^2\)</span>) test statistic. The statistic is related to the z statistic and by taking the square root of the <span class="math inline">\(X^2\)</span> value (<span class="math inline">\(\sqrt{X^2}=z\)</span>) you can get the z value. Even though we do not discuss the <span class="math inline">\(X^2\)</span> test statistic in class we will use it in this lab.</p>
@@ -256,7 +255,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 <section id="exercise-1-data-and-assumption-check" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1-data-and-assumption-check">Exercise 1: Data and Assumption Check</h3>
 <p>Like all the other tests we have learned about this semester we need to have a simple random sample (or can be treated as a simple random sample). The conditions of the binomial distribution must be satisfied (two outcomes, probability of success is the same trial to trial, trials are independent). Remember the z test is for normal distributions, but as long as <span class="math inline">\(np\ge10\)</span> and <span class="math inline">\(n(1-p)\ge10\)</span> we can use the normal approximation of the binomial.</p>
-<p>For our data we have a simple random sample. There are only two outcomes for the outcome of pre-eclampsia, the probability is the same for each trial, and the trials are independent (the results for one women does not effect the results of another women). So we meet the first two requirements. Now we need to make sure we have sufficient sample size to approximate the binomial distribution with the normal distribution.</p>
+<p>For our data we have a simple random sample. There are only two outcomes for the outcome of pre-eclampsia, the probability is the same for each trial, and the trials are independent (the results for one woman does not affect the results of another woman). So we meet the first two requirements. Now we need to make sure we have sufficient sample size to approximate the binomial distribution with the normal distribution.</p>
 <p><strong>Data Dictionary</strong><br>
 sbp: The mothers systolic blood pressure (mm of Hg)<br>
 sex: (0,1) 0 baby’s sex is female, 1 baby’s sex is male<br>
@@ -359,7 +358,7 @@ What does <span class="math inline">\(np\)</span> and <span class="math inline">
 </section>
 <section id="exercise-2-one-proportion-test" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2-one-proportion-test">Exercise 2: One proportion test</h3>
-<p>Now that we now we have meet the requirements we can start to test some hypothesis. In r we will you the prop.test() function. The general form of the function is <strong>prop.test(x = “# success”, n = “# trials”, p = “null value”, correct = FALSE)</strong>. The first value to specify is the number of successes (remember you define this). The next value is the total number of trials. The value for the p is the null probability. Finally by setting correct to false prevents R from applying a correction used for small samples. Click the link if you want more info on the <a href="https://www.statisticshowto.datasciencecentral.com/what-is-the-yates-correction/">Yates correction</a>.</p>
+<p>Now that we know we have met the requirements we can start to test some hypothesis. In R we will use the prop.test() function. The general form of the function is <strong>prop.test(x = “# success”, n = “# trials”, p = “null value”, correct = FALSE)</strong>. The first value to specify is the number of successes (remember you define this). The next value is the total number of trials. The value for the p is the null probability. Finally by setting correct to false prevents R from applying a correction used for small samples. Click the link if you want more info on the <a href="https://www.statisticshowto.datasciencecentral.com/what-is-the-yates-correction/">Yates correction</a>.</p>
 <p>Test the null hypothesis that the proportion of mothers who experience pre-eclampsia during pregnancy is equal to 0.25 against the two-sided alternative hypothesis:</p>
 <p><span class="math display">\[\alpha=0.05\]</span></p>
 <p><span class="math display">\[H_{0}: p=0.25\]</span> <span class="math display">\[H_{A}: p\neq0.25 \]</span></p>
@@ -438,7 +437,7 @@ Since p=0.3556, fail to reject the null hypothesis to conclude that there is ins
 <section id="exercise-3-data-and-assumption-check" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3-data-and-assumption-check">Exercise 3: Data and Assumption Check</h3>
 <p>Like all the other tests we have learned about this semester we need to have a simple random sample (or can be treated as a simple random sample). The conditions of the binomial distribution must be satisfied (two outcomes, probability of success is the same trial to trial, trials are independent). Remember the z test is for normal distributions, but as long as <span class="math inline">\(np\ge10\)</span> and <span class="math inline">\(n(1-p)\ge10\)</span> we can use the normal approximation of the binomial.</p>
-<p>For our data we have a census so we have data for all the incoming female prisoners so we can treat the sample as a simple random sample. There are two outcomes for each question, the probability is the same, and the trials are independent (the results for one women does not effect the results of another women). So we meet the first two requirements. Now we need to make sure we have sufficient sample size to approximate the binomial distribution with the normal distribution.</p>
+<p>For our data we have a census so we have data for all the incoming female prisoners so we can treat the sample as a simple random sample. There are two outcomes for each question, the probability is the same, and the trials are independent (the results for one woman does not affect the results of another woman). So we meet the first two requirements. Now we need to make sure we have sufficient sample size to approximate the binomial distribution with the normal distribution.</p>
 <p><strong>Data Dictionary</strong><br>
 hiv = (0,1) 0 is HIV seronegative, and 1 is HIV seropositive<br>
 ivdu = (0,1) 0 no history of intravenous drug use, 1 history of intravenous drug use</p>
@@ -617,7 +616,7 @@ No
 </section>
 <section id="exercise-4-intravenous-drug-use-and-hiv-seropositivity" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4-intravenous-drug-use-and-hiv-seropositivity">Exercise 4: Intravenous Drug Use and HIV Seropositivity</h3>
-<p>Now that we know that our data meets the requirements we can start testing different hypothesis about the proportions. The general form of the function is <strong>prop.test(x = c(x1, x2), n = c(n1, n2), correct = FALSE)</strong>. The first value to specify is the number of successes in each group (the first row in the 2x2 table above). The next value is the total number of trials in each group (the sum of each column in the 2x2 table above). Finally by setting correct to FALSE R will not apply the Yates correction for small samples.</p>
+<p>Now that we know that our data meets the requirements we can start testing different hypotheses about the proportions. The general form of the function is <strong>prop.test(x = c(x1, x2), n = c(n1, n2), correct = FALSE)</strong>. The first value to specify is the number of successes in each group (the first row in the 2x2 table above). The next value is the total number of trials in each group (the sum of each column in the 2x2 table above). Finally by setting correct to FALSE R will not apply the Yates correction for small samples.</p>
 <p>What is the impact of intravenous drug use on the prevalence of HIV?</p>
 <p>Test the null hypothesis that the proportion of HIV+ is the same for women with a history of intravenous drug use as those without a history of intravenous drug use. Use a two-sided alternative hypothesis:</p>
 <p><span class="math display">\[\alpha=0.05\]</span></p>

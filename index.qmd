@@ -4,19 +4,12 @@ title: "BIOS 2010 Computer Labs"
 
 This site contains the browser-based lab activities for BIOS 2010. Each lab opens as a static Quarto page with runnable R code cells and quiz feedback in the browser.
 
-Lab 1 is the current prototype for colleague review. The remaining labs are included below as experimental, unfinished previews for anyone who wants to peek at the broader migration.
+All 13 labs have been converted from the original Shiny/learnR apps into this static Quarto/WebR site. The labs are ready for course-team review and final content checking.
 
-## Prototype
+## Labs
 
 ::: {.lab-grid}
 <a class="lab-card" href="All_Labs/lab1.html"><strong>Lab 1</strong><span>Getting Started</span></a>
-:::
-
-## Experimental / Unfinished Labs
-
-These labs have been converted into the new site structure, but they have not received the same hand-polishing as Lab 1. Some interactive pieces may be incomplete or rough.
-
-::: {.lab-grid}
 <a class="lab-card" href="All_Labs/lab2.html"><strong>Lab 2</strong><span>Histograms</span></a>
 <a class="lab-card" href="All_Labs/lab3.html"><strong>Lab 3</strong><span>Box Plots</span></a>
 <a class="lab-card" href="All_Labs/lab4.html"><strong>Lab 4</strong><span>Basic Data Analysis</span></a>

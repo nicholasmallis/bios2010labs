@@ -106,7 +106,7 @@ So an experiment was set up. 200 calves were randomized to receive 1 of 4 feeds 
 
 ### Exercise 1: Data and Assumption Check
 
-There are two assumptions we need to check before using a the 2-sample *t* test. 
+There are two assumptions we need to check before using the 2-sample *t* test. 
 
 1. The samples are independent
 2. The data is normally distributed
@@ -175,7 +175,7 @@ Weight_Gain: The total weight the calf gained in pounds during the study period.
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 2: Corn Feed (High Protein vs Low Protein)
 
-Now that you have a feel for the data and have check the assumptions for the two sample *t* test we can start testing different hypothesis. We will use the same [t.test()](https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/t.test) function we used in labs 10 and 11. Two get conduct a two sample *t* test using this function you will follow this general form **t.test(outcome ~ group, , data = "dataset", alternative= type, var.equal=FALSE)**. First you specify the "outcome" and "group" variables separated by a "**~**". The "**outcome ~ group**" expression tells R you want to know the difference in the outcome between the two groups. Next you tell the function the name of the data set that contains the variables. The "type" is the same as before (two sided, less than, greater than). Final setting "var.equal=FALSE" lets R know you do not want to assume the variances are equal between the samples (FALSE has to be in all capital letters or it will not work), if you did want to assume equal variances you would replace the FLASE with TRUE.
+Now that you have a feel for the data and have checked the assumptions for the two sample *t* test we can start testing different hypotheses. We will use the same [t.test()](https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/t.test) function we used in labs 10 and 11. To conduct a two sample *t* test using this function you will follow this general form **t.test(outcome ~ group, , data = "dataset", alternative= type, var.equal=FALSE)**. First you specify the "outcome" and "group" variables separated by a "**~**". The "**outcome ~ group**" expression tells R you want to know the difference in the outcome between the two groups. Next you tell the function the name of the data set that contains the variables. The "type" is the same as before (two sided, less than, greater than). Final setting "var.equal=FALSE" lets R know you do not want to assume the variances are equal between the samples (FALSE has to be in all capital letters or it will not work), if you did want to assume equal variances you would replace the FALSE with TRUE.
 
 It is important to note that the "group" variable has to be a factor with only 2 levels. Right now our grouping variable (Feed) has 4. So before we can do the test we have to select a subset of our data with observations for the two groups we want to compare.
 
@@ -277,7 +277,7 @@ t.test(  , data=Calf[Calf$Feed=="Rice_HighP" | Calf$Feed=="Corn_HighP", ], alter
 <div class="lab-feedback" aria-live="polite"></div></section>
 ## Visualizing Differences with Violin Plots
 
-In the past we have either used a histogram or box-plot to visualize the distribution of continuous variables. Box-plots are great they show a bunch of information about the the data and allow for quick comparisons between groups of different sizes. 
+In the past we have either used a histogram or box-plot to visualize the distribution of continuous variables. Box-plots are great they show a bunch of information about the data and allow for quick comparisons between groups of different sizes. 
 
 Unfortunately in some cases box-plots can be vary misleading, because they only show the summary statistics. Data with the same summary statistics can have very different distributions which is demonstrated in the figure below. 
 

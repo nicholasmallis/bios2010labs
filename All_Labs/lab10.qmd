@@ -93,7 +93,7 @@ Before using the 1-sample *t* test there are some assumptions that need to be co
 For this lab we will use a data set called "NurseDiet". The dietary data is from a random sample of 173 American nurses. Data on the participants nutrition were recorded during four, 1-week intervals spaced evenly over year. There are three variables in the data set which record the mean of the total: saturated fat, fat, and calories consumed.      
 
 ### Exercise 1: Checking the data
-**Instructions** In data analysis you always have check the data before performing any analysis. Use the interactive plot and summary app to get a feel for the variables and answer the quiz questions.
+**Instructions** In data analysis you always check the data before performing any analysis. Use the interactive plot and summary app to get a feel for the variables and answer the quiz questions.
 
 ```{=html}
 <div class="lab-widget" data-nurse-diet-summary data-csv="../tutorials/Lab10/www/NurseDiet.csv">
@@ -260,7 +260,7 @@ Before we do the test we have to check the normality assumption
  #qqnorm(data$variable)
  #qqline(data$variable)
 ```
-**Instructions:** Once you have check to see if the variable is normal. Complete the code to test the hypothesis for the new variable ExcFat. Use the results to answer the quiz question.
+**Instructions:** Once you have checked to see if the variable is normal. Complete the code to test the hypothesis for the new variable ExcFat. Use the results to answer the quiz question.
 
 ```{webr}
 #| edit: true

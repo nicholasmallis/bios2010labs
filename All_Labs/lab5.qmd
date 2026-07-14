@@ -101,7 +101,7 @@ Most people don't really understand what life expectancy a birth is. Life expect
 Life expectancy is used as a marker of a populations total health, and is often used to compare the health in different nations. Increases in life expectancy are generally related increases in sanitation (think clean drinking water), improvements in standard of living (better housing, access to food), access to medical care, and breakthroughs in medical science or quitting harmful behaviors (like smoking in the US). Check out [Our World in Data](https://ourworldindata.org/life-expectancy) and you can see life expediencies for countries across the globe from 1543 to 2015. 
 
 ### Exercise 1 
-**Instructions:** Play around with the interactive plot. You can see the change in life expectancy over a range years for everyone and you can also stratified by sex. Use the plot below to answer quiz questions 1-3 (**set the year range to 1900 and 2015 to answer the questions** ). 
+**Instructions:** Play around with the interactive plot. You can see the change in life expectancy over a range years for everyone and you can also stratify by sex. Use the plot below to answer quiz questions 1-3 (**set the year range to 1900 and 2015 to answer the questions** ). 
 
 ```{=html}
 <div class="lab-widget lab-line-widget" data-life-expectancy data-csv="../tutorials/Lab5/www/lifeexpectancy1900to2016sex.csv">
@@ -134,9 +134,9 @@ Life expectancy is used as a marker of a populations total health, and is often 
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>Why do you think the lines smooth out and increase after 1950?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="The student has become the master!">Antibiotics, Vaccines, and Increased Standard of Living</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">More and Better Doctors</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">More accurate data collection</button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">The positive influence of Leave it to Beaver</button></div>
+<button type="button" class="lab-answer" data-correct="false">More and Better Doctors</button>
+<button type="button" class="lab-answer" data-correct="false">More accurate data collection</button>
+<button type="button" class="lab-answer" data-correct="false">The positive influence of Leave it to Beaver</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>During which years was life expectancy for males and females the most similar?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you have the year range set correctly">2004-2012</button>
@@ -151,7 +151,7 @@ Another common representation of life table data is the survival curve or surviv
 ![](../tutorials/Lab5/images/Survivorship_Curves.jpg)
 ### Exercise 2
 
-**Instructions:** Play around with the interactive plot. You can see the change in survival for different decades and you can also stratified by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 4-6. 
+**Instructions:** Play around with the interactive plot. You can see the change in survival for different decades and you can also stratify by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 4-6. 
 
 ```{=html}
 <div class="lab-widget lab-line-widget" data-life-table-curve data-csv="../tutorials/Lab5/www/survTY.csv" data-y-column="SurvivalP" data-y-title="Proportion Surviving" data-title="Survival Curves for Selected Years and Strata">
@@ -184,7 +184,7 @@ In the previous topic we look at the proportion of people surviving. If instead 
 
 ### Exercise 3
 
-**Instructions:** Play around with the interactive plot. You can see the change in the mortality hazard for different decades and you can also stratified by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 7-10. 
+**Instructions:** Play around with the interactive plot. You can see the change in the mortality hazard for different decades and you can also stratify by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 7-10. 
 
 ```{=html}
 <div class="lab-widget lab-line-widget" data-life-table-curve data-csv="../tutorials/Lab5/www/survTY.csv" data-y-column="qx" data-y-title="Proportion Dying" data-title="Hazard for Selected Years and Strata">

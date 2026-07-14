@@ -119,6 +119,8 @@ The normal distribution is used to describe continuous data. It is a two paramet
 </div>
 ```
 
+The plotting approach for this normal curve activity was adapted from an example by DK Math Stats: <https://steemit.com/programming/@dkmathstats/plotting-probability-distribution-functions-in-r-using-ggplot2>.
+
 ### Quiz: Questions 1-4
 
 <section class="lab-quiz" data-lab-quiz><h4>Question 1</h4><p>What happens as the standard deviation ($\sigma$) increases?</p>
@@ -199,7 +201,7 @@ How to calculate the different probabilities:
 <section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>If all 12 people on the gondola are men is it likely over loaded? (Use Scenario 1 Information)</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">Yes, because kids are allowed</button>
 <button type="button" class="lab-answer" data-correct="false">No, there is no way to know</button>
-<button type="button" class="lab-answer" data-correct="true">Yes, It is more probable that at man has a weight greater than 167lbs</button>
+<button type="button" class="lab-answer" data-correct="true">Yes, It is more probable that a man has a weight greater than 167lbs</button>
 <button type="button" class="lab-answer" data-correct="false">No, The plaque is just there to scare people</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>What proportion of newborn babies are in the “at-risk” category? (Use Scenario 2 Information)</p>

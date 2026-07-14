@@ -7,9 +7,9 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - Installed and vendored the `r-wasm/quarto-live` extension.
 - Converted learnr exercise chunks into editable `{webr}` cells.
 - Converted learnr quiz blocks into static HTML quizzes with immediate feedback.
-- Preserved original Shiny render/server code in collapsed migration callouts where an exact static replacement still needs to be built.
 - Preloaded local `www` assets into WebR using the extension resource mechanism.
-- Replaced Lab 1 Shiny widgets with static browser-side JavaScript widgets: the Old Faithful histogram and the heart failure filter/sort table.
+- Replaced Shiny widgets across Labs 1-13 with static browser-side JavaScript widgets or WebR activities.
+- Labs 1-13 are converted and ready for course-team review and final content checking.
 
 ## Hand Fix Log
 
@@ -46,127 +46,33 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-06-23: Started the Lab 11 polish pass. Added the shared guided-lab layout, exported the cleaned Tennis3 data for browser use, replaced the Tennis3 Shiny summary app with a browser-side histogram/table/summary widget, fixed the select-all quiz behavior, removed Shiny migration callouts, corrected quiz numbering through Question 10, removed generic answer-level feedback attributes, and cleaned up the summary image.
 - 2026-06-24: Started the Lab 12 polish pass. Added the shared guided-lab layout, exported the Calf and Datasaurus data to CSV, replaced the calf feed summary and Datasaurus Shiny activities with browser-side JavaScript widgets, removed Shiny migration callouts, corrected quiz numbering through Question 10, removed generic answer-level feedback attributes, and cleaned up the summary image.
 - 2026-06-25: Started the Lab 13 polish pass. Added the shared guided-lab layout, replaced the low birth weight and prison-data Shiny summary activities with browser-side JavaScript widgets, removed Shiny migration callouts, corrected quiz numbering through Question 11, removed generic answer-level feedback attributes, corrected the final two-proportion hypothesis labels, and cleaned up the summary image.
+- 2026-07-14: Ran a cross-lab cleanup pass. Updated public project status text now that all 13 labs are converted, removed remaining generic answer-level feedback attributes from earlier labs, restored Lab 8 attribution, cleaned up selected wording issues, and refreshed this migration status file.
 
 ## Lab Inventory
 
 | Lab | Title | WebR cells | Quiz blocks | Shiny migration blocks |
 | --- | --- | ---: | ---: | ---: |
-| 1 | Getting Started | 6 | 20 | 0 |
+| 1 | Getting Started | 7 | 10 | 0 |
 | 2 | Histograms | 8 | 8 | 0 |
-| 3 | Box Plots | 5 | 14 | 0 |
-| 4 | Basic Data Analysis | 9 | 16 | 0 |
-| 5 | Life Tables | 0 | 10 | 0 |
-| 6 | Diagnostic and Screening Tests | 2 | 12 | 0 |
-| 7 | Discrete Distributions | 2 | 12 | 0 |
-| 8 | Normal Distribution | 0 | 11 | 0 |
-| 9 | Random Sampling and Central Limit Theorem | 0 | 17 | 0 |
-| 10 | One Sample T Methods | 7 | 13 | 0 |
-| 11 | Paired t Test | 3 | 10 | 0 |
-| 12 | Two Sample *t* Test | 4 | 10 | 0 |
-| 13 | Hypothesis Tests and Confidence Intervals for Proportions | 2 | 11 | 0 |
+| 3 | Box Plots | 6 | 14 | 0 |
+| 4 | Basic Data Analysis | 8 | 16 | 0 |
+| 5 | Life Tables | 1 | 10 | 0 |
+| 6 | Diagnostic and Screening Tests | 3 | 12 | 0 |
+| 7 | Discrete Distributions | 3 | 12 | 0 |
+| 8 | Normal Distribution | 1 | 11 | 0 |
+| 9 | Random Sampling and Central Limit Theorem | 1 | 17 | 0 |
+| 10 | One Sample T Methods | 6 | 13 | 0 |
+| 11 | Paired t Test | 4 | 10 | 0 |
+| 12 | Two Sample *t* Test | 5 | 10 | 0 |
+| 13 | Hypothesis Tests and Confidence Intervals for Proportions | 3 | 11 | 0 |
 
 ## Remaining TODO
 
-- Replace collapsed Shiny migration callouts with native WebR/JavaScript controls for full parity.
-- Keep Lab 1 hand edits if `scripts/convert_labs.py` is run again, or fold the Lab 1 widget replacements back into the converter.
-- Browser-test package-heavy labs, especially labs using `ggplot2`, `tableone`, `plotROC`, `pROC`, `ggpubr`, and `datasauRus`.
+- Course-team review each converted lab against the original browser experience.
+- Browser-test package-heavy WebR exercises, especially labs using `ggplot2`, `tableone`, `plotROC`, `pROC`, `ggpubr`, and `datasauRus`.
 - Add custom WebR grading blocks for code exercises where answer validation should go beyond successful execution.
-- Confirm GitHub Pages deployment path and resource loading after publishing.
+- Fold hand edits back into `scripts/convert_labs.py` before rerunning the converter, or treat the current lab files as the maintained source.
 
-## Raw Conversion Summary
+## Historical Note
 
-```json
-[
-  {
-    "lab": 1,
-    "title": "Getting Started",
-    "quizzes": 20,
-    "webr_cells": 6,
-    "shiny_blocks": 0
-  },
-  {
-    "lab": 2,
-    "title": "Histograms",
-    "quizzes": 4,
-    "webr_cells": 13,
-    "shiny_blocks": 2
-  },
-  {
-    "lab": 3,
-    "title": "Box Plots",
-    "quizzes": 28,
-    "webr_cells": 5,
-    "shiny_blocks": 2
-  },
-  {
-    "lab": 4,
-    "title": "Basic Data Analysis",
-    "quizzes": 28,
-    "webr_cells": 9,
-    "shiny_blocks": 0
-  },
-  {
-    "lab": 5,
-    "title": "Life Tables",
-    "quizzes": 20,
-    "webr_cells": 0,
-    "shiny_blocks": 6
-  },
-  {
-    "lab": 6,
-    "title": "Diagnostic and Screening Tests",
-    "quizzes": 24,
-    "webr_cells": 2,
-    "shiny_blocks": 4
-  },
-  {
-    "lab": 7,
-    "title": "Discrete Distributions",
-    "quizzes": 24,
-    "webr_cells": 2,
-    "shiny_blocks": 4
-  },
-  {
-    "lab": 8,
-    "title": "Normal Distribution",
-    "quizzes": 22,
-    "webr_cells": 0,
-    "shiny_blocks": 6
-  },
-  {
-    "lab": 9,
-    "title": "Random Sampling and Central Limit Theorem",
-    "quizzes": 34,
-    "webr_cells": 0,
-    "shiny_blocks": 7
-  },
-  {
-    "lab": 10,
-    "title": "One Sample T Methods",
-    "quizzes": 26,
-    "webr_cells": 7,
-    "shiny_blocks": 2
-  },
-  {
-    "lab": 11,
-    "title": "Paired t Test",
-    "quizzes": 20,
-    "webr_cells": 3,
-    "shiny_blocks": 2
-  },
-  {
-    "lab": 12,
-    "title": "Two Sample *t* Test",
-    "quizzes": 20,
-    "webr_cells": 4,
-    "shiny_blocks": 4
-  },
-  {
-    "lab": 13,
-    "title": "Hypothesis Tests and Confidence Intervals for Proportions",
-    "quizzes": 22,
-    "webr_cells": 2,
-    "shiny_blocks": 4
-  }
-]
-```
+The raw conversion summary from the first automated pass was removed after the July 2026 hand-polish pass because it no longer reflected the current lab pages. The inventory above is the current source-of-truth summary.

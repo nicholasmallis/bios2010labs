@@ -115,7 +115,7 @@ There are two general exercise types, interactive or coding. Regardless of the e
 
 Interactive exercises do not require any coding. You can do whatever you want, but if there are questions related to the interactive exercises, you use the options to answer them.  
 
-Below is an interactive histogram of eruption duration of Old Faithful a famous geyser in Yellow Stone national park. Want to see an eruption? Check out the [live stream](https://www.nps.gov/yell/learn/photosmultimedia/webcams.htm). This example is from the R studio [shiny gallery](http://shiny.rstudio.com/gallery/) follow the link if you want to see more interactive figures. 
+Below is an interactive histogram of eruption duration of Old Faithful a famous geyser in Yellowstone national park. Want to see an eruption? Check out the [live stream](https://www.nps.gov/yell/learn/photosmultimedia/webcams.htm). This example is from the RStudio [shiny gallery](http://shiny.rstudio.com/gallery/) follow the link if you want to see more interactive figures. 
 
 _Helpful hint_: Hold `control` when clicking links and they will open in a new tab.    
 
@@ -236,7 +236,7 @@ Data is a very general term, and it can take many different forms. In the case o
 
 Biostatisticians, and anyone working with data, rely on statistical software. In the lab, you will use a statistical programming language called R (Want to know more? check out [R for Data Science](https://r4ds.had.co.nz/index.html)). For R, and many other statistics software, the data has to be organized such that each row corresponds to a single observation, and each column is a single variable. The data we have is already correctly formatted so we can get straight to work. Don't worry if you don't have any coding experience; the labs will guide you and TA's will be available to answer questions. The answer to a lot of R related questions can be found with a quick Google search. There are also a number of free introduction courses for using R. One of the nicer ones is the free introduction to R offered by [DataCamp](https://www.datacamp.com/).     
 
-R and the corresponding development software R studio is free, and both have a great user community, so if you ever need to do some data analysis for another class, it is a great place to start ( [Down Load R](https://cloud.r-project.org/), [Down Load Rstudio](https://www.rstudio.com/products/rstudio/download/)).  
+R and the corresponding development software RStudio is free, and both have a great user community, so if you ever need to do some data analysis for another class, it is a great place to start ( [Download R](https://cloud.r-project.org/), [Download Rstudio](https://www.rstudio.com/products/rstudio/download/)).  
 
 ### Exercise 4: Data Structure
 In this exercise, you will explore and manipulate data from individuals admitted to the ER complaining of chest pain that may be the result of heart failure. The data set name is "heart_failure".

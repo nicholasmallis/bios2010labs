@@ -193,12 +193,12 @@ table(MedTest$answer,MedTest$disease_statusC)
 <section class="lab-quiz" data-lab-quiz><h4>Question 2</h4><p>What is the prevalence of disease in the study population?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the margins of the 2x2 table">0.42</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the margins of the 2x2 table">0.88</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">0.46</button>
+<button type="button" class="lab-answer" data-correct="true">0.46</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Make sure you are using the margins of the 2x2 table">0.30</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 3</h4><p>What is the accuracy of the question test?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Remember for accuracy you have to use TP and TN">0.42</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">0.53</button>
+<button type="button" class="lab-answer" data-correct="true">0.53</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Remember for accuracy you have to use TP and TN">0.60</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Remember for accuracy you have to use TP and TN">0.45</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
@@ -245,7 +245,7 @@ The figure below summarizes all the different characteristics of the ROC curve. 
 ### Quiz: Questions 4-5
 
 <section class="lab-quiz" data-lab-quiz><h4>Question 4</h4><p>Which test is the best?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">test1</button>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">test1</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="The test closest to the top left corner is the best overall">test3</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="The test closest to the top left corner is the best overall">test2</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>

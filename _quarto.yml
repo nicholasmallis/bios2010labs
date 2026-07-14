@@ -20,8 +20,7 @@ website:
       - text: Labs
         menu:
           - href: All_Labs/lab1.qmd
-            text: Lab 1 Prototype
-          - text: Experimental / unfinished
+            text: Lab 1
           - href: All_Labs/lab2.qmd
             text: Lab 2
           - href: All_Labs/lab3.qmd

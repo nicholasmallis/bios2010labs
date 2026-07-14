@@ -141,9 +141,9 @@ head(HeartFailure,10)
 **Don't forget to write your answers down so that you can answer the questions on the eLC quiz for this lab. Question 1 here will correspond to question 1 on the eLC quiz**
 <section class="lab-quiz" data-lab-quiz data-multi-quiz="true"><h4>Question 1</h4><p>Which variables should <strong>NOT</strong> be visualized with a histogram? (select all that apply)</p><p class="quiz-note"> Select all correct answers.</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false" data-feedback="Cholesterol can be visualized with a histogram.">chol</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">fbs</button>
+<button type="button" class="lab-answer" data-correct="true">fbs</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Resting blood pressure can be visualized with a histogram.">trestbps</button>
-<button type="button" class="lab-answer" data-correct="true" data-feedback="Correct.">sex</button>
+<button type="button" class="lab-answer" data-correct="true">sex</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Age can be visualized with a histogram.">age</button>
 <button type="button" class="lab-answer" data-correct="false" data-feedback="Maximum heart rate can be visualized with a histogram.">thalach</button>
 <button type="button" class="lab-answer" data-correct="true" data-feedback="Great work!">exang</button>

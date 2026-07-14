@@ -140,9 +140,8 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
     <a class="dropdown-item" href="../All_Labs/lab1.html">
- <span class="dropdown-text">Lab 1 Prototype</span></a>
+ <span class="dropdown-text">Lab 1</span></a>
   </li>  
-        <li class="dropdown-header">Experimental / unfinished</li>
         <li>
     <a class="dropdown-item" href="../All_Labs/lab2.html">
  <span class="dropdown-text">Lab 2</span></a>
@@ -254,7 +253,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 </section>
 <section id="exercise-1-data-and-assumption-check" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1-data-and-assumption-check">Exercise 1: Data and Assumption Check</h3>
-<p>There are two assumptions we need to check before using a the 2-sample <em>t</em> test.</p>
+<p>There are two assumptions we need to check before using the 2-sample <em>t</em> test.</p>
 <ol type="1">
 <li>The samples are independent</li>
 <li>The data is normally distributed</li>
@@ -356,7 +355,7 @@ Rice_LowP
 </section>
 <section id="exercise-2-corn-feed-high-protein-vs-low-protein" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2-corn-feed-high-protein-vs-low-protein">Exercise 2: Corn Feed (High Protein vs Low Protein)</h3>
-<p>Now that you have a feel for the data and have check the assumptions for the two sample <em>t</em> test we can start testing different hypothesis. We will use the same <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/t.test">t.test()</a> function we used in labs 10 and 11. Two get conduct a two sample <em>t</em> test using this function you will follow this general form <strong>t.test(outcome ~ group, , data = “dataset”, alternative= type, var.equal=FALSE)</strong>. First you specify the “outcome” and “group” variables separated by a “<strong>~</strong>”. The “<strong>outcome ~ group</strong>” expression tells R you want to know the difference in the outcome between the two groups. Next you tell the function the name of the data set that contains the variables. The “type” is the same as before (two sided, less than, greater than). Final setting “var.equal=FALSE” lets R know you do not want to assume the variances are equal between the samples (FALSE has to be in all capital letters or it will not work), if you did want to assume equal variances you would replace the FLASE with TRUE.</p>
+<p>Now that you have a feel for the data and have checked the assumptions for the two sample <em>t</em> test we can start testing different hypotheses. We will use the same <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/t.test">t.test()</a> function we used in labs 10 and 11. To conduct a two sample <em>t</em> test using this function you will follow this general form <strong>t.test(outcome ~ group, , data = “dataset”, alternative= type, var.equal=FALSE)</strong>. First you specify the “outcome” and “group” variables separated by a “<strong>~</strong>”. The “<strong>outcome ~ group</strong>” expression tells R you want to know the difference in the outcome between the two groups. Next you tell the function the name of the data set that contains the variables. The “type” is the same as before (two sided, less than, greater than). Final setting “var.equal=FALSE” lets R know you do not want to assume the variances are equal between the samples (FALSE has to be in all capital letters or it will not work), if you did want to assume equal variances you would replace the FALSE with TRUE.</p>
 <p>It is important to note that the “group” variable has to be a factor with only 2 levels. Right now our grouping variable (Feed) has 4. So before we can do the test we have to select a subset of our data with observations for the two groups we want to compare.</p>
 <p>Perform a two sample t-test of the null hypothesis that there is not a difference in the mean weight gain between high and low protein corn feed against the two-sided alternative at the 0.05 significance level.</p>
 <p><span class="math display">\[\alpha=0.05\]</span></p>
@@ -566,7 +565,7 @@ What is the mean difference in weight gain and the corresponding 95% confidence 
 </section>
 <section id="visualizing-differences-with-violin-plots" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-differences-with-violin-plots">Visualizing Differences with Violin Plots</h2>
-<p>In the past we have either used a histogram or box-plot to visualize the distribution of continuous variables. Box-plots are great they show a bunch of information about the the data and allow for quick comparisons between groups of different sizes.</p>
+<p>In the past we have either used a histogram or box-plot to visualize the distribution of continuous variables. Box-plots are great they show a bunch of information about the data and allow for quick comparisons between groups of different sizes.</p>
 <p>Unfortunately in some cases box-plots can be vary misleading, because they only show the summary statistics. Data with the same summary statistics can have very different distributions which is demonstrated in the figure below.</p>
 <p><img src="../tutorials/Lab12/images/boxplots.gif" alt="Box Plots Vs data" style="width:800px"></p>
 <p>A violin plot is like a box plot in that the same summary statistics can be displayed, but it also shows the distribution of the data that generated those summary statistics. In the figure below you can see that the box do not change but the violin plots do.</p>

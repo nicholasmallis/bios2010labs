@@ -111,9 +111,8 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
     <a class="dropdown-item" href="../All_Labs/lab1.html">
- <span class="dropdown-text">Lab 1 Prototype</span></a>
+ <span class="dropdown-text">Lab 1</span></a>
   </li>  
-        <li class="dropdown-header">Experimental / unfinished</li>
         <li>
     <a class="dropdown-item" href="../All_Labs/lab2.html">
  <span class="dropdown-text">Lab 2</span></a>
@@ -224,7 +223,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZh
 <p>Life expectancy is used as a marker of a populations total health, and is often used to compare the health in different nations. Increases in life expectancy are generally related increases in sanitation (think clean drinking water), improvements in standard of living (better housing, access to food), access to medical care, and breakthroughs in medical science or quitting harmful behaviors (like smoking in the US). Check out <a href="https://ourworldindata.org/life-expectancy">Our World in Data</a> and you can see life expediencies for countries across the globe from 1543 to 2015.</p>
 <section id="exercise-1" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
-<p><strong>Instructions:</strong> Play around with the interactive plot. You can see the change in life expectancy over a range years for everyone and you can also stratified by sex. Use the plot below to answer quiz questions 1-3 (<strong>set the year range to 1900 and 2015 to answer the questions</strong> ).</p>
+<p><strong>Instructions:</strong> Play around with the interactive plot. You can see the change in life expectancy over a range years for everyone and you can also stratify by sex. Use the plot below to answer quiz questions 1-3 (<strong>set the year range to 1900 and 2015 to answer the questions</strong> ).</p>
 <div class="lab-widget lab-line-widget" data-life-expectancy="" data-csv="../tutorials/Lab5/www/lifeexpectancy1900to2016sex.csv">
   <div class="lab-widget-controls">
     <label>
@@ -282,13 +281,13 @@ Why do you think the lines smooth out and increase after 1950?
 <button type="button" class="lab-answer" data-correct="true" data-feedback="The student has become the master!">
 Antibiotics, Vaccines, and Increased Standard of Living
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 More and Better Doctors
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 More accurate data collection
 </button>
-<button type="button" class="lab-answer" data-correct="false" data-feedback="Try again.">
+<button type="button" class="lab-answer" data-correct="false">
 The positive influence of Leave it to Beaver
 </button>
 </div>
@@ -327,7 +326,7 @@ During which years was life expectancy for males and females the most similar?
 <h2 class="anchored" data-anchor-id="survival-curves">Survival Curves</h2>
 <p>Another common representation of life table data is the survival curve or survivor-ship which is what the CDC calls it. These curves show the proportion of individuals who survived to each age group. The graph below represents three general survival curves. The type one curve is typical of humans who have only a few offspring and invest a lot of effort keeping them alive. The type 2 curve is a diagonal which means that mortality rate is more or less constant regardless of the age. The third type is concave this indicates that the greatest risk of mortality is early in life. Sea turtles, amphibians, and other animals who have huge number of offspring often have survival curves with this shape.</p>
 <p><img src="../tutorials/Lab5/images/Survivorship_Curves.jpg" class="img-fluid"> ### Exercise 2</p>
-<p><strong>Instructions:</strong> Play around with the interactive plot. You can see the change in survival for different decades and you can also stratified by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 4-6.</p>
+<p><strong>Instructions:</strong> Play around with the interactive plot. You can see the change in survival for different decades and you can also stratify by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 4-6.</p>
 <div class="lab-widget lab-line-widget" data-life-table-curve="" data-csv="../tutorials/Lab5/www/survTY.csv" data-y-column="SurvivalP" data-y-title="Proportion Surviving" data-title="Survival Curves for Selected Years and Strata">
   <div class="lab-widget-controls" data-life-table-controls=""></div>
   <svg class="lab-plot" viewbox="0 0 760 440" role="img" aria-label="Survival curves for selected years and groups"></svg>
@@ -413,7 +412,7 @@ Question 6
 <p>In the previous topic we look at the proportion of people surviving. If instead we look at the proportion of people dying we call it a hazard function. The simple definition of the hazard function is a method to estimate a persons chance or probability of death at a given age. More specifically, the hazard function allows us to visualize which ages have the highest or lowest probability of death.</p>
 <section id="exercise-3" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3">Exercise 3</h3>
-<p><strong>Instructions:</strong> Play around with the interactive plot. You can see the change in the mortality hazard for different decades and you can also stratified by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 7-10.</p>
+<p><strong>Instructions:</strong> Play around with the interactive plot. You can see the change in the mortality hazard for different decades and you can also stratify by sex and race. If you select more than 6 strata the 7th one will not be displayed. Use the plot to answer quiz questions 7-10.</p>
 <div class="lab-widget lab-line-widget" data-life-table-curve="" data-csv="../tutorials/Lab5/www/survTY.csv" data-y-column="qx" data-y-title="Proportion Dying" data-title="Hazard for Selected Years and Strata">
   <div class="lab-widget-controls" data-life-table-controls=""></div>
   <svg class="lab-plot" viewbox="0 0 760 440" role="img" aria-label="Mortality hazard curves for selected years and groups"></svg>
