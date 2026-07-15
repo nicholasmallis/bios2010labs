@@ -114,7 +114,7 @@ The normal distribution is used to describe continuous data. It is a two paramet
     </div>
   </section>
   <div class="lab-normal-plot-wrap">
-    <svg class="lab-plot lab-normal-curves-plot" viewBox="0 0 760 470" role="img" aria-label="Interactive normal distribution curves"></svg>
+    <svg class="lab-plot lab-normal-curves-plot" viewBox="0 0 760 540" role="img" aria-label="Interactive normal distribution curves"></svg>
   </div>
 </div>
 ```

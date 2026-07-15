@@ -197,7 +197,7 @@ Delta3: Difference between Motrin and placebo at the end of the treatment period
 **Instructions** Review the data and variable distributions. Answer the quiz questions. 
 
 ```{=html}
-<div class="lab-widget" data-tennis-summary data-csv="../tutorials/Lab11/www/Tennis3_clean.csv">
+<div class="lab-widget" data-tennis-widget data-csv="../tutorials/Lab11/www/Tennis3_clean.csv">
   <div class="lab-widget-controls">
     <label>Select Variable to Summarize
       <select data-tennis-variable>

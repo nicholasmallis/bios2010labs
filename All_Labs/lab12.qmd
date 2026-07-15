@@ -239,10 +239,10 @@ t.test(  , data=Calf[Calf$Feed=="Rice_HighP" | Calf$Feed=="Rice_LowP", ], altern
 <button type="button" class="lab-answer" data-correct="false">t = 0.56507, df = 97.303, p-value = 0.7758</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>What is the conclusion of the test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">we fail to reject $H_{0}$ to conclude that there is insufficient evidence at the 0.05 significance level that there is a difference in mean weight gain</button>
-<button type="button" class="lab-answer" data-correct="false">we fail to reject $H_{0}$ to conclude that there is sufficient evidence at the 0.10 significance level that there is a difference in mean weight gain</button>
-<button type="button" class="lab-answer" data-correct="false">we reject $H_{0}$ to conclude that there is insufficient evidence at the 0.10 significance level that there is a difference in mean weight gain</button>
-<button type="button" class="lab-answer" data-correct="false">we reject $H_{0}$ to conclude that there is sufficient evidence at the 0.05 significance level that there is a difference in mean weight gain</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">we fail to reject H0 to conclude that there is insufficient evidence at the 0.05 significance level that there is a difference in mean weight gain</button>
+<button type="button" class="lab-answer" data-correct="false">we fail to reject H0 to conclude that there is sufficient evidence at the 0.10 significance level that there is a difference in mean weight gain</button>
+<button type="button" class="lab-answer" data-correct="false">we reject H0 to conclude that there is insufficient evidence at the 0.10 significance level that there is a difference in mean weight gain</button>
+<button type="button" class="lab-answer" data-correct="false">we reject H0 to conclude that there is sufficient evidence at the 0.05 significance level that there is a difference in mean weight gain</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 ### Exercise 4: High Protein Feed (Corn vs Rice)
 

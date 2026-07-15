@@ -577,9 +577,21 @@ const drawLinePlot = (svg, config) => {
   svg.appendChild(yTitleElement);
 
   const legend = svgEl("g", { class: "lab-legend" });
+  const legendX = width - margin.right - 198;
+  const legendY = margin.top + 10;
+  const legendRows = Math.min(series.length, 8);
+  legend.appendChild(svgEl("rect", {
+    x: legendX - 10,
+    y: legendY - 18,
+    width: 198,
+    height: legendRows * 19 + 14,
+    fill: "#fff",
+    opacity: 0.9,
+    stroke: "#d7dde5",
+  }));
   series.slice(0, 8).forEach((item, index) => {
-    const x = margin.left + (index % 2) * 315;
-    const y = height - 74 + Math.floor(index / 2) * 16;
+    const x = legendX;
+    const y = legendY + index * 19;
     const color = lineColors[index % lineColors.length];
     legend.appendChild(svgEl("line", { x1: x, x2: x + 20, y1: y - 4, y2: y - 4, stroke: color, "stroke-width": 3 }));
     legend.appendChild(svgEl("text", { x: x + 26, y, class: "lab-axis-label" })).textContent = item.label;
@@ -969,9 +981,20 @@ const drawDiagnosticDistribution = (svg, data, test, cutoff) => {
   });
 
   const legend = svgEl("g", { class: "lab-legend" });
+  const legendX = width - margin.right - 178;
+  const legendY = margin.top + 18;
+  legend.appendChild(svgEl("rect", {
+    x: legendX - 10,
+    y: legendY - 17,
+    width: 170,
+    height: groups.length * 20 + 12,
+    fill: "#fff",
+    opacity: 0.9,
+    stroke: "#d7dde5",
+  }));
   groups.forEach((group, index) => {
-    const x = margin.left + index * 190;
-    const y = height - 28;
+    const x = legendX;
+    const y = legendY + index * 20;
     legend.appendChild(svgEl("rect", { x, y: y - 11, width: 14, height: 10, class: group.className }));
     legend.appendChild(svgEl("text", { x: x + 20, y, class: "lab-axis-label" })).textContent = group.label;
   });
@@ -1232,7 +1255,7 @@ const initDistributionWidget = (root) => {
       pmf = (value) => poissonPmf(value, lambda);
       cdf = (value) => poissonCdf(value, lambda);
       quantile = (probability) => poissonQuantile(probability, lambda);
-      title = `Poisson Distribution: lambda = ${lambda.toFixed(2)}`;
+      title = `Poisson Distribution: \u03bb = ${lambda.toFixed(2)}`;
       xTitle = "Observable Values";
     }
 
@@ -1335,17 +1358,18 @@ const drawNormalAxes = (svg, config) => {
   } = config;
   const axisColor = "#2f3944";
   const plotHeight = height - margin.top - margin.bottom;
+  const axisBase = margin.top + plotHeight;
   if (title) {
     svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = title;
   }
-  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
-  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: axisBase, y2: axisBase, stroke: axisColor }));
+  svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: axisBase, stroke: axisColor }));
 
   for (let index = 0; index <= xTickCount; index += 1) {
     const value = xMin + ((xMax - xMin) * index) / xTickCount;
     const x = xScale(value);
-    svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
-    svg.appendChild(svgEl("text", { x, y: height - 42, "text-anchor": "middle", class: "lab-axis-label" })).textContent =
+    svg.appendChild(svgEl("line", { x1: x, x2: x, y1: axisBase, y2: axisBase + 5, stroke: axisColor }));
+    svg.appendChild(svgEl("text", { x, y: axisBase + 22, "text-anchor": "middle", class: "lab-axis-label" })).textContent =
       Math.abs(value) >= 10 ? value.toFixed(0) : value.toFixed(1);
   }
 
@@ -1356,8 +1380,8 @@ const drawNormalAxes = (svg, config) => {
     svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = yLabelFormat(value);
   }
 
-  svg.appendChild(svgEl("text", { x: width / 2, y: height - 12, "text-anchor": "middle", class: "lab-axis-title" })).textContent = xTitle;
-  const yTitleElement = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  svg.appendChild(svgEl("text", { x: width / 2, y: axisBase + 56, "text-anchor": "middle", class: "lab-axis-title" })).textContent = xTitle;
+  const yTitleElement = svgEl("text", { x: 18, y: margin.top + plotHeight / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${margin.top + plotHeight / 2})` });
   yTitleElement.textContent = yTitle;
   svg.appendChild(yTitleElement);
 };
@@ -1413,8 +1437,8 @@ const initNormalCurvesWidget = (root) => {
     });
 
     const width = 760;
-    const height = 470;
-    const margin = { top: 28, right: 18, bottom: 104, left: 58 };
+    const height = Number(svg.getAttribute("viewBox")?.split(" ")[3]) || 520;
+    const margin = { top: 30, right: 18, bottom: 150, left: 64 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
     const peak = Math.max(...series.flatMap((item) => item.points.map((point) => point.y)), 0.01);
@@ -1442,12 +1466,13 @@ const initNormalCurvesWidget = (root) => {
     series.forEach((item) => drawNormalPath(svg, item.points, xScale, yScale, item.color));
 
     const legend = svgEl("g", { class: "lab-legend" });
-    const legendY = height - 36;
-    legend.appendChild(svgEl("text", { x: margin.left + 78, y: legendY, "text-anchor": "end", class: "lab-axis-title" })).textContent =
+    const axisBase = margin.top + plotHeight;
+    const legendY = axisBase + 86;
+    legend.appendChild(svgEl("text", { x: margin.left, y: legendY, class: "lab-axis-title" })).textContent =
       "Distribution Parameters";
     series.forEach((item, index) => {
-      const x = margin.left + 92 + index * 188;
-      const y = legendY;
+      const x = margin.left + 8 + index * 220;
+      const y = legendY + 30;
       legend.appendChild(svgEl("line", { x1: x, x2: x + 24, y1: y - 4, y2: y - 4, stroke: item.color, "stroke-width": 3 }));
       legend.appendChild(svgEl("text", { x: x + 30, y, class: "lab-axis-label" })).textContent = item.label;
     });
@@ -1827,13 +1852,24 @@ const drawUgaSampleSizePlot = (svg, rows, variable, xLow, xUp) => {
   svg.appendChild(yTitle);
 
   const legend = svgEl("g", { class: "lab-legend" });
+  const legendX = margin.left + 14;
+  const legendY = margin.top + 18;
+  legend.appendChild(svgEl("rect", {
+    x: legendX - 10,
+    y: legendY - 17,
+    width: 310,
+    height: 76,
+    fill: "#fff",
+    opacity: 0.9,
+    stroke: "#d7dde5",
+  }));
   [
     ["Parameter Value", "darkgreen"],
     [label === "Proportion Male" ? "Proportion Male for each Sample Size" : "Mean for each Sample Size", "blue"],
     [label === "Proportion Male" ? "Smoothed Proportion" : "Smoothed Mean", "red"],
   ].forEach(([text, color], index) => {
-    const x = margin.left + index * 220;
-    const y = height - 72;
+    const x = legendX;
+    const y = legendY + index * 22;
     legend.appendChild(svgEl("line", { x1: x, x2: x + 22, y1: y - 4, y2: y - 4, stroke: color, "stroke-width": 3 }));
     legend.appendChild(svgEl("text", { x: x + 28, y, class: "lab-axis-label" })).textContent = text;
   });
@@ -2583,7 +2619,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initNurseDietSummaryWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 
-  document.querySelectorAll("[data-tennis-summary]").forEach((root) => {
+  document.querySelectorAll("[data-tennis-widget]").forEach((root) => {
     initTennisSummaryWidget(root).catch((error) => root.insertAdjacentHTML("beforeend", `<p class="lab-widget-error">${error.message}</p>`));
   });
 

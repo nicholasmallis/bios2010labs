@@ -573,24 +573,24 @@
 
 .lab-plot-title {
   fill: var(--lab-ink);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
 }
 
 .lab-plot-subtitle {
   fill: var(--lab-blue);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
 }
 
 .lab-axis-label {
   fill: var(--lab-muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .lab-axis-title {
   fill: var(--lab-ink);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
 }
 

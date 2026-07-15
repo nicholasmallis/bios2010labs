@@ -208,10 +208,10 @@ t.test(NurseDiet$Calories, mu= , alternative="two.sided")
 <button type="button" class="lab-answer" data-correct="true">1619.873 cal</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 6</h4><p>What is the conclusion from the results of the test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is not 2000 calories.</button>
-<button type="button" class="lab-answer" data-correct="false">Since p &gt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 2000 calories.</button>
-<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 2000 calories.</button>
-<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 2000 calories.</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Since p &lt; alpha, we reject the null hypothesis, and conclude that there is evidence the true mean is not 2000 calories.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &gt; alpha, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 2000 calories.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; alpha, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 2000 calories.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; alpha, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 2000 calories.</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 7</h4><p>What is the 95% confidence interval for the mean total intake of calories?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">95% CI (1517.269, 1768.420)</button>
@@ -291,10 +291,10 @@ t.test( , mu= , alternative= )
 <button type="button" class="lab-answer" data-correct="false">16.19873 g</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 12</h4><p>What is the conclusion from the results of the test?</p>
-<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is not 0 grams of excess fat.</button>
-<button type="button" class="lab-answer" data-correct="false">Since p &gt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 0 grams of excess fat.</button>
-<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 0 grams of excess fat.</button>
-<button type="button" class="lab-answer" data-correct="false">Since p &lt; $\alpha$, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 0 grams of excess fat.</button></div>
+<div class="lab-answers"><button type="button" class="lab-answer" data-correct="true">Since p &lt; alpha, we reject the null hypothesis, and conclude that there is evidence the true mean is not 0 grams of excess fat.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &gt; alpha, we fail to reject the null hypothesis, and conclude that there is no evidence the true mean is not 0 grams of excess fat.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; alpha, we reject the null hypothesis, and conclude that there is evidence the true mean is greater than 0 grams of excess fat.</button>
+<button type="button" class="lab-answer" data-correct="false">Since p &lt; alpha, we fail to reject the null hypothesis, and conclude that there is evidence the true mean is less than 0 grams of excess fat.</button></div>
 <div class="lab-feedback" aria-live="polite"></div></section>
 <section class="lab-quiz" data-lab-quiz><h4>Question 13</h4><p>What is the 95% confidence interval for the mean total intake of calories?</p>
 <div class="lab-answers"><button type="button" class="lab-answer" data-correct="false">95% CI (15.17269, 17.68420)</button>
