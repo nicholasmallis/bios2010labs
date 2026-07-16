@@ -109,7 +109,7 @@ For this lab we will use a data set called "NurseDiet". The dietary data is from
   <div class="lab-split-widget">
     <div>
       <h4>Plot of Selected Variable</h4>
-      <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Plot of selected NurseDiet variable"></svg>
+      <svg class="lab-plot" viewBox="0 0 760 460" role="img" aria-label="Plot of selected NurseDiet variable"></svg>
     </div>
     <div>
       <h4>Data</h4>

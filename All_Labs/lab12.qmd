@@ -135,7 +135,7 @@ Weight_Gain: The total weight the calf gained in pounds during the study period.
   <div class="lab-split-widget">
     <div>
       <h4>Plot of Weight Gain for Selected Feed</h4>
-      <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Histogram of selected calf feed"></svg>
+      <svg class="lab-plot" viewBox="0 0 760 460" role="img" aria-label="Histogram of selected calf feed"></svg>
     </div>
     <div>
       <h4>Data</h4>

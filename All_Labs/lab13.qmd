@@ -126,7 +126,7 @@ apgar5: The APGAR score is a test given to newborns soon after birth. values ran
   <div class="lab-split-widget">
     <div>
       <h4>Plot of Selected Variable</h4>
-      <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Plot of selected low birth weight variable"></svg>
+      <svg class="lab-plot" viewBox="0 0 760 460" role="img" aria-label="Plot of selected low birth weight variable"></svg>
     </div>
     <div>
       <h4>Data</h4>
@@ -229,7 +229,7 @@ ivdu = (0,1) 0 no history of intravenous drug use, 1 history of intravenous drug
   <div class="lab-split-widget">
     <div>
       <h4>Plot of Selected Variable</h4>
-      <svg class="lab-plot" viewBox="0 0 760 420" role="img" aria-label="Plot of selected prison variable"></svg>
+      <svg class="lab-plot" viewBox="0 0 760 460" role="img" aria-label="Plot of selected prison variable"></svg>
     </div>
     <div>
       <h4>Data</h4>

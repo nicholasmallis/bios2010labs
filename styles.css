@@ -594,6 +594,18 @@
   font-weight: 700;
 }
 
+.lab-summary-plot-title {
+  font-size: 28px;
+}
+
+.lab-summary-axis-label {
+  font-size: 18px;
+}
+
+.lab-summary-axis-title {
+  font-size: 21px;
+}
+
 .lab-table-count {
   margin: 0 0 0.6rem;
   color: var(--lab-muted);

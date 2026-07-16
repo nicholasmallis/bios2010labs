@@ -1639,8 +1639,8 @@ const ugaPopulationParameter = (rows, variable) => {
 
 const drawUgaBarPlot = (svg, counts, config) => {
   const width = 760;
-  const height = 420;
-  const margin = { top: 42, right: 24, bottom: 76, left: 76 };
+  const height = Number(svg.getAttribute("viewBox")?.split(" ")[3]) || 460;
+  const margin = { top: 54, right: 28, bottom: 94, left: 92 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const keys = Object.keys(counts);
@@ -1650,7 +1650,7 @@ const drawUgaBarPlot = (svg, counts, config) => {
   const axisColor = "#2f3944";
 
   svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
-  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = config.title;
+  svg.appendChild(svgEl("text", { x: width / 2, y: 30, "text-anchor": "middle", class: "lab-plot-title lab-summary-plot-title" })).textContent = config.title;
   svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
   svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
 
@@ -1665,26 +1665,26 @@ const drawUgaBarPlot = (svg, counts, config) => {
       height: margin.top + plotHeight - y,
       class: "lab-hist-bar",
     }));
-    svg.appendChild(svgEl("text", { x: margin.left + index * band + band / 2, y: height - 46, "text-anchor": "middle", class: "lab-axis-label" })).textContent = key;
+    svg.appendChild(svgEl("text", { x: margin.left + index * band + band / 2, y: height - 58, "text-anchor": "middle", class: "lab-axis-label lab-summary-axis-label" })).textContent = key;
   });
 
   for (let index = 0; index <= 4; index += 1) {
     const value = (yMax * index) / 4;
     const y = yScale(value);
     svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
-    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(0);
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 5, "text-anchor": "end", class: "lab-axis-label lab-summary-axis-label" })).textContent = value.toFixed(0);
   }
 
-  svg.appendChild(svgEl("text", { x: width / 2, y: height - 14, "text-anchor": "middle", class: "lab-axis-title" })).textContent = config.xTitle;
-  const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 18, "text-anchor": "middle", class: "lab-axis-title lab-summary-axis-title" })).textContent = config.xTitle;
+  const yTitle = svgEl("text", { x: 24, y: height / 2, "text-anchor": "middle", class: "lab-axis-title lab-summary-axis-title", transform: `rotate(-90 24 ${height / 2})` });
   yTitle.textContent = "Count";
   svg.appendChild(yTitle);
 };
 
 const drawUgaHistogram = (svg, values, config) => {
   const width = 760;
-  const height = 420;
-  const margin = { top: 42, right: 24, bottom: 76, left: 76 };
+  const height = Number(svg.getAttribute("viewBox")?.split(" ")[3]) || 460;
+  const margin = { top: 54, right: 28, bottom: 94, left: 92 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const min = Math.min(...values);
@@ -1702,7 +1702,7 @@ const drawUgaHistogram = (svg, values, config) => {
   const axisColor = "#2f3944";
 
   svg.replaceChildren(svgEl("rect", { x: 0, y: 0, width, height, fill: "#fff" }));
-  svg.appendChild(svgEl("text", { x: width / 2, y: 24, "text-anchor": "middle", class: "lab-plot-title" })).textContent = config.title;
+  svg.appendChild(svgEl("text", { x: width / 2, y: 30, "text-anchor": "middle", class: "lab-plot-title lab-summary-plot-title" })).textContent = config.title;
   svg.appendChild(svgEl("line", { x1: margin.left, x2: width - margin.right, y1: margin.top + plotHeight, y2: margin.top + plotHeight, stroke: axisColor }));
   svg.appendChild(svgEl("line", { x1: margin.left, x2: margin.left, y1: margin.top, y2: margin.top + plotHeight, stroke: axisColor }));
 
@@ -1722,17 +1722,17 @@ const drawUgaHistogram = (svg, values, config) => {
     const value = min + ((max - min) * index) / 5;
     const x = xScale(value);
     svg.appendChild(svgEl("line", { x1: x, x2: x, y1: margin.top + plotHeight, y2: margin.top + plotHeight + 5, stroke: axisColor }));
-    svg.appendChild(svgEl("text", { x, y: height - 46, "text-anchor": "middle", class: "lab-axis-label" })).textContent = formatUgaValue(value, 1);
+    svg.appendChild(svgEl("text", { x, y: height - 58, "text-anchor": "middle", class: "lab-axis-label lab-summary-axis-label" })).textContent = formatUgaValue(value, 1);
   }
   for (let index = 0; index <= 4; index += 1) {
     const value = (yMax * index) / 4;
     const y = yScale(value);
     svg.appendChild(svgEl("line", { x1: margin.left - 5, x2: margin.left, y1: y, y2: y, stroke: axisColor }));
-    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", class: "lab-axis-label" })).textContent = value.toFixed(0);
+    svg.appendChild(svgEl("text", { x: margin.left - 10, y: y + 5, "text-anchor": "end", class: "lab-axis-label lab-summary-axis-label" })).textContent = value.toFixed(0);
   }
 
-  svg.appendChild(svgEl("text", { x: width / 2, y: height - 14, "text-anchor": "middle", class: "lab-axis-title" })).textContent = config.xTitle;
-  const yTitle = svgEl("text", { x: 18, y: height / 2, "text-anchor": "middle", class: "lab-axis-title", transform: `rotate(-90 18 ${height / 2})` });
+  svg.appendChild(svgEl("text", { x: width / 2, y: height - 18, "text-anchor": "middle", class: "lab-axis-title lab-summary-axis-title" })).textContent = config.xTitle;
+  const yTitle = svgEl("text", { x: 24, y: height / 2, "text-anchor": "middle", class: "lab-axis-title lab-summary-axis-title", transform: `rotate(-90 24 ${height / 2})` });
   yTitle.textContent = "Count";
   svg.appendChild(yTitle);
 };
