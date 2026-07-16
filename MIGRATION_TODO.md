@@ -49,6 +49,7 @@ This file is generated from `scripts/convert_labs.py` and should be updated as h
 - 2026-07-14: Ran a cross-lab cleanup pass. Updated public project status text now that all 13 labs are converted, removed remaining generic answer-level feedback attributes from earlier labs, restored Lab 8 attribution, cleaned up selected wording issues, and refreshed this migration status file.
 - 2026-07-15: Ran a cross-lab visual polish pass based on course-team review notes. Cleaned crowded plot legends in Labs 5, 6, 8, and 9; increased shared plot label sizes for Labs 9-13; changed the Lab 7 Poisson plot title to use lambda notation; fixed Lab 11's duplicate widget/table marker; and removed MathJax markup from selected Lab 10 and Lab 12 answer buttons to avoid odd spacing.
 - 2026-07-15: Followed up on remaining readability notes. Enlarged the summary-plot titles and axis labels for Labs 9-13, gave those plots a little more vertical room, and simplified the Lab 7 Exercise 3 Poisson legend so the lambda values appear inside the plot as a clean key.
+- 2026-07-16: Further enlarged the shared summary plot text and tightened the internal plot margins after review of the Lab 13 `hiv` bar chart screenshot.
 
 ## Lab Inventory
 
