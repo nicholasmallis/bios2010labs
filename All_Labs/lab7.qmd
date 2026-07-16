@@ -255,14 +255,13 @@ lines(X,Y3, type = "h", col="darkgreen", lwd=2)
 title(main = "Poisson Probability Distributions",
       ylab = "Probability",
       xlab = paste("Number of Occurrences (k = ",paste(k),")",sep = ""))
-legend("topright",
-       title = expression(lambda),
-       legend = c(expression(lambda == 75), expression(lambda == 140), expression(lambda == 20)),
-       col = c("blue", "red", "darkgreen"),
-       lty = 1,
-       lwd = 3,
-       bty = "n",
-       cex = 0.9)
+text(102, 0.112, expression(lambda), adj = 0, font = 2)
+segments(102, 0.102, 111, 0.102, col = "blue", lwd = 3)
+text(113, 0.102, expression(lambda == 75), adj = 0)
+segments(102, 0.092, 111, 0.092, col = "red", lwd = 3)
+text(113, 0.092, expression(lambda == 140), adj = 0)
+segments(102, 0.082, 111, 0.082, col = "darkgreen", lwd = 3)
+text(113, 0.082, expression(lambda == 20), adj = 0)
 ```
 ### Quiz: Questions 7-9
 
