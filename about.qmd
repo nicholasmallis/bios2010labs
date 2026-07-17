@@ -1,9 +1,0 @@
----
-title: "About"
----
-
-These computer labs are part of BIOS 2010. Each lab gives you a chance to practice working with data in R, interpret plots and tables, and answer questions about the statistical ideas from class.
-
-You can run the R code directly in your browser. You do not need to install R on your computer to complete the labs on this site.
-
-The quiz questions on these pages are for practice and feedback while you work. This website does not record your answers for credit. When you are finished, submit your answers in the assigned eLC lab quiz.

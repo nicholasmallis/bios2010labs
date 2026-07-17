@@ -252,13 +252,6 @@
     "text": "Labs\n\nLab 1Getting Started Lab 2Histograms Lab 3Box Plots Lab 4Basic Data Analysis Lab 5Life Tables Lab 6Diagnostic and Screening Tests Lab 7Discrete Distributions Lab 8Normal Distribution Lab 9Random Sampling and the Central Limit Theorem Lab 10One Sample T Methods Lab 11Paired t Test Lab 12Two Sample t Test Lab 13Tests and Confidence Intervals for Proportions"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "These computer labs are part of BIOS 2010. Each lab gives you a chance to practice working with data in R, interpret plots and tables, and answer questions about the statistical ideas from class.\nYou can run the R code directly in your browser. You do not need to install R on your computer to complete the labs on this site.\nThe quiz questions on these pages are for practice and feedback while you work. This website does not record your answers for credit. When you are finished, submit your answers in the assigned eLC lab quiz."
-  },
-  {
     "objectID": "All_Labs/lab10.html#introduction",
     "href": "All_Labs/lab10.html#introduction",
     "title": "Lab 10: One Sample T Methods",

@@ -3,7 +3,6 @@ project:
   output-dir: docs
   render:
     - index.qmd
-    - about.qmd
     - "All_Labs/*.qmd"
   resources:
     - "tutorials/*/www/*"
@@ -16,7 +15,6 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
       - text: Labs
         menu:
           - href: All_Labs/lab1.qmd
