@@ -4,7 +4,9 @@ title: "BIOS 2010 Computer Labs"
 
 This site contains the browser-based lab activities for BIOS 2010. Each lab opens as a static Quarto page with runnable R code cells and quiz feedback in the browser.
 
-All 13 labs have been converted from the original Shiny/learnR apps into this static Quarto/WebR site. The labs are ready for course-team review and final content checking.
+Use these labs to practice the R code, plots, data summaries, and statistical ideas covered in the course. The questions on each page give immediate feedback so you can check your understanding as you work.
+
+This website does not save your answers or show your instructor what you selected. To receive credit, record your final answers in the corresponding eLC lab quiz.
 
 ## Labs
 

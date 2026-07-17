@@ -242,7 +242,7 @@
     "href": "index.html",
     "title": "BIOS 2010 Computer Labs",
     "section": "",
-    "text": "This site contains the browser-based lab activities for BIOS 2010. Each lab opens as a static Quarto page with runnable R code cells and quiz feedback in the browser.\nAll 13 labs have been converted from the original Shiny/learnR apps into this static Quarto/WebR site. The labs are ready for course-team review and final content checking."
+    "text": "This site contains the browser-based lab activities for BIOS 2010. Each lab opens as a static Quarto page with runnable R code cells and quiz feedback in the browser.\nUse these labs to practice the R code, plots, data summaries, and statistical ideas covered in the course. The questions on each page give immediate feedback so you can check your understanding as you work.\nThis website does not save your answers or show your instructor what you selected. To receive credit, record your final answers in the corresponding eLC lab quiz."
   },
   {
     "objectID": "index.html#labs",
@@ -256,7 +256,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This Quarto website is a static replacement for the BIOS 2010 learnr/Shiny lab tutorials.\nThe goal is for students to complete the labs in a browser without installing R and without using a Shiny server. The converted pages use WebR through quarto-live for runnable R code cells, and local quiz feedback replaces the original learnr quiz checking.\nMigration notes and remaining work are tracked in MIGRATION_TODO.md."
+    "text": "These computer labs are part of BIOS 2010. Each lab gives you a chance to practice working with data in R, interpret plots and tables, and answer questions about the statistical ideas from class.\nYou can run the R code directly in your browser. You do not need to install R on your computer to complete the labs on this site.\nThe quiz questions on these pages are for practice and feedback while you work. This website does not record your answers for credit. When you are finished, submit your answers in the assigned eLC lab quiz."
   },
   {
     "objectID": "All_Labs/lab10.html#introduction",
